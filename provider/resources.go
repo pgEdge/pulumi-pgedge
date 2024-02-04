@@ -66,10 +66,16 @@ func Provider() tfbridge.ProviderInfo {
 				// },
 				// Docs: &tfbridge.DocInfo{},
 			},
+			"pgedge_cluster": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Cluster"),
+			},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
 			"pgedge_databases": {
 				Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getDatabases"),
+			},
+			"pgedge_clusters": {
+				Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getClusters"),
 			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
