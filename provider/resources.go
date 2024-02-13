@@ -6,16 +6,15 @@ import (
 
 	_ "embed"
 
-	tfpf "github.com/hashicorp/terraform-plugin-framework/provider"
 	pf "github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
+
 	// shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	// "github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 
-	pgedge "github.com/pgEdge/terraform-provider-pgedge/internals/provider"
-
 	"github.com/pgEdge/pulumi-pgedge/provider/pkg/version"
+	shim "github.com/pgEdge/pulumi-pgedge/provider/shim"
 )
 
 // all of the token components used below.
@@ -28,16 +27,12 @@ const (
 // 	return nil
 // }
 
-func NewProvider() tfpf.Provider {
-	return pgedge.New(version.Version)()
-}
-
 //go:embed cmd/pulumi-resource-pgedge/bridge-metadata.json
 var metadata []byte
 
 func Provider() tfbridge.ProviderInfo {
 	prov := tfbridge.ProviderInfo{
-		P:                 pf.ShimProvider(NewProvider()),
+		P:                 pf.ShimProvider(shim.NewProvider()),
 		Name:              "pgedge",
 		DisplayName:       "pgEdge",
 		Publisher:         "pgEdge",
