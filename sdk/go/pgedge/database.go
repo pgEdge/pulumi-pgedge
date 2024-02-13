@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"errors"
 	"github.com/pgEdge/pulumi-pgedge/sdk/go/pgedge/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -36,9 +37,12 @@ type Database struct {
 func NewDatabase(ctx *pulumi.Context,
 	name string, args *DatabaseArgs, opts ...pulumi.ResourceOption) (*Database, error) {
 	if args == nil {
-		args = &DatabaseArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.ClusterId == nil {
+		return nil, errors.New("invalid value for required argument 'ClusterId'")
+	}
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Database
 	err := ctx.RegisterResource("pgedge:index/database:Database", name, args, &resource, opts...)
@@ -103,10 +107,9 @@ func (DatabaseState) ElementType() reflect.Type {
 
 type databaseArgs struct {
 	// Cluster Id of the database
-	ClusterId *string `pulumi:"clusterId"`
+	ClusterId string `pulumi:"clusterId"`
 	// Name of the location
-	Name  *string        `pulumi:"name"`
-	Nodes []DatabaseNode `pulumi:"nodes"`
+	Name *string `pulumi:"name"`
 	// Options for creating the database
 	Options []string `pulumi:"options"`
 }
@@ -114,10 +117,9 @@ type databaseArgs struct {
 // The set of arguments for constructing a Database resource.
 type DatabaseArgs struct {
 	// Cluster Id of the database
-	ClusterId pulumi.StringPtrInput
+	ClusterId pulumi.StringInput
 	// Name of the location
-	Name  pulumi.StringPtrInput
-	Nodes DatabaseNodeArrayInput
+	Name pulumi.StringPtrInput
 	// Options for creating the database
 	Options pulumi.StringArrayInput
 }

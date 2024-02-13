@@ -45,7 +45,7 @@ export class Cluster extends pulumi.CustomResource {
      * Created at of the cluster
      */
     public /*out*/ readonly createdAt!: pulumi.Output<string>;
-    public readonly firewalls!: pulumi.Output<outputs.ClusterFirewall[]>;
+    public readonly firewalls!: pulumi.Output<outputs.ClusterFirewall[] | undefined>;
     /**
      * Name of the cluster
      */

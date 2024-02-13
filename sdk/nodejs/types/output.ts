@@ -43,7 +43,7 @@ export interface ClusterNodeGroupsAw {
      * Node location of the AWS node group
      */
     nodeLocation: string;
-    nodes?: outputs.ClusterNodeGroupsAwNode[];
+    nodes: outputs.ClusterNodeGroupsAwNode[];
     privateSubnets: string[];
     publicSubnets: string[];
     /**
@@ -96,7 +96,7 @@ export interface ClusterNodeGroupsAzure {
      * Node location of the AWS node group
      */
     nodeLocation: string;
-    nodes?: outputs.ClusterNodeGroupsAzureNode[];
+    nodes: outputs.ClusterNodeGroupsAzureNode[];
     privateSubnets: string[];
     publicSubnets: string[];
     /**
@@ -149,7 +149,7 @@ export interface ClusterNodeGroupsGoogle {
      * Node location of the AWS node group
      */
     nodeLocation: string;
-    nodes?: outputs.ClusterNodeGroupsGoogleNode[];
+    nodes: outputs.ClusterNodeGroupsGoogleNode[];
     privateSubnets: string[];
     publicSubnets: string[];
     /**

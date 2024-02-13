@@ -293,7 +293,7 @@ class Cluster(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def firewalls(self) -> pulumi.Output[Sequence['outputs.ClusterFirewall']]:
+    def firewalls(self) -> pulumi.Output[Optional[Sequence['outputs.ClusterFirewall']]]:
         return pulumi.get(self, "firewalls")
 
     @property

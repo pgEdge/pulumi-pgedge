@@ -16,9 +16,8 @@ __all__ = ['DatabaseArgs', 'Database']
 @pulumi.input_type
 class DatabaseArgs:
     def __init__(__self__, *,
-                 cluster_id: Optional[pulumi.Input[str]] = None,
+                 cluster_id: pulumi.Input[str],
                  name: Optional[pulumi.Input[str]] = None,
-                 nodes: Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseNodeArgs']]]] = None,
                  options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         The set of arguments for constructing a Database resource.
@@ -26,25 +25,22 @@ class DatabaseArgs:
         :param pulumi.Input[str] name: Name of the location
         :param pulumi.Input[Sequence[pulumi.Input[str]]] options: Options for creating the database
         """
-        if cluster_id is not None:
-            pulumi.set(__self__, "cluster_id", cluster_id)
+        pulumi.set(__self__, "cluster_id", cluster_id)
         if name is not None:
             pulumi.set(__self__, "name", name)
-        if nodes is not None:
-            pulumi.set(__self__, "nodes", nodes)
         if options is not None:
             pulumi.set(__self__, "options", options)
 
     @property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[str]]:
+    def cluster_id(self) -> pulumi.Input[str]:
         """
         Cluster Id of the database
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[str]]):
+    def cluster_id(self, value: pulumi.Input[str]):
         pulumi.set(self, "cluster_id", value)
 
     @property
@@ -58,15 +54,6 @@ class DatabaseArgs:
     @name.setter
     def name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "name", value)
-
-    @property
-    @pulumi.getter
-    def nodes(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseNodeArgs']]]]:
-        return pulumi.get(self, "nodes")
-
-    @nodes.setter
-    def nodes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseNodeArgs']]]]):
-        pulumi.set(self, "nodes", value)
 
     @property
     @pulumi.getter
@@ -220,7 +207,6 @@ class Database(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  cluster_id: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 nodes: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseNodeArgs']]]]] = None,
                  options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  __props__=None):
         """
@@ -236,7 +222,7 @@ class Database(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[DatabaseArgs] = None,
+                 args: DatabaseArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Interface with the pgEdge service API.
@@ -258,7 +244,6 @@ class Database(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  cluster_id: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 nodes: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseNodeArgs']]]]] = None,
                  options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -269,12 +254,14 @@ class Database(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = DatabaseArgs.__new__(DatabaseArgs)
 
+            if cluster_id is None and not opts.urn:
+                raise TypeError("Missing required property 'cluster_id'")
             __props__.__dict__["cluster_id"] = cluster_id
             __props__.__dict__["name"] = name
-            __props__.__dict__["nodes"] = nodes
             __props__.__dict__["options"] = options
             __props__.__dict__["created_at"] = None
             __props__.__dict__["domain"] = None
+            __props__.__dict__["nodes"] = None
             __props__.__dict__["status"] = None
             __props__.__dict__["updated_at"] = None
         super(Database, __self__).__init__(

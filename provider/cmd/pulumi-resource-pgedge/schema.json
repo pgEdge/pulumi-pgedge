@@ -177,6 +177,7 @@
                         "cidr",
                         "instanceType",
                         "nodeLocation",
+                        "nodes",
                         "privateSubnets",
                         "publicSubnets",
                         "region",
@@ -277,6 +278,7 @@
                         "cidr",
                         "instanceType",
                         "nodeLocation",
+                        "nodes",
                         "privateSubnets",
                         "publicSubnets",
                         "region",
@@ -377,6 +379,7 @@
                         "cidr",
                         "instanceType",
                         "nodeLocation",
+                        "nodes",
                         "privateSubnets",
                         "publicSubnets",
                         "region",
@@ -440,7 +443,8 @@
                 },
                 "password": {
                     "type": "string",
-                    "description": "Password of the node\n"
+                    "description": "Password of the node\n",
+                    "secret": true
                 },
                 "port": {
                     "type": "integer",
@@ -999,7 +1003,8 @@
                 },
                 "password": {
                     "type": "string",
-                    "description": "Password of the node\n"
+                    "description": "Password of the node\n",
+                    "secret": true
                 },
                 "port": {
                     "type": "integer",
@@ -1115,7 +1120,6 @@
             "required": [
                 "cloudAccountId",
                 "createdAt",
-                "firewalls",
                 "name",
                 "nodeGroups",
                 "status"
@@ -1234,12 +1238,6 @@
                     "type": "string",
                     "description": "Name of the location\n"
                 },
-                "nodes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/DatabaseNode:DatabaseNode"
-                    }
-                },
                 "options": {
                     "type": "array",
                     "items": {
@@ -1248,6 +1246,9 @@
                     "description": "Options for creating the database\n"
                 }
             },
+            "requiredInputs": [
+                "clusterId"
+            ],
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering Database resources.\n",
                 "properties": {

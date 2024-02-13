@@ -69,7 +69,7 @@ namespace Pgedge.Pgedge
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Database(string name, DatabaseArgs? args = null, CustomResourceOptions? options = null)
+        public Database(string name, DatabaseArgs args, CustomResourceOptions? options = null)
             : base("pgedge:index/database:Database", name, args ?? new DatabaseArgs(), MakeResourceOptions(options, ""))
         {
         }
@@ -110,22 +110,14 @@ namespace Pgedge.Pgedge
         /// <summary>
         /// Cluster Id of the database
         /// </summary>
-        [Input("clusterId")]
-        public Input<string>? ClusterId { get; set; }
+        [Input("clusterId", required: true)]
+        public Input<string> ClusterId { get; set; } = null!;
 
         /// <summary>
         /// Name of the location
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
-
-        [Input("nodes")]
-        private InputList<Inputs.DatabaseNodeArgs>? _nodes;
-        public InputList<Inputs.DatabaseNodeArgs> Nodes
-        {
-            get => _nodes ?? (_nodes = new InputList<Inputs.DatabaseNodeArgs>());
-            set => _nodes = value;
-        }
 
         [Input("options")]
         private InputList<string>? _options;

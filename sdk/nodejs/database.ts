@@ -53,7 +53,7 @@ export class Database extends pulumi.CustomResource {
      * Name of the location
      */
     public readonly name!: pulumi.Output<string>;
-    public readonly nodes!: pulumi.Output<outputs.DatabaseNode[]>;
+    public /*out*/ readonly nodes!: pulumi.Output<outputs.DatabaseNode[]>;
     /**
      * Options for creating the database
      */
@@ -74,7 +74,7 @@ export class Database extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: DatabaseArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, args: DatabaseArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: DatabaseArgs | DatabaseState, opts?: pulumi.CustomResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
@@ -90,12 +90,15 @@ export class Database extends pulumi.CustomResource {
             resourceInputs["updatedAt"] = state ? state.updatedAt : undefined;
         } else {
             const args = argsOrState as DatabaseArgs | undefined;
+            if ((!args || args.clusterId === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'clusterId'");
+            }
             resourceInputs["clusterId"] = args ? args.clusterId : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
-            resourceInputs["nodes"] = args ? args.nodes : undefined;
             resourceInputs["options"] = args ? args.options : undefined;
             resourceInputs["createdAt"] = undefined /*out*/;
             resourceInputs["domain"] = undefined /*out*/;
+            resourceInputs["nodes"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
             resourceInputs["updatedAt"] = undefined /*out*/;
         }
@@ -146,12 +149,11 @@ export interface DatabaseArgs {
     /**
      * Cluster Id of the database
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId: pulumi.Input<string>;
     /**
      * Name of the location
      */
     name?: pulumi.Input<string>;
-    nodes?: pulumi.Input<pulumi.Input<inputs.DatabaseNode>[]>;
     /**
      * Options for creating the database
      */
