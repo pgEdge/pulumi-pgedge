@@ -72,6 +72,8 @@ lint_provider:: provider # lint the provider code
 	cd provider && golangci-lint run -c ../.golangci.yml
 
 cleanup:: # cleans up the temporary directory
+	rm -rf ~/.pulumi/plugins
+	rm -rf ~/.config/yarn/link/@pgEdge/pulumi-pgedge/
 	rm -r $(WORKING_DIR)/bin
 	rm -f provider/cmd/${PROVIDER}/schema.go
 
