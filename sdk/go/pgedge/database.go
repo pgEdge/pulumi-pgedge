@@ -13,6 +13,35 @@ import (
 )
 
 // Interface with the pgEdge service API.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pgEdge/pulumi-pgedge/sdk/go/pgedge"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := pgedge.NewDatabase(ctx, "example", &pgedge.DatabaseArgs{
+//				ClusterId: pulumi.String(""),
+//				Options: pulumi.StringArray{
+//					pulumi.String("install:northwind"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type Database struct {
 	pulumi.CustomResourceState
 

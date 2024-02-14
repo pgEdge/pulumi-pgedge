@@ -8,6 +8,18 @@ import * as utilities from "./utilities";
 
 /**
  * Interface with the pgEdge service API.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as pgedge from "@pgEdge/pulumi-pgedge";
+ *
+ * const example = new pgedge.Database("example", {
+ *     clusterId: "",
+ *     options: ["install:northwind"],
+ * });
+ * ```
  */
 export class Database extends pulumi.CustomResource {
     /**

@@ -5,7 +5,7 @@ go 1.21.5
 require (
 	github.com/hashicorp/terraform-plugin-framework v1.5.0
 	github.com/pgEdge/pulumi-pgedge/provider v0.0.0-20240213115242-7e064c5e16f5
-	github.com/pgEdge/terraform-provider-pgedge v0.0.4
+	github.com/pgEdge/terraform-provider-pgedge v0.0.5
 )
 
 require (

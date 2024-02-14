@@ -13,6 +13,49 @@ import (
 )
 
 // Interface with the pgEdge service API for clusters.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pgEdge/pulumi-pgedge/sdk/go/pgedge"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := pgedge.NewCluster(ctx, "example", &pgedge.ClusterArgs{
+//				CloudAccountId: pulumi.String(""),
+//				Firewalls: pgedge.ClusterFirewallArray{
+//					&pgedge.ClusterFirewallArgs{
+//						Port: pulumi.Int(5432),
+//						Sources: pulumi.StringArray{
+//							pulumi.String("0.0.0.0/0"),
+//						},
+//						Type: pulumi.String("postgres"),
+//					},
+//				},
+//				NodeGroups: &pgedge.ClusterNodeGroupsArgs{
+//					Aws: pgedge.ClusterNodeGroupsAwArray{
+//						&pgedge.ClusterNodeGroupsAwArgs{
+//							InstanceType: pulumi.String("t4g.small"),
+//							Region:       pulumi.String("us-west-2"),
+//						},
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type Cluster struct {
 	pulumi.CustomResourceState
 

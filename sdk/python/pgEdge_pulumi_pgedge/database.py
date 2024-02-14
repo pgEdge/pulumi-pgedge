@@ -212,6 +212,17 @@ class Database(pulumi.CustomResource):
         """
         Interface with the pgEdge service API.
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pgEdge_pulumi_pgedge as pgedge
+
+        example = pgedge.Database("example",
+            cluster_id="",
+            options=["install:northwind"])
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] cluster_id: Cluster Id of the database
@@ -226,6 +237,17 @@ class Database(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Interface with the pgEdge service API.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pgEdge_pulumi_pgedge as pgedge
+
+        example = pgedge.Database("example",
+            cluster_id="",
+            options=["install:northwind"])
+        ```
 
         :param str resource_name: The name of the resource.
         :param DatabaseArgs args: The arguments to use to populate this resource's properties.

@@ -12,6 +12,47 @@ namespace Pgedge.Pgedge
 {
     /// <summary>
     /// Interface with the pgEdge service API for clusters.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Pgedge = Pgedge.Pgedge;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var example = new Pgedge.Cluster("example", new()
+    ///     {
+    ///         CloudAccountId = "",
+    ///         Firewalls = new[]
+    ///         {
+    ///             new Pgedge.Inputs.ClusterFirewallArgs
+    ///             {
+    ///                 Port = 5432,
+    ///                 Sources = new[]
+    ///                 {
+    ///                     "0.0.0.0/0",
+    ///                 },
+    ///                 Type = "postgres",
+    ///             },
+    ///         },
+    ///         NodeGroups = new Pgedge.Inputs.ClusterNodeGroupsArgs
+    ///         {
+    ///             Aws = new[]
+    ///             {
+    ///                 new Pgedge.Inputs.ClusterNodeGroupsAwArgs
+    ///                 {
+    ///                     InstanceType = "t4g.small",
+    ///                     Region = "us-west-2",
+    ///                 },
+    ///             },
+    ///         },
+    ///     });
+    /// 
+    /// });
+    /// ```
     /// </summary>
     [PgedgeResourceType("pgedge:index/cluster:Cluster")]
     public partial class Cluster : global::Pulumi.CustomResource

@@ -185,6 +185,27 @@ class Cluster(pulumi.CustomResource):
         """
         Interface with the pgEdge service API for clusters.
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pgEdge_pulumi_pgedge as pgedge
+
+        example = pgedge.Cluster("example",
+            cloud_account_id="",
+            firewalls=[pgedge.ClusterFirewallArgs(
+                port=5432,
+                sources=["0.0.0.0/0"],
+                type="postgres",
+            )],
+            node_groups=pgedge.ClusterNodeGroupsArgs(
+                aws=[pgedge.ClusterNodeGroupsAwArgs(
+                    instance_type="t4g.small",
+                    region="us-west-2",
+                )],
+            ))
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] cloud_account_id: Cloud account ID of the cluster
@@ -198,6 +219,27 @@ class Cluster(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Interface with the pgEdge service API for clusters.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pgEdge_pulumi_pgedge as pgedge
+
+        example = pgedge.Cluster("example",
+            cloud_account_id="",
+            firewalls=[pgedge.ClusterFirewallArgs(
+                port=5432,
+                sources=["0.0.0.0/0"],
+                type="postgres",
+            )],
+            node_groups=pgedge.ClusterNodeGroupsArgs(
+                aws=[pgedge.ClusterNodeGroupsAwArgs(
+                    instance_type="t4g.small",
+                    region="us-west-2",
+                )],
+            ))
+        ```
 
         :param str resource_name: The name of the resource.
         :param ClusterArgs args: The arguments to use to populate this resource's properties.

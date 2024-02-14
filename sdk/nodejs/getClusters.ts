@@ -8,6 +8,15 @@ import * as utilities from "./utilities";
 
 /**
  * Interface with the pgEdge service API for clusters.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as pgedge from "@pulumi/pgedge";
+ *
+ * const example = pgedge.getClusters({});
+ * ```
  */
 export function getClusters(opts?: pulumi.InvokeOptions): Promise<GetClustersResult> {
 
@@ -28,6 +37,15 @@ export interface GetClustersResult {
 }
 /**
  * Interface with the pgEdge service API for clusters.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as pgedge from "@pulumi/pgedge";
+ *
+ * const example = pgedge.getClusters({});
+ * ```
  */
 export function getClustersOutput(opts?: pulumi.InvokeOptions): pulumi.Output<GetClustersResult> {
     return pulumi.output(getClusters(opts))

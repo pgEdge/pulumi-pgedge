@@ -57,6 +57,15 @@ class AwaitableGetClustersResult(GetClustersResult):
 def get_clusters(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetClustersResult:
     """
     Interface with the pgEdge service API for clusters.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_pgedge as pgedge
+
+    example = pgedge.get_clusters()
+    ```
     """
     __args__ = dict()
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
@@ -71,5 +80,14 @@ def get_clusters(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetClu
 def get_clusters_output(opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetClustersResult]:
     """
     Interface with the pgEdge service API for clusters.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_pgedge as pgedge
+
+    example = pgedge.get_clusters()
+    ```
     """
     ...

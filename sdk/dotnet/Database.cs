@@ -12,6 +12,28 @@ namespace Pgedge.Pgedge
 {
     /// <summary>
     /// Interface with the pgEdge service API.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Pgedge = Pgedge.Pgedge;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var example = new Pgedge.Database("example", new()
+    ///     {
+    ///         ClusterId = "",
+    ///         Options = new[]
+    ///         {
+    ///             "install:northwind",
+    ///         },
+    ///     });
+    /// 
+    /// });
+    /// ```
     /// </summary>
     [PgedgeResourceType("pgedge:index/database:Database")]
     public partial class Database : global::Pulumi.CustomResource
