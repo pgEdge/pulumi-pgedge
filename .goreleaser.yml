@@ -1,0 +1,27 @@
+
+archives:
+- id: archive
+  name_template: "{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}"
+before:
+  hooks:
+  - make tfgen
+builds:
+- binary: pulumi-resource-pgedge
+  dir: provider
+  goarch:
+  - amd64
+  - arm64
+  goos:
+  - darwin
+  - windows
+  - linux
+  ignore: []
+  ldflags:
+  - -X github.com/pgEdge/pulumi-pgedge/provider/pkg/version.Version={{.Tag}}
+  main: ./cmd/pulumi-resource-pgedge/
+  sort: asc
+  use: git
+release:
+  disable: false
+snapshot:
+  name_template: "{{ .Tag }}-SNAPSHOT"
