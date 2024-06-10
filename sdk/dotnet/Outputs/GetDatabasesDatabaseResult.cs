@@ -18,6 +18,11 @@ namespace Pgedge.Pgedge.Outputs
         /// Updated at of the database
         /// </summary>
         public readonly string ClusterId;
+        public readonly ImmutableArray<Outputs.GetDatabasesDatabaseComponentResult> Components;
+        /// <summary>
+        /// Config version of the database
+        /// </summary>
+        public readonly string? ConfigVersion;
         /// <summary>
         /// Created at of the database
         /// </summary>
@@ -26,6 +31,7 @@ namespace Pgedge.Pgedge.Outputs
         /// Domain of the database
         /// </summary>
         public readonly string Domain;
+        public readonly Outputs.GetDatabasesDatabaseExtensionsResult Extensions;
         /// <summary>
         /// ID of the database
         /// </summary>
@@ -40,9 +46,19 @@ namespace Pgedge.Pgedge.Outputs
         /// </summary>
         public readonly ImmutableArray<string> Options;
         /// <summary>
+        /// Postgres version of the database
+        /// </summary>
+        public readonly string PgVersion;
+        public readonly ImmutableArray<Outputs.GetDatabasesDatabaseRoleResult> Roles;
+        /// <summary>
         /// Status of the database
         /// </summary>
         public readonly string Status;
+        /// <summary>
+        /// Storage used of the database
+        /// </summary>
+        public readonly int StorageUsed;
+        public readonly ImmutableArray<Outputs.GetDatabasesDatabaseTableResult> Tables;
         /// <summary>
         /// Updated at of the database
         /// </summary>
@@ -52,9 +68,15 @@ namespace Pgedge.Pgedge.Outputs
         private GetDatabasesDatabaseResult(
             string clusterId,
 
+            ImmutableArray<Outputs.GetDatabasesDatabaseComponentResult> components,
+
+            string? configVersion,
+
             string createdAt,
 
             string domain,
+
+            Outputs.GetDatabasesDatabaseExtensionsResult extensions,
 
             string id,
 
@@ -64,18 +86,33 @@ namespace Pgedge.Pgedge.Outputs
 
             ImmutableArray<string> options,
 
+            string pgVersion,
+
+            ImmutableArray<Outputs.GetDatabasesDatabaseRoleResult> roles,
+
             string status,
+
+            int storageUsed,
+
+            ImmutableArray<Outputs.GetDatabasesDatabaseTableResult> tables,
 
             string updatedAt)
         {
             ClusterId = clusterId;
+            Components = components;
+            ConfigVersion = configVersion;
             CreatedAt = createdAt;
             Domain = domain;
+            Extensions = extensions;
             Id = id;
             Name = name;
             Nodes = nodes;
             Options = options;
+            PgVersion = pgVersion;
+            Roles = roles;
             Status = status;
+            StorageUsed = storageUsed;
+            Tables = tables;
             UpdatedAt = updatedAt;
         }
     }

@@ -8,32 +8,36 @@ using System.Threading.Tasks;
 using Pulumi.Serialization;
 using Pulumi;
 
-namespace Pgedge.Pgedge.Inputs
+namespace Pgedge.Pgedge.Outputs
 {
 
-    public sealed class ClusterNodeGroupsAzureNodeArgs : global::Pulumi.ResourceArgs
+    [OutputType]
+    public sealed class GetClustersClusterCloudAccountResult
     {
         /// <summary>
         /// Display name of the node
         /// </summary>
-        [Input("displayName")]
-        public Input<string>? DisplayName { get; set; }
-
+        public readonly string Id;
         /// <summary>
         /// IP address of the node
         /// </summary>
-        [Input("ipAddress")]
-        public Input<string>? IpAddress { get; set; }
-
+        public readonly string Name;
         /// <summary>
-        /// Is the node active
+        /// Type of the node
         /// </summary>
-        [Input("isActive")]
-        public Input<bool>? IsActive { get; set; }
+        public readonly string Type;
 
-        public ClusterNodeGroupsAzureNodeArgs()
+        [OutputConstructor]
+        private GetClustersClusterCloudAccountResult(
+            string id,
+
+            string name,
+
+            string type)
         {
+            Id = id;
+            Name = name;
+            Type = type;
         }
-        public static new ClusterNodeGroupsAzureNodeArgs Empty => new ClusterNodeGroupsAzureNodeArgs();
     }
 }

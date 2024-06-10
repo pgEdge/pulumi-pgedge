@@ -12,32 +12,25 @@ namespace Pgedge.Pgedge.Outputs
 {
 
     [OutputType]
-    public sealed class ClusterFirewall
+    public sealed class ClusterFirewallRule
     {
         /// <summary>
-        /// Port for the firewall rule
+        /// Port whose traffic is allowed
         /// </summary>
-        public readonly int? Port;
+        public readonly int Port;
         /// <summary>
-        /// Sources for the firewall rule
+        /// CIDRs and/or IP addresses allowed
         /// </summary>
         public readonly ImmutableArray<string> Sources;
-        /// <summary>
-        /// Type of the firewall rule
-        /// </summary>
-        public readonly string? Type;
 
         [OutputConstructor]
-        private ClusterFirewall(
-            int? port,
+        private ClusterFirewallRule(
+            int port,
 
-            ImmutableArray<string> sources,
-
-            string? type)
+            ImmutableArray<string> sources)
         {
             Port = port;
             Sources = sources;
-            Type = type;
         }
     }
 }

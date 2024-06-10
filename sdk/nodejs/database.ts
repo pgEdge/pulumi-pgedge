@@ -2,24 +2,10 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputs from "./types/input";
-import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
  * Interface with the pgEdge service API.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as pgedge from "@pgEdge/pulumi-pgedge";
- *
- * const example = new pgedge.Database("example", {
- *     clusterId: "",
- *     options: ["install:northwind"],
- * });
- * ```
  */
 export class Database extends pulumi.CustomResource {
     /**
@@ -50,9 +36,13 @@ export class Database extends pulumi.CustomResource {
     }
 
     /**
-     * Cluster Id of the database
+     * ID of the cluster to place the database on
      */
     public readonly clusterId!: pulumi.Output<string>;
+    /**
+     * Config version of the database
+     */
+    public readonly configVersion!: pulumi.Output<string>;
     /**
      * Created at of the database
      */
@@ -62,18 +52,25 @@ export class Database extends pulumi.CustomResource {
      */
     public /*out*/ readonly domain!: pulumi.Output<string>;
     /**
-     * Name of the location
+     * Name of the database
      */
     public readonly name!: pulumi.Output<string>;
-    public /*out*/ readonly nodes!: pulumi.Output<outputs.DatabaseNode[]>;
     /**
      * Options for creating the database
      */
     public readonly options!: pulumi.Output<string[]>;
     /**
+     * Postgres version of the database
+     */
+    public /*out*/ readonly pgVersion!: pulumi.Output<string>;
+    /**
      * Status of the database
      */
     public /*out*/ readonly status!: pulumi.Output<string>;
+    /**
+     * Storage used of the database
+     */
+    public /*out*/ readonly storageUsed!: pulumi.Output<number>;
     /**
      * Updated at of the database
      */
@@ -93,12 +90,14 @@ export class Database extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as DatabaseState | undefined;
             resourceInputs["clusterId"] = state ? state.clusterId : undefined;
+            resourceInputs["configVersion"] = state ? state.configVersion : undefined;
             resourceInputs["createdAt"] = state ? state.createdAt : undefined;
             resourceInputs["domain"] = state ? state.domain : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
-            resourceInputs["nodes"] = state ? state.nodes : undefined;
             resourceInputs["options"] = state ? state.options : undefined;
+            resourceInputs["pgVersion"] = state ? state.pgVersion : undefined;
             resourceInputs["status"] = state ? state.status : undefined;
+            resourceInputs["storageUsed"] = state ? state.storageUsed : undefined;
             resourceInputs["updatedAt"] = state ? state.updatedAt : undefined;
         } else {
             const args = argsOrState as DatabaseArgs | undefined;
@@ -106,12 +105,14 @@ export class Database extends pulumi.CustomResource {
                 throw new Error("Missing required property 'clusterId'");
             }
             resourceInputs["clusterId"] = args ? args.clusterId : undefined;
+            resourceInputs["configVersion"] = args ? args.configVersion : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["options"] = args ? args.options : undefined;
             resourceInputs["createdAt"] = undefined /*out*/;
             resourceInputs["domain"] = undefined /*out*/;
-            resourceInputs["nodes"] = undefined /*out*/;
+            resourceInputs["pgVersion"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
+            resourceInputs["storageUsed"] = undefined /*out*/;
             resourceInputs["updatedAt"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -124,9 +125,13 @@ export class Database extends pulumi.CustomResource {
  */
 export interface DatabaseState {
     /**
-     * Cluster Id of the database
+     * ID of the cluster to place the database on
      */
     clusterId?: pulumi.Input<string>;
+    /**
+     * Config version of the database
+     */
+    configVersion?: pulumi.Input<string>;
     /**
      * Created at of the database
      */
@@ -136,18 +141,25 @@ export interface DatabaseState {
      */
     domain?: pulumi.Input<string>;
     /**
-     * Name of the location
+     * Name of the database
      */
     name?: pulumi.Input<string>;
-    nodes?: pulumi.Input<pulumi.Input<inputs.DatabaseNode>[]>;
     /**
      * Options for creating the database
      */
     options?: pulumi.Input<pulumi.Input<string>[]>;
     /**
+     * Postgres version of the database
+     */
+    pgVersion?: pulumi.Input<string>;
+    /**
      * Status of the database
      */
     status?: pulumi.Input<string>;
+    /**
+     * Storage used of the database
+     */
+    storageUsed?: pulumi.Input<number>;
     /**
      * Updated at of the database
      */
@@ -159,11 +171,15 @@ export interface DatabaseState {
  */
 export interface DatabaseArgs {
     /**
-     * Cluster Id of the database
+     * ID of the cluster to place the database on
      */
     clusterId: pulumi.Input<string>;
     /**
-     * Name of the location
+     * Config version of the database
+     */
+    configVersion?: pulumi.Input<string>;
+    /**
+     * Name of the database
      */
     name?: pulumi.Input<string>;
     /**

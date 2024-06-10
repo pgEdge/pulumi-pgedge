@@ -4,7 +4,7 @@
             "pgedge_cluster": {
                 "current": "pgedge:index/cluster:Cluster",
                 "fields": {
-                    "firewall": {
+                    "firewall_rules": {
                         "maxItemsOne": false,
                         "elem": {
                             "fields": {
@@ -14,75 +14,37 @@
                             }
                         }
                     },
-                    "node_groups": {
-                        "fields": {
-                            "aws": {
-                                "maxItemsOne": false,
-                                "elem": {
-                                    "fields": {
-                                        "availability_zones": {
-                                            "maxItemsOne": false
-                                        },
-                                        "nodes": {
-                                            "maxItemsOne": false
-                                        },
-                                        "private_subnets": {
-                                            "maxItemsOne": false
-                                        },
-                                        "public_subnets": {
-                                            "maxItemsOne": false
-                                        }
-                                    }
-                                }
-                            },
-                            "azure": {
-                                "maxItemsOne": false,
-                                "elem": {
-                                    "fields": {
-                                        "availability_zones": {
-                                            "maxItemsOne": false
-                                        },
-                                        "nodes": {
-                                            "maxItemsOne": false
-                                        },
-                                        "private_subnets": {
-                                            "maxItemsOne": false
-                                        },
-                                        "public_subnets": {
-                                            "maxItemsOne": false
-                                        }
-                                    }
-                                }
-                            },
-                            "google": {
-                                "maxItemsOne": false,
-                                "elem": {
-                                    "fields": {
-                                        "availability_zones": {
-                                            "maxItemsOne": false
-                                        },
-                                        "nodes": {
-                                            "maxItemsOne": false
-                                        },
-                                        "private_subnets": {
-                                            "maxItemsOne": false
-                                        },
-                                        "public_subnets": {
-                                            "maxItemsOne": false
-                                        }
-                                    }
+                    "networks": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "private_subnets": {
+                                    "maxItemsOne": false
+                                },
+                                "public_subnets": {
+                                    "maxItemsOne": false
                                 }
                             }
                         }
+                    },
+                    "nodes": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "options": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "regions": {
+                        "maxItemsOne": false
                     }
                 }
             },
             "pgedge_database": {
                 "current": "pgedge:index/database:Database",
                 "fields": {
-                    "nodes": {
-                        "maxItemsOne": false
-                    },
                     "options": {
                         "maxItemsOne": false
                     }
@@ -97,7 +59,7 @@
                         "maxItemsOne": false,
                         "elem": {
                             "fields": {
-                                "firewall": {
+                                "firewall_rules": {
                                     "maxItemsOne": false,
                                     "elem": {
                                         "fields": {
@@ -107,66 +69,31 @@
                                         }
                                     }
                                 },
-                                "node_groups": {
-                                    "fields": {
-                                        "aws": {
-                                            "maxItemsOne": false,
-                                            "elem": {
-                                                "fields": {
-                                                    "availability_zones": {
-                                                        "maxItemsOne": false
-                                                    },
-                                                    "nodes": {
-                                                        "maxItemsOne": false
-                                                    },
-                                                    "private_subnets": {
-                                                        "maxItemsOne": false
-                                                    },
-                                                    "public_subnets": {
-                                                        "maxItemsOne": false
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        "azure": {
-                                            "maxItemsOne": false,
-                                            "elem": {
-                                                "fields": {
-                                                    "availability_zones": {
-                                                        "maxItemsOne": false
-                                                    },
-                                                    "nodes": {
-                                                        "maxItemsOne": false
-                                                    },
-                                                    "private_subnets": {
-                                                        "maxItemsOne": false
-                                                    },
-                                                    "public_subnets": {
-                                                        "maxItemsOne": false
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        "google": {
-                                            "maxItemsOne": false,
-                                            "elem": {
-                                                "fields": {
-                                                    "availability_zones": {
-                                                        "maxItemsOne": false
-                                                    },
-                                                    "nodes": {
-                                                        "maxItemsOne": false
-                                                    },
-                                                    "private_subnets": {
-                                                        "maxItemsOne": false
-                                                    },
-                                                    "public_subnets": {
-                                                        "maxItemsOne": false
-                                                    }
-                                                }
+                                "networks": {
+                                    "maxItemsOne": false,
+                                    "elem": {
+                                        "fields": {
+                                            "private_subnets": {
+                                                "maxItemsOne": false
+                                            },
+                                            "public_subnets": {
+                                                "maxItemsOne": false
                                             }
                                         }
                                     }
+                                },
+                                "nodes": {
+                                    "maxItemsOne": false,
+                                    "elem": {
+                                        "fields": {
+                                            "options": {
+                                                "maxItemsOne": false
+                                            }
+                                        }
+                                    }
+                                },
+                                "regions": {
+                                    "maxItemsOne": false
                                 }
                             }
                         }
@@ -180,11 +107,64 @@
                         "maxItemsOne": false,
                         "elem": {
                             "fields": {
-                                "nodes": {
+                                "components": {
                                     "maxItemsOne": false
+                                },
+                                "extensions": {
+                                    "fields": {
+                                        "available": {
+                                            "maxItemsOne": false
+                                        },
+                                        "requested": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "nodes": {
+                                    "maxItemsOne": false,
+                                    "elem": {
+                                        "fields": {
+                                            "extensions": {
+                                                "fields": {
+                                                    "installed": {
+                                                        "maxItemsOne": false
+                                                    }
+                                                }
+                                            },
+                                            "region": {
+                                                "fields": {
+                                                    "availability_zones": {
+                                                        "maxItemsOne": false
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 },
                                 "options": {
                                     "maxItemsOne": false
+                                },
+                                "roles": {
+                                    "maxItemsOne": false
+                                },
+                                "tables": {
+                                    "maxItemsOne": false,
+                                    "elem": {
+                                        "fields": {
+                                            "columns": {
+                                                "maxItemsOne": false
+                                            },
+                                            "primary_key": {
+                                                "maxItemsOne": false
+                                            },
+                                            "replication_sets": {
+                                                "maxItemsOne": false
+                                            },
+                                            "status": {
+                                                "maxItemsOne": false
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -204,125 +184,111 @@
             "pgedge:index/getDatabases:getDatabases": "pgedge_databases"
         },
         "renamedProperties": {
-            "pgedge:index/ClusterNodeGroups:ClusterNodeGroups": {
-                "azures": "azure",
-                "googles": "google"
-            },
-            "pgedge:index/ClusterNodeGroupsAw:ClusterNodeGroupsAw": {
-                "availabilityZones": "availability_zones",
-                "instanceType": "instance_type",
-                "nodeLocation": "node_location",
+            "pgedge:index/ClusterNetwork:ClusterNetwork": {
+                "externalId": "external_id",
                 "privateSubnets": "private_subnets",
-                "publicSubnets": "public_subnets",
+                "publicSubnets": "public_subnets"
+            },
+            "pgedge:index/ClusterNode:ClusterNode": {
+                "availabilityZone": "availability_zone",
+                "instanceType": "instance_type",
                 "volumeIops": "volume_iops",
                 "volumeSize": "volume_size",
                 "volumeType": "volume_type"
-            },
-            "pgedge:index/ClusterNodeGroupsAwNode:ClusterNodeGroupsAwNode": {
-                "displayName": "display_name",
-                "ipAddress": "ip_address",
-                "isActive": "is_active"
-            },
-            "pgedge:index/ClusterNodeGroupsAzure:ClusterNodeGroupsAzure": {
-                "availabilityZones": "availability_zones",
-                "instanceType": "instance_type",
-                "nodeLocation": "node_location",
-                "privateSubnets": "private_subnets",
-                "publicSubnets": "public_subnets",
-                "volumeIops": "volume_iops",
-                "volumeSize": "volume_size",
-                "volumeType": "volume_type"
-            },
-            "pgedge:index/ClusterNodeGroupsAzureNode:ClusterNodeGroupsAzureNode": {
-                "displayName": "display_name",
-                "ipAddress": "ip_address",
-                "isActive": "is_active"
-            },
-            "pgedge:index/ClusterNodeGroupsGoogle:ClusterNodeGroupsGoogle": {
-                "availabilityZones": "availability_zones",
-                "instanceType": "instance_type",
-                "nodeLocation": "node_location",
-                "privateSubnets": "private_subnets",
-                "publicSubnets": "public_subnets",
-                "volumeIops": "volume_iops",
-                "volumeSize": "volume_size",
-                "volumeType": "volume_type"
-            },
-            "pgedge:index/ClusterNodeGroupsGoogleNode:ClusterNodeGroupsGoogleNode": {
-                "displayName": "display_name",
-                "ipAddress": "ip_address",
-                "isActive": "is_active"
             },
             "pgedge:index/cluster:Cluster": {
                 "cloudAccountId": "cloud_account_id",
                 "createdAt": "created_at",
-                "firewalls": "firewall",
-                "nodeGroups": "node_groups"
+                "firewallRules": "firewall_rules",
+                "nodeLocation": "node_location",
+                "sshKeyId": "ssh_key_id"
             },
             "pgedge:index/database:Database": {
                 "clusterId": "cluster_id",
+                "configVersion": "config_version",
                 "createdAt": "created_at",
+                "pgVersion": "pg_version",
+                "storageUsed": "storage_used",
                 "updatedAt": "updated_at"
             },
             "pgedge:index/getClustersCluster:getClustersCluster": {
+                "cloudAccount": "cloud_account",
                 "cloudAccountId": "cloud_account_id",
                 "createdAt": "created_at",
-                "firewalls": "firewall",
-                "nodeGroups": "node_groups"
-            },
-            "pgedge:index/getClustersClusterNodeGroups:getClustersClusterNodeGroups": {
-                "azures": "azure",
-                "googles": "google"
-            },
-            "pgedge:index/getClustersClusterNodeGroupsAw:getClustersClusterNodeGroupsAw": {
-                "availabilityZones": "availability_zones",
-                "instanceType": "instance_type",
+                "firewallRules": "firewall_rules",
                 "nodeLocation": "node_location",
+                "sshKeyId": "ssh_key_id"
+            },
+            "pgedge:index/getClustersClusterNetwork:getClustersClusterNetwork": {
+                "externalId": "external_id",
                 "privateSubnets": "private_subnets",
-                "publicSubnets": "public_subnets",
+                "publicSubnets": "public_subnets"
+            },
+            "pgedge:index/getClustersClusterNode:getClustersClusterNode": {
+                "availabilityZone": "availability_zone",
+                "instanceType": "instance_type",
                 "volumeIops": "volume_iops",
                 "volumeSize": "volume_size",
                 "volumeType": "volume_type"
-            },
-            "pgedge:index/getClustersClusterNodeGroupsAwNode:getClustersClusterNodeGroupsAwNode": {
-                "displayName": "display_name",
-                "ipAddress": "ip_address",
-                "isActive": "is_active"
-            },
-            "pgedge:index/getClustersClusterNodeGroupsAzure:getClustersClusterNodeGroupsAzure": {
-                "availabilityZones": "availability_zones",
-                "instanceType": "instance_type",
-                "nodeLocation": "node_location",
-                "privateSubnets": "private_subnets",
-                "publicSubnets": "public_subnets",
-                "volumeIops": "volume_iops",
-                "volumeSize": "volume_size",
-                "volumeType": "volume_type"
-            },
-            "pgedge:index/getClustersClusterNodeGroupsAzureNode:getClustersClusterNodeGroupsAzureNode": {
-                "displayName": "display_name",
-                "ipAddress": "ip_address",
-                "isActive": "is_active"
-            },
-            "pgedge:index/getClustersClusterNodeGroupsGoogle:getClustersClusterNodeGroupsGoogle": {
-                "availabilityZones": "availability_zones",
-                "instanceType": "instance_type",
-                "nodeLocation": "node_location",
-                "privateSubnets": "private_subnets",
-                "publicSubnets": "public_subnets",
-                "volumeIops": "volume_iops",
-                "volumeSize": "volume_size",
-                "volumeType": "volume_type"
-            },
-            "pgedge:index/getClustersClusterNodeGroupsGoogleNode:getClustersClusterNodeGroupsGoogleNode": {
-                "displayName": "display_name",
-                "ipAddress": "ip_address",
-                "isActive": "is_active"
             },
             "pgedge:index/getDatabasesDatabase:getDatabasesDatabase": {
                 "clusterId": "cluster_id",
+                "configVersion": "config_version",
                 "createdAt": "created_at",
+                "pgVersion": "pg_version",
+                "storageUsed": "storage_used",
                 "updatedAt": "updated_at"
+            },
+            "pgedge:index/getDatabasesDatabaseComponent:getDatabasesDatabaseComponent": {
+                "releaseDate": "release_date"
+            },
+            "pgedge:index/getDatabasesDatabaseExtensions:getDatabasesDatabaseExtensions": {
+                "autoManage": "auto_manage",
+                "availables": "available",
+                "requesteds": "requested"
+            },
+            "pgedge:index/getDatabasesDatabaseNode:getDatabasesDatabaseNode": {
+                "distanceMeasurement": "distance_measurement"
+            },
+            "pgedge:index/getDatabasesDatabaseNodeConnection:getDatabasesDatabaseNodeConnection": {
+                "externalIpAddress": "external_ip_address",
+                "internalHost": "internal_host",
+                "internalIpAddress": "internal_ip_address"
+            },
+            "pgedge:index/getDatabasesDatabaseNodeDistanceMeasurement:getDatabasesDatabaseNodeDistanceMeasurement": {
+                "fromLatitude": "from_latitude",
+                "fromLongitude": "from_longitude"
+            },
+            "pgedge:index/getDatabasesDatabaseNodeExtensions:getDatabasesDatabaseNodeExtensions": {
+                "installeds": "installed"
+            },
+            "pgedge:index/getDatabasesDatabaseNodeLocation:getDatabasesDatabaseNodeLocation": {
+                "metroCode": "metro_code",
+                "postalCode": "postal_code",
+                "regionCode": "region_code"
+            },
+            "pgedge:index/getDatabasesDatabaseNodeRegion:getDatabasesDatabaseNodeRegion": {
+                "availabilityZones": "availability_zones"
+            },
+            "pgedge:index/getDatabasesDatabaseRole:getDatabasesDatabaseRole": {
+                "bypassRls": "bypass_rls",
+                "connectionLimit": "connection_limit",
+                "createDb": "create_db",
+                "createRole": "create_role"
+            },
+            "pgedge:index/getDatabasesDatabaseTable:getDatabasesDatabaseTable": {
+                "primaryKeys": "primary_key",
+                "replicationSets": "replication_sets",
+                "statuses": "status"
+            },
+            "pgedge:index/getDatabasesDatabaseTableColumn:getDatabasesDatabaseTableColumn": {
+                "dataType": "data_type",
+                "isNullable": "is_nullable",
+                "isPrimaryKey": "is_primary_key",
+                "ordinalPosition": "ordinal_position"
+            },
+            "pgedge:index/getDatabasesDatabaseTableStatus:getDatabasesDatabaseTableStatus": {
+                "nodeName": "node_name"
             },
             "pgedge:index:Provider": {
                 "baseUrl": "base_url"

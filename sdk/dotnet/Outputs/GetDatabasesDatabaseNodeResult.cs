@@ -15,23 +15,38 @@ namespace Pgedge.Pgedge.Outputs
     public sealed class GetDatabasesDatabaseNodeResult
     {
         public readonly Outputs.GetDatabasesDatabaseNodeConnectionResult Connection;
+        public readonly Outputs.GetDatabasesDatabaseNodeDistanceMeasurementResult DistanceMeasurement;
+        public readonly Outputs.GetDatabasesDatabaseNodeExtensionsResult Extensions;
         public readonly Outputs.GetDatabasesDatabaseNodeLocationResult Location;
         /// <summary>
-        /// Name of the database
+        /// Name of the component
         /// </summary>
         public readonly string Name;
+        /// <summary>
+        /// Region of the location
+        /// </summary>
+        public readonly Outputs.GetDatabasesDatabaseNodeRegionResult Region;
 
         [OutputConstructor]
         private GetDatabasesDatabaseNodeResult(
             Outputs.GetDatabasesDatabaseNodeConnectionResult connection,
 
+            Outputs.GetDatabasesDatabaseNodeDistanceMeasurementResult distanceMeasurement,
+
+            Outputs.GetDatabasesDatabaseNodeExtensionsResult extensions,
+
             Outputs.GetDatabasesDatabaseNodeLocationResult location,
 
-            string name)
+            string name,
+
+            Outputs.GetDatabasesDatabaseNodeRegionResult region)
         {
             Connection = connection;
+            DistanceMeasurement = distanceMeasurement;
+            Extensions = extensions;
             Location = location;
             Name = name;
+            Region = region;
         }
     }
 }

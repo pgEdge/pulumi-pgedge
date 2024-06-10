@@ -12,37 +12,21 @@ namespace Pgedge.Pgedge
 {
     /// <summary>
     /// Interface with the pgEdge service API.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Pgedge = Pgedge.Pgedge;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var example = new Pgedge.Database("example", new()
-    ///     {
-    ///         ClusterId = "",
-    ///         Options = new[]
-    ///         {
-    ///             "install:northwind",
-    ///         },
-    ///     });
-    /// 
-    /// });
-    /// ```
     /// </summary>
     [PgedgeResourceType("pgedge:index/database:Database")]
     public partial class Database : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Cluster Id of the database
+        /// ID of the cluster to place the database on
         /// </summary>
         [Output("clusterId")]
         public Output<string> ClusterId { get; private set; } = null!;
+
+        /// <summary>
+        /// Config version of the database
+        /// </summary>
+        [Output("configVersion")]
+        public Output<string> ConfigVersion { get; private set; } = null!;
 
         /// <summary>
         /// Created at of the database
@@ -57,13 +41,10 @@ namespace Pgedge.Pgedge
         public Output<string> Domain { get; private set; } = null!;
 
         /// <summary>
-        /// Name of the location
+        /// Name of the database
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
-
-        [Output("nodes")]
-        public Output<ImmutableArray<Outputs.DatabaseNode>> Nodes { get; private set; } = null!;
 
         /// <summary>
         /// Options for creating the database
@@ -72,10 +53,22 @@ namespace Pgedge.Pgedge
         public Output<ImmutableArray<string>> Options { get; private set; } = null!;
 
         /// <summary>
+        /// Postgres version of the database
+        /// </summary>
+        [Output("pgVersion")]
+        public Output<string> PgVersion { get; private set; } = null!;
+
+        /// <summary>
         /// Status of the database
         /// </summary>
         [Output("status")]
         public Output<string> Status { get; private set; } = null!;
+
+        /// <summary>
+        /// Storage used of the database
+        /// </summary>
+        [Output("storageUsed")]
+        public Output<int> StorageUsed { get; private set; } = null!;
 
         /// <summary>
         /// Updated at of the database
@@ -130,13 +123,19 @@ namespace Pgedge.Pgedge
     public sealed class DatabaseArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Cluster Id of the database
+        /// ID of the cluster to place the database on
         /// </summary>
         [Input("clusterId", required: true)]
         public Input<string> ClusterId { get; set; } = null!;
 
         /// <summary>
-        /// Name of the location
+        /// Config version of the database
+        /// </summary>
+        [Input("configVersion")]
+        public Input<string>? ConfigVersion { get; set; }
+
+        /// <summary>
+        /// Name of the database
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -162,10 +161,16 @@ namespace Pgedge.Pgedge
     public sealed class DatabaseState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Cluster Id of the database
+        /// ID of the cluster to place the database on
         /// </summary>
         [Input("clusterId")]
         public Input<string>? ClusterId { get; set; }
+
+        /// <summary>
+        /// Config version of the database
+        /// </summary>
+        [Input("configVersion")]
+        public Input<string>? ConfigVersion { get; set; }
 
         /// <summary>
         /// Created at of the database
@@ -180,18 +185,10 @@ namespace Pgedge.Pgedge
         public Input<string>? Domain { get; set; }
 
         /// <summary>
-        /// Name of the location
+        /// Name of the database
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
-
-        [Input("nodes")]
-        private InputList<Inputs.DatabaseNodeGetArgs>? _nodes;
-        public InputList<Inputs.DatabaseNodeGetArgs> Nodes
-        {
-            get => _nodes ?? (_nodes = new InputList<Inputs.DatabaseNodeGetArgs>());
-            set => _nodes = value;
-        }
 
         [Input("options")]
         private InputList<string>? _options;
@@ -206,10 +203,22 @@ namespace Pgedge.Pgedge
         }
 
         /// <summary>
+        /// Postgres version of the database
+        /// </summary>
+        [Input("pgVersion")]
+        public Input<string>? PgVersion { get; set; }
+
+        /// <summary>
         /// Status of the database
         /// </summary>
         [Input("status")]
         public Input<string>? Status { get; set; }
+
+        /// <summary>
+        /// Storage used of the database
+        /// </summary>
+        [Input("storageUsed")]
+        public Input<int>? StorageUsed { get; set; }
 
         /// <summary>
         /// Updated at of the database

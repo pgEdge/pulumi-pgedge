@@ -12,74 +12,51 @@ namespace Pgedge.Pgedge
 {
     /// <summary>
     /// Interface with the pgEdge service API for clusters.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Pgedge = Pgedge.Pgedge;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var example = new Pgedge.Cluster("example", new()
-    ///     {
-    ///         CloudAccountId = "",
-    ///         Firewalls = new[]
-    ///         {
-    ///             new Pgedge.Inputs.ClusterFirewallArgs
-    ///             {
-    ///                 Port = 5432,
-    ///                 Sources = new[]
-    ///                 {
-    ///                     "0.0.0.0/0",
-    ///                 },
-    ///                 Type = "postgres",
-    ///             },
-    ///         },
-    ///         NodeGroups = new Pgedge.Inputs.ClusterNodeGroupsArgs
-    ///         {
-    ///             Aws = new[]
-    ///             {
-    ///                 new Pgedge.Inputs.ClusterNodeGroupsAwArgs
-    ///                 {
-    ///                     InstanceType = "t4g.small",
-    ///                     Region = "us-west-2",
-    ///                 },
-    ///             },
-    ///         },
-    ///     });
-    /// 
-    /// });
-    /// ```
     /// </summary>
     [PgedgeResourceType("pgedge:index/cluster:Cluster")]
     public partial class Cluster : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Cloud account ID of the cluster
+        /// ID of the target cloud account
         /// </summary>
         [Output("cloudAccountId")]
         public Output<string> CloudAccountId { get; private set; } = null!;
 
         /// <summary>
-        /// Created at of the cluster
+        /// Creation time of the cluster
         /// </summary>
         [Output("createdAt")]
         public Output<string> CreatedAt { get; private set; } = null!;
 
-        [Output("firewalls")]
-        public Output<ImmutableArray<Outputs.ClusterFirewall>> Firewalls { get; private set; } = null!;
+        [Output("firewallRules")]
+        public Output<ImmutableArray<Outputs.ClusterFirewallRule>> FirewallRules { get; private set; } = null!;
 
         /// <summary>
-        /// Name of the cluster
+        /// Name of the network
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
-        [Output("nodeGroups")]
-        public Output<Outputs.ClusterNodeGroups> NodeGroups { get; private set; } = null!;
+        [Output("networks")]
+        public Output<ImmutableArray<Outputs.ClusterNetwork>> Networks { get; private set; } = null!;
+
+        /// <summary>
+        /// Network location for nodes (public or private)
+        /// </summary>
+        [Output("nodeLocation")]
+        public Output<string> NodeLocation { get; private set; } = null!;
+
+        [Output("nodes")]
+        public Output<ImmutableArray<Outputs.ClusterNode>> Nodes { get; private set; } = null!;
+
+        [Output("regions")]
+        public Output<ImmutableArray<string>> Regions { get; private set; } = null!;
+
+        /// <summary>
+        /// ID of the SSH key to add to the cluster nodes
+        /// </summary>
+        [Output("sshKeyId")]
+        public Output<string> SshKeyId { get; private set; } = null!;
 
         /// <summary>
         /// Status of the cluster
@@ -134,27 +111,60 @@ namespace Pgedge.Pgedge
     public sealed class ClusterArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Cloud account ID of the cluster
+        /// ID of the target cloud account
         /// </summary>
         [Input("cloudAccountId", required: true)]
         public Input<string> CloudAccountId { get; set; } = null!;
 
-        [Input("firewalls")]
-        private InputList<Inputs.ClusterFirewallArgs>? _firewalls;
-        public InputList<Inputs.ClusterFirewallArgs> Firewalls
+        [Input("firewallRules")]
+        private InputList<Inputs.ClusterFirewallRuleArgs>? _firewallRules;
+        public InputList<Inputs.ClusterFirewallRuleArgs> FirewallRules
         {
-            get => _firewalls ?? (_firewalls = new InputList<Inputs.ClusterFirewallArgs>());
-            set => _firewalls = value;
+            get => _firewallRules ?? (_firewallRules = new InputList<Inputs.ClusterFirewallRuleArgs>());
+            set => _firewallRules = value;
         }
 
         /// <summary>
-        /// Name of the cluster
+        /// Name of the network
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        [Input("nodeGroups")]
-        public Input<Inputs.ClusterNodeGroupsArgs>? NodeGroups { get; set; }
+        [Input("networks")]
+        private InputList<Inputs.ClusterNetworkArgs>? _networks;
+        public InputList<Inputs.ClusterNetworkArgs> Networks
+        {
+            get => _networks ?? (_networks = new InputList<Inputs.ClusterNetworkArgs>());
+            set => _networks = value;
+        }
+
+        /// <summary>
+        /// Network location for nodes (public or private)
+        /// </summary>
+        [Input("nodeLocation")]
+        public Input<string>? NodeLocation { get; set; }
+
+        [Input("nodes")]
+        private InputList<Inputs.ClusterNodeArgs>? _nodes;
+        public InputList<Inputs.ClusterNodeArgs> Nodes
+        {
+            get => _nodes ?? (_nodes = new InputList<Inputs.ClusterNodeArgs>());
+            set => _nodes = value;
+        }
+
+        [Input("regions", required: true)]
+        private InputList<string>? _regions;
+        public InputList<string> Regions
+        {
+            get => _regions ?? (_regions = new InputList<string>());
+            set => _regions = value;
+        }
+
+        /// <summary>
+        /// ID of the SSH key to add to the cluster nodes
+        /// </summary>
+        [Input("sshKeyId")]
+        public Input<string>? SshKeyId { get; set; }
 
         public ClusterArgs()
         {
@@ -165,33 +175,66 @@ namespace Pgedge.Pgedge
     public sealed class ClusterState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Cloud account ID of the cluster
+        /// ID of the target cloud account
         /// </summary>
         [Input("cloudAccountId")]
         public Input<string>? CloudAccountId { get; set; }
 
         /// <summary>
-        /// Created at of the cluster
+        /// Creation time of the cluster
         /// </summary>
         [Input("createdAt")]
         public Input<string>? CreatedAt { get; set; }
 
-        [Input("firewalls")]
-        private InputList<Inputs.ClusterFirewallGetArgs>? _firewalls;
-        public InputList<Inputs.ClusterFirewallGetArgs> Firewalls
+        [Input("firewallRules")]
+        private InputList<Inputs.ClusterFirewallRuleGetArgs>? _firewallRules;
+        public InputList<Inputs.ClusterFirewallRuleGetArgs> FirewallRules
         {
-            get => _firewalls ?? (_firewalls = new InputList<Inputs.ClusterFirewallGetArgs>());
-            set => _firewalls = value;
+            get => _firewallRules ?? (_firewallRules = new InputList<Inputs.ClusterFirewallRuleGetArgs>());
+            set => _firewallRules = value;
         }
 
         /// <summary>
-        /// Name of the cluster
+        /// Name of the network
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        [Input("nodeGroups")]
-        public Input<Inputs.ClusterNodeGroupsGetArgs>? NodeGroups { get; set; }
+        [Input("networks")]
+        private InputList<Inputs.ClusterNetworkGetArgs>? _networks;
+        public InputList<Inputs.ClusterNetworkGetArgs> Networks
+        {
+            get => _networks ?? (_networks = new InputList<Inputs.ClusterNetworkGetArgs>());
+            set => _networks = value;
+        }
+
+        /// <summary>
+        /// Network location for nodes (public or private)
+        /// </summary>
+        [Input("nodeLocation")]
+        public Input<string>? NodeLocation { get; set; }
+
+        [Input("nodes")]
+        private InputList<Inputs.ClusterNodeGetArgs>? _nodes;
+        public InputList<Inputs.ClusterNodeGetArgs> Nodes
+        {
+            get => _nodes ?? (_nodes = new InputList<Inputs.ClusterNodeGetArgs>());
+            set => _nodes = value;
+        }
+
+        [Input("regions")]
+        private InputList<string>? _regions;
+        public InputList<string> Regions
+        {
+            get => _regions ?? (_regions = new InputList<string>());
+            set => _regions = value;
+        }
+
+        /// <summary>
+        /// ID of the SSH key to add to the cluster nodes
+        /// </summary>
+        [Input("sshKeyId")]
+        public Input<string>? SshKeyId { get; set; }
 
         /// <summary>
         /// Status of the cluster

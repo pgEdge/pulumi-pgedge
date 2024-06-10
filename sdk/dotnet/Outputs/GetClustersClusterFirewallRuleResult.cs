@@ -12,32 +12,32 @@ namespace Pgedge.Pgedge.Outputs
 {
 
     [OutputType]
-    public sealed class GetClustersClusterNodeGroupsAzureNodeResult
+    public sealed class GetClustersClusterFirewallRuleResult
     {
-        /// <summary>
-        /// Display name of the node
-        /// </summary>
-        public readonly string DisplayName;
         /// <summary>
         /// IP address of the node
         /// </summary>
-        public readonly string IpAddress;
+        public readonly string Name;
         /// <summary>
-        /// Is the node active
+        /// Port for the firewall rule
         /// </summary>
-        public readonly bool IsActive;
+        public readonly int Port;
+        /// <summary>
+        /// Sources for the firewall rule
+        /// </summary>
+        public readonly ImmutableArray<string> Sources;
 
         [OutputConstructor]
-        private GetClustersClusterNodeGroupsAzureNodeResult(
-            string displayName,
+        private GetClustersClusterFirewallRuleResult(
+            string name,
 
-            string ipAddress,
+            int port,
 
-            bool isActive)
+            ImmutableArray<string> sources)
         {
-            DisplayName = displayName;
-            IpAddress = ipAddress;
-            IsActive = isActive;
+            Name = name;
+            Port = port;
+            Sources = sources;
         }
     }
 }

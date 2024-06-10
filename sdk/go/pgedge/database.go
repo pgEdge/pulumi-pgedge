@@ -13,51 +13,27 @@ import (
 )
 
 // Interface with the pgEdge service API.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pgEdge/pulumi-pgedge/sdk/go/pgedge"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := pgedge.NewDatabase(ctx, "example", &pgedge.DatabaseArgs{
-//				ClusterId: pulumi.String(""),
-//				Options: pulumi.StringArray{
-//					pulumi.String("install:northwind"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 type Database struct {
 	pulumi.CustomResourceState
 
-	// Cluster Id of the database
+	// ID of the cluster to place the database on
 	ClusterId pulumi.StringOutput `pulumi:"clusterId"`
+	// Config version of the database
+	ConfigVersion pulumi.StringOutput `pulumi:"configVersion"`
 	// Created at of the database
 	CreatedAt pulumi.StringOutput `pulumi:"createdAt"`
 	// Domain of the database
 	Domain pulumi.StringOutput `pulumi:"domain"`
-	// Name of the location
-	Name  pulumi.StringOutput     `pulumi:"name"`
-	Nodes DatabaseNodeArrayOutput `pulumi:"nodes"`
+	// Name of the database
+	Name pulumi.StringOutput `pulumi:"name"`
 	// Options for creating the database
 	Options pulumi.StringArrayOutput `pulumi:"options"`
+	// Postgres version of the database
+	PgVersion pulumi.StringOutput `pulumi:"pgVersion"`
 	// Status of the database
 	Status pulumi.StringOutput `pulumi:"status"`
+	// Storage used of the database
+	StorageUsed pulumi.IntOutput `pulumi:"storageUsed"`
 	// Updated at of the database
 	UpdatedAt pulumi.StringOutput `pulumi:"updatedAt"`
 }
@@ -95,37 +71,47 @@ func GetDatabase(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Database resources.
 type databaseState struct {
-	// Cluster Id of the database
+	// ID of the cluster to place the database on
 	ClusterId *string `pulumi:"clusterId"`
+	// Config version of the database
+	ConfigVersion *string `pulumi:"configVersion"`
 	// Created at of the database
 	CreatedAt *string `pulumi:"createdAt"`
 	// Domain of the database
 	Domain *string `pulumi:"domain"`
-	// Name of the location
-	Name  *string        `pulumi:"name"`
-	Nodes []DatabaseNode `pulumi:"nodes"`
+	// Name of the database
+	Name *string `pulumi:"name"`
 	// Options for creating the database
 	Options []string `pulumi:"options"`
+	// Postgres version of the database
+	PgVersion *string `pulumi:"pgVersion"`
 	// Status of the database
 	Status *string `pulumi:"status"`
+	// Storage used of the database
+	StorageUsed *int `pulumi:"storageUsed"`
 	// Updated at of the database
 	UpdatedAt *string `pulumi:"updatedAt"`
 }
 
 type DatabaseState struct {
-	// Cluster Id of the database
+	// ID of the cluster to place the database on
 	ClusterId pulumi.StringPtrInput
+	// Config version of the database
+	ConfigVersion pulumi.StringPtrInput
 	// Created at of the database
 	CreatedAt pulumi.StringPtrInput
 	// Domain of the database
 	Domain pulumi.StringPtrInput
-	// Name of the location
-	Name  pulumi.StringPtrInput
-	Nodes DatabaseNodeArrayInput
+	// Name of the database
+	Name pulumi.StringPtrInput
 	// Options for creating the database
 	Options pulumi.StringArrayInput
+	// Postgres version of the database
+	PgVersion pulumi.StringPtrInput
 	// Status of the database
 	Status pulumi.StringPtrInput
+	// Storage used of the database
+	StorageUsed pulumi.IntPtrInput
 	// Updated at of the database
 	UpdatedAt pulumi.StringPtrInput
 }
@@ -135,9 +121,11 @@ func (DatabaseState) ElementType() reflect.Type {
 }
 
 type databaseArgs struct {
-	// Cluster Id of the database
+	// ID of the cluster to place the database on
 	ClusterId string `pulumi:"clusterId"`
-	// Name of the location
+	// Config version of the database
+	ConfigVersion *string `pulumi:"configVersion"`
+	// Name of the database
 	Name *string `pulumi:"name"`
 	// Options for creating the database
 	Options []string `pulumi:"options"`
@@ -145,9 +133,11 @@ type databaseArgs struct {
 
 // The set of arguments for constructing a Database resource.
 type DatabaseArgs struct {
-	// Cluster Id of the database
+	// ID of the cluster to place the database on
 	ClusterId pulumi.StringInput
-	// Name of the location
+	// Config version of the database
+	ConfigVersion pulumi.StringPtrInput
+	// Name of the database
 	Name pulumi.StringPtrInput
 	// Options for creating the database
 	Options pulumi.StringArrayInput
@@ -240,9 +230,14 @@ func (o DatabaseOutput) ToDatabaseOutputWithContext(ctx context.Context) Databas
 	return o
 }
 
-// Cluster Id of the database
+// ID of the cluster to place the database on
 func (o DatabaseOutput) ClusterId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.ClusterId }).(pulumi.StringOutput)
+}
+
+// Config version of the database
+func (o DatabaseOutput) ConfigVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.ConfigVersion }).(pulumi.StringOutput)
 }
 
 // Created at of the database
@@ -255,13 +250,9 @@ func (o DatabaseOutput) Domain() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.Domain }).(pulumi.StringOutput)
 }
 
-// Name of the location
+// Name of the database
 func (o DatabaseOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
-}
-
-func (o DatabaseOutput) Nodes() DatabaseNodeArrayOutput {
-	return o.ApplyT(func(v *Database) DatabaseNodeArrayOutput { return v.Nodes }).(DatabaseNodeArrayOutput)
 }
 
 // Options for creating the database
@@ -269,9 +260,19 @@ func (o DatabaseOutput) Options() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringArrayOutput { return v.Options }).(pulumi.StringArrayOutput)
 }
 
+// Postgres version of the database
+func (o DatabaseOutput) PgVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.PgVersion }).(pulumi.StringOutput)
+}
+
 // Status of the database
 func (o DatabaseOutput) Status() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.Status }).(pulumi.StringOutput)
+}
+
+// Storage used of the database
+func (o DatabaseOutput) StorageUsed() pulumi.IntOutput {
+	return o.ApplyT(func(v *Database) pulumi.IntOutput { return v.StorageUsed }).(pulumi.IntOutput)
 }
 
 // Updated at of the database

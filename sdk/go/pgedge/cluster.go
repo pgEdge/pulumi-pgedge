@@ -13,60 +13,23 @@ import (
 )
 
 // Interface with the pgEdge service API for clusters.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pgEdge/pulumi-pgedge/sdk/go/pgedge"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := pgedge.NewCluster(ctx, "example", &pgedge.ClusterArgs{
-//				CloudAccountId: pulumi.String(""),
-//				Firewalls: pgedge.ClusterFirewallArray{
-//					&pgedge.ClusterFirewallArgs{
-//						Port: pulumi.Int(5432),
-//						Sources: pulumi.StringArray{
-//							pulumi.String("0.0.0.0/0"),
-//						},
-//						Type: pulumi.String("postgres"),
-//					},
-//				},
-//				NodeGroups: &pgedge.ClusterNodeGroupsArgs{
-//					Aws: pgedge.ClusterNodeGroupsAwArray{
-//						&pgedge.ClusterNodeGroupsAwArgs{
-//							InstanceType: pulumi.String("t4g.small"),
-//							Region:       pulumi.String("us-west-2"),
-//						},
-//					},
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 type Cluster struct {
 	pulumi.CustomResourceState
 
-	// Cloud account ID of the cluster
+	// ID of the target cloud account
 	CloudAccountId pulumi.StringOutput `pulumi:"cloudAccountId"`
-	// Created at of the cluster
-	CreatedAt pulumi.StringOutput        `pulumi:"createdAt"`
-	Firewalls ClusterFirewallArrayOutput `pulumi:"firewalls"`
-	// Name of the cluster
-	Name       pulumi.StringOutput     `pulumi:"name"`
-	NodeGroups ClusterNodeGroupsOutput `pulumi:"nodeGroups"`
+	// Creation time of the cluster
+	CreatedAt     pulumi.StringOutput            `pulumi:"createdAt"`
+	FirewallRules ClusterFirewallRuleArrayOutput `pulumi:"firewallRules"`
+	// Name of the network
+	Name     pulumi.StringOutput       `pulumi:"name"`
+	Networks ClusterNetworkArrayOutput `pulumi:"networks"`
+	// Network location for nodes (public or private)
+	NodeLocation pulumi.StringOutput      `pulumi:"nodeLocation"`
+	Nodes        ClusterNodeArrayOutput   `pulumi:"nodes"`
+	Regions      pulumi.StringArrayOutput `pulumi:"regions"`
+	// ID of the SSH key to add to the cluster nodes
+	SshKeyId pulumi.StringOutput `pulumi:"sshKeyId"`
 	// Status of the cluster
 	Status pulumi.StringOutput `pulumi:"status"`
 }
@@ -80,6 +43,9 @@ func NewCluster(ctx *pulumi.Context,
 
 	if args.CloudAccountId == nil {
 		return nil, errors.New("invalid value for required argument 'CloudAccountId'")
+	}
+	if args.Regions == nil {
+		return nil, errors.New("invalid value for required argument 'Regions'")
 	}
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Cluster
@@ -104,27 +70,39 @@ func GetCluster(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Cluster resources.
 type clusterState struct {
-	// Cloud account ID of the cluster
+	// ID of the target cloud account
 	CloudAccountId *string `pulumi:"cloudAccountId"`
-	// Created at of the cluster
-	CreatedAt *string           `pulumi:"createdAt"`
-	Firewalls []ClusterFirewall `pulumi:"firewalls"`
-	// Name of the cluster
-	Name       *string            `pulumi:"name"`
-	NodeGroups *ClusterNodeGroups `pulumi:"nodeGroups"`
+	// Creation time of the cluster
+	CreatedAt     *string               `pulumi:"createdAt"`
+	FirewallRules []ClusterFirewallRule `pulumi:"firewallRules"`
+	// Name of the network
+	Name     *string          `pulumi:"name"`
+	Networks []ClusterNetwork `pulumi:"networks"`
+	// Network location for nodes (public or private)
+	NodeLocation *string       `pulumi:"nodeLocation"`
+	Nodes        []ClusterNode `pulumi:"nodes"`
+	Regions      []string      `pulumi:"regions"`
+	// ID of the SSH key to add to the cluster nodes
+	SshKeyId *string `pulumi:"sshKeyId"`
 	// Status of the cluster
 	Status *string `pulumi:"status"`
 }
 
 type ClusterState struct {
-	// Cloud account ID of the cluster
+	// ID of the target cloud account
 	CloudAccountId pulumi.StringPtrInput
-	// Created at of the cluster
-	CreatedAt pulumi.StringPtrInput
-	Firewalls ClusterFirewallArrayInput
-	// Name of the cluster
-	Name       pulumi.StringPtrInput
-	NodeGroups ClusterNodeGroupsPtrInput
+	// Creation time of the cluster
+	CreatedAt     pulumi.StringPtrInput
+	FirewallRules ClusterFirewallRuleArrayInput
+	// Name of the network
+	Name     pulumi.StringPtrInput
+	Networks ClusterNetworkArrayInput
+	// Network location for nodes (public or private)
+	NodeLocation pulumi.StringPtrInput
+	Nodes        ClusterNodeArrayInput
+	Regions      pulumi.StringArrayInput
+	// ID of the SSH key to add to the cluster nodes
+	SshKeyId pulumi.StringPtrInput
 	// Status of the cluster
 	Status pulumi.StringPtrInput
 }
@@ -134,22 +112,34 @@ func (ClusterState) ElementType() reflect.Type {
 }
 
 type clusterArgs struct {
-	// Cloud account ID of the cluster
-	CloudAccountId string            `pulumi:"cloudAccountId"`
-	Firewalls      []ClusterFirewall `pulumi:"firewalls"`
-	// Name of the cluster
-	Name       *string            `pulumi:"name"`
-	NodeGroups *ClusterNodeGroups `pulumi:"nodeGroups"`
+	// ID of the target cloud account
+	CloudAccountId string                `pulumi:"cloudAccountId"`
+	FirewallRules  []ClusterFirewallRule `pulumi:"firewallRules"`
+	// Name of the network
+	Name     *string          `pulumi:"name"`
+	Networks []ClusterNetwork `pulumi:"networks"`
+	// Network location for nodes (public or private)
+	NodeLocation *string       `pulumi:"nodeLocation"`
+	Nodes        []ClusterNode `pulumi:"nodes"`
+	Regions      []string      `pulumi:"regions"`
+	// ID of the SSH key to add to the cluster nodes
+	SshKeyId *string `pulumi:"sshKeyId"`
 }
 
 // The set of arguments for constructing a Cluster resource.
 type ClusterArgs struct {
-	// Cloud account ID of the cluster
+	// ID of the target cloud account
 	CloudAccountId pulumi.StringInput
-	Firewalls      ClusterFirewallArrayInput
-	// Name of the cluster
-	Name       pulumi.StringPtrInput
-	NodeGroups ClusterNodeGroupsPtrInput
+	FirewallRules  ClusterFirewallRuleArrayInput
+	// Name of the network
+	Name     pulumi.StringPtrInput
+	Networks ClusterNetworkArrayInput
+	// Network location for nodes (public or private)
+	NodeLocation pulumi.StringPtrInput
+	Nodes        ClusterNodeArrayInput
+	Regions      pulumi.StringArrayInput
+	// ID of the SSH key to add to the cluster nodes
+	SshKeyId pulumi.StringPtrInput
 }
 
 func (ClusterArgs) ElementType() reflect.Type {
@@ -239,27 +229,45 @@ func (o ClusterOutput) ToClusterOutputWithContext(ctx context.Context) ClusterOu
 	return o
 }
 
-// Cloud account ID of the cluster
+// ID of the target cloud account
 func (o ClusterOutput) CloudAccountId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.StringOutput { return v.CloudAccountId }).(pulumi.StringOutput)
 }
 
-// Created at of the cluster
+// Creation time of the cluster
 func (o ClusterOutput) CreatedAt() pulumi.StringOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.StringOutput { return v.CreatedAt }).(pulumi.StringOutput)
 }
 
-func (o ClusterOutput) Firewalls() ClusterFirewallArrayOutput {
-	return o.ApplyT(func(v *Cluster) ClusterFirewallArrayOutput { return v.Firewalls }).(ClusterFirewallArrayOutput)
+func (o ClusterOutput) FirewallRules() ClusterFirewallRuleArrayOutput {
+	return o.ApplyT(func(v *Cluster) ClusterFirewallRuleArrayOutput { return v.FirewallRules }).(ClusterFirewallRuleArrayOutput)
 }
 
-// Name of the cluster
+// Name of the network
 func (o ClusterOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-func (o ClusterOutput) NodeGroups() ClusterNodeGroupsOutput {
-	return o.ApplyT(func(v *Cluster) ClusterNodeGroupsOutput { return v.NodeGroups }).(ClusterNodeGroupsOutput)
+func (o ClusterOutput) Networks() ClusterNetworkArrayOutput {
+	return o.ApplyT(func(v *Cluster) ClusterNetworkArrayOutput { return v.Networks }).(ClusterNetworkArrayOutput)
+}
+
+// Network location for nodes (public or private)
+func (o ClusterOutput) NodeLocation() pulumi.StringOutput {
+	return o.ApplyT(func(v *Cluster) pulumi.StringOutput { return v.NodeLocation }).(pulumi.StringOutput)
+}
+
+func (o ClusterOutput) Nodes() ClusterNodeArrayOutput {
+	return o.ApplyT(func(v *Cluster) ClusterNodeArrayOutput { return v.Nodes }).(ClusterNodeArrayOutput)
+}
+
+func (o ClusterOutput) Regions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Cluster) pulumi.StringArrayOutput { return v.Regions }).(pulumi.StringArrayOutput)
+}
+
+// ID of the SSH key to add to the cluster nodes
+func (o ClusterOutput) SshKeyId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Cluster) pulumi.StringOutput { return v.SshKeyId }).(pulumi.StringOutput)
 }
 
 // Status of the cluster

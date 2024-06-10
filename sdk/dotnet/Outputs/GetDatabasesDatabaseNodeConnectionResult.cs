@@ -19,9 +19,21 @@ namespace Pgedge.Pgedge.Outputs
         /// </summary>
         public readonly string Database;
         /// <summary>
+        /// External IP of the node
+        /// </summary>
+        public readonly string ExternalIpAddress;
+        /// <summary>
         /// Host of the node
         /// </summary>
         public readonly string Host;
+        /// <summary>
+        /// Internal Host of the node
+        /// </summary>
+        public readonly string InternalHost;
+        /// <summary>
+        /// Internal IP of the node
+        /// </summary>
+        public readonly string InternalIpAddress;
         /// <summary>
         /// Password of the node
         /// </summary>
@@ -39,7 +51,13 @@ namespace Pgedge.Pgedge.Outputs
         private GetDatabasesDatabaseNodeConnectionResult(
             string database,
 
+            string externalIpAddress,
+
             string host,
+
+            string internalHost,
+
+            string internalIpAddress,
 
             string password,
 
@@ -48,7 +66,10 @@ namespace Pgedge.Pgedge.Outputs
             string username)
         {
             Database = database;
+            ExternalIpAddress = externalIpAddress;
             Host = host;
+            InternalHost = internalHost;
+            InternalIpAddress = internalIpAddress;
             Password = password;
             Port = port;
             Username = username;

@@ -5,246 +5,76 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
-export interface ClusterFirewall {
+export interface ClusterFirewallRule {
     /**
-     * Port for the firewall rule
+     * Port whose traffic is allowed
      */
-    port?: number;
+    port: number;
     /**
-     * Sources for the firewall rule
+     * CIDRs and/or IP addresses allowed
      */
-    sources?: string[];
-    /**
-     * Type of the firewall rule
-     */
-    type?: string;
+    sources: string[];
 }
 
-export interface ClusterNodeGroups {
-    aws: outputs.ClusterNodeGroupsAw[];
-    azures: outputs.ClusterNodeGroupsAzure[];
-    googles: outputs.ClusterNodeGroupsGoogle[];
-}
-
-export interface ClusterNodeGroupsAw {
+export interface ClusterNetwork {
     /**
-     * Availability zones of the AWS node group
-     */
-    availabilityZones: string[];
-    /**
-     * CIDR of the AWS node group
+     * CIDR range for the network
      */
     cidr: string;
     /**
-     * Instance type of the AWS node group
+     * Is the network externally defined
      */
-    instanceType: string;
+    external: boolean;
     /**
-     * Node location of the AWS node group
+     * ID of the network, if externally defined
      */
-    nodeLocation: string;
-    nodes: outputs.ClusterNodeGroupsAwNode[];
+    externalId: string;
+    /**
+     * Name of the network
+     */
+    name: string;
     privateSubnets: string[];
     publicSubnets: string[];
     /**
-     * Region of the AWS node group
+     * Region of the network
      */
     region: string;
-    /**
-     * Volume IOPS of the AWS node group
-     */
-    volumeIops: number;
-    /**
-     * Volume size of the AWS node group
-     */
-    volumeSize: number;
-    /**
-     * Volume type of the AWS node group
-     */
-    volumeType: string;
 }
 
-export interface ClusterNodeGroupsAwNode {
+export interface ClusterNode {
     /**
-     * Display name of the node
+     * Cloud provider availability zone name
      */
-    displayName: string;
+    availabilityZone: string;
     /**
-     * IP address of the node
-     */
-    ipAddress: string;
-    /**
-     * Is the node active
-     */
-    isActive: boolean;
-}
-
-export interface ClusterNodeGroupsAzure {
-    /**
-     * Availability zones of the AWS node group
-     */
-    availabilityZones: string[];
-    /**
-     * CIDR of the AWS node group
-     */
-    cidr: string;
-    /**
-     * Instance type of the AWS node group
+     * Instance type used for the node
      */
     instanceType: string;
     /**
-     * Node location of the AWS node group
+     * Node name
      */
-    nodeLocation: string;
-    nodes: outputs.ClusterNodeGroupsAzureNode[];
-    privateSubnets: string[];
-    publicSubnets: string[];
+    name: string;
+    options: string[];
     /**
-     * Region of the AWS node group
+     * Cloud provider region
      */
     region: string;
     /**
-     * Volume IOPS of the AWS node group
+     * Volume IOPS of the node data volume
      */
     volumeIops: number;
     /**
-     * Volume size of the AWS node group
+     * Volume size of the node data volume
      */
     volumeSize: number;
     /**
-     * Volume type of the AWS node group
+     * Volume type of the node data volume
      */
     volumeType: string;
-}
-
-export interface ClusterNodeGroupsAzureNode {
-    /**
-     * Display name of the node
-     */
-    displayName: string;
-    /**
-     * IP address of the node
-     */
-    ipAddress: string;
-    /**
-     * Is the node active
-     */
-    isActive: boolean;
-}
-
-export interface ClusterNodeGroupsGoogle {
-    /**
-     * Availability zones of the AWS node group
-     */
-    availabilityZones: string[];
-    /**
-     * CIDR of the AWS node group
-     */
-    cidr: string;
-    /**
-     * Instance type of the AWS node group
-     */
-    instanceType: string;
-    /**
-     * Node location of the AWS node group
-     */
-    nodeLocation: string;
-    nodes: outputs.ClusterNodeGroupsGoogleNode[];
-    privateSubnets: string[];
-    publicSubnets: string[];
-    /**
-     * Region of the AWS node group
-     */
-    region: string;
-    /**
-     * Volume IOPS of the AWS node group
-     */
-    volumeIops: number;
-    /**
-     * Volume size of the AWS node group
-     */
-    volumeSize: number;
-    /**
-     * Volume type of the AWS node group
-     */
-    volumeType: string;
-}
-
-export interface ClusterNodeGroupsGoogleNode {
-    /**
-     * Display name of the node
-     */
-    displayName: string;
-    /**
-     * IP address of the node
-     */
-    ipAddress: string;
-    /**
-     * Is the node active
-     */
-    isActive: boolean;
-}
-
-export interface DatabaseNode {
-    connection?: outputs.DatabaseNodeConnection;
-    location?: outputs.DatabaseNodeLocation;
-    /**
-     * Name of the node
-     */
-    name?: string;
-}
-
-export interface DatabaseNodeConnection {
-    /**
-     * Database of the node
-     */
-    database?: string;
-    /**
-     * Host of the node
-     */
-    host?: string;
-    /**
-     * Password of the node
-     */
-    password?: string;
-    /**
-     * Port of the node
-     */
-    port?: number;
-    /**
-     * Username of the node
-     */
-    username?: string;
-}
-
-export interface DatabaseNodeLocation {
-    /**
-     * Code of the location
-     */
-    code?: string;
-    /**
-     * Country of the location
-     */
-    country?: string;
-    /**
-     * Latitude of the location
-     */
-    latitude?: number;
-    /**
-     * Longitude of the location
-     */
-    longitude?: number;
-    /**
-     * Name of the location
-     */
-    name?: string;
-    /**
-     * Region of the location
-     */
-    region?: string;
 }
 
 export interface GetClustersCluster {
+    cloudAccount: outputs.GetClustersClusterCloudAccount;
     /**
      * Cloud account ID of the cluster
      */
@@ -253,7 +83,7 @@ export interface GetClustersCluster {
      * Created at of the cluster
      */
     createdAt: string;
-    firewalls: outputs.GetClustersClusterFirewall[];
+    firewallRules: outputs.GetClustersClusterFirewallRule[];
     /**
      * ID of the cluster
      */
@@ -262,14 +92,43 @@ export interface GetClustersCluster {
      * Name of the cluster
      */
     name: string;
-    nodeGroups: outputs.GetClustersClusterNodeGroups;
+    networks: outputs.GetClustersClusterNetwork[];
+    /**
+     * Node location of the cluster
+     */
+    nodeLocation: string;
+    nodes: outputs.GetClustersClusterNode[];
+    regions: string[];
+    /**
+     * SSH key ID of the cluster
+     */
+    sshKeyId: string;
     /**
      * Status of the cluster
      */
     status: string;
 }
 
-export interface GetClustersClusterFirewall {
+export interface GetClustersClusterCloudAccount {
+    /**
+     * Display name of the node
+     */
+    id: string;
+    /**
+     * IP address of the node
+     */
+    name: string;
+    /**
+     * Type of the node
+     */
+    type: string;
+}
+
+export interface GetClustersClusterFirewallRule {
+    /**
+     * IP address of the node
+     */
+    name: string;
     /**
      * Port for the firewall rule
      */
@@ -278,175 +137,63 @@ export interface GetClustersClusterFirewall {
      * Sources for the firewall rule
      */
     sources: string[];
-    /**
-     * Type of the firewall rule
-     */
-    type: string;
 }
 
-export interface GetClustersClusterNodeGroups {
-    aws: outputs.GetClustersClusterNodeGroupsAw[];
-    azures: outputs.GetClustersClusterNodeGroupsAzure[];
-    googles: outputs.GetClustersClusterNodeGroupsGoogle[];
-}
-
-export interface GetClustersClusterNodeGroupsAw {
-    /**
-     * Availability zones of the AWS node group
-     */
-    availabilityZones: string[];
+export interface GetClustersClusterNetwork {
     /**
      * CIDR of the AWS node group
      */
     cidr: string;
     /**
-     * Instance type of the AWS node group
+     * Is the network external
      */
-    instanceType: string;
+    external: boolean;
     /**
-     * Node location of the AWS node group
+     * External ID of the network
      */
-    nodeLocation: string;
-    nodes: outputs.GetClustersClusterNodeGroupsAwNode[];
-    privateSubnets: string[];
-    publicSubnets: string[];
-    /**
-     * Region of the AWS node group
-     */
-    region: string;
-    /**
-     * Volume IOPS of the AWS node group
-     */
-    volumeIops: number;
-    /**
-     * Volume size of the AWS node group
-     */
-    volumeSize: number;
-    /**
-     * Volume type of the AWS node group
-     */
-    volumeType: string;
-}
-
-export interface GetClustersClusterNodeGroupsAwNode {
-    /**
-     * Display name of the node
-     */
-    displayName: string;
+    externalId: string;
     /**
      * IP address of the node
      */
-    ipAddress: string;
-    /**
-     * Is the node active
-     */
-    isActive: boolean;
-}
-
-export interface GetClustersClusterNodeGroupsAzure {
-    /**
-     * Availability zones of the AWS node group
-     */
-    availabilityZones: string[];
-    /**
-     * CIDR of the AWS node group
-     */
-    cidr: string;
-    /**
-     * Instance type of the AWS node group
-     */
-    instanceType: string;
-    /**
-     * Node location of the AWS node group
-     */
-    nodeLocation: string;
-    nodes: outputs.GetClustersClusterNodeGroupsAzureNode[];
+    name: string;
     privateSubnets: string[];
     publicSubnets: string[];
     /**
-     * Region of the AWS node group
+     * Region of the network
      */
     region: string;
-    /**
-     * Volume IOPS of the AWS node group
-     */
-    volumeIops: number;
-    /**
-     * Volume size of the AWS node group
-     */
-    volumeSize: number;
-    /**
-     * Volume type of the AWS node group
-     */
-    volumeType: string;
 }
 
-export interface GetClustersClusterNodeGroupsAzureNode {
+export interface GetClustersClusterNode {
     /**
-     * Display name of the node
+     * Cloud provider availability zone name
      */
-    displayName: string;
+    availabilityZone: string;
     /**
-     * IP address of the node
-     */
-    ipAddress: string;
-    /**
-     * Is the node active
-     */
-    isActive: boolean;
-}
-
-export interface GetClustersClusterNodeGroupsGoogle {
-    /**
-     * Availability zones of the AWS node group
-     */
-    availabilityZones: string[];
-    /**
-     * CIDR of the AWS node group
-     */
-    cidr: string;
-    /**
-     * Instance type of the AWS node group
+     * Instance type used for the node
      */
     instanceType: string;
     /**
-     * Node location of the AWS node group
+     * IP address of the node
      */
-    nodeLocation: string;
-    nodes: outputs.GetClustersClusterNodeGroupsGoogleNode[];
-    privateSubnets: string[];
-    publicSubnets: string[];
+    name: string;
+    options: string[];
     /**
-     * Region of the AWS node group
+     * Region of the network
      */
     region: string;
     /**
-     * Volume IOPS of the AWS node group
+     * Volume IOPS of the node data volume
      */
     volumeIops: number;
     /**
-     * Volume size of the AWS node group
+     * Volume size of the node data volume
      */
     volumeSize: number;
     /**
-     * Volume type of the AWS node group
+     * Volume type of the node data volume
      */
     volumeType: string;
-}
-
-export interface GetClustersClusterNodeGroupsGoogleNode {
-    /**
-     * Display name of the node
-     */
-    displayName: string;
-    /**
-     * IP address of the node
-     */
-    ipAddress: string;
-    /**
-     * Is the node active
-     */
-    isActive: boolean;
 }
 
 export interface GetDatabasesDatabase {
@@ -454,6 +201,11 @@ export interface GetDatabasesDatabase {
      * Updated at of the database
      */
     clusterId: string;
+    components: outputs.GetDatabasesDatabaseComponent[];
+    /**
+     * Config version of the database
+     */
+    configVersion?: string;
     /**
      * Created at of the database
      */
@@ -462,6 +214,7 @@ export interface GetDatabasesDatabase {
      * Domain of the database
      */
     domain: string;
+    extensions: outputs.GetDatabasesDatabaseExtensions;
     /**
      * ID of the database
      */
@@ -474,24 +227,78 @@ export interface GetDatabasesDatabase {
     /**
      * Options for creating the database
      */
-    options?: string[];
+    options: string[];
+    /**
+     * Postgres version of the database
+     */
+    pgVersion: string;
+    roles: outputs.GetDatabasesDatabaseRole[];
     /**
      * Status of the database
      */
     status: string;
+    /**
+     * Storage used of the database
+     */
+    storageUsed: number;
+    tables: outputs.GetDatabasesDatabaseTable[];
     /**
      * Updated at of the database
      */
     updatedAt: string;
 }
 
-export interface GetDatabasesDatabaseNode {
-    connection: outputs.GetDatabasesDatabaseNodeConnection;
-    location: outputs.GetDatabasesDatabaseNodeLocation;
+export interface GetDatabasesDatabaseComponent {
     /**
-     * Name of the database
+     * Id of the component
+     */
+    id: string;
+    /**
+     * Name of the component
      */
     name: string;
+    /**
+     * Release date of the component
+     */
+    releaseDate: string;
+    /**
+     * Status of the component
+     */
+    status: string;
+    /**
+     * Version of the component
+     */
+    version: string;
+}
+
+export interface GetDatabasesDatabaseExtensions {
+    /**
+     * Auto manage of the extension
+     */
+    autoManage: boolean;
+    /**
+     * Available of the extension
+     */
+    availables: string[];
+    /**
+     * Requested of the extension
+     */
+    requesteds: string[];
+}
+
+export interface GetDatabasesDatabaseNode {
+    connection: outputs.GetDatabasesDatabaseNodeConnection;
+    distanceMeasurement: outputs.GetDatabasesDatabaseNodeDistanceMeasurement;
+    extensions: outputs.GetDatabasesDatabaseNodeExtensions;
+    location: outputs.GetDatabasesDatabaseNodeLocation;
+    /**
+     * Name of the component
+     */
+    name: string;
+    /**
+     * Region of the location
+     */
+    region: outputs.GetDatabasesDatabaseNodeRegion;
 }
 
 export interface GetDatabasesDatabaseNodeConnection {
@@ -500,9 +307,21 @@ export interface GetDatabasesDatabaseNodeConnection {
      */
     database: string;
     /**
+     * External IP of the node
+     */
+    externalIpAddress: string;
+    /**
      * Host of the node
      */
     host: string;
+    /**
+     * Internal Host of the node
+     */
+    internalHost: string;
+    /**
+     * Internal IP of the node
+     */
+    internalIpAddress: string;
     /**
      * Password of the node
      */
@@ -517,7 +336,57 @@ export interface GetDatabasesDatabaseNodeConnection {
     username: string;
 }
 
+export interface GetDatabasesDatabaseNodeDistanceMeasurement {
+    /**
+     * Distance from a reference point
+     */
+    distance: number;
+    /**
+     * Latitude of the reference point
+     */
+    fromLatitude: number;
+    /**
+     * Longitude of the reference point
+     */
+    fromLongitude: number;
+    /**
+     * Unit of distance measurement
+     */
+    unit: string;
+}
+
+export interface GetDatabasesDatabaseNodeExtensions {
+    errors: outputs.GetDatabasesDatabaseNodeExtensionsErrors;
+    /**
+     * List of installed extensions
+     */
+    installeds: string[];
+}
+
+export interface GetDatabasesDatabaseNodeExtensionsErrors {
+    /**
+     * Error code anim9ef
+     */
+    anim9ef: string;
+    /**
+     * Error code enim3b
+     */
+    enim3b: string;
+    /**
+     * Error code laborumd
+     */
+    laborumd: string;
+    /**
+     * Error code mollit267
+     */
+    mollit267: string;
+}
+
 export interface GetDatabasesDatabaseNodeLocation {
+    /**
+     * City of the location
+     */
+    city: string;
     /**
      * Code of the location
      */
@@ -535,12 +404,164 @@ export interface GetDatabasesDatabaseNodeLocation {
      */
     longitude: number;
     /**
-     * Name of the database
+     * Metro code of the location
+     */
+    metroCode: string;
+    /**
+     * Name of the component
      */
     name: string;
+    /**
+     * Postal code of the location
+     */
+    postalCode: string;
     /**
      * Region of the location
      */
     region: string;
+    /**
+     * Region code of the location
+     */
+    regionCode: string;
+    /**
+     * Timezone of the location
+     */
+    timezone: string;
+}
+
+export interface GetDatabasesDatabaseNodeRegion {
+    /**
+     * Active status of the region
+     */
+    active: boolean;
+    /**
+     * Availability zones of the region
+     */
+    availabilityZones: string[];
+    /**
+     * Cloud provider of the region
+     */
+    cloud: string;
+    /**
+     * Code of the location
+     */
+    code: string;
+    /**
+     * Name of the component
+     */
+    name: string;
+    /**
+     * Parent region
+     */
+    parent: string;
+}
+
+export interface GetDatabasesDatabaseRole {
+    /**
+     * Bypass RLS
+     */
+    bypassRls: boolean;
+    /**
+     * Connection limit
+     */
+    connectionLimit: number;
+    /**
+     * Create database
+     */
+    createDb: boolean;
+    /**
+     * Create role
+     */
+    createRole: boolean;
+    /**
+     * Inherit
+     */
+    inherit: boolean;
+    /**
+     * Login
+     */
+    login: boolean;
+    /**
+     * Name of the component
+     */
+    name: string;
+    /**
+     * Replication
+     */
+    replication: boolean;
+    /**
+     * Superuser
+     */
+    superuser: boolean;
+}
+
+export interface GetDatabasesDatabaseTable {
+    columns: outputs.GetDatabasesDatabaseTableColumn[];
+    /**
+     * Name of the component
+     */
+    name: string;
+    /**
+     * Primary key of the table
+     */
+    primaryKeys: string[];
+    /**
+     * Replication sets of the table
+     */
+    replicationSets: string[];
+    /**
+     * Schema of the table
+     */
+    schema: string;
+    /**
+     * Status of the component
+     */
+    statuses: outputs.GetDatabasesDatabaseTableStatus[];
+}
+
+export interface GetDatabasesDatabaseTableColumn {
+    /**
+     * Data type of the column
+     */
+    dataType: string;
+    /**
+     * Default of the column
+     */
+    default: string;
+    /**
+     * Is nullable of the column
+     */
+    isNullable: boolean;
+    /**
+     * Is primary key of the column
+     */
+    isPrimaryKey: boolean;
+    /**
+     * Name of the component
+     */
+    name: string;
+    /**
+     * Ordinal position of the column
+     */
+    ordinalPosition: number;
+}
+
+export interface GetDatabasesDatabaseTableStatus {
+    /**
+     * Aligned of the table
+     */
+    aligned: boolean;
+    /**
+     * Node name of the table
+     */
+    nodeName: string;
+    /**
+     * Present of the table
+     */
+    present: boolean;
+    /**
+     * Replicating of the table
+     */
+    replicating: boolean;
 }
 

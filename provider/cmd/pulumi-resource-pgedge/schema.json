@@ -61,433 +61,140 @@
         }
     },
     "types": {
-        "pgedge:index/ClusterFirewall:ClusterFirewall": {
+        "pgedge:index/ClusterFirewallRule:ClusterFirewallRule": {
             "properties": {
                 "port": {
                     "type": "integer",
-                    "description": "Port for the firewall rule\n"
+                    "description": "Port whose traffic is allowed\n"
                 },
                 "sources": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     },
-                    "description": "Sources for the firewall rule\n"
-                },
-                "type": {
-                    "type": "string",
-                    "description": "Type of the firewall rule\n"
-                }
-            },
-            "type": "object"
-        },
-        "pgedge:index/ClusterNodeGroups:ClusterNodeGroups": {
-            "properties": {
-                "aws": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/ClusterNodeGroupsAw:ClusterNodeGroupsAw"
-                    }
-                },
-                "azures": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/ClusterNodeGroupsAzure:ClusterNodeGroupsAzure"
-                    }
-                },
-                "googles": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/ClusterNodeGroupsGoogle:ClusterNodeGroupsGoogle"
-                    }
+                    "description": "CIDRs and/or IP addresses allowed\n"
                 }
             },
             "type": "object",
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "aws",
-                        "azures",
-                        "googles"
-                    ]
-                }
-            }
+            "required": [
+                "port",
+                "sources"
+            ]
         },
-        "pgedge:index/ClusterNodeGroupsAw:ClusterNodeGroupsAw": {
+        "pgedge:index/ClusterNetwork:ClusterNetwork": {
             "properties": {
-                "availabilityZones": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "Availability zones of the AWS node group\n"
-                },
                 "cidr": {
                     "type": "string",
-                    "description": "CIDR of the AWS node group\n"
+                    "description": "CIDR range for the network\n"
                 },
-                "instanceType": {
-                    "type": "string",
-                    "description": "Instance type of the AWS node group\n"
-                },
-                "nodeLocation": {
-                    "type": "string",
-                    "description": "Node location of the AWS node group\n"
-                },
-                "nodes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/ClusterNodeGroupsAwNode:ClusterNodeGroupsAwNode"
-                    }
-                },
-                "privateSubnets": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "publicSubnets": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "region": {
-                    "type": "string",
-                    "description": "Region of the AWS node group\n"
-                },
-                "volumeIops": {
-                    "type": "integer",
-                    "description": "Volume IOPS of the AWS node group\n"
-                },
-                "volumeSize": {
-                    "type": "integer",
-                    "description": "Volume size of the AWS node group\n"
-                },
-                "volumeType": {
-                    "type": "string",
-                    "description": "Volume type of the AWS node group\n"
-                }
-            },
-            "type": "object",
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "availabilityZones",
-                        "cidr",
-                        "instanceType",
-                        "nodeLocation",
-                        "nodes",
-                        "privateSubnets",
-                        "publicSubnets",
-                        "region",
-                        "volumeIops",
-                        "volumeSize",
-                        "volumeType"
-                    ]
-                }
-            }
-        },
-        "pgedge:index/ClusterNodeGroupsAwNode:ClusterNodeGroupsAwNode": {
-            "properties": {
-                "displayName": {
-                    "type": "string",
-                    "description": "Display name of the node\n"
-                },
-                "ipAddress": {
-                    "type": "string",
-                    "description": "IP address of the node\n"
-                },
-                "isActive": {
+                "external": {
                     "type": "boolean",
-                    "description": "Is the node active\n"
-                }
-            },
-            "type": "object",
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "displayName",
-                        "ipAddress",
-                        "isActive"
-                    ]
-                }
-            }
-        },
-        "pgedge:index/ClusterNodeGroupsAzure:ClusterNodeGroupsAzure": {
-            "properties": {
-                "availabilityZones": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "Availability zones of the AWS node group\n"
+                    "description": "Is the network externally defined\n"
                 },
-                "cidr": {
+                "externalId": {
                     "type": "string",
-                    "description": "CIDR of the AWS node group\n"
-                },
-                "instanceType": {
-                    "type": "string",
-                    "description": "Instance type of the AWS node group\n"
-                },
-                "nodeLocation": {
-                    "type": "string",
-                    "description": "Node location of the AWS node group\n"
-                },
-                "nodes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/ClusterNodeGroupsAzureNode:ClusterNodeGroupsAzureNode"
-                    }
-                },
-                "privateSubnets": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "publicSubnets": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "region": {
-                    "type": "string",
-                    "description": "Region of the AWS node group\n"
-                },
-                "volumeIops": {
-                    "type": "integer",
-                    "description": "Volume IOPS of the AWS node group\n"
-                },
-                "volumeSize": {
-                    "type": "integer",
-                    "description": "Volume size of the AWS node group\n"
-                },
-                "volumeType": {
-                    "type": "string",
-                    "description": "Volume type of the AWS node group\n"
-                }
-            },
-            "type": "object",
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "availabilityZones",
-                        "cidr",
-                        "instanceType",
-                        "nodeLocation",
-                        "nodes",
-                        "privateSubnets",
-                        "publicSubnets",
-                        "region",
-                        "volumeIops",
-                        "volumeSize",
-                        "volumeType"
-                    ]
-                }
-            }
-        },
-        "pgedge:index/ClusterNodeGroupsAzureNode:ClusterNodeGroupsAzureNode": {
-            "properties": {
-                "displayName": {
-                    "type": "string",
-                    "description": "Display name of the node\n"
-                },
-                "ipAddress": {
-                    "type": "string",
-                    "description": "IP address of the node\n"
-                },
-                "isActive": {
-                    "type": "boolean",
-                    "description": "Is the node active\n"
-                }
-            },
-            "type": "object",
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "displayName",
-                        "ipAddress",
-                        "isActive"
-                    ]
-                }
-            }
-        },
-        "pgedge:index/ClusterNodeGroupsGoogle:ClusterNodeGroupsGoogle": {
-            "properties": {
-                "availabilityZones": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "Availability zones of the AWS node group\n"
-                },
-                "cidr": {
-                    "type": "string",
-                    "description": "CIDR of the AWS node group\n"
-                },
-                "instanceType": {
-                    "type": "string",
-                    "description": "Instance type of the AWS node group\n"
-                },
-                "nodeLocation": {
-                    "type": "string",
-                    "description": "Node location of the AWS node group\n"
-                },
-                "nodes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/ClusterNodeGroupsGoogleNode:ClusterNodeGroupsGoogleNode"
-                    }
-                },
-                "privateSubnets": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "publicSubnets": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "region": {
-                    "type": "string",
-                    "description": "Region of the AWS node group\n"
-                },
-                "volumeIops": {
-                    "type": "integer",
-                    "description": "Volume IOPS of the AWS node group\n"
-                },
-                "volumeSize": {
-                    "type": "integer",
-                    "description": "Volume size of the AWS node group\n"
-                },
-                "volumeType": {
-                    "type": "string",
-                    "description": "Volume type of the AWS node group\n"
-                }
-            },
-            "type": "object",
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "availabilityZones",
-                        "cidr",
-                        "instanceType",
-                        "nodeLocation",
-                        "nodes",
-                        "privateSubnets",
-                        "publicSubnets",
-                        "region",
-                        "volumeIops",
-                        "volumeSize",
-                        "volumeType"
-                    ]
-                }
-            }
-        },
-        "pgedge:index/ClusterNodeGroupsGoogleNode:ClusterNodeGroupsGoogleNode": {
-            "properties": {
-                "displayName": {
-                    "type": "string",
-                    "description": "Display name of the node\n"
-                },
-                "ipAddress": {
-                    "type": "string",
-                    "description": "IP address of the node\n"
-                },
-                "isActive": {
-                    "type": "boolean",
-                    "description": "Is the node active\n"
-                }
-            },
-            "type": "object",
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "displayName",
-                        "ipAddress",
-                        "isActive"
-                    ]
-                }
-            }
-        },
-        "pgedge:index/DatabaseNode:DatabaseNode": {
-            "properties": {
-                "connection": {
-                    "$ref": "#/types/pgedge:index/DatabaseNodeConnection:DatabaseNodeConnection"
-                },
-                "location": {
-                    "$ref": "#/types/pgedge:index/DatabaseNodeLocation:DatabaseNodeLocation"
+                    "description": "ID of the network, if externally defined\n"
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name of the node\n"
-                }
-            },
-            "type": "object"
-        },
-        "pgedge:index/DatabaseNodeConnection:DatabaseNodeConnection": {
-            "properties": {
-                "database": {
-                    "type": "string",
-                    "description": "Database of the node\n"
+                    "description": "Name of the network\n"
                 },
-                "host": {
-                    "type": "string",
-                    "description": "Host of the node\n"
+                "privateSubnets": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
-                "password": {
-                    "type": "string",
-                    "description": "Password of the node\n",
-                    "secret": true
-                },
-                "port": {
-                    "type": "integer",
-                    "description": "Port of the node\n"
-                },
-                "username": {
-                    "type": "string",
-                    "description": "Username of the node\n"
-                }
-            },
-            "type": "object"
-        },
-        "pgedge:index/DatabaseNodeLocation:DatabaseNodeLocation": {
-            "properties": {
-                "code": {
-                    "type": "string",
-                    "description": "Code of the location\n"
-                },
-                "country": {
-                    "type": "string",
-                    "description": "Country of the location\n"
-                },
-                "latitude": {
-                    "type": "number",
-                    "description": "Latitude of the location\n"
-                },
-                "longitude": {
-                    "type": "number",
-                    "description": "Longitude of the location\n"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "Name of the location\n"
+                "publicSubnets": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "region": {
                     "type": "string",
-                    "description": "Region of the location\n"
+                    "description": "Region of the network\n"
                 }
             },
-            "type": "object"
+            "type": "object",
+            "required": [
+                "region"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "cidr",
+                        "external",
+                        "externalId",
+                        "name",
+                        "privateSubnets",
+                        "publicSubnets",
+                        "region"
+                    ]
+                }
+            }
+        },
+        "pgedge:index/ClusterNode:ClusterNode": {
+            "properties": {
+                "availabilityZone": {
+                    "type": "string",
+                    "description": "Cloud provider availability zone name\n"
+                },
+                "instanceType": {
+                    "type": "string",
+                    "description": "Instance type used for the node\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Node name\n"
+                },
+                "options": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "region": {
+                    "type": "string",
+                    "description": "Cloud provider region\n"
+                },
+                "volumeIops": {
+                    "type": "integer",
+                    "description": "Volume IOPS of the node data volume\n"
+                },
+                "volumeSize": {
+                    "type": "integer",
+                    "description": "Volume size of the node data volume\n"
+                },
+                "volumeType": {
+                    "type": "string",
+                    "description": "Volume type of the node data volume\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "region"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "availabilityZone",
+                        "instanceType",
+                        "name",
+                        "options",
+                        "region",
+                        "volumeIops",
+                        "volumeSize",
+                        "volumeType"
+                    ]
+                }
+            }
         },
         "pgedge:index/getClustersCluster:getClustersCluster": {
             "properties": {
+                "cloudAccount": {
+                    "$ref": "#/types/pgedge:index/getClustersClusterCloudAccount:getClustersClusterCloudAccount"
+                },
                 "cloudAccountId": {
                     "type": "string",
                     "description": "Cloud account ID of the cluster\n"
@@ -496,10 +203,10 @@
                     "type": "string",
                     "description": "Created at of the cluster\n"
                 },
-                "firewalls": {
+                "firewallRules": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/types/pgedge:index/getClustersClusterFirewall:getClustersClusterFirewall"
+                        "$ref": "#/types/pgedge:index/getClustersClusterFirewallRule:getClustersClusterFirewallRule"
                     }
                 },
                 "id": {
@@ -510,8 +217,31 @@
                     "type": "string",
                     "description": "Name of the cluster\n"
                 },
-                "nodeGroups": {
-                    "$ref": "#/types/pgedge:index/getClustersClusterNodeGroups:getClustersClusterNodeGroups"
+                "networks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/pgedge:index/getClustersClusterNetwork:getClustersClusterNetwork"
+                    }
+                },
+                "nodeLocation": {
+                    "type": "string",
+                    "description": "Node location of the cluster\n"
+                },
+                "nodes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/pgedge:index/getClustersClusterNode:getClustersClusterNode"
+                    }
+                },
+                "regions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "sshKeyId": {
+                    "type": "string",
+                    "description": "SSH key ID of the cluster\n"
                 },
                 "status": {
                     "type": "string",
@@ -520,12 +250,17 @@
             },
             "type": "object",
             "required": [
+                "cloudAccount",
                 "cloudAccountId",
                 "createdAt",
-                "firewalls",
+                "firewallRules",
                 "id",
                 "name",
-                "nodeGroups",
+                "networks",
+                "nodeLocation",
+                "nodes",
+                "regions",
+                "sshKeyId",
                 "status"
             ],
             "language": {
@@ -534,8 +269,39 @@
                 }
             }
         },
-        "pgedge:index/getClustersClusterFirewall:getClustersClusterFirewall": {
+        "pgedge:index/getClustersClusterCloudAccount:getClustersClusterCloudAccount": {
             "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Display name of the node\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "IP address of the node\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Type of the node\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "type"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "pgedge:index/getClustersClusterFirewallRule:getClustersClusterFirewallRule": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "IP address of the node\n"
+                },
                 "port": {
                     "type": "integer",
                     "description": "Port for the firewall rule\n"
@@ -546,17 +312,13 @@
                         "type": "string"
                     },
                     "description": "Sources for the firewall rule\n"
-                },
-                "type": {
-                    "type": "string",
-                    "description": "Type of the firewall rule\n"
                 }
             },
             "type": "object",
             "required": [
+                "name",
                 "port",
-                "sources",
-                "type"
+                "sources"
             ],
             "language": {
                 "nodejs": {
@@ -564,65 +326,23 @@
                 }
             }
         },
-        "pgedge:index/getClustersClusterNodeGroups:getClustersClusterNodeGroups": {
+        "pgedge:index/getClustersClusterNetwork:getClustersClusterNetwork": {
             "properties": {
-                "aws": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/getClustersClusterNodeGroupsAw:getClustersClusterNodeGroupsAw"
-                    }
-                },
-                "azures": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/getClustersClusterNodeGroupsAzure:getClustersClusterNodeGroupsAzure"
-                    }
-                },
-                "googles": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/getClustersClusterNodeGroupsGoogle:getClustersClusterNodeGroupsGoogle"
-                    }
-                }
-            },
-            "type": "object",
-            "required": [
-                "aws",
-                "azures",
-                "googles"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredInputs": []
-                }
-            }
-        },
-        "pgedge:index/getClustersClusterNodeGroupsAw:getClustersClusterNodeGroupsAw": {
-            "properties": {
-                "availabilityZones": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "Availability zones of the AWS node group\n"
-                },
                 "cidr": {
                     "type": "string",
                     "description": "CIDR of the AWS node group\n"
                 },
-                "instanceType": {
-                    "type": "string",
-                    "description": "Instance type of the AWS node group\n"
+                "external": {
+                    "type": "boolean",
+                    "description": "Is the network external\n"
                 },
-                "nodeLocation": {
+                "externalId": {
                     "type": "string",
-                    "description": "Node location of the AWS node group\n"
+                    "description": "External ID of the network\n"
                 },
-                "nodes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/getClustersClusterNodeGroupsAwNode:getClustersClusterNodeGroupsAwNode"
-                    }
+                "name": {
+                    "type": "string",
+                    "description": "IP address of the node\n"
                 },
                 "privateSubnets": {
                     "type": "array",
@@ -638,34 +358,18 @@
                 },
                 "region": {
                     "type": "string",
-                    "description": "Region of the AWS node group\n"
-                },
-                "volumeIops": {
-                    "type": "integer",
-                    "description": "Volume IOPS of the AWS node group\n"
-                },
-                "volumeSize": {
-                    "type": "integer",
-                    "description": "Volume size of the AWS node group\n"
-                },
-                "volumeType": {
-                    "type": "string",
-                    "description": "Volume type of the AWS node group\n"
+                    "description": "Region of the network\n"
                 }
             },
             "type": "object",
             "required": [
-                "availabilityZones",
                 "cidr",
-                "instanceType",
-                "nodeLocation",
-                "nodes",
+                "external",
+                "externalId",
+                "name",
                 "privateSubnets",
                 "publicSubnets",
-                "region",
-                "volumeIops",
-                "volumeSize",
-                "volumeType"
+                "region"
             ],
             "language": {
                 "nodejs": {
@@ -673,67 +377,21 @@
                 }
             }
         },
-        "pgedge:index/getClustersClusterNodeGroupsAwNode:getClustersClusterNodeGroupsAwNode": {
+        "pgedge:index/getClustersClusterNode:getClustersClusterNode": {
             "properties": {
-                "displayName": {
+                "availabilityZone": {
                     "type": "string",
-                    "description": "Display name of the node\n"
-                },
-                "ipAddress": {
-                    "type": "string",
-                    "description": "IP address of the node\n"
-                },
-                "isActive": {
-                    "type": "boolean",
-                    "description": "Is the node active\n"
-                }
-            },
-            "type": "object",
-            "required": [
-                "displayName",
-                "ipAddress",
-                "isActive"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredInputs": []
-                }
-            }
-        },
-        "pgedge:index/getClustersClusterNodeGroupsAzure:getClustersClusterNodeGroupsAzure": {
-            "properties": {
-                "availabilityZones": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "Availability zones of the AWS node group\n"
-                },
-                "cidr": {
-                    "type": "string",
-                    "description": "CIDR of the AWS node group\n"
+                    "description": "Cloud provider availability zone name\n"
                 },
                 "instanceType": {
                     "type": "string",
-                    "description": "Instance type of the AWS node group\n"
+                    "description": "Instance type used for the node\n"
                 },
-                "nodeLocation": {
+                "name": {
                     "type": "string",
-                    "description": "Node location of the AWS node group\n"
+                    "description": "IP address of the node\n"
                 },
-                "nodes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/getClustersClusterNodeGroupsAzureNode:getClustersClusterNodeGroupsAzureNode"
-                    }
-                },
-                "privateSubnets": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "publicSubnets": {
+                "options": {
                     "type": "array",
                     "items": {
                         "type": "string"
@@ -741,164 +399,31 @@
                 },
                 "region": {
                     "type": "string",
-                    "description": "Region of the AWS node group\n"
+                    "description": "Region of the network\n"
                 },
                 "volumeIops": {
                     "type": "integer",
-                    "description": "Volume IOPS of the AWS node group\n"
+                    "description": "Volume IOPS of the node data volume\n"
                 },
                 "volumeSize": {
                     "type": "integer",
-                    "description": "Volume size of the AWS node group\n"
+                    "description": "Volume size of the node data volume\n"
                 },
                 "volumeType": {
                     "type": "string",
-                    "description": "Volume type of the AWS node group\n"
+                    "description": "Volume type of the node data volume\n"
                 }
             },
             "type": "object",
             "required": [
-                "availabilityZones",
-                "cidr",
+                "availabilityZone",
                 "instanceType",
-                "nodeLocation",
-                "nodes",
-                "privateSubnets",
-                "publicSubnets",
+                "name",
+                "options",
                 "region",
                 "volumeIops",
                 "volumeSize",
                 "volumeType"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredInputs": []
-                }
-            }
-        },
-        "pgedge:index/getClustersClusterNodeGroupsAzureNode:getClustersClusterNodeGroupsAzureNode": {
-            "properties": {
-                "displayName": {
-                    "type": "string",
-                    "description": "Display name of the node\n"
-                },
-                "ipAddress": {
-                    "type": "string",
-                    "description": "IP address of the node\n"
-                },
-                "isActive": {
-                    "type": "boolean",
-                    "description": "Is the node active\n"
-                }
-            },
-            "type": "object",
-            "required": [
-                "displayName",
-                "ipAddress",
-                "isActive"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredInputs": []
-                }
-            }
-        },
-        "pgedge:index/getClustersClusterNodeGroupsGoogle:getClustersClusterNodeGroupsGoogle": {
-            "properties": {
-                "availabilityZones": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "Availability zones of the AWS node group\n"
-                },
-                "cidr": {
-                    "type": "string",
-                    "description": "CIDR of the AWS node group\n"
-                },
-                "instanceType": {
-                    "type": "string",
-                    "description": "Instance type of the AWS node group\n"
-                },
-                "nodeLocation": {
-                    "type": "string",
-                    "description": "Node location of the AWS node group\n"
-                },
-                "nodes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/getClustersClusterNodeGroupsGoogleNode:getClustersClusterNodeGroupsGoogleNode"
-                    }
-                },
-                "privateSubnets": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "publicSubnets": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "region": {
-                    "type": "string",
-                    "description": "Region of the AWS node group\n"
-                },
-                "volumeIops": {
-                    "type": "integer",
-                    "description": "Volume IOPS of the AWS node group\n"
-                },
-                "volumeSize": {
-                    "type": "integer",
-                    "description": "Volume size of the AWS node group\n"
-                },
-                "volumeType": {
-                    "type": "string",
-                    "description": "Volume type of the AWS node group\n"
-                }
-            },
-            "type": "object",
-            "required": [
-                "availabilityZones",
-                "cidr",
-                "instanceType",
-                "nodeLocation",
-                "nodes",
-                "privateSubnets",
-                "publicSubnets",
-                "region",
-                "volumeIops",
-                "volumeSize",
-                "volumeType"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredInputs": []
-                }
-            }
-        },
-        "pgedge:index/getClustersClusterNodeGroupsGoogleNode:getClustersClusterNodeGroupsGoogleNode": {
-            "properties": {
-                "displayName": {
-                    "type": "string",
-                    "description": "Display name of the node\n"
-                },
-                "ipAddress": {
-                    "type": "string",
-                    "description": "IP address of the node\n"
-                },
-                "isActive": {
-                    "type": "boolean",
-                    "description": "Is the node active\n"
-                }
-            },
-            "type": "object",
-            "required": [
-                "displayName",
-                "ipAddress",
-                "isActive"
             ],
             "language": {
                 "nodejs": {
@@ -912,6 +437,16 @@
                     "type": "string",
                     "description": "Updated at of the database\n"
                 },
+                "components": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/pgedge:index/getDatabasesDatabaseComponent:getDatabasesDatabaseComponent"
+                    }
+                },
+                "configVersion": {
+                    "type": "string",
+                    "description": "Config version of the database\n"
+                },
                 "createdAt": {
                     "type": "string",
                     "description": "Created at of the database\n"
@@ -919,6 +454,9 @@
                 "domain": {
                     "type": "string",
                     "description": "Domain of the database\n"
+                },
+                "extensions": {
+                    "$ref": "#/types/pgedge:index/getDatabasesDatabaseExtensions:getDatabasesDatabaseExtensions"
                 },
                 "id": {
                     "type": "string",
@@ -941,9 +479,29 @@
                     },
                     "description": "Options for creating the database\n"
                 },
+                "pgVersion": {
+                    "type": "string",
+                    "description": "Postgres version of the database\n"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/pgedge:index/getDatabasesDatabaseRole:getDatabasesDatabaseRole"
+                    }
+                },
                 "status": {
                     "type": "string",
                     "description": "Status of the database\n"
+                },
+                "storageUsed": {
+                    "type": "integer",
+                    "description": "Storage used of the database\n"
+                },
+                "tables": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/pgedge:index/getDatabasesDatabaseTable:getDatabasesDatabaseTable"
+                    }
                 },
                 "updatedAt": {
                     "type": "string",
@@ -953,12 +511,89 @@
             "type": "object",
             "required": [
                 "clusterId",
+                "components",
                 "createdAt",
                 "domain",
+                "extensions",
                 "id",
                 "name",
+                "options",
+                "pgVersion",
+                "roles",
                 "status",
+                "storageUsed",
+                "tables",
                 "updatedAt"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "pgedge:index/getDatabasesDatabaseComponent:getDatabasesDatabaseComponent": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Id of the component\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the component\n"
+                },
+                "releaseDate": {
+                    "type": "string",
+                    "description": "Release date of the component\n"
+                },
+                "status": {
+                    "type": "string",
+                    "description": "Status of the component\n"
+                },
+                "version": {
+                    "type": "string",
+                    "description": "Version of the component\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "releaseDate",
+                "status",
+                "version"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "pgedge:index/getDatabasesDatabaseExtensions:getDatabasesDatabaseExtensions": {
+            "properties": {
+                "autoManage": {
+                    "type": "boolean",
+                    "description": "Auto manage of the extension\n"
+                },
+                "availables": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Available of the extension\n"
+                },
+                "requesteds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Requested of the extension\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "autoManage",
+                "availables",
+                "requesteds"
             ],
             "language": {
                 "nodejs": {
@@ -971,19 +606,32 @@
                 "connection": {
                     "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodeConnection:getDatabasesDatabaseNodeConnection"
                 },
+                "distanceMeasurement": {
+                    "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodeDistanceMeasurement:getDatabasesDatabaseNodeDistanceMeasurement"
+                },
+                "extensions": {
+                    "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodeExtensions:getDatabasesDatabaseNodeExtensions"
+                },
                 "location": {
                     "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodeLocation:getDatabasesDatabaseNodeLocation"
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name of the database\n"
+                    "description": "Name of the component\n"
+                },
+                "region": {
+                    "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodeRegion:getDatabasesDatabaseNodeRegion",
+                    "description": "Region of the location\n"
                 }
             },
             "type": "object",
             "required": [
                 "connection",
+                "distanceMeasurement",
+                "extensions",
                 "location",
-                "name"
+                "name",
+                "region"
             ],
             "language": {
                 "nodejs": {
@@ -997,9 +645,21 @@
                     "type": "string",
                     "description": "Database of the node\n"
                 },
+                "externalIpAddress": {
+                    "type": "string",
+                    "description": "External IP of the node\n"
+                },
                 "host": {
                     "type": "string",
                     "description": "Host of the node\n"
+                },
+                "internalHost": {
+                    "type": "string",
+                    "description": "Internal Host of the node\n"
+                },
+                "internalIpAddress": {
+                    "type": "string",
+                    "description": "Internal IP of the node\n"
                 },
                 "password": {
                     "type": "string",
@@ -1018,7 +678,10 @@
             "type": "object",
             "required": [
                 "database",
+                "externalIpAddress",
                 "host",
+                "internalHost",
+                "internalIpAddress",
                 "password",
                 "port",
                 "username"
@@ -1029,8 +692,100 @@
                 }
             }
         },
+        "pgedge:index/getDatabasesDatabaseNodeDistanceMeasurement:getDatabasesDatabaseNodeDistanceMeasurement": {
+            "properties": {
+                "distance": {
+                    "type": "number",
+                    "description": "Distance from a reference point\n"
+                },
+                "fromLatitude": {
+                    "type": "number",
+                    "description": "Latitude of the reference point\n"
+                },
+                "fromLongitude": {
+                    "type": "number",
+                    "description": "Longitude of the reference point\n"
+                },
+                "unit": {
+                    "type": "string",
+                    "description": "Unit of distance measurement\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "distance",
+                "fromLatitude",
+                "fromLongitude",
+                "unit"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "pgedge:index/getDatabasesDatabaseNodeExtensions:getDatabasesDatabaseNodeExtensions": {
+            "properties": {
+                "errors": {
+                    "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodeExtensionsErrors:getDatabasesDatabaseNodeExtensionsErrors"
+                },
+                "installeds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of installed extensions\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "errors",
+                "installeds"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "pgedge:index/getDatabasesDatabaseNodeExtensionsErrors:getDatabasesDatabaseNodeExtensionsErrors": {
+            "properties": {
+                "anim9ef": {
+                    "type": "string",
+                    "description": "Error code anim9ef\n"
+                },
+                "enim3b": {
+                    "type": "string",
+                    "description": "Error code enim3b\n"
+                },
+                "laborumd": {
+                    "type": "string",
+                    "description": "Error code laborumd\n"
+                },
+                "mollit267": {
+                    "type": "string",
+                    "description": "Error code mollit267\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "anim9ef",
+                "enim3b",
+                "laborumd",
+                "mollit267"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
         "pgedge:index/getDatabasesDatabaseNodeLocation:getDatabasesDatabaseNodeLocation": {
             "properties": {
+                "city": {
+                    "type": "string",
+                    "description": "City of the location\n"
+                },
                 "code": {
                     "type": "string",
                     "description": "Code of the location\n"
@@ -1047,23 +802,273 @@
                     "type": "number",
                     "description": "Longitude of the location\n"
                 },
+                "metroCode": {
+                    "type": "string",
+                    "description": "Metro code of the location\n"
+                },
                 "name": {
                     "type": "string",
-                    "description": "Name of the database\n"
+                    "description": "Name of the component\n"
+                },
+                "postalCode": {
+                    "type": "string",
+                    "description": "Postal code of the location\n"
                 },
                 "region": {
                     "type": "string",
                     "description": "Region of the location\n"
+                },
+                "regionCode": {
+                    "type": "string",
+                    "description": "Region code of the location\n"
+                },
+                "timezone": {
+                    "type": "string",
+                    "description": "Timezone of the location\n"
                 }
             },
             "type": "object",
             "required": [
+                "city",
                 "code",
                 "country",
                 "latitude",
                 "longitude",
+                "metroCode",
                 "name",
-                "region"
+                "postalCode",
+                "region",
+                "regionCode",
+                "timezone"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "pgedge:index/getDatabasesDatabaseNodeRegion:getDatabasesDatabaseNodeRegion": {
+            "properties": {
+                "active": {
+                    "type": "boolean",
+                    "description": "Active status of the region\n"
+                },
+                "availabilityZones": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Availability zones of the region\n"
+                },
+                "cloud": {
+                    "type": "string",
+                    "description": "Cloud provider of the region\n"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "Code of the location\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the component\n"
+                },
+                "parent": {
+                    "type": "string",
+                    "description": "Parent region\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "active",
+                "availabilityZones",
+                "cloud",
+                "code",
+                "name",
+                "parent"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "pgedge:index/getDatabasesDatabaseRole:getDatabasesDatabaseRole": {
+            "properties": {
+                "bypassRls": {
+                    "type": "boolean",
+                    "description": "Bypass RLS\n"
+                },
+                "connectionLimit": {
+                    "type": "integer",
+                    "description": "Connection limit\n"
+                },
+                "createDb": {
+                    "type": "boolean",
+                    "description": "Create database\n"
+                },
+                "createRole": {
+                    "type": "boolean",
+                    "description": "Create role\n"
+                },
+                "inherit": {
+                    "type": "boolean",
+                    "description": "Inherit\n"
+                },
+                "login": {
+                    "type": "boolean",
+                    "description": "Login\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the component\n"
+                },
+                "replication": {
+                    "type": "boolean",
+                    "description": "Replication\n"
+                },
+                "superuser": {
+                    "type": "boolean",
+                    "description": "Superuser\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "bypassRls",
+                "connectionLimit",
+                "createDb",
+                "createRole",
+                "inherit",
+                "login",
+                "name",
+                "replication",
+                "superuser"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "pgedge:index/getDatabasesDatabaseTable:getDatabasesDatabaseTable": {
+            "properties": {
+                "columns": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/pgedge:index/getDatabasesDatabaseTableColumn:getDatabasesDatabaseTableColumn"
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the component\n"
+                },
+                "primaryKeys": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Primary key of the table\n"
+                },
+                "replicationSets": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Replication sets of the table\n"
+                },
+                "schema": {
+                    "type": "string",
+                    "description": "Schema of the table\n"
+                },
+                "statuses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/pgedge:index/getDatabasesDatabaseTableStatus:getDatabasesDatabaseTableStatus"
+                    },
+                    "description": "Status of the component\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "columns",
+                "name",
+                "primaryKeys",
+                "replicationSets",
+                "schema",
+                "statuses"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "pgedge:index/getDatabasesDatabaseTableColumn:getDatabasesDatabaseTableColumn": {
+            "properties": {
+                "dataType": {
+                    "type": "string",
+                    "description": "Data type of the column\n"
+                },
+                "default": {
+                    "type": "string",
+                    "description": "Default of the column\n"
+                },
+                "isNullable": {
+                    "type": "boolean",
+                    "description": "Is nullable of the column\n"
+                },
+                "isPrimaryKey": {
+                    "type": "boolean",
+                    "description": "Is primary key of the column\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the component\n"
+                },
+                "ordinalPosition": {
+                    "type": "integer",
+                    "description": "Ordinal position of the column\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "dataType",
+                "default",
+                "isNullable",
+                "isPrimaryKey",
+                "name",
+                "ordinalPosition"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "pgedge:index/getDatabasesDatabaseTableStatus:getDatabasesDatabaseTableStatus": {
+            "properties": {
+                "aligned": {
+                    "type": "boolean",
+                    "description": "Aligned of the table\n"
+                },
+                "nodeName": {
+                    "type": "string",
+                    "description": "Node name of the table\n"
+                },
+                "present": {
+                    "type": "boolean",
+                    "description": "Present of the table\n"
+                },
+                "replicating": {
+                    "type": "boolean",
+                    "description": "Replicating of the table\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "aligned",
+                "nodeName",
+                "present",
+                "replicating"
             ],
             "language": {
                 "nodejs": {
@@ -1089,28 +1094,51 @@
     },
     "resources": {
         "pgedge:index/cluster:Cluster": {
-            "description": "Interface with the pgEdge service API for clusters.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pgedge from \"@pgEdge/pulumi-pgedge\";\n\nconst example = new pgedge.Cluster(\"example\", {\n    cloudAccountId: \"\",\n    firewalls: [{\n        port: 5432,\n        sources: [\"0.0.0.0/0\"],\n        type: \"postgres\",\n    }],\n    nodeGroups: {\n        aws: [{\n            instanceType: \"t4g.small\",\n            region: \"us-west-2\",\n        }],\n    },\n});\n```\n```python\nimport pulumi\nimport pgEdge_pulumi_pgedge as pgedge\n\nexample = pgedge.Cluster(\"example\",\n    cloud_account_id=\"\",\n    firewalls=[pgedge.ClusterFirewallArgs(\n        port=5432,\n        sources=[\"0.0.0.0/0\"],\n        type=\"postgres\",\n    )],\n    node_groups=pgedge.ClusterNodeGroupsArgs(\n        aws=[pgedge.ClusterNodeGroupsAwArgs(\n            instance_type=\"t4g.small\",\n            region=\"us-west-2\",\n        )],\n    ))\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Pgedge = Pgedge.Pgedge;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Pgedge.Cluster(\"example\", new()\n    {\n        CloudAccountId = \"\",\n        Firewalls = new[]\n        {\n            new Pgedge.Inputs.ClusterFirewallArgs\n            {\n                Port = 5432,\n                Sources = new[]\n                {\n                    \"0.0.0.0/0\",\n                },\n                Type = \"postgres\",\n            },\n        },\n        NodeGroups = new Pgedge.Inputs.ClusterNodeGroupsArgs\n        {\n            Aws = new[]\n            {\n                new Pgedge.Inputs.ClusterNodeGroupsAwArgs\n                {\n                    InstanceType = \"t4g.small\",\n                    Region = \"us-west-2\",\n                },\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pgEdge/pulumi-pgedge/sdk/go/pgedge\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := pgedge.NewCluster(ctx, \"example\", \u0026pgedge.ClusterArgs{\n\t\t\tCloudAccountId: pulumi.String(\"\"),\n\t\t\tFirewalls: pgedge.ClusterFirewallArray{\n\t\t\t\t\u0026pgedge.ClusterFirewallArgs{\n\t\t\t\t\tPort: pulumi.Int(5432),\n\t\t\t\t\tSources: pulumi.StringArray{\n\t\t\t\t\t\tpulumi.String(\"0.0.0.0/0\"),\n\t\t\t\t\t},\n\t\t\t\t\tType: pulumi.String(\"postgres\"),\n\t\t\t\t},\n\t\t\t},\n\t\t\tNodeGroups: \u0026pgedge.ClusterNodeGroupsArgs{\n\t\t\t\tAws: pgedge.ClusterNodeGroupsAwArray{\n\t\t\t\t\t\u0026pgedge.ClusterNodeGroupsAwArgs{\n\t\t\t\t\t\tInstanceType: pulumi.String(\"t4g.small\"),\n\t\t\t\t\t\tRegion:       pulumi.String(\"us-west-2\"),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.pgedge.Cluster;\nimport com.pulumi.pgedge.ClusterArgs;\nimport com.pulumi.pgedge.inputs.ClusterFirewallArgs;\nimport com.pulumi.pgedge.inputs.ClusterNodeGroupsArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new Cluster(\"example\", ClusterArgs.builder()        \n            .cloudAccountId(\"\")\n            .firewalls(ClusterFirewallArgs.builder()\n                .port(5432)\n                .sources(\"0.0.0.0/0\")\n                .type(\"postgres\")\n                .build())\n            .nodeGroups(ClusterNodeGroupsArgs.builder()\n                .aws(ClusterNodeGroupsAwArgs.builder()\n                    .instanceType(\"t4g.small\")\n                    .region(\"us-west-2\")\n                    .build())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: pgedge:Cluster\n    properties:\n      cloudAccountId:\n      # your cloud account id\n      firewalls:\n        - port: 5432\n          sources:\n            - 0.0.0.0/0\n          type: postgres\n      nodeGroups:\n        aws:\n          - instanceType: t4g.small\n            region: us-west-2\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "Interface with the pgEdge service API for clusters.\n",
             "properties": {
                 "cloudAccountId": {
                     "type": "string",
-                    "description": "Cloud account ID of the cluster\n"
+                    "description": "ID of the target cloud account\n"
                 },
                 "createdAt": {
                     "type": "string",
-                    "description": "Created at of the cluster\n"
+                    "description": "Creation time of the cluster\n"
                 },
-                "firewalls": {
+                "firewallRules": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/types/pgedge:index/ClusterFirewall:ClusterFirewall"
+                        "$ref": "#/types/pgedge:index/ClusterFirewallRule:ClusterFirewallRule"
                     }
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name of the cluster\n"
+                    "description": "Name of the network\n"
                 },
-                "nodeGroups": {
-                    "$ref": "#/types/pgedge:index/ClusterNodeGroups:ClusterNodeGroups"
+                "networks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/pgedge:index/ClusterNetwork:ClusterNetwork"
+                    }
+                },
+                "nodeLocation": {
+                    "type": "string",
+                    "description": "Network location for nodes (public or private)\n"
+                },
+                "nodes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/pgedge:index/ClusterNode:ClusterNode"
+                    }
+                },
+                "regions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "sshKeyId": {
+                    "type": "string",
+                    "description": "ID of the SSH key to add to the cluster nodes\n"
                 },
                 "status": {
                     "type": "string",
@@ -1121,54 +1149,105 @@
                 "cloudAccountId",
                 "createdAt",
                 "name",
-                "nodeGroups",
+                "networks",
+                "nodeLocation",
+                "nodes",
+                "regions",
+                "sshKeyId",
                 "status"
             ],
             "inputProperties": {
                 "cloudAccountId": {
                     "type": "string",
-                    "description": "Cloud account ID of the cluster\n"
+                    "description": "ID of the target cloud account\n"
                 },
-                "firewalls": {
+                "firewallRules": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/types/pgedge:index/ClusterFirewall:ClusterFirewall"
+                        "$ref": "#/types/pgedge:index/ClusterFirewallRule:ClusterFirewallRule"
                     }
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name of the cluster\n"
+                    "description": "Name of the network\n"
                 },
-                "nodeGroups": {
-                    "$ref": "#/types/pgedge:index/ClusterNodeGroups:ClusterNodeGroups"
+                "networks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/pgedge:index/ClusterNetwork:ClusterNetwork"
+                    }
+                },
+                "nodeLocation": {
+                    "type": "string",
+                    "description": "Network location for nodes (public or private)\n"
+                },
+                "nodes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/pgedge:index/ClusterNode:ClusterNode"
+                    }
+                },
+                "regions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "sshKeyId": {
+                    "type": "string",
+                    "description": "ID of the SSH key to add to the cluster nodes\n"
                 }
             },
             "requiredInputs": [
-                "cloudAccountId"
+                "cloudAccountId",
+                "regions"
             ],
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering Cluster resources.\n",
                 "properties": {
                     "cloudAccountId": {
                         "type": "string",
-                        "description": "Cloud account ID of the cluster\n"
+                        "description": "ID of the target cloud account\n"
                     },
                     "createdAt": {
                         "type": "string",
-                        "description": "Created at of the cluster\n"
+                        "description": "Creation time of the cluster\n"
                     },
-                    "firewalls": {
+                    "firewallRules": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/types/pgedge:index/ClusterFirewall:ClusterFirewall"
+                            "$ref": "#/types/pgedge:index/ClusterFirewallRule:ClusterFirewallRule"
                         }
                     },
                     "name": {
                         "type": "string",
-                        "description": "Name of the cluster\n"
+                        "description": "Name of the network\n"
                     },
-                    "nodeGroups": {
-                        "$ref": "#/types/pgedge:index/ClusterNodeGroups:ClusterNodeGroups"
+                    "networks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/pgedge:index/ClusterNetwork:ClusterNetwork"
+                        }
+                    },
+                    "nodeLocation": {
+                        "type": "string",
+                        "description": "Network location for nodes (public or private)\n"
+                    },
+                    "nodes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/pgedge:index/ClusterNode:ClusterNode"
+                        }
+                    },
+                    "regions": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "sshKeyId": {
+                        "type": "string",
+                        "description": "ID of the SSH key to add to the cluster nodes\n"
                     },
                     "status": {
                         "type": "string",
@@ -1179,11 +1258,15 @@
             }
         },
         "pgedge:index/database:Database": {
-            "description": "Interface with the pgEdge service API.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pgedge from \"@pgEdge/pulumi-pgedge\";\n\nconst example = new pgedge.Database(\"example\", {\n    clusterId: \"\",\n    options: [\"install:northwind\"],\n});\n```\n```python\nimport pulumi\nimport pgEdge_pulumi_pgedge as pgedge\n\nexample = pgedge.Database(\"example\",\n    cluster_id=\"\",\n    options=[\"install:northwind\"])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Pgedge = Pgedge.Pgedge;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Pgedge.Database(\"example\", new()\n    {\n        ClusterId = \"\",\n        Options = new[]\n        {\n            \"install:northwind\",\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pgEdge/pulumi-pgedge/sdk/go/pgedge\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := pgedge.NewDatabase(ctx, \"example\", \u0026pgedge.DatabaseArgs{\n\t\t\tClusterId: pulumi.String(\"\"),\n\t\t\tOptions: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"install:northwind\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.pgedge.Database;\nimport com.pulumi.pgedge.DatabaseArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new Database(\"example\", DatabaseArgs.builder()        \n            .clusterId(\"\")\n            .options(\"install:northwind\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: pgedge:Database\n    properties:\n      clusterId:\n      options:\n        - install:northwind\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "Interface with the pgEdge service API.\n",
             "properties": {
                 "clusterId": {
                     "type": "string",
-                    "description": "Cluster Id of the database\n"
+                    "description": "ID of the cluster to place the database on\n"
+                },
+                "configVersion": {
+                    "type": "string",
+                    "description": "Config version of the database\n"
                 },
                 "createdAt": {
                     "type": "string",
@@ -1195,13 +1278,7 @@
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name of the location\n"
-                },
-                "nodes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/DatabaseNode:DatabaseNode"
-                    }
+                    "description": "Name of the database\n"
                 },
                 "options": {
                     "type": "array",
@@ -1210,9 +1287,17 @@
                     },
                     "description": "Options for creating the database\n"
                 },
+                "pgVersion": {
+                    "type": "string",
+                    "description": "Postgres version of the database\n"
+                },
                 "status": {
                     "type": "string",
                     "description": "Status of the database\n"
+                },
+                "storageUsed": {
+                    "type": "integer",
+                    "description": "Storage used of the database\n"
                 },
                 "updatedAt": {
                     "type": "string",
@@ -1221,22 +1306,28 @@
             },
             "required": [
                 "clusterId",
+                "configVersion",
                 "createdAt",
                 "domain",
                 "name",
-                "nodes",
                 "options",
+                "pgVersion",
                 "status",
+                "storageUsed",
                 "updatedAt"
             ],
             "inputProperties": {
                 "clusterId": {
                     "type": "string",
-                    "description": "Cluster Id of the database\n"
+                    "description": "ID of the cluster to place the database on\n"
+                },
+                "configVersion": {
+                    "type": "string",
+                    "description": "Config version of the database\n"
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name of the location\n"
+                    "description": "Name of the database\n"
                 },
                 "options": {
                     "type": "array",
@@ -1254,7 +1345,11 @@
                 "properties": {
                     "clusterId": {
                         "type": "string",
-                        "description": "Cluster Id of the database\n"
+                        "description": "ID of the cluster to place the database on\n"
+                    },
+                    "configVersion": {
+                        "type": "string",
+                        "description": "Config version of the database\n"
                     },
                     "createdAt": {
                         "type": "string",
@@ -1266,13 +1361,7 @@
                     },
                     "name": {
                         "type": "string",
-                        "description": "Name of the location\n"
-                    },
-                    "nodes": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/types/pgedge:index/DatabaseNode:DatabaseNode"
-                        }
+                        "description": "Name of the database\n"
                     },
                     "options": {
                         "type": "array",
@@ -1281,9 +1370,17 @@
                         },
                         "description": "Options for creating the database\n"
                     },
+                    "pgVersion": {
+                        "type": "string",
+                        "description": "Postgres version of the database\n"
+                    },
                     "status": {
                         "type": "string",
                         "description": "Status of the database\n"
+                    },
+                    "storageUsed": {
+                        "type": "integer",
+                        "description": "Storage used of the database\n"
                     },
                     "updatedAt": {
                         "type": "string",
@@ -1296,7 +1393,7 @@
     },
     "functions": {
         "pgedge:index/getClusters:getClusters": {
-            "description": "Interface with the pgEdge service API for clusters.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pgedge from \"@pulumi/pgedge\";\n\nconst example = pgedge.getClusters({});\n```\n```python\nimport pulumi\nimport pulumi_pgedge as pgedge\n\nexample = pgedge.get_clusters()\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Pgedge = Pulumi.Pgedge;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = Pgedge.GetClusters.Invoke();\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pgEdge/pulumi-pgedge/sdk/go/pgedge\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := pgedge.GetClusters(ctx, nil, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.pgedge.PgedgeFunctions;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var example = PgedgeFunctions.getClusters();\n\n    }\n}\n```\n```yaml\nvariables:\n  example:\n    fn::invoke:\n      Function: pgedge:getClusters\n      Arguments: {}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "Interface with the pgEdge service API for clusters.\n",
             "outputs": {
                 "description": "A collection of values returned by getClusters.\n",
                 "properties": {
@@ -1319,7 +1416,7 @@
             }
         },
         "pgedge:index/getDatabases:getDatabases": {
-            "description": "Interface with the pgEdge service API.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pgedge from \"@pulumi/pgedge\";\n\nconst example = pgedge.getDatabases({});\n```\n```python\nimport pulumi\nimport pulumi_pgedge as pgedge\n\nexample = pgedge.get_databases()\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Pgedge = Pulumi.Pgedge;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = Pgedge.GetDatabases.Invoke();\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pgEdge/pulumi-pgedge/sdk/go/pgedge\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := pgedge.GetDatabases(ctx, nil, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.pgedge.PgedgeFunctions;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var example = PgedgeFunctions.getDatabases();\n\n    }\n}\n```\n```yaml\nvariables:\n  example:\n    fn::invoke:\n      Function: pgedge:getDatabases\n      Arguments: {}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "Interface with the pgEdge service API.\n",
             "outputs": {
                 "description": "A collection of values returned by getDatabases.\n",
                 "properties": {

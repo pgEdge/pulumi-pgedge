@@ -5,242 +5,71 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
-export interface ClusterFirewall {
+export interface ClusterFirewallRule {
     /**
-     * Port for the firewall rule
+     * Port whose traffic is allowed
      */
-    port?: pulumi.Input<number>;
+    port: pulumi.Input<number>;
     /**
-     * Sources for the firewall rule
+     * CIDRs and/or IP addresses allowed
      */
-    sources?: pulumi.Input<pulumi.Input<string>[]>;
-    /**
-     * Type of the firewall rule
-     */
-    type?: pulumi.Input<string>;
+    sources: pulumi.Input<pulumi.Input<string>[]>;
 }
 
-export interface ClusterNodeGroups {
-    aws?: pulumi.Input<pulumi.Input<inputs.ClusterNodeGroupsAw>[]>;
-    azures?: pulumi.Input<pulumi.Input<inputs.ClusterNodeGroupsAzure>[]>;
-    googles?: pulumi.Input<pulumi.Input<inputs.ClusterNodeGroupsGoogle>[]>;
-}
-
-export interface ClusterNodeGroupsAw {
+export interface ClusterNetwork {
     /**
-     * Availability zones of the AWS node group
-     */
-    availabilityZones?: pulumi.Input<pulumi.Input<string>[]>;
-    /**
-     * CIDR of the AWS node group
+     * CIDR range for the network
      */
     cidr?: pulumi.Input<string>;
     /**
-     * Instance type of the AWS node group
+     * Is the network externally defined
      */
-    instanceType?: pulumi.Input<string>;
+    external?: pulumi.Input<boolean>;
     /**
-     * Node location of the AWS node group
+     * ID of the network, if externally defined
      */
-    nodeLocation?: pulumi.Input<string>;
-    nodes?: pulumi.Input<pulumi.Input<inputs.ClusterNodeGroupsAwNode>[]>;
-    privateSubnets?: pulumi.Input<pulumi.Input<string>[]>;
-    publicSubnets?: pulumi.Input<pulumi.Input<string>[]>;
+    externalId?: pulumi.Input<string>;
     /**
-     * Region of the AWS node group
-     */
-    region?: pulumi.Input<string>;
-    /**
-     * Volume IOPS of the AWS node group
-     */
-    volumeIops?: pulumi.Input<number>;
-    /**
-     * Volume size of the AWS node group
-     */
-    volumeSize?: pulumi.Input<number>;
-    /**
-     * Volume type of the AWS node group
-     */
-    volumeType?: pulumi.Input<string>;
-}
-
-export interface ClusterNodeGroupsAwNode {
-    /**
-     * Display name of the node
-     */
-    displayName?: pulumi.Input<string>;
-    /**
-     * IP address of the node
-     */
-    ipAddress?: pulumi.Input<string>;
-    /**
-     * Is the node active
-     */
-    isActive?: pulumi.Input<boolean>;
-}
-
-export interface ClusterNodeGroupsAzure {
-    /**
-     * Availability zones of the AWS node group
-     */
-    availabilityZones?: pulumi.Input<pulumi.Input<string>[]>;
-    /**
-     * CIDR of the AWS node group
-     */
-    cidr?: pulumi.Input<string>;
-    /**
-     * Instance type of the AWS node group
-     */
-    instanceType?: pulumi.Input<string>;
-    /**
-     * Node location of the AWS node group
-     */
-    nodeLocation?: pulumi.Input<string>;
-    nodes?: pulumi.Input<pulumi.Input<inputs.ClusterNodeGroupsAzureNode>[]>;
-    privateSubnets?: pulumi.Input<pulumi.Input<string>[]>;
-    publicSubnets?: pulumi.Input<pulumi.Input<string>[]>;
-    /**
-     * Region of the AWS node group
-     */
-    region?: pulumi.Input<string>;
-    /**
-     * Volume IOPS of the AWS node group
-     */
-    volumeIops?: pulumi.Input<number>;
-    /**
-     * Volume size of the AWS node group
-     */
-    volumeSize?: pulumi.Input<number>;
-    /**
-     * Volume type of the AWS node group
-     */
-    volumeType?: pulumi.Input<string>;
-}
-
-export interface ClusterNodeGroupsAzureNode {
-    /**
-     * Display name of the node
-     */
-    displayName?: pulumi.Input<string>;
-    /**
-     * IP address of the node
-     */
-    ipAddress?: pulumi.Input<string>;
-    /**
-     * Is the node active
-     */
-    isActive?: pulumi.Input<boolean>;
-}
-
-export interface ClusterNodeGroupsGoogle {
-    /**
-     * Availability zones of the AWS node group
-     */
-    availabilityZones?: pulumi.Input<pulumi.Input<string>[]>;
-    /**
-     * CIDR of the AWS node group
-     */
-    cidr?: pulumi.Input<string>;
-    /**
-     * Instance type of the AWS node group
-     */
-    instanceType?: pulumi.Input<string>;
-    /**
-     * Node location of the AWS node group
-     */
-    nodeLocation?: pulumi.Input<string>;
-    nodes?: pulumi.Input<pulumi.Input<inputs.ClusterNodeGroupsGoogleNode>[]>;
-    privateSubnets?: pulumi.Input<pulumi.Input<string>[]>;
-    publicSubnets?: pulumi.Input<pulumi.Input<string>[]>;
-    /**
-     * Region of the AWS node group
-     */
-    region?: pulumi.Input<string>;
-    /**
-     * Volume IOPS of the AWS node group
-     */
-    volumeIops?: pulumi.Input<number>;
-    /**
-     * Volume size of the AWS node group
-     */
-    volumeSize?: pulumi.Input<number>;
-    /**
-     * Volume type of the AWS node group
-     */
-    volumeType?: pulumi.Input<string>;
-}
-
-export interface ClusterNodeGroupsGoogleNode {
-    /**
-     * Display name of the node
-     */
-    displayName?: pulumi.Input<string>;
-    /**
-     * IP address of the node
-     */
-    ipAddress?: pulumi.Input<string>;
-    /**
-     * Is the node active
-     */
-    isActive?: pulumi.Input<boolean>;
-}
-
-export interface DatabaseNode {
-    connection?: pulumi.Input<inputs.DatabaseNodeConnection>;
-    location?: pulumi.Input<inputs.DatabaseNodeLocation>;
-    /**
-     * Name of the node
+     * Name of the network
      */
     name?: pulumi.Input<string>;
+    privateSubnets?: pulumi.Input<pulumi.Input<string>[]>;
+    publicSubnets?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Region of the network
+     */
+    region: pulumi.Input<string>;
 }
 
-export interface DatabaseNodeConnection {
+export interface ClusterNode {
     /**
-     * Database of the node
+     * Cloud provider availability zone name
      */
-    database?: pulumi.Input<string>;
+    availabilityZone?: pulumi.Input<string>;
     /**
-     * Host of the node
+     * Instance type used for the node
      */
-    host?: pulumi.Input<string>;
+    instanceType?: pulumi.Input<string>;
     /**
-     * Password of the node
-     */
-    password?: pulumi.Input<string>;
-    /**
-     * Port of the node
-     */
-    port?: pulumi.Input<number>;
-    /**
-     * Username of the node
-     */
-    username?: pulumi.Input<string>;
-}
-
-export interface DatabaseNodeLocation {
-    /**
-     * Code of the location
-     */
-    code?: pulumi.Input<string>;
-    /**
-     * Country of the location
-     */
-    country?: pulumi.Input<string>;
-    /**
-     * Latitude of the location
-     */
-    latitude?: pulumi.Input<number>;
-    /**
-     * Longitude of the location
-     */
-    longitude?: pulumi.Input<number>;
-    /**
-     * Name of the location
+     * Node name
      */
     name?: pulumi.Input<string>;
+    options?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Region of the location
+     * Cloud provider region
      */
-    region?: pulumi.Input<string>;
+    region: pulumi.Input<string>;
+    /**
+     * Volume IOPS of the node data volume
+     */
+    volumeIops?: pulumi.Input<number>;
+    /**
+     * Volume size of the node data volume
+     */
+    volumeSize?: pulumi.Input<number>;
+    /**
+     * Volume type of the node data volume
+     */
+    volumeType?: pulumi.Input<string>;
 }
 

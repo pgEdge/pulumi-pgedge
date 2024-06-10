@@ -14,6 +14,7 @@ namespace Pgedge.Pgedge.Outputs
     [OutputType]
     public sealed class GetClustersClusterResult
     {
+        public readonly Outputs.GetClustersClusterCloudAccountResult CloudAccount;
         /// <summary>
         /// Cloud account ID of the cluster
         /// </summary>
@@ -22,7 +23,7 @@ namespace Pgedge.Pgedge.Outputs
         /// Created at of the cluster
         /// </summary>
         public readonly string CreatedAt;
-        public readonly ImmutableArray<Outputs.GetClustersClusterFirewallResult> Firewalls;
+        public readonly ImmutableArray<Outputs.GetClustersClusterFirewallRuleResult> FirewallRules;
         /// <summary>
         /// ID of the cluster
         /// </summary>
@@ -31,7 +32,17 @@ namespace Pgedge.Pgedge.Outputs
         /// Name of the cluster
         /// </summary>
         public readonly string Name;
-        public readonly Outputs.GetClustersClusterNodeGroupsResult NodeGroups;
+        public readonly ImmutableArray<Outputs.GetClustersClusterNetworkResult> Networks;
+        /// <summary>
+        /// Node location of the cluster
+        /// </summary>
+        public readonly string NodeLocation;
+        public readonly ImmutableArray<Outputs.GetClustersClusterNodeResult> Nodes;
+        public readonly ImmutableArray<string> Regions;
+        /// <summary>
+        /// SSH key ID of the cluster
+        /// </summary>
+        public readonly string SshKeyId;
         /// <summary>
         /// Status of the cluster
         /// </summary>
@@ -39,26 +50,41 @@ namespace Pgedge.Pgedge.Outputs
 
         [OutputConstructor]
         private GetClustersClusterResult(
+            Outputs.GetClustersClusterCloudAccountResult cloudAccount,
+
             string cloudAccountId,
 
             string createdAt,
 
-            ImmutableArray<Outputs.GetClustersClusterFirewallResult> firewalls,
+            ImmutableArray<Outputs.GetClustersClusterFirewallRuleResult> firewallRules,
 
             string id,
 
             string name,
 
-            Outputs.GetClustersClusterNodeGroupsResult nodeGroups,
+            ImmutableArray<Outputs.GetClustersClusterNetworkResult> networks,
+
+            string nodeLocation,
+
+            ImmutableArray<Outputs.GetClustersClusterNodeResult> nodes,
+
+            ImmutableArray<string> regions,
+
+            string sshKeyId,
 
             string status)
         {
+            CloudAccount = cloudAccount;
             CloudAccountId = cloudAccountId;
             CreatedAt = createdAt;
-            Firewalls = firewalls;
+            FirewallRules = firewallRules;
             Id = id;
             Name = name;
-            NodeGroups = nodeGroups;
+            Networks = networks;
+            NodeLocation = nodeLocation;
+            Nodes = nodes;
+            Regions = regions;
+            SshKeyId = sshKeyId;
             Status = status;
         }
     }

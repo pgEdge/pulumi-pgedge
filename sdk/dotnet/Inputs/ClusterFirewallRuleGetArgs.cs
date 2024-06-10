@@ -11,19 +11,19 @@ using Pulumi;
 namespace Pgedge.Pgedge.Inputs
 {
 
-    public sealed class ClusterFirewallArgs : global::Pulumi.ResourceArgs
+    public sealed class ClusterFirewallRuleGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Port for the firewall rule
+        /// Port whose traffic is allowed
         /// </summary>
-        [Input("port")]
-        public Input<int>? Port { get; set; }
+        [Input("port", required: true)]
+        public Input<int> Port { get; set; } = null!;
 
-        [Input("sources")]
+        [Input("sources", required: true)]
         private InputList<string>? _sources;
 
         /// <summary>
-        /// Sources for the firewall rule
+        /// CIDRs and/or IP addresses allowed
         /// </summary>
         public InputList<string> Sources
         {
@@ -31,15 +31,9 @@ namespace Pgedge.Pgedge.Inputs
             set => _sources = value;
         }
 
-        /// <summary>
-        /// Type of the firewall rule
-        /// </summary>
-        [Input("type")]
-        public Input<string>? Type { get; set; }
-
-        public ClusterFirewallArgs()
+        public ClusterFirewallRuleGetArgs()
         {
         }
-        public static new ClusterFirewallArgs Empty => new ClusterFirewallArgs();
+        public static new ClusterFirewallRuleGetArgs Empty => new ClusterFirewallRuleGetArgs();
     }
 }

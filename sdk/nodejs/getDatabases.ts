@@ -8,15 +8,6 @@ import * as utilities from "./utilities";
 
 /**
  * Interface with the pgEdge service API.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as pgedge from "@pulumi/pgedge";
- *
- * const example = pgedge.getDatabases({});
- * ```
  */
 export function getDatabases(opts?: pulumi.InvokeOptions): Promise<GetDatabasesResult> {
 
@@ -37,15 +28,6 @@ export interface GetDatabasesResult {
 }
 /**
  * Interface with the pgEdge service API.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as pgedge from "@pulumi/pgedge";
- *
- * const example = pgedge.getDatabases({});
- * ```
  */
 export function getDatabasesOutput(opts?: pulumi.InvokeOptions): pulumi.Output<GetDatabasesResult> {
     return pulumi.output(getDatabases(opts))

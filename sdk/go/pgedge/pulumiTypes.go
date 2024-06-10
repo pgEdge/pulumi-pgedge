@@ -13,1728 +13,432 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
-type ClusterFirewall struct {
-	// Port for the firewall rule
-	Port *int `pulumi:"port"`
-	// Sources for the firewall rule
+type ClusterFirewallRule struct {
+	// Port whose traffic is allowed
+	Port int `pulumi:"port"`
+	// CIDRs and/or IP addresses allowed
 	Sources []string `pulumi:"sources"`
-	// Type of the firewall rule
-	Type *string `pulumi:"type"`
 }
 
-// ClusterFirewallInput is an input type that accepts ClusterFirewallArgs and ClusterFirewallOutput values.
-// You can construct a concrete instance of `ClusterFirewallInput` via:
+// ClusterFirewallRuleInput is an input type that accepts ClusterFirewallRuleArgs and ClusterFirewallRuleOutput values.
+// You can construct a concrete instance of `ClusterFirewallRuleInput` via:
 //
-//	ClusterFirewallArgs{...}
-type ClusterFirewallInput interface {
+//	ClusterFirewallRuleArgs{...}
+type ClusterFirewallRuleInput interface {
 	pulumi.Input
 
-	ToClusterFirewallOutput() ClusterFirewallOutput
-	ToClusterFirewallOutputWithContext(context.Context) ClusterFirewallOutput
+	ToClusterFirewallRuleOutput() ClusterFirewallRuleOutput
+	ToClusterFirewallRuleOutputWithContext(context.Context) ClusterFirewallRuleOutput
 }
 
-type ClusterFirewallArgs struct {
-	// Port for the firewall rule
-	Port pulumi.IntPtrInput `pulumi:"port"`
-	// Sources for the firewall rule
+type ClusterFirewallRuleArgs struct {
+	// Port whose traffic is allowed
+	Port pulumi.IntInput `pulumi:"port"`
+	// CIDRs and/or IP addresses allowed
 	Sources pulumi.StringArrayInput `pulumi:"sources"`
-	// Type of the firewall rule
-	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
-func (ClusterFirewallArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterFirewall)(nil)).Elem()
+func (ClusterFirewallRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterFirewallRule)(nil)).Elem()
 }
 
-func (i ClusterFirewallArgs) ToClusterFirewallOutput() ClusterFirewallOutput {
-	return i.ToClusterFirewallOutputWithContext(context.Background())
+func (i ClusterFirewallRuleArgs) ToClusterFirewallRuleOutput() ClusterFirewallRuleOutput {
+	return i.ToClusterFirewallRuleOutputWithContext(context.Background())
 }
 
-func (i ClusterFirewallArgs) ToClusterFirewallOutputWithContext(ctx context.Context) ClusterFirewallOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterFirewallOutput)
+func (i ClusterFirewallRuleArgs) ToClusterFirewallRuleOutputWithContext(ctx context.Context) ClusterFirewallRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterFirewallRuleOutput)
 }
 
-// ClusterFirewallArrayInput is an input type that accepts ClusterFirewallArray and ClusterFirewallArrayOutput values.
-// You can construct a concrete instance of `ClusterFirewallArrayInput` via:
+// ClusterFirewallRuleArrayInput is an input type that accepts ClusterFirewallRuleArray and ClusterFirewallRuleArrayOutput values.
+// You can construct a concrete instance of `ClusterFirewallRuleArrayInput` via:
 //
-//	ClusterFirewallArray{ ClusterFirewallArgs{...} }
-type ClusterFirewallArrayInput interface {
+//	ClusterFirewallRuleArray{ ClusterFirewallRuleArgs{...} }
+type ClusterFirewallRuleArrayInput interface {
 	pulumi.Input
 
-	ToClusterFirewallArrayOutput() ClusterFirewallArrayOutput
-	ToClusterFirewallArrayOutputWithContext(context.Context) ClusterFirewallArrayOutput
+	ToClusterFirewallRuleArrayOutput() ClusterFirewallRuleArrayOutput
+	ToClusterFirewallRuleArrayOutputWithContext(context.Context) ClusterFirewallRuleArrayOutput
 }
 
-type ClusterFirewallArray []ClusterFirewallInput
+type ClusterFirewallRuleArray []ClusterFirewallRuleInput
 
-func (ClusterFirewallArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterFirewall)(nil)).Elem()
+func (ClusterFirewallRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterFirewallRule)(nil)).Elem()
 }
 
-func (i ClusterFirewallArray) ToClusterFirewallArrayOutput() ClusterFirewallArrayOutput {
-	return i.ToClusterFirewallArrayOutputWithContext(context.Background())
+func (i ClusterFirewallRuleArray) ToClusterFirewallRuleArrayOutput() ClusterFirewallRuleArrayOutput {
+	return i.ToClusterFirewallRuleArrayOutputWithContext(context.Background())
 }
 
-func (i ClusterFirewallArray) ToClusterFirewallArrayOutputWithContext(ctx context.Context) ClusterFirewallArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterFirewallArrayOutput)
+func (i ClusterFirewallRuleArray) ToClusterFirewallRuleArrayOutputWithContext(ctx context.Context) ClusterFirewallRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterFirewallRuleArrayOutput)
 }
 
-type ClusterFirewallOutput struct{ *pulumi.OutputState }
+type ClusterFirewallRuleOutput struct{ *pulumi.OutputState }
 
-func (ClusterFirewallOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterFirewall)(nil)).Elem()
+func (ClusterFirewallRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterFirewallRule)(nil)).Elem()
 }
 
-func (o ClusterFirewallOutput) ToClusterFirewallOutput() ClusterFirewallOutput {
+func (o ClusterFirewallRuleOutput) ToClusterFirewallRuleOutput() ClusterFirewallRuleOutput {
 	return o
 }
 
-func (o ClusterFirewallOutput) ToClusterFirewallOutputWithContext(ctx context.Context) ClusterFirewallOutput {
+func (o ClusterFirewallRuleOutput) ToClusterFirewallRuleOutputWithContext(ctx context.Context) ClusterFirewallRuleOutput {
 	return o
 }
 
-// Port for the firewall rule
-func (o ClusterFirewallOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterFirewall) *int { return v.Port }).(pulumi.IntPtrOutput)
+// Port whose traffic is allowed
+func (o ClusterFirewallRuleOutput) Port() pulumi.IntOutput {
+	return o.ApplyT(func(v ClusterFirewallRule) int { return v.Port }).(pulumi.IntOutput)
 }
 
-// Sources for the firewall rule
-func (o ClusterFirewallOutput) Sources() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v ClusterFirewall) []string { return v.Sources }).(pulumi.StringArrayOutput)
+// CIDRs and/or IP addresses allowed
+func (o ClusterFirewallRuleOutput) Sources() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ClusterFirewallRule) []string { return v.Sources }).(pulumi.StringArrayOutput)
 }
 
-// Type of the firewall rule
-func (o ClusterFirewallOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterFirewall) *string { return v.Type }).(pulumi.StringPtrOutput)
+type ClusterFirewallRuleArrayOutput struct{ *pulumi.OutputState }
+
+func (ClusterFirewallRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterFirewallRule)(nil)).Elem()
 }
 
-type ClusterFirewallArrayOutput struct{ *pulumi.OutputState }
-
-func (ClusterFirewallArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterFirewall)(nil)).Elem()
-}
-
-func (o ClusterFirewallArrayOutput) ToClusterFirewallArrayOutput() ClusterFirewallArrayOutput {
+func (o ClusterFirewallRuleArrayOutput) ToClusterFirewallRuleArrayOutput() ClusterFirewallRuleArrayOutput {
 	return o
 }
 
-func (o ClusterFirewallArrayOutput) ToClusterFirewallArrayOutputWithContext(ctx context.Context) ClusterFirewallArrayOutput {
+func (o ClusterFirewallRuleArrayOutput) ToClusterFirewallRuleArrayOutputWithContext(ctx context.Context) ClusterFirewallRuleArrayOutput {
 	return o
 }
 
-func (o ClusterFirewallArrayOutput) Index(i pulumi.IntInput) ClusterFirewallOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterFirewall {
-		return vs[0].([]ClusterFirewall)[vs[1].(int)]
-	}).(ClusterFirewallOutput)
+func (o ClusterFirewallRuleArrayOutput) Index(i pulumi.IntInput) ClusterFirewallRuleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterFirewallRule {
+		return vs[0].([]ClusterFirewallRule)[vs[1].(int)]
+	}).(ClusterFirewallRuleOutput)
 }
 
-type ClusterNodeGroups struct {
-	Aws     []ClusterNodeGroupsAw     `pulumi:"aws"`
-	Azures  []ClusterNodeGroupsAzure  `pulumi:"azures"`
-	Googles []ClusterNodeGroupsGoogle `pulumi:"googles"`
-}
-
-// ClusterNodeGroupsInput is an input type that accepts ClusterNodeGroupsArgs and ClusterNodeGroupsOutput values.
-// You can construct a concrete instance of `ClusterNodeGroupsInput` via:
-//
-//	ClusterNodeGroupsArgs{...}
-type ClusterNodeGroupsInput interface {
-	pulumi.Input
-
-	ToClusterNodeGroupsOutput() ClusterNodeGroupsOutput
-	ToClusterNodeGroupsOutputWithContext(context.Context) ClusterNodeGroupsOutput
-}
-
-type ClusterNodeGroupsArgs struct {
-	Aws     ClusterNodeGroupsAwArrayInput     `pulumi:"aws"`
-	Azures  ClusterNodeGroupsAzureArrayInput  `pulumi:"azures"`
-	Googles ClusterNodeGroupsGoogleArrayInput `pulumi:"googles"`
-}
-
-func (ClusterNodeGroupsArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeGroups)(nil)).Elem()
-}
-
-func (i ClusterNodeGroupsArgs) ToClusterNodeGroupsOutput() ClusterNodeGroupsOutput {
-	return i.ToClusterNodeGroupsOutputWithContext(context.Background())
-}
-
-func (i ClusterNodeGroupsArgs) ToClusterNodeGroupsOutputWithContext(ctx context.Context) ClusterNodeGroupsOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeGroupsOutput)
-}
-
-func (i ClusterNodeGroupsArgs) ToClusterNodeGroupsPtrOutput() ClusterNodeGroupsPtrOutput {
-	return i.ToClusterNodeGroupsPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterNodeGroupsArgs) ToClusterNodeGroupsPtrOutputWithContext(ctx context.Context) ClusterNodeGroupsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeGroupsOutput).ToClusterNodeGroupsPtrOutputWithContext(ctx)
-}
-
-// ClusterNodeGroupsPtrInput is an input type that accepts ClusterNodeGroupsArgs, ClusterNodeGroupsPtr and ClusterNodeGroupsPtrOutput values.
-// You can construct a concrete instance of `ClusterNodeGroupsPtrInput` via:
-//
-//	        ClusterNodeGroupsArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterNodeGroupsPtrInput interface {
-	pulumi.Input
-
-	ToClusterNodeGroupsPtrOutput() ClusterNodeGroupsPtrOutput
-	ToClusterNodeGroupsPtrOutputWithContext(context.Context) ClusterNodeGroupsPtrOutput
-}
-
-type clusterNodeGroupsPtrType ClusterNodeGroupsArgs
-
-func ClusterNodeGroupsPtr(v *ClusterNodeGroupsArgs) ClusterNodeGroupsPtrInput {
-	return (*clusterNodeGroupsPtrType)(v)
-}
-
-func (*clusterNodeGroupsPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterNodeGroups)(nil)).Elem()
-}
-
-func (i *clusterNodeGroupsPtrType) ToClusterNodeGroupsPtrOutput() ClusterNodeGroupsPtrOutput {
-	return i.ToClusterNodeGroupsPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterNodeGroupsPtrType) ToClusterNodeGroupsPtrOutputWithContext(ctx context.Context) ClusterNodeGroupsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeGroupsPtrOutput)
-}
-
-type ClusterNodeGroupsOutput struct{ *pulumi.OutputState }
-
-func (ClusterNodeGroupsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeGroups)(nil)).Elem()
-}
-
-func (o ClusterNodeGroupsOutput) ToClusterNodeGroupsOutput() ClusterNodeGroupsOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsOutput) ToClusterNodeGroupsOutputWithContext(ctx context.Context) ClusterNodeGroupsOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsOutput) ToClusterNodeGroupsPtrOutput() ClusterNodeGroupsPtrOutput {
-	return o.ToClusterNodeGroupsPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterNodeGroupsOutput) ToClusterNodeGroupsPtrOutputWithContext(ctx context.Context) ClusterNodeGroupsPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterNodeGroups) *ClusterNodeGroups {
-		return &v
-	}).(ClusterNodeGroupsPtrOutput)
-}
-
-func (o ClusterNodeGroupsOutput) Aws() ClusterNodeGroupsAwArrayOutput {
-	return o.ApplyT(func(v ClusterNodeGroups) []ClusterNodeGroupsAw { return v.Aws }).(ClusterNodeGroupsAwArrayOutput)
-}
-
-func (o ClusterNodeGroupsOutput) Azures() ClusterNodeGroupsAzureArrayOutput {
-	return o.ApplyT(func(v ClusterNodeGroups) []ClusterNodeGroupsAzure { return v.Azures }).(ClusterNodeGroupsAzureArrayOutput)
-}
-
-func (o ClusterNodeGroupsOutput) Googles() ClusterNodeGroupsGoogleArrayOutput {
-	return o.ApplyT(func(v ClusterNodeGroups) []ClusterNodeGroupsGoogle { return v.Googles }).(ClusterNodeGroupsGoogleArrayOutput)
-}
-
-type ClusterNodeGroupsPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterNodeGroupsPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterNodeGroups)(nil)).Elem()
-}
-
-func (o ClusterNodeGroupsPtrOutput) ToClusterNodeGroupsPtrOutput() ClusterNodeGroupsPtrOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsPtrOutput) ToClusterNodeGroupsPtrOutputWithContext(ctx context.Context) ClusterNodeGroupsPtrOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsPtrOutput) Elem() ClusterNodeGroupsOutput {
-	return o.ApplyT(func(v *ClusterNodeGroups) ClusterNodeGroups {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterNodeGroups
-		return ret
-	}).(ClusterNodeGroupsOutput)
-}
-
-func (o ClusterNodeGroupsPtrOutput) Aws() ClusterNodeGroupsAwArrayOutput {
-	return o.ApplyT(func(v *ClusterNodeGroups) []ClusterNodeGroupsAw {
-		if v == nil {
-			return nil
-		}
-		return v.Aws
-	}).(ClusterNodeGroupsAwArrayOutput)
-}
-
-func (o ClusterNodeGroupsPtrOutput) Azures() ClusterNodeGroupsAzureArrayOutput {
-	return o.ApplyT(func(v *ClusterNodeGroups) []ClusterNodeGroupsAzure {
-		if v == nil {
-			return nil
-		}
-		return v.Azures
-	}).(ClusterNodeGroupsAzureArrayOutput)
-}
-
-func (o ClusterNodeGroupsPtrOutput) Googles() ClusterNodeGroupsGoogleArrayOutput {
-	return o.ApplyT(func(v *ClusterNodeGroups) []ClusterNodeGroupsGoogle {
-		if v == nil {
-			return nil
-		}
-		return v.Googles
-	}).(ClusterNodeGroupsGoogleArrayOutput)
-}
-
-type ClusterNodeGroupsAw struct {
-	// Availability zones of the AWS node group
-	AvailabilityZones []string `pulumi:"availabilityZones"`
-	// CIDR of the AWS node group
+type ClusterNetwork struct {
+	// CIDR range for the network
 	Cidr *string `pulumi:"cidr"`
-	// Instance type of the AWS node group
+	// Is the network externally defined
+	External *bool `pulumi:"external"`
+	// ID of the network, if externally defined
+	ExternalId *string `pulumi:"externalId"`
+	// Name of the network
+	Name           *string  `pulumi:"name"`
+	PrivateSubnets []string `pulumi:"privateSubnets"`
+	PublicSubnets  []string `pulumi:"publicSubnets"`
+	// Region of the network
+	Region string `pulumi:"region"`
+}
+
+// ClusterNetworkInput is an input type that accepts ClusterNetworkArgs and ClusterNetworkOutput values.
+// You can construct a concrete instance of `ClusterNetworkInput` via:
+//
+//	ClusterNetworkArgs{...}
+type ClusterNetworkInput interface {
+	pulumi.Input
+
+	ToClusterNetworkOutput() ClusterNetworkOutput
+	ToClusterNetworkOutputWithContext(context.Context) ClusterNetworkOutput
+}
+
+type ClusterNetworkArgs struct {
+	// CIDR range for the network
+	Cidr pulumi.StringPtrInput `pulumi:"cidr"`
+	// Is the network externally defined
+	External pulumi.BoolPtrInput `pulumi:"external"`
+	// ID of the network, if externally defined
+	ExternalId pulumi.StringPtrInput `pulumi:"externalId"`
+	// Name of the network
+	Name           pulumi.StringPtrInput   `pulumi:"name"`
+	PrivateSubnets pulumi.StringArrayInput `pulumi:"privateSubnets"`
+	PublicSubnets  pulumi.StringArrayInput `pulumi:"publicSubnets"`
+	// Region of the network
+	Region pulumi.StringInput `pulumi:"region"`
+}
+
+func (ClusterNetworkArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterNetwork)(nil)).Elem()
+}
+
+func (i ClusterNetworkArgs) ToClusterNetworkOutput() ClusterNetworkOutput {
+	return i.ToClusterNetworkOutputWithContext(context.Background())
+}
+
+func (i ClusterNetworkArgs) ToClusterNetworkOutputWithContext(ctx context.Context) ClusterNetworkOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterNetworkOutput)
+}
+
+// ClusterNetworkArrayInput is an input type that accepts ClusterNetworkArray and ClusterNetworkArrayOutput values.
+// You can construct a concrete instance of `ClusterNetworkArrayInput` via:
+//
+//	ClusterNetworkArray{ ClusterNetworkArgs{...} }
+type ClusterNetworkArrayInput interface {
+	pulumi.Input
+
+	ToClusterNetworkArrayOutput() ClusterNetworkArrayOutput
+	ToClusterNetworkArrayOutputWithContext(context.Context) ClusterNetworkArrayOutput
+}
+
+type ClusterNetworkArray []ClusterNetworkInput
+
+func (ClusterNetworkArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterNetwork)(nil)).Elem()
+}
+
+func (i ClusterNetworkArray) ToClusterNetworkArrayOutput() ClusterNetworkArrayOutput {
+	return i.ToClusterNetworkArrayOutputWithContext(context.Background())
+}
+
+func (i ClusterNetworkArray) ToClusterNetworkArrayOutputWithContext(ctx context.Context) ClusterNetworkArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterNetworkArrayOutput)
+}
+
+type ClusterNetworkOutput struct{ *pulumi.OutputState }
+
+func (ClusterNetworkOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterNetwork)(nil)).Elem()
+}
+
+func (o ClusterNetworkOutput) ToClusterNetworkOutput() ClusterNetworkOutput {
+	return o
+}
+
+func (o ClusterNetworkOutput) ToClusterNetworkOutputWithContext(ctx context.Context) ClusterNetworkOutput {
+	return o
+}
+
+// CIDR range for the network
+func (o ClusterNetworkOutput) Cidr() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterNetwork) *string { return v.Cidr }).(pulumi.StringPtrOutput)
+}
+
+// Is the network externally defined
+func (o ClusterNetworkOutput) External() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ClusterNetwork) *bool { return v.External }).(pulumi.BoolPtrOutput)
+}
+
+// ID of the network, if externally defined
+func (o ClusterNetworkOutput) ExternalId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterNetwork) *string { return v.ExternalId }).(pulumi.StringPtrOutput)
+}
+
+// Name of the network
+func (o ClusterNetworkOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterNetwork) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterNetworkOutput) PrivateSubnets() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ClusterNetwork) []string { return v.PrivateSubnets }).(pulumi.StringArrayOutput)
+}
+
+func (o ClusterNetworkOutput) PublicSubnets() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ClusterNetwork) []string { return v.PublicSubnets }).(pulumi.StringArrayOutput)
+}
+
+// Region of the network
+func (o ClusterNetworkOutput) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v ClusterNetwork) string { return v.Region }).(pulumi.StringOutput)
+}
+
+type ClusterNetworkArrayOutput struct{ *pulumi.OutputState }
+
+func (ClusterNetworkArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterNetwork)(nil)).Elem()
+}
+
+func (o ClusterNetworkArrayOutput) ToClusterNetworkArrayOutput() ClusterNetworkArrayOutput {
+	return o
+}
+
+func (o ClusterNetworkArrayOutput) ToClusterNetworkArrayOutputWithContext(ctx context.Context) ClusterNetworkArrayOutput {
+	return o
+}
+
+func (o ClusterNetworkArrayOutput) Index(i pulumi.IntInput) ClusterNetworkOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterNetwork {
+		return vs[0].([]ClusterNetwork)[vs[1].(int)]
+	}).(ClusterNetworkOutput)
+}
+
+type ClusterNode struct {
+	// Cloud provider availability zone name
+	AvailabilityZone *string `pulumi:"availabilityZone"`
+	// Instance type used for the node
 	InstanceType *string `pulumi:"instanceType"`
-	// Node location of the AWS node group
-	NodeLocation   *string                   `pulumi:"nodeLocation"`
-	Nodes          []ClusterNodeGroupsAwNode `pulumi:"nodes"`
-	PrivateSubnets []string                  `pulumi:"privateSubnets"`
-	PublicSubnets  []string                  `pulumi:"publicSubnets"`
-	// Region of the AWS node group
-	Region *string `pulumi:"region"`
-	// Volume IOPS of the AWS node group
+	// Node name
+	Name    *string  `pulumi:"name"`
+	Options []string `pulumi:"options"`
+	// Cloud provider region
+	Region string `pulumi:"region"`
+	// Volume IOPS of the node data volume
 	VolumeIops *int `pulumi:"volumeIops"`
-	// Volume size of the AWS node group
+	// Volume size of the node data volume
 	VolumeSize *int `pulumi:"volumeSize"`
-	// Volume type of the AWS node group
+	// Volume type of the node data volume
 	VolumeType *string `pulumi:"volumeType"`
 }
 
-// ClusterNodeGroupsAwInput is an input type that accepts ClusterNodeGroupsAwArgs and ClusterNodeGroupsAwOutput values.
-// You can construct a concrete instance of `ClusterNodeGroupsAwInput` via:
+// ClusterNodeInput is an input type that accepts ClusterNodeArgs and ClusterNodeOutput values.
+// You can construct a concrete instance of `ClusterNodeInput` via:
 //
-//	ClusterNodeGroupsAwArgs{...}
-type ClusterNodeGroupsAwInput interface {
+//	ClusterNodeArgs{...}
+type ClusterNodeInput interface {
 	pulumi.Input
 
-	ToClusterNodeGroupsAwOutput() ClusterNodeGroupsAwOutput
-	ToClusterNodeGroupsAwOutputWithContext(context.Context) ClusterNodeGroupsAwOutput
+	ToClusterNodeOutput() ClusterNodeOutput
+	ToClusterNodeOutputWithContext(context.Context) ClusterNodeOutput
 }
 
-type ClusterNodeGroupsAwArgs struct {
-	// Availability zones of the AWS node group
-	AvailabilityZones pulumi.StringArrayInput `pulumi:"availabilityZones"`
-	// CIDR of the AWS node group
-	Cidr pulumi.StringPtrInput `pulumi:"cidr"`
-	// Instance type of the AWS node group
+type ClusterNodeArgs struct {
+	// Cloud provider availability zone name
+	AvailabilityZone pulumi.StringPtrInput `pulumi:"availabilityZone"`
+	// Instance type used for the node
 	InstanceType pulumi.StringPtrInput `pulumi:"instanceType"`
-	// Node location of the AWS node group
-	NodeLocation   pulumi.StringPtrInput             `pulumi:"nodeLocation"`
-	Nodes          ClusterNodeGroupsAwNodeArrayInput `pulumi:"nodes"`
-	PrivateSubnets pulumi.StringArrayInput           `pulumi:"privateSubnets"`
-	PublicSubnets  pulumi.StringArrayInput           `pulumi:"publicSubnets"`
-	// Region of the AWS node group
-	Region pulumi.StringPtrInput `pulumi:"region"`
-	// Volume IOPS of the AWS node group
+	// Node name
+	Name    pulumi.StringPtrInput   `pulumi:"name"`
+	Options pulumi.StringArrayInput `pulumi:"options"`
+	// Cloud provider region
+	Region pulumi.StringInput `pulumi:"region"`
+	// Volume IOPS of the node data volume
 	VolumeIops pulumi.IntPtrInput `pulumi:"volumeIops"`
-	// Volume size of the AWS node group
+	// Volume size of the node data volume
 	VolumeSize pulumi.IntPtrInput `pulumi:"volumeSize"`
-	// Volume type of the AWS node group
+	// Volume type of the node data volume
 	VolumeType pulumi.StringPtrInput `pulumi:"volumeType"`
 }
 
-func (ClusterNodeGroupsAwArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeGroupsAw)(nil)).Elem()
+func (ClusterNodeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterNode)(nil)).Elem()
 }
 
-func (i ClusterNodeGroupsAwArgs) ToClusterNodeGroupsAwOutput() ClusterNodeGroupsAwOutput {
-	return i.ToClusterNodeGroupsAwOutputWithContext(context.Background())
+func (i ClusterNodeArgs) ToClusterNodeOutput() ClusterNodeOutput {
+	return i.ToClusterNodeOutputWithContext(context.Background())
 }
 
-func (i ClusterNodeGroupsAwArgs) ToClusterNodeGroupsAwOutputWithContext(ctx context.Context) ClusterNodeGroupsAwOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeGroupsAwOutput)
+func (i ClusterNodeArgs) ToClusterNodeOutputWithContext(ctx context.Context) ClusterNodeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeOutput)
 }
 
-// ClusterNodeGroupsAwArrayInput is an input type that accepts ClusterNodeGroupsAwArray and ClusterNodeGroupsAwArrayOutput values.
-// You can construct a concrete instance of `ClusterNodeGroupsAwArrayInput` via:
+// ClusterNodeArrayInput is an input type that accepts ClusterNodeArray and ClusterNodeArrayOutput values.
+// You can construct a concrete instance of `ClusterNodeArrayInput` via:
 //
-//	ClusterNodeGroupsAwArray{ ClusterNodeGroupsAwArgs{...} }
-type ClusterNodeGroupsAwArrayInput interface {
+//	ClusterNodeArray{ ClusterNodeArgs{...} }
+type ClusterNodeArrayInput interface {
 	pulumi.Input
 
-	ToClusterNodeGroupsAwArrayOutput() ClusterNodeGroupsAwArrayOutput
-	ToClusterNodeGroupsAwArrayOutputWithContext(context.Context) ClusterNodeGroupsAwArrayOutput
+	ToClusterNodeArrayOutput() ClusterNodeArrayOutput
+	ToClusterNodeArrayOutputWithContext(context.Context) ClusterNodeArrayOutput
 }
 
-type ClusterNodeGroupsAwArray []ClusterNodeGroupsAwInput
+type ClusterNodeArray []ClusterNodeInput
 
-func (ClusterNodeGroupsAwArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterNodeGroupsAw)(nil)).Elem()
+func (ClusterNodeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterNode)(nil)).Elem()
 }
 
-func (i ClusterNodeGroupsAwArray) ToClusterNodeGroupsAwArrayOutput() ClusterNodeGroupsAwArrayOutput {
-	return i.ToClusterNodeGroupsAwArrayOutputWithContext(context.Background())
+func (i ClusterNodeArray) ToClusterNodeArrayOutput() ClusterNodeArrayOutput {
+	return i.ToClusterNodeArrayOutputWithContext(context.Background())
 }
 
-func (i ClusterNodeGroupsAwArray) ToClusterNodeGroupsAwArrayOutputWithContext(ctx context.Context) ClusterNodeGroupsAwArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeGroupsAwArrayOutput)
+func (i ClusterNodeArray) ToClusterNodeArrayOutputWithContext(ctx context.Context) ClusterNodeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeArrayOutput)
 }
 
-type ClusterNodeGroupsAwOutput struct{ *pulumi.OutputState }
+type ClusterNodeOutput struct{ *pulumi.OutputState }
 
-func (ClusterNodeGroupsAwOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeGroupsAw)(nil)).Elem()
+func (ClusterNodeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterNode)(nil)).Elem()
 }
 
-func (o ClusterNodeGroupsAwOutput) ToClusterNodeGroupsAwOutput() ClusterNodeGroupsAwOutput {
+func (o ClusterNodeOutput) ToClusterNodeOutput() ClusterNodeOutput {
 	return o
 }
 
-func (o ClusterNodeGroupsAwOutput) ToClusterNodeGroupsAwOutputWithContext(ctx context.Context) ClusterNodeGroupsAwOutput {
+func (o ClusterNodeOutput) ToClusterNodeOutputWithContext(ctx context.Context) ClusterNodeOutput {
 	return o
 }
 
-// Availability zones of the AWS node group
-func (o ClusterNodeGroupsAwOutput) AvailabilityZones() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAw) []string { return v.AvailabilityZones }).(pulumi.StringArrayOutput)
+// Cloud provider availability zone name
+func (o ClusterNodeOutput) AvailabilityZone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterNode) *string { return v.AvailabilityZone }).(pulumi.StringPtrOutput)
 }
 
-// CIDR of the AWS node group
-func (o ClusterNodeGroupsAwOutput) Cidr() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAw) *string { return v.Cidr }).(pulumi.StringPtrOutput)
+// Instance type used for the node
+func (o ClusterNodeOutput) InstanceType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterNode) *string { return v.InstanceType }).(pulumi.StringPtrOutput)
 }
 
-// Instance type of the AWS node group
-func (o ClusterNodeGroupsAwOutput) InstanceType() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAw) *string { return v.InstanceType }).(pulumi.StringPtrOutput)
+// Node name
+func (o ClusterNodeOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterNode) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Node location of the AWS node group
-func (o ClusterNodeGroupsAwOutput) NodeLocation() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAw) *string { return v.NodeLocation }).(pulumi.StringPtrOutput)
+func (o ClusterNodeOutput) Options() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ClusterNode) []string { return v.Options }).(pulumi.StringArrayOutput)
 }
 
-func (o ClusterNodeGroupsAwOutput) Nodes() ClusterNodeGroupsAwNodeArrayOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAw) []ClusterNodeGroupsAwNode { return v.Nodes }).(ClusterNodeGroupsAwNodeArrayOutput)
+// Cloud provider region
+func (o ClusterNodeOutput) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v ClusterNode) string { return v.Region }).(pulumi.StringOutput)
 }
 
-func (o ClusterNodeGroupsAwOutput) PrivateSubnets() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAw) []string { return v.PrivateSubnets }).(pulumi.StringArrayOutput)
+// Volume IOPS of the node data volume
+func (o ClusterNodeOutput) VolumeIops() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ClusterNode) *int { return v.VolumeIops }).(pulumi.IntPtrOutput)
 }
 
-func (o ClusterNodeGroupsAwOutput) PublicSubnets() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAw) []string { return v.PublicSubnets }).(pulumi.StringArrayOutput)
+// Volume size of the node data volume
+func (o ClusterNodeOutput) VolumeSize() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ClusterNode) *int { return v.VolumeSize }).(pulumi.IntPtrOutput)
 }
 
-// Region of the AWS node group
-func (o ClusterNodeGroupsAwOutput) Region() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAw) *string { return v.Region }).(pulumi.StringPtrOutput)
+// Volume type of the node data volume
+func (o ClusterNodeOutput) VolumeType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterNode) *string { return v.VolumeType }).(pulumi.StringPtrOutput)
 }
 
-// Volume IOPS of the AWS node group
-func (o ClusterNodeGroupsAwOutput) VolumeIops() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAw) *int { return v.VolumeIops }).(pulumi.IntPtrOutput)
+type ClusterNodeArrayOutput struct{ *pulumi.OutputState }
+
+func (ClusterNodeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterNode)(nil)).Elem()
 }
 
-// Volume size of the AWS node group
-func (o ClusterNodeGroupsAwOutput) VolumeSize() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAw) *int { return v.VolumeSize }).(pulumi.IntPtrOutput)
-}
-
-// Volume type of the AWS node group
-func (o ClusterNodeGroupsAwOutput) VolumeType() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAw) *string { return v.VolumeType }).(pulumi.StringPtrOutput)
-}
-
-type ClusterNodeGroupsAwArrayOutput struct{ *pulumi.OutputState }
-
-func (ClusterNodeGroupsAwArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterNodeGroupsAw)(nil)).Elem()
-}
-
-func (o ClusterNodeGroupsAwArrayOutput) ToClusterNodeGroupsAwArrayOutput() ClusterNodeGroupsAwArrayOutput {
+func (o ClusterNodeArrayOutput) ToClusterNodeArrayOutput() ClusterNodeArrayOutput {
 	return o
 }
 
-func (o ClusterNodeGroupsAwArrayOutput) ToClusterNodeGroupsAwArrayOutputWithContext(ctx context.Context) ClusterNodeGroupsAwArrayOutput {
+func (o ClusterNodeArrayOutput) ToClusterNodeArrayOutputWithContext(ctx context.Context) ClusterNodeArrayOutput {
 	return o
 }
 
-func (o ClusterNodeGroupsAwArrayOutput) Index(i pulumi.IntInput) ClusterNodeGroupsAwOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterNodeGroupsAw {
-		return vs[0].([]ClusterNodeGroupsAw)[vs[1].(int)]
-	}).(ClusterNodeGroupsAwOutput)
-}
-
-type ClusterNodeGroupsAwNode struct {
-	// Display name of the node
-	DisplayName *string `pulumi:"displayName"`
-	// IP address of the node
-	IpAddress *string `pulumi:"ipAddress"`
-	// Is the node active
-	IsActive *bool `pulumi:"isActive"`
-}
-
-// ClusterNodeGroupsAwNodeInput is an input type that accepts ClusterNodeGroupsAwNodeArgs and ClusterNodeGroupsAwNodeOutput values.
-// You can construct a concrete instance of `ClusterNodeGroupsAwNodeInput` via:
-//
-//	ClusterNodeGroupsAwNodeArgs{...}
-type ClusterNodeGroupsAwNodeInput interface {
-	pulumi.Input
-
-	ToClusterNodeGroupsAwNodeOutput() ClusterNodeGroupsAwNodeOutput
-	ToClusterNodeGroupsAwNodeOutputWithContext(context.Context) ClusterNodeGroupsAwNodeOutput
-}
-
-type ClusterNodeGroupsAwNodeArgs struct {
-	// Display name of the node
-	DisplayName pulumi.StringPtrInput `pulumi:"displayName"`
-	// IP address of the node
-	IpAddress pulumi.StringPtrInput `pulumi:"ipAddress"`
-	// Is the node active
-	IsActive pulumi.BoolPtrInput `pulumi:"isActive"`
-}
-
-func (ClusterNodeGroupsAwNodeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeGroupsAwNode)(nil)).Elem()
-}
-
-func (i ClusterNodeGroupsAwNodeArgs) ToClusterNodeGroupsAwNodeOutput() ClusterNodeGroupsAwNodeOutput {
-	return i.ToClusterNodeGroupsAwNodeOutputWithContext(context.Background())
-}
-
-func (i ClusterNodeGroupsAwNodeArgs) ToClusterNodeGroupsAwNodeOutputWithContext(ctx context.Context) ClusterNodeGroupsAwNodeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeGroupsAwNodeOutput)
-}
-
-// ClusterNodeGroupsAwNodeArrayInput is an input type that accepts ClusterNodeGroupsAwNodeArray and ClusterNodeGroupsAwNodeArrayOutput values.
-// You can construct a concrete instance of `ClusterNodeGroupsAwNodeArrayInput` via:
-//
-//	ClusterNodeGroupsAwNodeArray{ ClusterNodeGroupsAwNodeArgs{...} }
-type ClusterNodeGroupsAwNodeArrayInput interface {
-	pulumi.Input
-
-	ToClusterNodeGroupsAwNodeArrayOutput() ClusterNodeGroupsAwNodeArrayOutput
-	ToClusterNodeGroupsAwNodeArrayOutputWithContext(context.Context) ClusterNodeGroupsAwNodeArrayOutput
-}
-
-type ClusterNodeGroupsAwNodeArray []ClusterNodeGroupsAwNodeInput
-
-func (ClusterNodeGroupsAwNodeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterNodeGroupsAwNode)(nil)).Elem()
-}
-
-func (i ClusterNodeGroupsAwNodeArray) ToClusterNodeGroupsAwNodeArrayOutput() ClusterNodeGroupsAwNodeArrayOutput {
-	return i.ToClusterNodeGroupsAwNodeArrayOutputWithContext(context.Background())
-}
-
-func (i ClusterNodeGroupsAwNodeArray) ToClusterNodeGroupsAwNodeArrayOutputWithContext(ctx context.Context) ClusterNodeGroupsAwNodeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeGroupsAwNodeArrayOutput)
-}
-
-type ClusterNodeGroupsAwNodeOutput struct{ *pulumi.OutputState }
-
-func (ClusterNodeGroupsAwNodeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeGroupsAwNode)(nil)).Elem()
-}
-
-func (o ClusterNodeGroupsAwNodeOutput) ToClusterNodeGroupsAwNodeOutput() ClusterNodeGroupsAwNodeOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsAwNodeOutput) ToClusterNodeGroupsAwNodeOutputWithContext(ctx context.Context) ClusterNodeGroupsAwNodeOutput {
-	return o
-}
-
-// Display name of the node
-func (o ClusterNodeGroupsAwNodeOutput) DisplayName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAwNode) *string { return v.DisplayName }).(pulumi.StringPtrOutput)
-}
-
-// IP address of the node
-func (o ClusterNodeGroupsAwNodeOutput) IpAddress() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAwNode) *string { return v.IpAddress }).(pulumi.StringPtrOutput)
-}
-
-// Is the node active
-func (o ClusterNodeGroupsAwNodeOutput) IsActive() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAwNode) *bool { return v.IsActive }).(pulumi.BoolPtrOutput)
-}
-
-type ClusterNodeGroupsAwNodeArrayOutput struct{ *pulumi.OutputState }
-
-func (ClusterNodeGroupsAwNodeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterNodeGroupsAwNode)(nil)).Elem()
-}
-
-func (o ClusterNodeGroupsAwNodeArrayOutput) ToClusterNodeGroupsAwNodeArrayOutput() ClusterNodeGroupsAwNodeArrayOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsAwNodeArrayOutput) ToClusterNodeGroupsAwNodeArrayOutputWithContext(ctx context.Context) ClusterNodeGroupsAwNodeArrayOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsAwNodeArrayOutput) Index(i pulumi.IntInput) ClusterNodeGroupsAwNodeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterNodeGroupsAwNode {
-		return vs[0].([]ClusterNodeGroupsAwNode)[vs[1].(int)]
-	}).(ClusterNodeGroupsAwNodeOutput)
-}
-
-type ClusterNodeGroupsAzure struct {
-	// Availability zones of the AWS node group
-	AvailabilityZones []string `pulumi:"availabilityZones"`
-	// CIDR of the AWS node group
-	Cidr *string `pulumi:"cidr"`
-	// Instance type of the AWS node group
-	InstanceType *string `pulumi:"instanceType"`
-	// Node location of the AWS node group
-	NodeLocation   *string                      `pulumi:"nodeLocation"`
-	Nodes          []ClusterNodeGroupsAzureNode `pulumi:"nodes"`
-	PrivateSubnets []string                     `pulumi:"privateSubnets"`
-	PublicSubnets  []string                     `pulumi:"publicSubnets"`
-	// Region of the AWS node group
-	Region *string `pulumi:"region"`
-	// Volume IOPS of the AWS node group
-	VolumeIops *int `pulumi:"volumeIops"`
-	// Volume size of the AWS node group
-	VolumeSize *int `pulumi:"volumeSize"`
-	// Volume type of the AWS node group
-	VolumeType *string `pulumi:"volumeType"`
-}
-
-// ClusterNodeGroupsAzureInput is an input type that accepts ClusterNodeGroupsAzureArgs and ClusterNodeGroupsAzureOutput values.
-// You can construct a concrete instance of `ClusterNodeGroupsAzureInput` via:
-//
-//	ClusterNodeGroupsAzureArgs{...}
-type ClusterNodeGroupsAzureInput interface {
-	pulumi.Input
-
-	ToClusterNodeGroupsAzureOutput() ClusterNodeGroupsAzureOutput
-	ToClusterNodeGroupsAzureOutputWithContext(context.Context) ClusterNodeGroupsAzureOutput
-}
-
-type ClusterNodeGroupsAzureArgs struct {
-	// Availability zones of the AWS node group
-	AvailabilityZones pulumi.StringArrayInput `pulumi:"availabilityZones"`
-	// CIDR of the AWS node group
-	Cidr pulumi.StringPtrInput `pulumi:"cidr"`
-	// Instance type of the AWS node group
-	InstanceType pulumi.StringPtrInput `pulumi:"instanceType"`
-	// Node location of the AWS node group
-	NodeLocation   pulumi.StringPtrInput                `pulumi:"nodeLocation"`
-	Nodes          ClusterNodeGroupsAzureNodeArrayInput `pulumi:"nodes"`
-	PrivateSubnets pulumi.StringArrayInput              `pulumi:"privateSubnets"`
-	PublicSubnets  pulumi.StringArrayInput              `pulumi:"publicSubnets"`
-	// Region of the AWS node group
-	Region pulumi.StringPtrInput `pulumi:"region"`
-	// Volume IOPS of the AWS node group
-	VolumeIops pulumi.IntPtrInput `pulumi:"volumeIops"`
-	// Volume size of the AWS node group
-	VolumeSize pulumi.IntPtrInput `pulumi:"volumeSize"`
-	// Volume type of the AWS node group
-	VolumeType pulumi.StringPtrInput `pulumi:"volumeType"`
-}
-
-func (ClusterNodeGroupsAzureArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeGroupsAzure)(nil)).Elem()
-}
-
-func (i ClusterNodeGroupsAzureArgs) ToClusterNodeGroupsAzureOutput() ClusterNodeGroupsAzureOutput {
-	return i.ToClusterNodeGroupsAzureOutputWithContext(context.Background())
-}
-
-func (i ClusterNodeGroupsAzureArgs) ToClusterNodeGroupsAzureOutputWithContext(ctx context.Context) ClusterNodeGroupsAzureOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeGroupsAzureOutput)
-}
-
-// ClusterNodeGroupsAzureArrayInput is an input type that accepts ClusterNodeGroupsAzureArray and ClusterNodeGroupsAzureArrayOutput values.
-// You can construct a concrete instance of `ClusterNodeGroupsAzureArrayInput` via:
-//
-//	ClusterNodeGroupsAzureArray{ ClusterNodeGroupsAzureArgs{...} }
-type ClusterNodeGroupsAzureArrayInput interface {
-	pulumi.Input
-
-	ToClusterNodeGroupsAzureArrayOutput() ClusterNodeGroupsAzureArrayOutput
-	ToClusterNodeGroupsAzureArrayOutputWithContext(context.Context) ClusterNodeGroupsAzureArrayOutput
-}
-
-type ClusterNodeGroupsAzureArray []ClusterNodeGroupsAzureInput
-
-func (ClusterNodeGroupsAzureArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterNodeGroupsAzure)(nil)).Elem()
-}
-
-func (i ClusterNodeGroupsAzureArray) ToClusterNodeGroupsAzureArrayOutput() ClusterNodeGroupsAzureArrayOutput {
-	return i.ToClusterNodeGroupsAzureArrayOutputWithContext(context.Background())
-}
-
-func (i ClusterNodeGroupsAzureArray) ToClusterNodeGroupsAzureArrayOutputWithContext(ctx context.Context) ClusterNodeGroupsAzureArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeGroupsAzureArrayOutput)
-}
-
-type ClusterNodeGroupsAzureOutput struct{ *pulumi.OutputState }
-
-func (ClusterNodeGroupsAzureOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeGroupsAzure)(nil)).Elem()
-}
-
-func (o ClusterNodeGroupsAzureOutput) ToClusterNodeGroupsAzureOutput() ClusterNodeGroupsAzureOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsAzureOutput) ToClusterNodeGroupsAzureOutputWithContext(ctx context.Context) ClusterNodeGroupsAzureOutput {
-	return o
-}
-
-// Availability zones of the AWS node group
-func (o ClusterNodeGroupsAzureOutput) AvailabilityZones() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAzure) []string { return v.AvailabilityZones }).(pulumi.StringArrayOutput)
-}
-
-// CIDR of the AWS node group
-func (o ClusterNodeGroupsAzureOutput) Cidr() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAzure) *string { return v.Cidr }).(pulumi.StringPtrOutput)
-}
-
-// Instance type of the AWS node group
-func (o ClusterNodeGroupsAzureOutput) InstanceType() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAzure) *string { return v.InstanceType }).(pulumi.StringPtrOutput)
-}
-
-// Node location of the AWS node group
-func (o ClusterNodeGroupsAzureOutput) NodeLocation() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAzure) *string { return v.NodeLocation }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterNodeGroupsAzureOutput) Nodes() ClusterNodeGroupsAzureNodeArrayOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAzure) []ClusterNodeGroupsAzureNode { return v.Nodes }).(ClusterNodeGroupsAzureNodeArrayOutput)
-}
-
-func (o ClusterNodeGroupsAzureOutput) PrivateSubnets() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAzure) []string { return v.PrivateSubnets }).(pulumi.StringArrayOutput)
-}
-
-func (o ClusterNodeGroupsAzureOutput) PublicSubnets() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAzure) []string { return v.PublicSubnets }).(pulumi.StringArrayOutput)
-}
-
-// Region of the AWS node group
-func (o ClusterNodeGroupsAzureOutput) Region() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAzure) *string { return v.Region }).(pulumi.StringPtrOutput)
-}
-
-// Volume IOPS of the AWS node group
-func (o ClusterNodeGroupsAzureOutput) VolumeIops() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAzure) *int { return v.VolumeIops }).(pulumi.IntPtrOutput)
-}
-
-// Volume size of the AWS node group
-func (o ClusterNodeGroupsAzureOutput) VolumeSize() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAzure) *int { return v.VolumeSize }).(pulumi.IntPtrOutput)
-}
-
-// Volume type of the AWS node group
-func (o ClusterNodeGroupsAzureOutput) VolumeType() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAzure) *string { return v.VolumeType }).(pulumi.StringPtrOutput)
-}
-
-type ClusterNodeGroupsAzureArrayOutput struct{ *pulumi.OutputState }
-
-func (ClusterNodeGroupsAzureArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterNodeGroupsAzure)(nil)).Elem()
-}
-
-func (o ClusterNodeGroupsAzureArrayOutput) ToClusterNodeGroupsAzureArrayOutput() ClusterNodeGroupsAzureArrayOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsAzureArrayOutput) ToClusterNodeGroupsAzureArrayOutputWithContext(ctx context.Context) ClusterNodeGroupsAzureArrayOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsAzureArrayOutput) Index(i pulumi.IntInput) ClusterNodeGroupsAzureOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterNodeGroupsAzure {
-		return vs[0].([]ClusterNodeGroupsAzure)[vs[1].(int)]
-	}).(ClusterNodeGroupsAzureOutput)
-}
-
-type ClusterNodeGroupsAzureNode struct {
-	// Display name of the node
-	DisplayName *string `pulumi:"displayName"`
-	// IP address of the node
-	IpAddress *string `pulumi:"ipAddress"`
-	// Is the node active
-	IsActive *bool `pulumi:"isActive"`
-}
-
-// ClusterNodeGroupsAzureNodeInput is an input type that accepts ClusterNodeGroupsAzureNodeArgs and ClusterNodeGroupsAzureNodeOutput values.
-// You can construct a concrete instance of `ClusterNodeGroupsAzureNodeInput` via:
-//
-//	ClusterNodeGroupsAzureNodeArgs{...}
-type ClusterNodeGroupsAzureNodeInput interface {
-	pulumi.Input
-
-	ToClusterNodeGroupsAzureNodeOutput() ClusterNodeGroupsAzureNodeOutput
-	ToClusterNodeGroupsAzureNodeOutputWithContext(context.Context) ClusterNodeGroupsAzureNodeOutput
-}
-
-type ClusterNodeGroupsAzureNodeArgs struct {
-	// Display name of the node
-	DisplayName pulumi.StringPtrInput `pulumi:"displayName"`
-	// IP address of the node
-	IpAddress pulumi.StringPtrInput `pulumi:"ipAddress"`
-	// Is the node active
-	IsActive pulumi.BoolPtrInput `pulumi:"isActive"`
-}
-
-func (ClusterNodeGroupsAzureNodeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeGroupsAzureNode)(nil)).Elem()
-}
-
-func (i ClusterNodeGroupsAzureNodeArgs) ToClusterNodeGroupsAzureNodeOutput() ClusterNodeGroupsAzureNodeOutput {
-	return i.ToClusterNodeGroupsAzureNodeOutputWithContext(context.Background())
-}
-
-func (i ClusterNodeGroupsAzureNodeArgs) ToClusterNodeGroupsAzureNodeOutputWithContext(ctx context.Context) ClusterNodeGroupsAzureNodeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeGroupsAzureNodeOutput)
-}
-
-// ClusterNodeGroupsAzureNodeArrayInput is an input type that accepts ClusterNodeGroupsAzureNodeArray and ClusterNodeGroupsAzureNodeArrayOutput values.
-// You can construct a concrete instance of `ClusterNodeGroupsAzureNodeArrayInput` via:
-//
-//	ClusterNodeGroupsAzureNodeArray{ ClusterNodeGroupsAzureNodeArgs{...} }
-type ClusterNodeGroupsAzureNodeArrayInput interface {
-	pulumi.Input
-
-	ToClusterNodeGroupsAzureNodeArrayOutput() ClusterNodeGroupsAzureNodeArrayOutput
-	ToClusterNodeGroupsAzureNodeArrayOutputWithContext(context.Context) ClusterNodeGroupsAzureNodeArrayOutput
-}
-
-type ClusterNodeGroupsAzureNodeArray []ClusterNodeGroupsAzureNodeInput
-
-func (ClusterNodeGroupsAzureNodeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterNodeGroupsAzureNode)(nil)).Elem()
-}
-
-func (i ClusterNodeGroupsAzureNodeArray) ToClusterNodeGroupsAzureNodeArrayOutput() ClusterNodeGroupsAzureNodeArrayOutput {
-	return i.ToClusterNodeGroupsAzureNodeArrayOutputWithContext(context.Background())
-}
-
-func (i ClusterNodeGroupsAzureNodeArray) ToClusterNodeGroupsAzureNodeArrayOutputWithContext(ctx context.Context) ClusterNodeGroupsAzureNodeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeGroupsAzureNodeArrayOutput)
-}
-
-type ClusterNodeGroupsAzureNodeOutput struct{ *pulumi.OutputState }
-
-func (ClusterNodeGroupsAzureNodeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeGroupsAzureNode)(nil)).Elem()
-}
-
-func (o ClusterNodeGroupsAzureNodeOutput) ToClusterNodeGroupsAzureNodeOutput() ClusterNodeGroupsAzureNodeOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsAzureNodeOutput) ToClusterNodeGroupsAzureNodeOutputWithContext(ctx context.Context) ClusterNodeGroupsAzureNodeOutput {
-	return o
-}
-
-// Display name of the node
-func (o ClusterNodeGroupsAzureNodeOutput) DisplayName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAzureNode) *string { return v.DisplayName }).(pulumi.StringPtrOutput)
-}
-
-// IP address of the node
-func (o ClusterNodeGroupsAzureNodeOutput) IpAddress() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAzureNode) *string { return v.IpAddress }).(pulumi.StringPtrOutput)
-}
-
-// Is the node active
-func (o ClusterNodeGroupsAzureNodeOutput) IsActive() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsAzureNode) *bool { return v.IsActive }).(pulumi.BoolPtrOutput)
-}
-
-type ClusterNodeGroupsAzureNodeArrayOutput struct{ *pulumi.OutputState }
-
-func (ClusterNodeGroupsAzureNodeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterNodeGroupsAzureNode)(nil)).Elem()
-}
-
-func (o ClusterNodeGroupsAzureNodeArrayOutput) ToClusterNodeGroupsAzureNodeArrayOutput() ClusterNodeGroupsAzureNodeArrayOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsAzureNodeArrayOutput) ToClusterNodeGroupsAzureNodeArrayOutputWithContext(ctx context.Context) ClusterNodeGroupsAzureNodeArrayOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsAzureNodeArrayOutput) Index(i pulumi.IntInput) ClusterNodeGroupsAzureNodeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterNodeGroupsAzureNode {
-		return vs[0].([]ClusterNodeGroupsAzureNode)[vs[1].(int)]
-	}).(ClusterNodeGroupsAzureNodeOutput)
-}
-
-type ClusterNodeGroupsGoogle struct {
-	// Availability zones of the AWS node group
-	AvailabilityZones []string `pulumi:"availabilityZones"`
-	// CIDR of the AWS node group
-	Cidr *string `pulumi:"cidr"`
-	// Instance type of the AWS node group
-	InstanceType *string `pulumi:"instanceType"`
-	// Node location of the AWS node group
-	NodeLocation   *string                       `pulumi:"nodeLocation"`
-	Nodes          []ClusterNodeGroupsGoogleNode `pulumi:"nodes"`
-	PrivateSubnets []string                      `pulumi:"privateSubnets"`
-	PublicSubnets  []string                      `pulumi:"publicSubnets"`
-	// Region of the AWS node group
-	Region *string `pulumi:"region"`
-	// Volume IOPS of the AWS node group
-	VolumeIops *int `pulumi:"volumeIops"`
-	// Volume size of the AWS node group
-	VolumeSize *int `pulumi:"volumeSize"`
-	// Volume type of the AWS node group
-	VolumeType *string `pulumi:"volumeType"`
-}
-
-// ClusterNodeGroupsGoogleInput is an input type that accepts ClusterNodeGroupsGoogleArgs and ClusterNodeGroupsGoogleOutput values.
-// You can construct a concrete instance of `ClusterNodeGroupsGoogleInput` via:
-//
-//	ClusterNodeGroupsGoogleArgs{...}
-type ClusterNodeGroupsGoogleInput interface {
-	pulumi.Input
-
-	ToClusterNodeGroupsGoogleOutput() ClusterNodeGroupsGoogleOutput
-	ToClusterNodeGroupsGoogleOutputWithContext(context.Context) ClusterNodeGroupsGoogleOutput
-}
-
-type ClusterNodeGroupsGoogleArgs struct {
-	// Availability zones of the AWS node group
-	AvailabilityZones pulumi.StringArrayInput `pulumi:"availabilityZones"`
-	// CIDR of the AWS node group
-	Cidr pulumi.StringPtrInput `pulumi:"cidr"`
-	// Instance type of the AWS node group
-	InstanceType pulumi.StringPtrInput `pulumi:"instanceType"`
-	// Node location of the AWS node group
-	NodeLocation   pulumi.StringPtrInput                 `pulumi:"nodeLocation"`
-	Nodes          ClusterNodeGroupsGoogleNodeArrayInput `pulumi:"nodes"`
-	PrivateSubnets pulumi.StringArrayInput               `pulumi:"privateSubnets"`
-	PublicSubnets  pulumi.StringArrayInput               `pulumi:"publicSubnets"`
-	// Region of the AWS node group
-	Region pulumi.StringPtrInput `pulumi:"region"`
-	// Volume IOPS of the AWS node group
-	VolumeIops pulumi.IntPtrInput `pulumi:"volumeIops"`
-	// Volume size of the AWS node group
-	VolumeSize pulumi.IntPtrInput `pulumi:"volumeSize"`
-	// Volume type of the AWS node group
-	VolumeType pulumi.StringPtrInput `pulumi:"volumeType"`
-}
-
-func (ClusterNodeGroupsGoogleArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeGroupsGoogle)(nil)).Elem()
-}
-
-func (i ClusterNodeGroupsGoogleArgs) ToClusterNodeGroupsGoogleOutput() ClusterNodeGroupsGoogleOutput {
-	return i.ToClusterNodeGroupsGoogleOutputWithContext(context.Background())
-}
-
-func (i ClusterNodeGroupsGoogleArgs) ToClusterNodeGroupsGoogleOutputWithContext(ctx context.Context) ClusterNodeGroupsGoogleOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeGroupsGoogleOutput)
-}
-
-// ClusterNodeGroupsGoogleArrayInput is an input type that accepts ClusterNodeGroupsGoogleArray and ClusterNodeGroupsGoogleArrayOutput values.
-// You can construct a concrete instance of `ClusterNodeGroupsGoogleArrayInput` via:
-//
-//	ClusterNodeGroupsGoogleArray{ ClusterNodeGroupsGoogleArgs{...} }
-type ClusterNodeGroupsGoogleArrayInput interface {
-	pulumi.Input
-
-	ToClusterNodeGroupsGoogleArrayOutput() ClusterNodeGroupsGoogleArrayOutput
-	ToClusterNodeGroupsGoogleArrayOutputWithContext(context.Context) ClusterNodeGroupsGoogleArrayOutput
-}
-
-type ClusterNodeGroupsGoogleArray []ClusterNodeGroupsGoogleInput
-
-func (ClusterNodeGroupsGoogleArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterNodeGroupsGoogle)(nil)).Elem()
-}
-
-func (i ClusterNodeGroupsGoogleArray) ToClusterNodeGroupsGoogleArrayOutput() ClusterNodeGroupsGoogleArrayOutput {
-	return i.ToClusterNodeGroupsGoogleArrayOutputWithContext(context.Background())
-}
-
-func (i ClusterNodeGroupsGoogleArray) ToClusterNodeGroupsGoogleArrayOutputWithContext(ctx context.Context) ClusterNodeGroupsGoogleArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeGroupsGoogleArrayOutput)
-}
-
-type ClusterNodeGroupsGoogleOutput struct{ *pulumi.OutputState }
-
-func (ClusterNodeGroupsGoogleOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeGroupsGoogle)(nil)).Elem()
-}
-
-func (o ClusterNodeGroupsGoogleOutput) ToClusterNodeGroupsGoogleOutput() ClusterNodeGroupsGoogleOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsGoogleOutput) ToClusterNodeGroupsGoogleOutputWithContext(ctx context.Context) ClusterNodeGroupsGoogleOutput {
-	return o
-}
-
-// Availability zones of the AWS node group
-func (o ClusterNodeGroupsGoogleOutput) AvailabilityZones() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsGoogle) []string { return v.AvailabilityZones }).(pulumi.StringArrayOutput)
-}
-
-// CIDR of the AWS node group
-func (o ClusterNodeGroupsGoogleOutput) Cidr() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsGoogle) *string { return v.Cidr }).(pulumi.StringPtrOutput)
-}
-
-// Instance type of the AWS node group
-func (o ClusterNodeGroupsGoogleOutput) InstanceType() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsGoogle) *string { return v.InstanceType }).(pulumi.StringPtrOutput)
-}
-
-// Node location of the AWS node group
-func (o ClusterNodeGroupsGoogleOutput) NodeLocation() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsGoogle) *string { return v.NodeLocation }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterNodeGroupsGoogleOutput) Nodes() ClusterNodeGroupsGoogleNodeArrayOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsGoogle) []ClusterNodeGroupsGoogleNode { return v.Nodes }).(ClusterNodeGroupsGoogleNodeArrayOutput)
-}
-
-func (o ClusterNodeGroupsGoogleOutput) PrivateSubnets() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsGoogle) []string { return v.PrivateSubnets }).(pulumi.StringArrayOutput)
-}
-
-func (o ClusterNodeGroupsGoogleOutput) PublicSubnets() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsGoogle) []string { return v.PublicSubnets }).(pulumi.StringArrayOutput)
-}
-
-// Region of the AWS node group
-func (o ClusterNodeGroupsGoogleOutput) Region() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsGoogle) *string { return v.Region }).(pulumi.StringPtrOutput)
-}
-
-// Volume IOPS of the AWS node group
-func (o ClusterNodeGroupsGoogleOutput) VolumeIops() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsGoogle) *int { return v.VolumeIops }).(pulumi.IntPtrOutput)
-}
-
-// Volume size of the AWS node group
-func (o ClusterNodeGroupsGoogleOutput) VolumeSize() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsGoogle) *int { return v.VolumeSize }).(pulumi.IntPtrOutput)
-}
-
-// Volume type of the AWS node group
-func (o ClusterNodeGroupsGoogleOutput) VolumeType() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsGoogle) *string { return v.VolumeType }).(pulumi.StringPtrOutput)
-}
-
-type ClusterNodeGroupsGoogleArrayOutput struct{ *pulumi.OutputState }
-
-func (ClusterNodeGroupsGoogleArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterNodeGroupsGoogle)(nil)).Elem()
-}
-
-func (o ClusterNodeGroupsGoogleArrayOutput) ToClusterNodeGroupsGoogleArrayOutput() ClusterNodeGroupsGoogleArrayOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsGoogleArrayOutput) ToClusterNodeGroupsGoogleArrayOutputWithContext(ctx context.Context) ClusterNodeGroupsGoogleArrayOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsGoogleArrayOutput) Index(i pulumi.IntInput) ClusterNodeGroupsGoogleOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterNodeGroupsGoogle {
-		return vs[0].([]ClusterNodeGroupsGoogle)[vs[1].(int)]
-	}).(ClusterNodeGroupsGoogleOutput)
-}
-
-type ClusterNodeGroupsGoogleNode struct {
-	// Display name of the node
-	DisplayName *string `pulumi:"displayName"`
-	// IP address of the node
-	IpAddress *string `pulumi:"ipAddress"`
-	// Is the node active
-	IsActive *bool `pulumi:"isActive"`
-}
-
-// ClusterNodeGroupsGoogleNodeInput is an input type that accepts ClusterNodeGroupsGoogleNodeArgs and ClusterNodeGroupsGoogleNodeOutput values.
-// You can construct a concrete instance of `ClusterNodeGroupsGoogleNodeInput` via:
-//
-//	ClusterNodeGroupsGoogleNodeArgs{...}
-type ClusterNodeGroupsGoogleNodeInput interface {
-	pulumi.Input
-
-	ToClusterNodeGroupsGoogleNodeOutput() ClusterNodeGroupsGoogleNodeOutput
-	ToClusterNodeGroupsGoogleNodeOutputWithContext(context.Context) ClusterNodeGroupsGoogleNodeOutput
-}
-
-type ClusterNodeGroupsGoogleNodeArgs struct {
-	// Display name of the node
-	DisplayName pulumi.StringPtrInput `pulumi:"displayName"`
-	// IP address of the node
-	IpAddress pulumi.StringPtrInput `pulumi:"ipAddress"`
-	// Is the node active
-	IsActive pulumi.BoolPtrInput `pulumi:"isActive"`
-}
-
-func (ClusterNodeGroupsGoogleNodeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeGroupsGoogleNode)(nil)).Elem()
-}
-
-func (i ClusterNodeGroupsGoogleNodeArgs) ToClusterNodeGroupsGoogleNodeOutput() ClusterNodeGroupsGoogleNodeOutput {
-	return i.ToClusterNodeGroupsGoogleNodeOutputWithContext(context.Background())
-}
-
-func (i ClusterNodeGroupsGoogleNodeArgs) ToClusterNodeGroupsGoogleNodeOutputWithContext(ctx context.Context) ClusterNodeGroupsGoogleNodeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeGroupsGoogleNodeOutput)
-}
-
-// ClusterNodeGroupsGoogleNodeArrayInput is an input type that accepts ClusterNodeGroupsGoogleNodeArray and ClusterNodeGroupsGoogleNodeArrayOutput values.
-// You can construct a concrete instance of `ClusterNodeGroupsGoogleNodeArrayInput` via:
-//
-//	ClusterNodeGroupsGoogleNodeArray{ ClusterNodeGroupsGoogleNodeArgs{...} }
-type ClusterNodeGroupsGoogleNodeArrayInput interface {
-	pulumi.Input
-
-	ToClusterNodeGroupsGoogleNodeArrayOutput() ClusterNodeGroupsGoogleNodeArrayOutput
-	ToClusterNodeGroupsGoogleNodeArrayOutputWithContext(context.Context) ClusterNodeGroupsGoogleNodeArrayOutput
-}
-
-type ClusterNodeGroupsGoogleNodeArray []ClusterNodeGroupsGoogleNodeInput
-
-func (ClusterNodeGroupsGoogleNodeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterNodeGroupsGoogleNode)(nil)).Elem()
-}
-
-func (i ClusterNodeGroupsGoogleNodeArray) ToClusterNodeGroupsGoogleNodeArrayOutput() ClusterNodeGroupsGoogleNodeArrayOutput {
-	return i.ToClusterNodeGroupsGoogleNodeArrayOutputWithContext(context.Background())
-}
-
-func (i ClusterNodeGroupsGoogleNodeArray) ToClusterNodeGroupsGoogleNodeArrayOutputWithContext(ctx context.Context) ClusterNodeGroupsGoogleNodeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeGroupsGoogleNodeArrayOutput)
-}
-
-type ClusterNodeGroupsGoogleNodeOutput struct{ *pulumi.OutputState }
-
-func (ClusterNodeGroupsGoogleNodeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeGroupsGoogleNode)(nil)).Elem()
-}
-
-func (o ClusterNodeGroupsGoogleNodeOutput) ToClusterNodeGroupsGoogleNodeOutput() ClusterNodeGroupsGoogleNodeOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsGoogleNodeOutput) ToClusterNodeGroupsGoogleNodeOutputWithContext(ctx context.Context) ClusterNodeGroupsGoogleNodeOutput {
-	return o
-}
-
-// Display name of the node
-func (o ClusterNodeGroupsGoogleNodeOutput) DisplayName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsGoogleNode) *string { return v.DisplayName }).(pulumi.StringPtrOutput)
-}
-
-// IP address of the node
-func (o ClusterNodeGroupsGoogleNodeOutput) IpAddress() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsGoogleNode) *string { return v.IpAddress }).(pulumi.StringPtrOutput)
-}
-
-// Is the node active
-func (o ClusterNodeGroupsGoogleNodeOutput) IsActive() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ClusterNodeGroupsGoogleNode) *bool { return v.IsActive }).(pulumi.BoolPtrOutput)
-}
-
-type ClusterNodeGroupsGoogleNodeArrayOutput struct{ *pulumi.OutputState }
-
-func (ClusterNodeGroupsGoogleNodeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterNodeGroupsGoogleNode)(nil)).Elem()
-}
-
-func (o ClusterNodeGroupsGoogleNodeArrayOutput) ToClusterNodeGroupsGoogleNodeArrayOutput() ClusterNodeGroupsGoogleNodeArrayOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsGoogleNodeArrayOutput) ToClusterNodeGroupsGoogleNodeArrayOutputWithContext(ctx context.Context) ClusterNodeGroupsGoogleNodeArrayOutput {
-	return o
-}
-
-func (o ClusterNodeGroupsGoogleNodeArrayOutput) Index(i pulumi.IntInput) ClusterNodeGroupsGoogleNodeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterNodeGroupsGoogleNode {
-		return vs[0].([]ClusterNodeGroupsGoogleNode)[vs[1].(int)]
-	}).(ClusterNodeGroupsGoogleNodeOutput)
-}
-
-type DatabaseNode struct {
-	Connection *DatabaseNodeConnection `pulumi:"connection"`
-	Location   *DatabaseNodeLocation   `pulumi:"location"`
-	// Name of the node
-	Name *string `pulumi:"name"`
-}
-
-// DatabaseNodeInput is an input type that accepts DatabaseNodeArgs and DatabaseNodeOutput values.
-// You can construct a concrete instance of `DatabaseNodeInput` via:
-//
-//	DatabaseNodeArgs{...}
-type DatabaseNodeInput interface {
-	pulumi.Input
-
-	ToDatabaseNodeOutput() DatabaseNodeOutput
-	ToDatabaseNodeOutputWithContext(context.Context) DatabaseNodeOutput
-}
-
-type DatabaseNodeArgs struct {
-	Connection DatabaseNodeConnectionPtrInput `pulumi:"connection"`
-	Location   DatabaseNodeLocationPtrInput   `pulumi:"location"`
-	// Name of the node
-	Name pulumi.StringPtrInput `pulumi:"name"`
-}
-
-func (DatabaseNodeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNode)(nil)).Elem()
-}
-
-func (i DatabaseNodeArgs) ToDatabaseNodeOutput() DatabaseNodeOutput {
-	return i.ToDatabaseNodeOutputWithContext(context.Background())
-}
-
-func (i DatabaseNodeArgs) ToDatabaseNodeOutputWithContext(ctx context.Context) DatabaseNodeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeOutput)
-}
-
-// DatabaseNodeArrayInput is an input type that accepts DatabaseNodeArray and DatabaseNodeArrayOutput values.
-// You can construct a concrete instance of `DatabaseNodeArrayInput` via:
-//
-//	DatabaseNodeArray{ DatabaseNodeArgs{...} }
-type DatabaseNodeArrayInput interface {
-	pulumi.Input
-
-	ToDatabaseNodeArrayOutput() DatabaseNodeArrayOutput
-	ToDatabaseNodeArrayOutputWithContext(context.Context) DatabaseNodeArrayOutput
-}
-
-type DatabaseNodeArray []DatabaseNodeInput
-
-func (DatabaseNodeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]DatabaseNode)(nil)).Elem()
-}
-
-func (i DatabaseNodeArray) ToDatabaseNodeArrayOutput() DatabaseNodeArrayOutput {
-	return i.ToDatabaseNodeArrayOutputWithContext(context.Background())
-}
-
-func (i DatabaseNodeArray) ToDatabaseNodeArrayOutputWithContext(ctx context.Context) DatabaseNodeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeArrayOutput)
-}
-
-type DatabaseNodeOutput struct{ *pulumi.OutputState }
-
-func (DatabaseNodeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNode)(nil)).Elem()
-}
-
-func (o DatabaseNodeOutput) ToDatabaseNodeOutput() DatabaseNodeOutput {
-	return o
-}
-
-func (o DatabaseNodeOutput) ToDatabaseNodeOutputWithContext(ctx context.Context) DatabaseNodeOutput {
-	return o
-}
-
-func (o DatabaseNodeOutput) Connection() DatabaseNodeConnectionPtrOutput {
-	return o.ApplyT(func(v DatabaseNode) *DatabaseNodeConnection { return v.Connection }).(DatabaseNodeConnectionPtrOutput)
-}
-
-func (o DatabaseNodeOutput) Location() DatabaseNodeLocationPtrOutput {
-	return o.ApplyT(func(v DatabaseNode) *DatabaseNodeLocation { return v.Location }).(DatabaseNodeLocationPtrOutput)
-}
-
-// Name of the node
-func (o DatabaseNodeOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNode) *string { return v.Name }).(pulumi.StringPtrOutput)
-}
-
-type DatabaseNodeArrayOutput struct{ *pulumi.OutputState }
-
-func (DatabaseNodeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]DatabaseNode)(nil)).Elem()
-}
-
-func (o DatabaseNodeArrayOutput) ToDatabaseNodeArrayOutput() DatabaseNodeArrayOutput {
-	return o
-}
-
-func (o DatabaseNodeArrayOutput) ToDatabaseNodeArrayOutputWithContext(ctx context.Context) DatabaseNodeArrayOutput {
-	return o
-}
-
-func (o DatabaseNodeArrayOutput) Index(i pulumi.IntInput) DatabaseNodeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DatabaseNode {
-		return vs[0].([]DatabaseNode)[vs[1].(int)]
-	}).(DatabaseNodeOutput)
-}
-
-type DatabaseNodeConnection struct {
-	// Database of the node
-	Database *string `pulumi:"database"`
-	// Host of the node
-	Host *string `pulumi:"host"`
-	// Password of the node
-	Password *string `pulumi:"password"`
-	// Port of the node
-	Port *int `pulumi:"port"`
-	// Username of the node
-	Username *string `pulumi:"username"`
-}
-
-// DatabaseNodeConnectionInput is an input type that accepts DatabaseNodeConnectionArgs and DatabaseNodeConnectionOutput values.
-// You can construct a concrete instance of `DatabaseNodeConnectionInput` via:
-//
-//	DatabaseNodeConnectionArgs{...}
-type DatabaseNodeConnectionInput interface {
-	pulumi.Input
-
-	ToDatabaseNodeConnectionOutput() DatabaseNodeConnectionOutput
-	ToDatabaseNodeConnectionOutputWithContext(context.Context) DatabaseNodeConnectionOutput
-}
-
-type DatabaseNodeConnectionArgs struct {
-	// Database of the node
-	Database pulumi.StringPtrInput `pulumi:"database"`
-	// Host of the node
-	Host pulumi.StringPtrInput `pulumi:"host"`
-	// Password of the node
-	Password pulumi.StringPtrInput `pulumi:"password"`
-	// Port of the node
-	Port pulumi.IntPtrInput `pulumi:"port"`
-	// Username of the node
-	Username pulumi.StringPtrInput `pulumi:"username"`
-}
-
-func (DatabaseNodeConnectionArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNodeConnection)(nil)).Elem()
-}
-
-func (i DatabaseNodeConnectionArgs) ToDatabaseNodeConnectionOutput() DatabaseNodeConnectionOutput {
-	return i.ToDatabaseNodeConnectionOutputWithContext(context.Background())
-}
-
-func (i DatabaseNodeConnectionArgs) ToDatabaseNodeConnectionOutputWithContext(ctx context.Context) DatabaseNodeConnectionOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeConnectionOutput)
-}
-
-func (i DatabaseNodeConnectionArgs) ToDatabaseNodeConnectionPtrOutput() DatabaseNodeConnectionPtrOutput {
-	return i.ToDatabaseNodeConnectionPtrOutputWithContext(context.Background())
-}
-
-func (i DatabaseNodeConnectionArgs) ToDatabaseNodeConnectionPtrOutputWithContext(ctx context.Context) DatabaseNodeConnectionPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeConnectionOutput).ToDatabaseNodeConnectionPtrOutputWithContext(ctx)
-}
-
-// DatabaseNodeConnectionPtrInput is an input type that accepts DatabaseNodeConnectionArgs, DatabaseNodeConnectionPtr and DatabaseNodeConnectionPtrOutput values.
-// You can construct a concrete instance of `DatabaseNodeConnectionPtrInput` via:
-//
-//	        DatabaseNodeConnectionArgs{...}
-//
-//	or:
-//
-//	        nil
-type DatabaseNodeConnectionPtrInput interface {
-	pulumi.Input
-
-	ToDatabaseNodeConnectionPtrOutput() DatabaseNodeConnectionPtrOutput
-	ToDatabaseNodeConnectionPtrOutputWithContext(context.Context) DatabaseNodeConnectionPtrOutput
-}
-
-type databaseNodeConnectionPtrType DatabaseNodeConnectionArgs
-
-func DatabaseNodeConnectionPtr(v *DatabaseNodeConnectionArgs) DatabaseNodeConnectionPtrInput {
-	return (*databaseNodeConnectionPtrType)(v)
-}
-
-func (*databaseNodeConnectionPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**DatabaseNodeConnection)(nil)).Elem()
-}
-
-func (i *databaseNodeConnectionPtrType) ToDatabaseNodeConnectionPtrOutput() DatabaseNodeConnectionPtrOutput {
-	return i.ToDatabaseNodeConnectionPtrOutputWithContext(context.Background())
-}
-
-func (i *databaseNodeConnectionPtrType) ToDatabaseNodeConnectionPtrOutputWithContext(ctx context.Context) DatabaseNodeConnectionPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeConnectionPtrOutput)
-}
-
-type DatabaseNodeConnectionOutput struct{ *pulumi.OutputState }
-
-func (DatabaseNodeConnectionOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNodeConnection)(nil)).Elem()
-}
-
-func (o DatabaseNodeConnectionOutput) ToDatabaseNodeConnectionOutput() DatabaseNodeConnectionOutput {
-	return o
-}
-
-func (o DatabaseNodeConnectionOutput) ToDatabaseNodeConnectionOutputWithContext(ctx context.Context) DatabaseNodeConnectionOutput {
-	return o
-}
-
-func (o DatabaseNodeConnectionOutput) ToDatabaseNodeConnectionPtrOutput() DatabaseNodeConnectionPtrOutput {
-	return o.ToDatabaseNodeConnectionPtrOutputWithContext(context.Background())
-}
-
-func (o DatabaseNodeConnectionOutput) ToDatabaseNodeConnectionPtrOutputWithContext(ctx context.Context) DatabaseNodeConnectionPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v DatabaseNodeConnection) *DatabaseNodeConnection {
-		return &v
-	}).(DatabaseNodeConnectionPtrOutput)
-}
-
-// Database of the node
-func (o DatabaseNodeConnectionOutput) Database() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeConnection) *string { return v.Database }).(pulumi.StringPtrOutput)
-}
-
-// Host of the node
-func (o DatabaseNodeConnectionOutput) Host() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeConnection) *string { return v.Host }).(pulumi.StringPtrOutput)
-}
-
-// Password of the node
-func (o DatabaseNodeConnectionOutput) Password() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeConnection) *string { return v.Password }).(pulumi.StringPtrOutput)
-}
-
-// Port of the node
-func (o DatabaseNodeConnectionOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeConnection) *int { return v.Port }).(pulumi.IntPtrOutput)
-}
-
-// Username of the node
-func (o DatabaseNodeConnectionOutput) Username() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeConnection) *string { return v.Username }).(pulumi.StringPtrOutput)
-}
-
-type DatabaseNodeConnectionPtrOutput struct{ *pulumi.OutputState }
-
-func (DatabaseNodeConnectionPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**DatabaseNodeConnection)(nil)).Elem()
-}
-
-func (o DatabaseNodeConnectionPtrOutput) ToDatabaseNodeConnectionPtrOutput() DatabaseNodeConnectionPtrOutput {
-	return o
-}
-
-func (o DatabaseNodeConnectionPtrOutput) ToDatabaseNodeConnectionPtrOutputWithContext(ctx context.Context) DatabaseNodeConnectionPtrOutput {
-	return o
-}
-
-func (o DatabaseNodeConnectionPtrOutput) Elem() DatabaseNodeConnectionOutput {
-	return o.ApplyT(func(v *DatabaseNodeConnection) DatabaseNodeConnection {
-		if v != nil {
-			return *v
-		}
-		var ret DatabaseNodeConnection
-		return ret
-	}).(DatabaseNodeConnectionOutput)
-}
-
-// Database of the node
-func (o DatabaseNodeConnectionPtrOutput) Database() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeConnection) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Database
-	}).(pulumi.StringPtrOutput)
-}
-
-// Host of the node
-func (o DatabaseNodeConnectionPtrOutput) Host() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeConnection) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Host
-	}).(pulumi.StringPtrOutput)
-}
-
-// Password of the node
-func (o DatabaseNodeConnectionPtrOutput) Password() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeConnection) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Password
-	}).(pulumi.StringPtrOutput)
-}
-
-// Port of the node
-func (o DatabaseNodeConnectionPtrOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeConnection) *int {
-		if v == nil {
-			return nil
-		}
-		return v.Port
-	}).(pulumi.IntPtrOutput)
-}
-
-// Username of the node
-func (o DatabaseNodeConnectionPtrOutput) Username() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeConnection) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Username
-	}).(pulumi.StringPtrOutput)
-}
-
-type DatabaseNodeLocation struct {
-	// Code of the location
-	Code *string `pulumi:"code"`
-	// Country of the location
-	Country *string `pulumi:"country"`
-	// Latitude of the location
-	Latitude *float64 `pulumi:"latitude"`
-	// Longitude of the location
-	Longitude *float64 `pulumi:"longitude"`
-	// Name of the location
-	Name *string `pulumi:"name"`
-	// Region of the location
-	Region *string `pulumi:"region"`
-}
-
-// DatabaseNodeLocationInput is an input type that accepts DatabaseNodeLocationArgs and DatabaseNodeLocationOutput values.
-// You can construct a concrete instance of `DatabaseNodeLocationInput` via:
-//
-//	DatabaseNodeLocationArgs{...}
-type DatabaseNodeLocationInput interface {
-	pulumi.Input
-
-	ToDatabaseNodeLocationOutput() DatabaseNodeLocationOutput
-	ToDatabaseNodeLocationOutputWithContext(context.Context) DatabaseNodeLocationOutput
-}
-
-type DatabaseNodeLocationArgs struct {
-	// Code of the location
-	Code pulumi.StringPtrInput `pulumi:"code"`
-	// Country of the location
-	Country pulumi.StringPtrInput `pulumi:"country"`
-	// Latitude of the location
-	Latitude pulumi.Float64PtrInput `pulumi:"latitude"`
-	// Longitude of the location
-	Longitude pulumi.Float64PtrInput `pulumi:"longitude"`
-	// Name of the location
-	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Region of the location
-	Region pulumi.StringPtrInput `pulumi:"region"`
-}
-
-func (DatabaseNodeLocationArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNodeLocation)(nil)).Elem()
-}
-
-func (i DatabaseNodeLocationArgs) ToDatabaseNodeLocationOutput() DatabaseNodeLocationOutput {
-	return i.ToDatabaseNodeLocationOutputWithContext(context.Background())
-}
-
-func (i DatabaseNodeLocationArgs) ToDatabaseNodeLocationOutputWithContext(ctx context.Context) DatabaseNodeLocationOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeLocationOutput)
-}
-
-func (i DatabaseNodeLocationArgs) ToDatabaseNodeLocationPtrOutput() DatabaseNodeLocationPtrOutput {
-	return i.ToDatabaseNodeLocationPtrOutputWithContext(context.Background())
-}
-
-func (i DatabaseNodeLocationArgs) ToDatabaseNodeLocationPtrOutputWithContext(ctx context.Context) DatabaseNodeLocationPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeLocationOutput).ToDatabaseNodeLocationPtrOutputWithContext(ctx)
-}
-
-// DatabaseNodeLocationPtrInput is an input type that accepts DatabaseNodeLocationArgs, DatabaseNodeLocationPtr and DatabaseNodeLocationPtrOutput values.
-// You can construct a concrete instance of `DatabaseNodeLocationPtrInput` via:
-//
-//	        DatabaseNodeLocationArgs{...}
-//
-//	or:
-//
-//	        nil
-type DatabaseNodeLocationPtrInput interface {
-	pulumi.Input
-
-	ToDatabaseNodeLocationPtrOutput() DatabaseNodeLocationPtrOutput
-	ToDatabaseNodeLocationPtrOutputWithContext(context.Context) DatabaseNodeLocationPtrOutput
-}
-
-type databaseNodeLocationPtrType DatabaseNodeLocationArgs
-
-func DatabaseNodeLocationPtr(v *DatabaseNodeLocationArgs) DatabaseNodeLocationPtrInput {
-	return (*databaseNodeLocationPtrType)(v)
-}
-
-func (*databaseNodeLocationPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**DatabaseNodeLocation)(nil)).Elem()
-}
-
-func (i *databaseNodeLocationPtrType) ToDatabaseNodeLocationPtrOutput() DatabaseNodeLocationPtrOutput {
-	return i.ToDatabaseNodeLocationPtrOutputWithContext(context.Background())
-}
-
-func (i *databaseNodeLocationPtrType) ToDatabaseNodeLocationPtrOutputWithContext(ctx context.Context) DatabaseNodeLocationPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeLocationPtrOutput)
-}
-
-type DatabaseNodeLocationOutput struct{ *pulumi.OutputState }
-
-func (DatabaseNodeLocationOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNodeLocation)(nil)).Elem()
-}
-
-func (o DatabaseNodeLocationOutput) ToDatabaseNodeLocationOutput() DatabaseNodeLocationOutput {
-	return o
-}
-
-func (o DatabaseNodeLocationOutput) ToDatabaseNodeLocationOutputWithContext(ctx context.Context) DatabaseNodeLocationOutput {
-	return o
-}
-
-func (o DatabaseNodeLocationOutput) ToDatabaseNodeLocationPtrOutput() DatabaseNodeLocationPtrOutput {
-	return o.ToDatabaseNodeLocationPtrOutputWithContext(context.Background())
-}
-
-func (o DatabaseNodeLocationOutput) ToDatabaseNodeLocationPtrOutputWithContext(ctx context.Context) DatabaseNodeLocationPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v DatabaseNodeLocation) *DatabaseNodeLocation {
-		return &v
-	}).(DatabaseNodeLocationPtrOutput)
-}
-
-// Code of the location
-func (o DatabaseNodeLocationOutput) Code() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *string { return v.Code }).(pulumi.StringPtrOutput)
-}
-
-// Country of the location
-func (o DatabaseNodeLocationOutput) Country() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *string { return v.Country }).(pulumi.StringPtrOutput)
-}
-
-// Latitude of the location
-func (o DatabaseNodeLocationOutput) Latitude() pulumi.Float64PtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *float64 { return v.Latitude }).(pulumi.Float64PtrOutput)
-}
-
-// Longitude of the location
-func (o DatabaseNodeLocationOutput) Longitude() pulumi.Float64PtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *float64 { return v.Longitude }).(pulumi.Float64PtrOutput)
-}
-
-// Name of the location
-func (o DatabaseNodeLocationOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *string { return v.Name }).(pulumi.StringPtrOutput)
-}
-
-// Region of the location
-func (o DatabaseNodeLocationOutput) Region() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *string { return v.Region }).(pulumi.StringPtrOutput)
-}
-
-type DatabaseNodeLocationPtrOutput struct{ *pulumi.OutputState }
-
-func (DatabaseNodeLocationPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**DatabaseNodeLocation)(nil)).Elem()
-}
-
-func (o DatabaseNodeLocationPtrOutput) ToDatabaseNodeLocationPtrOutput() DatabaseNodeLocationPtrOutput {
-	return o
-}
-
-func (o DatabaseNodeLocationPtrOutput) ToDatabaseNodeLocationPtrOutputWithContext(ctx context.Context) DatabaseNodeLocationPtrOutput {
-	return o
-}
-
-func (o DatabaseNodeLocationPtrOutput) Elem() DatabaseNodeLocationOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) DatabaseNodeLocation {
-		if v != nil {
-			return *v
-		}
-		var ret DatabaseNodeLocation
-		return ret
-	}).(DatabaseNodeLocationOutput)
-}
-
-// Code of the location
-func (o DatabaseNodeLocationPtrOutput) Code() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Code
-	}).(pulumi.StringPtrOutput)
-}
-
-// Country of the location
-func (o DatabaseNodeLocationPtrOutput) Country() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Country
-	}).(pulumi.StringPtrOutput)
-}
-
-// Latitude of the location
-func (o DatabaseNodeLocationPtrOutput) Latitude() pulumi.Float64PtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *float64 {
-		if v == nil {
-			return nil
-		}
-		return v.Latitude
-	}).(pulumi.Float64PtrOutput)
-}
-
-// Longitude of the location
-func (o DatabaseNodeLocationPtrOutput) Longitude() pulumi.Float64PtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *float64 {
-		if v == nil {
-			return nil
-		}
-		return v.Longitude
-	}).(pulumi.Float64PtrOutput)
-}
-
-// Name of the location
-func (o DatabaseNodeLocationPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Name
-	}).(pulumi.StringPtrOutput)
-}
-
-// Region of the location
-func (o DatabaseNodeLocationPtrOutput) Region() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Region
-	}).(pulumi.StringPtrOutput)
+func (o ClusterNodeArrayOutput) Index(i pulumi.IntInput) ClusterNodeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterNode {
+		return vs[0].([]ClusterNode)[vs[1].(int)]
+	}).(ClusterNodeOutput)
 }
 
 type GetClustersCluster struct {
+	CloudAccount GetClustersClusterCloudAccount `pulumi:"cloudAccount"`
 	// Cloud account ID of the cluster
 	CloudAccountId string `pulumi:"cloudAccountId"`
 	// Created at of the cluster
-	CreatedAt string                       `pulumi:"createdAt"`
-	Firewalls []GetClustersClusterFirewall `pulumi:"firewalls"`
+	CreatedAt     string                           `pulumi:"createdAt"`
+	FirewallRules []GetClustersClusterFirewallRule `pulumi:"firewallRules"`
 	// ID of the cluster
 	Id string `pulumi:"id"`
 	// Name of the cluster
-	Name       string                       `pulumi:"name"`
-	NodeGroups GetClustersClusterNodeGroups `pulumi:"nodeGroups"`
+	Name     string                      `pulumi:"name"`
+	Networks []GetClustersClusterNetwork `pulumi:"networks"`
+	// Node location of the cluster
+	NodeLocation string                   `pulumi:"nodeLocation"`
+	Nodes        []GetClustersClusterNode `pulumi:"nodes"`
+	Regions      []string                 `pulumi:"regions"`
+	// SSH key ID of the cluster
+	SshKeyId string `pulumi:"sshKeyId"`
 	// Status of the cluster
 	Status string `pulumi:"status"`
 }
@@ -1751,16 +455,23 @@ type GetClustersClusterInput interface {
 }
 
 type GetClustersClusterArgs struct {
+	CloudAccount GetClustersClusterCloudAccountInput `pulumi:"cloudAccount"`
 	// Cloud account ID of the cluster
 	CloudAccountId pulumi.StringInput `pulumi:"cloudAccountId"`
 	// Created at of the cluster
-	CreatedAt pulumi.StringInput                   `pulumi:"createdAt"`
-	Firewalls GetClustersClusterFirewallArrayInput `pulumi:"firewalls"`
+	CreatedAt     pulumi.StringInput                       `pulumi:"createdAt"`
+	FirewallRules GetClustersClusterFirewallRuleArrayInput `pulumi:"firewallRules"`
 	// ID of the cluster
 	Id pulumi.StringInput `pulumi:"id"`
 	// Name of the cluster
-	Name       pulumi.StringInput                `pulumi:"name"`
-	NodeGroups GetClustersClusterNodeGroupsInput `pulumi:"nodeGroups"`
+	Name     pulumi.StringInput                  `pulumi:"name"`
+	Networks GetClustersClusterNetworkArrayInput `pulumi:"networks"`
+	// Node location of the cluster
+	NodeLocation pulumi.StringInput               `pulumi:"nodeLocation"`
+	Nodes        GetClustersClusterNodeArrayInput `pulumi:"nodes"`
+	Regions      pulumi.StringArrayInput          `pulumi:"regions"`
+	// SSH key ID of the cluster
+	SshKeyId pulumi.StringInput `pulumi:"sshKeyId"`
 	// Status of the cluster
 	Status pulumi.StringInput `pulumi:"status"`
 }
@@ -1816,6 +527,10 @@ func (o GetClustersClusterOutput) ToGetClustersClusterOutputWithContext(ctx cont
 	return o
 }
 
+func (o GetClustersClusterOutput) CloudAccount() GetClustersClusterCloudAccountOutput {
+	return o.ApplyT(func(v GetClustersCluster) GetClustersClusterCloudAccount { return v.CloudAccount }).(GetClustersClusterCloudAccountOutput)
+}
+
 // Cloud account ID of the cluster
 func (o GetClustersClusterOutput) CloudAccountId() pulumi.StringOutput {
 	return o.ApplyT(func(v GetClustersCluster) string { return v.CloudAccountId }).(pulumi.StringOutput)
@@ -1826,8 +541,8 @@ func (o GetClustersClusterOutput) CreatedAt() pulumi.StringOutput {
 	return o.ApplyT(func(v GetClustersCluster) string { return v.CreatedAt }).(pulumi.StringOutput)
 }
 
-func (o GetClustersClusterOutput) Firewalls() GetClustersClusterFirewallArrayOutput {
-	return o.ApplyT(func(v GetClustersCluster) []GetClustersClusterFirewall { return v.Firewalls }).(GetClustersClusterFirewallArrayOutput)
+func (o GetClustersClusterOutput) FirewallRules() GetClustersClusterFirewallRuleArrayOutput {
+	return o.ApplyT(func(v GetClustersCluster) []GetClustersClusterFirewallRule { return v.FirewallRules }).(GetClustersClusterFirewallRuleArrayOutput)
 }
 
 // ID of the cluster
@@ -1840,8 +555,26 @@ func (o GetClustersClusterOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v GetClustersCluster) string { return v.Name }).(pulumi.StringOutput)
 }
 
-func (o GetClustersClusterOutput) NodeGroups() GetClustersClusterNodeGroupsOutput {
-	return o.ApplyT(func(v GetClustersCluster) GetClustersClusterNodeGroups { return v.NodeGroups }).(GetClustersClusterNodeGroupsOutput)
+func (o GetClustersClusterOutput) Networks() GetClustersClusterNetworkArrayOutput {
+	return o.ApplyT(func(v GetClustersCluster) []GetClustersClusterNetwork { return v.Networks }).(GetClustersClusterNetworkArrayOutput)
+}
+
+// Node location of the cluster
+func (o GetClustersClusterOutput) NodeLocation() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersCluster) string { return v.NodeLocation }).(pulumi.StringOutput)
+}
+
+func (o GetClustersClusterOutput) Nodes() GetClustersClusterNodeArrayOutput {
+	return o.ApplyT(func(v GetClustersCluster) []GetClustersClusterNode { return v.Nodes }).(GetClustersClusterNodeArrayOutput)
+}
+
+func (o GetClustersClusterOutput) Regions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetClustersCluster) []string { return v.Regions }).(pulumi.StringArrayOutput)
+}
+
+// SSH key ID of the cluster
+func (o GetClustersClusterOutput) SshKeyId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersCluster) string { return v.SshKeyId }).(pulumi.StringOutput)
 }
 
 // Status of the cluster
@@ -1869,1068 +602,504 @@ func (o GetClustersClusterArrayOutput) Index(i pulumi.IntInput) GetClustersClust
 	}).(GetClustersClusterOutput)
 }
 
-type GetClustersClusterFirewall struct {
+type GetClustersClusterCloudAccount struct {
+	// Display name of the node
+	Id string `pulumi:"id"`
+	// IP address of the node
+	Name string `pulumi:"name"`
+	// Type of the node
+	Type string `pulumi:"type"`
+}
+
+// GetClustersClusterCloudAccountInput is an input type that accepts GetClustersClusterCloudAccountArgs and GetClustersClusterCloudAccountOutput values.
+// You can construct a concrete instance of `GetClustersClusterCloudAccountInput` via:
+//
+//	GetClustersClusterCloudAccountArgs{...}
+type GetClustersClusterCloudAccountInput interface {
+	pulumi.Input
+
+	ToGetClustersClusterCloudAccountOutput() GetClustersClusterCloudAccountOutput
+	ToGetClustersClusterCloudAccountOutputWithContext(context.Context) GetClustersClusterCloudAccountOutput
+}
+
+type GetClustersClusterCloudAccountArgs struct {
+	// Display name of the node
+	Id pulumi.StringInput `pulumi:"id"`
+	// IP address of the node
+	Name pulumi.StringInput `pulumi:"name"`
+	// Type of the node
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (GetClustersClusterCloudAccountArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClustersClusterCloudAccount)(nil)).Elem()
+}
+
+func (i GetClustersClusterCloudAccountArgs) ToGetClustersClusterCloudAccountOutput() GetClustersClusterCloudAccountOutput {
+	return i.ToGetClustersClusterCloudAccountOutputWithContext(context.Background())
+}
+
+func (i GetClustersClusterCloudAccountArgs) ToGetClustersClusterCloudAccountOutputWithContext(ctx context.Context) GetClustersClusterCloudAccountOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterCloudAccountOutput)
+}
+
+type GetClustersClusterCloudAccountOutput struct{ *pulumi.OutputState }
+
+func (GetClustersClusterCloudAccountOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClustersClusterCloudAccount)(nil)).Elem()
+}
+
+func (o GetClustersClusterCloudAccountOutput) ToGetClustersClusterCloudAccountOutput() GetClustersClusterCloudAccountOutput {
+	return o
+}
+
+func (o GetClustersClusterCloudAccountOutput) ToGetClustersClusterCloudAccountOutputWithContext(ctx context.Context) GetClustersClusterCloudAccountOutput {
+	return o
+}
+
+// Display name of the node
+func (o GetClustersClusterCloudAccountOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersClusterCloudAccount) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// IP address of the node
+func (o GetClustersClusterCloudAccountOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersClusterCloudAccount) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Type of the node
+func (o GetClustersClusterCloudAccountOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersClusterCloudAccount) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type GetClustersClusterFirewallRule struct {
+	// IP address of the node
+	Name string `pulumi:"name"`
 	// Port for the firewall rule
 	Port int `pulumi:"port"`
 	// Sources for the firewall rule
 	Sources []string `pulumi:"sources"`
-	// Type of the firewall rule
-	Type string `pulumi:"type"`
 }
 
-// GetClustersClusterFirewallInput is an input type that accepts GetClustersClusterFirewallArgs and GetClustersClusterFirewallOutput values.
-// You can construct a concrete instance of `GetClustersClusterFirewallInput` via:
+// GetClustersClusterFirewallRuleInput is an input type that accepts GetClustersClusterFirewallRuleArgs and GetClustersClusterFirewallRuleOutput values.
+// You can construct a concrete instance of `GetClustersClusterFirewallRuleInput` via:
 //
-//	GetClustersClusterFirewallArgs{...}
-type GetClustersClusterFirewallInput interface {
+//	GetClustersClusterFirewallRuleArgs{...}
+type GetClustersClusterFirewallRuleInput interface {
 	pulumi.Input
 
-	ToGetClustersClusterFirewallOutput() GetClustersClusterFirewallOutput
-	ToGetClustersClusterFirewallOutputWithContext(context.Context) GetClustersClusterFirewallOutput
+	ToGetClustersClusterFirewallRuleOutput() GetClustersClusterFirewallRuleOutput
+	ToGetClustersClusterFirewallRuleOutputWithContext(context.Context) GetClustersClusterFirewallRuleOutput
 }
 
-type GetClustersClusterFirewallArgs struct {
+type GetClustersClusterFirewallRuleArgs struct {
+	// IP address of the node
+	Name pulumi.StringInput `pulumi:"name"`
 	// Port for the firewall rule
 	Port pulumi.IntInput `pulumi:"port"`
 	// Sources for the firewall rule
 	Sources pulumi.StringArrayInput `pulumi:"sources"`
-	// Type of the firewall rule
-	Type pulumi.StringInput `pulumi:"type"`
 }
 
-func (GetClustersClusterFirewallArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterFirewall)(nil)).Elem()
+func (GetClustersClusterFirewallRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClustersClusterFirewallRule)(nil)).Elem()
 }
 
-func (i GetClustersClusterFirewallArgs) ToGetClustersClusterFirewallOutput() GetClustersClusterFirewallOutput {
-	return i.ToGetClustersClusterFirewallOutputWithContext(context.Background())
+func (i GetClustersClusterFirewallRuleArgs) ToGetClustersClusterFirewallRuleOutput() GetClustersClusterFirewallRuleOutput {
+	return i.ToGetClustersClusterFirewallRuleOutputWithContext(context.Background())
 }
 
-func (i GetClustersClusterFirewallArgs) ToGetClustersClusterFirewallOutputWithContext(ctx context.Context) GetClustersClusterFirewallOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterFirewallOutput)
+func (i GetClustersClusterFirewallRuleArgs) ToGetClustersClusterFirewallRuleOutputWithContext(ctx context.Context) GetClustersClusterFirewallRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterFirewallRuleOutput)
 }
 
-// GetClustersClusterFirewallArrayInput is an input type that accepts GetClustersClusterFirewallArray and GetClustersClusterFirewallArrayOutput values.
-// You can construct a concrete instance of `GetClustersClusterFirewallArrayInput` via:
+// GetClustersClusterFirewallRuleArrayInput is an input type that accepts GetClustersClusterFirewallRuleArray and GetClustersClusterFirewallRuleArrayOutput values.
+// You can construct a concrete instance of `GetClustersClusterFirewallRuleArrayInput` via:
 //
-//	GetClustersClusterFirewallArray{ GetClustersClusterFirewallArgs{...} }
-type GetClustersClusterFirewallArrayInput interface {
+//	GetClustersClusterFirewallRuleArray{ GetClustersClusterFirewallRuleArgs{...} }
+type GetClustersClusterFirewallRuleArrayInput interface {
 	pulumi.Input
 
-	ToGetClustersClusterFirewallArrayOutput() GetClustersClusterFirewallArrayOutput
-	ToGetClustersClusterFirewallArrayOutputWithContext(context.Context) GetClustersClusterFirewallArrayOutput
+	ToGetClustersClusterFirewallRuleArrayOutput() GetClustersClusterFirewallRuleArrayOutput
+	ToGetClustersClusterFirewallRuleArrayOutputWithContext(context.Context) GetClustersClusterFirewallRuleArrayOutput
 }
 
-type GetClustersClusterFirewallArray []GetClustersClusterFirewallInput
+type GetClustersClusterFirewallRuleArray []GetClustersClusterFirewallRuleInput
 
-func (GetClustersClusterFirewallArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetClustersClusterFirewall)(nil)).Elem()
+func (GetClustersClusterFirewallRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClustersClusterFirewallRule)(nil)).Elem()
 }
 
-func (i GetClustersClusterFirewallArray) ToGetClustersClusterFirewallArrayOutput() GetClustersClusterFirewallArrayOutput {
-	return i.ToGetClustersClusterFirewallArrayOutputWithContext(context.Background())
+func (i GetClustersClusterFirewallRuleArray) ToGetClustersClusterFirewallRuleArrayOutput() GetClustersClusterFirewallRuleArrayOutput {
+	return i.ToGetClustersClusterFirewallRuleArrayOutputWithContext(context.Background())
 }
 
-func (i GetClustersClusterFirewallArray) ToGetClustersClusterFirewallArrayOutputWithContext(ctx context.Context) GetClustersClusterFirewallArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterFirewallArrayOutput)
+func (i GetClustersClusterFirewallRuleArray) ToGetClustersClusterFirewallRuleArrayOutputWithContext(ctx context.Context) GetClustersClusterFirewallRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterFirewallRuleArrayOutput)
 }
 
-type GetClustersClusterFirewallOutput struct{ *pulumi.OutputState }
+type GetClustersClusterFirewallRuleOutput struct{ *pulumi.OutputState }
 
-func (GetClustersClusterFirewallOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterFirewall)(nil)).Elem()
+func (GetClustersClusterFirewallRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClustersClusterFirewallRule)(nil)).Elem()
 }
 
-func (o GetClustersClusterFirewallOutput) ToGetClustersClusterFirewallOutput() GetClustersClusterFirewallOutput {
+func (o GetClustersClusterFirewallRuleOutput) ToGetClustersClusterFirewallRuleOutput() GetClustersClusterFirewallRuleOutput {
 	return o
 }
 
-func (o GetClustersClusterFirewallOutput) ToGetClustersClusterFirewallOutputWithContext(ctx context.Context) GetClustersClusterFirewallOutput {
+func (o GetClustersClusterFirewallRuleOutput) ToGetClustersClusterFirewallRuleOutputWithContext(ctx context.Context) GetClustersClusterFirewallRuleOutput {
 	return o
+}
+
+// IP address of the node
+func (o GetClustersClusterFirewallRuleOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersClusterFirewallRule) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // Port for the firewall rule
-func (o GetClustersClusterFirewallOutput) Port() pulumi.IntOutput {
-	return o.ApplyT(func(v GetClustersClusterFirewall) int { return v.Port }).(pulumi.IntOutput)
+func (o GetClustersClusterFirewallRuleOutput) Port() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClustersClusterFirewallRule) int { return v.Port }).(pulumi.IntOutput)
 }
 
 // Sources for the firewall rule
-func (o GetClustersClusterFirewallOutput) Sources() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterFirewall) []string { return v.Sources }).(pulumi.StringArrayOutput)
+func (o GetClustersClusterFirewallRuleOutput) Sources() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetClustersClusterFirewallRule) []string { return v.Sources }).(pulumi.StringArrayOutput)
 }
 
-// Type of the firewall rule
-func (o GetClustersClusterFirewallOutput) Type() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterFirewall) string { return v.Type }).(pulumi.StringOutput)
+type GetClustersClusterFirewallRuleArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClustersClusterFirewallRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClustersClusterFirewallRule)(nil)).Elem()
 }
 
-type GetClustersClusterFirewallArrayOutput struct{ *pulumi.OutputState }
-
-func (GetClustersClusterFirewallArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetClustersClusterFirewall)(nil)).Elem()
-}
-
-func (o GetClustersClusterFirewallArrayOutput) ToGetClustersClusterFirewallArrayOutput() GetClustersClusterFirewallArrayOutput {
+func (o GetClustersClusterFirewallRuleArrayOutput) ToGetClustersClusterFirewallRuleArrayOutput() GetClustersClusterFirewallRuleArrayOutput {
 	return o
 }
 
-func (o GetClustersClusterFirewallArrayOutput) ToGetClustersClusterFirewallArrayOutputWithContext(ctx context.Context) GetClustersClusterFirewallArrayOutput {
+func (o GetClustersClusterFirewallRuleArrayOutput) ToGetClustersClusterFirewallRuleArrayOutputWithContext(ctx context.Context) GetClustersClusterFirewallRuleArrayOutput {
 	return o
 }
 
-func (o GetClustersClusterFirewallArrayOutput) Index(i pulumi.IntInput) GetClustersClusterFirewallOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClustersClusterFirewall {
-		return vs[0].([]GetClustersClusterFirewall)[vs[1].(int)]
-	}).(GetClustersClusterFirewallOutput)
+func (o GetClustersClusterFirewallRuleArrayOutput) Index(i pulumi.IntInput) GetClustersClusterFirewallRuleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClustersClusterFirewallRule {
+		return vs[0].([]GetClustersClusterFirewallRule)[vs[1].(int)]
+	}).(GetClustersClusterFirewallRuleOutput)
 }
 
-type GetClustersClusterNodeGroups struct {
-	Aws     []GetClustersClusterNodeGroupsAw     `pulumi:"aws"`
-	Azures  []GetClustersClusterNodeGroupsAzure  `pulumi:"azures"`
-	Googles []GetClustersClusterNodeGroupsGoogle `pulumi:"googles"`
-}
-
-// GetClustersClusterNodeGroupsInput is an input type that accepts GetClustersClusterNodeGroupsArgs and GetClustersClusterNodeGroupsOutput values.
-// You can construct a concrete instance of `GetClustersClusterNodeGroupsInput` via:
-//
-//	GetClustersClusterNodeGroupsArgs{...}
-type GetClustersClusterNodeGroupsInput interface {
-	pulumi.Input
-
-	ToGetClustersClusterNodeGroupsOutput() GetClustersClusterNodeGroupsOutput
-	ToGetClustersClusterNodeGroupsOutputWithContext(context.Context) GetClustersClusterNodeGroupsOutput
-}
-
-type GetClustersClusterNodeGroupsArgs struct {
-	Aws     GetClustersClusterNodeGroupsAwArrayInput     `pulumi:"aws"`
-	Azures  GetClustersClusterNodeGroupsAzureArrayInput  `pulumi:"azures"`
-	Googles GetClustersClusterNodeGroupsGoogleArrayInput `pulumi:"googles"`
-}
-
-func (GetClustersClusterNodeGroupsArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterNodeGroups)(nil)).Elem()
-}
-
-func (i GetClustersClusterNodeGroupsArgs) ToGetClustersClusterNodeGroupsOutput() GetClustersClusterNodeGroupsOutput {
-	return i.ToGetClustersClusterNodeGroupsOutputWithContext(context.Background())
-}
-
-func (i GetClustersClusterNodeGroupsArgs) ToGetClustersClusterNodeGroupsOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNodeGroupsOutput)
-}
-
-type GetClustersClusterNodeGroupsOutput struct{ *pulumi.OutputState }
-
-func (GetClustersClusterNodeGroupsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterNodeGroups)(nil)).Elem()
-}
-
-func (o GetClustersClusterNodeGroupsOutput) ToGetClustersClusterNodeGroupsOutput() GetClustersClusterNodeGroupsOutput {
-	return o
-}
-
-func (o GetClustersClusterNodeGroupsOutput) ToGetClustersClusterNodeGroupsOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsOutput {
-	return o
-}
-
-func (o GetClustersClusterNodeGroupsOutput) Aws() GetClustersClusterNodeGroupsAwArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroups) []GetClustersClusterNodeGroupsAw { return v.Aws }).(GetClustersClusterNodeGroupsAwArrayOutput)
-}
-
-func (o GetClustersClusterNodeGroupsOutput) Azures() GetClustersClusterNodeGroupsAzureArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroups) []GetClustersClusterNodeGroupsAzure { return v.Azures }).(GetClustersClusterNodeGroupsAzureArrayOutput)
-}
-
-func (o GetClustersClusterNodeGroupsOutput) Googles() GetClustersClusterNodeGroupsGoogleArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroups) []GetClustersClusterNodeGroupsGoogle { return v.Googles }).(GetClustersClusterNodeGroupsGoogleArrayOutput)
-}
-
-type GetClustersClusterNodeGroupsAw struct {
-	// Availability zones of the AWS node group
-	AvailabilityZones []string `pulumi:"availabilityZones"`
+type GetClustersClusterNetwork struct {
 	// CIDR of the AWS node group
 	Cidr string `pulumi:"cidr"`
-	// Instance type of the AWS node group
-	InstanceType string `pulumi:"instanceType"`
-	// Node location of the AWS node group
-	NodeLocation   string                               `pulumi:"nodeLocation"`
-	Nodes          []GetClustersClusterNodeGroupsAwNode `pulumi:"nodes"`
-	PrivateSubnets []string                             `pulumi:"privateSubnets"`
-	PublicSubnets  []string                             `pulumi:"publicSubnets"`
-	// Region of the AWS node group
+	// Is the network external
+	External bool `pulumi:"external"`
+	// External ID of the network
+	ExternalId string `pulumi:"externalId"`
+	// IP address of the node
+	Name           string   `pulumi:"name"`
+	PrivateSubnets []string `pulumi:"privateSubnets"`
+	PublicSubnets  []string `pulumi:"publicSubnets"`
+	// Region of the network
 	Region string `pulumi:"region"`
-	// Volume IOPS of the AWS node group
-	VolumeIops int `pulumi:"volumeIops"`
-	// Volume size of the AWS node group
-	VolumeSize int `pulumi:"volumeSize"`
-	// Volume type of the AWS node group
-	VolumeType string `pulumi:"volumeType"`
 }
 
-// GetClustersClusterNodeGroupsAwInput is an input type that accepts GetClustersClusterNodeGroupsAwArgs and GetClustersClusterNodeGroupsAwOutput values.
-// You can construct a concrete instance of `GetClustersClusterNodeGroupsAwInput` via:
+// GetClustersClusterNetworkInput is an input type that accepts GetClustersClusterNetworkArgs and GetClustersClusterNetworkOutput values.
+// You can construct a concrete instance of `GetClustersClusterNetworkInput` via:
 //
-//	GetClustersClusterNodeGroupsAwArgs{...}
-type GetClustersClusterNodeGroupsAwInput interface {
+//	GetClustersClusterNetworkArgs{...}
+type GetClustersClusterNetworkInput interface {
 	pulumi.Input
 
-	ToGetClustersClusterNodeGroupsAwOutput() GetClustersClusterNodeGroupsAwOutput
-	ToGetClustersClusterNodeGroupsAwOutputWithContext(context.Context) GetClustersClusterNodeGroupsAwOutput
+	ToGetClustersClusterNetworkOutput() GetClustersClusterNetworkOutput
+	ToGetClustersClusterNetworkOutputWithContext(context.Context) GetClustersClusterNetworkOutput
 }
 
-type GetClustersClusterNodeGroupsAwArgs struct {
-	// Availability zones of the AWS node group
-	AvailabilityZones pulumi.StringArrayInput `pulumi:"availabilityZones"`
+type GetClustersClusterNetworkArgs struct {
 	// CIDR of the AWS node group
 	Cidr pulumi.StringInput `pulumi:"cidr"`
-	// Instance type of the AWS node group
-	InstanceType pulumi.StringInput `pulumi:"instanceType"`
-	// Node location of the AWS node group
-	NodeLocation   pulumi.StringInput                           `pulumi:"nodeLocation"`
-	Nodes          GetClustersClusterNodeGroupsAwNodeArrayInput `pulumi:"nodes"`
-	PrivateSubnets pulumi.StringArrayInput                      `pulumi:"privateSubnets"`
-	PublicSubnets  pulumi.StringArrayInput                      `pulumi:"publicSubnets"`
-	// Region of the AWS node group
+	// Is the network external
+	External pulumi.BoolInput `pulumi:"external"`
+	// External ID of the network
+	ExternalId pulumi.StringInput `pulumi:"externalId"`
+	// IP address of the node
+	Name           pulumi.StringInput      `pulumi:"name"`
+	PrivateSubnets pulumi.StringArrayInput `pulumi:"privateSubnets"`
+	PublicSubnets  pulumi.StringArrayInput `pulumi:"publicSubnets"`
+	// Region of the network
 	Region pulumi.StringInput `pulumi:"region"`
-	// Volume IOPS of the AWS node group
-	VolumeIops pulumi.IntInput `pulumi:"volumeIops"`
-	// Volume size of the AWS node group
-	VolumeSize pulumi.IntInput `pulumi:"volumeSize"`
-	// Volume type of the AWS node group
-	VolumeType pulumi.StringInput `pulumi:"volumeType"`
 }
 
-func (GetClustersClusterNodeGroupsAwArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterNodeGroupsAw)(nil)).Elem()
+func (GetClustersClusterNetworkArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClustersClusterNetwork)(nil)).Elem()
 }
 
-func (i GetClustersClusterNodeGroupsAwArgs) ToGetClustersClusterNodeGroupsAwOutput() GetClustersClusterNodeGroupsAwOutput {
-	return i.ToGetClustersClusterNodeGroupsAwOutputWithContext(context.Background())
+func (i GetClustersClusterNetworkArgs) ToGetClustersClusterNetworkOutput() GetClustersClusterNetworkOutput {
+	return i.ToGetClustersClusterNetworkOutputWithContext(context.Background())
 }
 
-func (i GetClustersClusterNodeGroupsAwArgs) ToGetClustersClusterNodeGroupsAwOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAwOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNodeGroupsAwOutput)
+func (i GetClustersClusterNetworkArgs) ToGetClustersClusterNetworkOutputWithContext(ctx context.Context) GetClustersClusterNetworkOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNetworkOutput)
 }
 
-// GetClustersClusterNodeGroupsAwArrayInput is an input type that accepts GetClustersClusterNodeGroupsAwArray and GetClustersClusterNodeGroupsAwArrayOutput values.
-// You can construct a concrete instance of `GetClustersClusterNodeGroupsAwArrayInput` via:
+// GetClustersClusterNetworkArrayInput is an input type that accepts GetClustersClusterNetworkArray and GetClustersClusterNetworkArrayOutput values.
+// You can construct a concrete instance of `GetClustersClusterNetworkArrayInput` via:
 //
-//	GetClustersClusterNodeGroupsAwArray{ GetClustersClusterNodeGroupsAwArgs{...} }
-type GetClustersClusterNodeGroupsAwArrayInput interface {
+//	GetClustersClusterNetworkArray{ GetClustersClusterNetworkArgs{...} }
+type GetClustersClusterNetworkArrayInput interface {
 	pulumi.Input
 
-	ToGetClustersClusterNodeGroupsAwArrayOutput() GetClustersClusterNodeGroupsAwArrayOutput
-	ToGetClustersClusterNodeGroupsAwArrayOutputWithContext(context.Context) GetClustersClusterNodeGroupsAwArrayOutput
+	ToGetClustersClusterNetworkArrayOutput() GetClustersClusterNetworkArrayOutput
+	ToGetClustersClusterNetworkArrayOutputWithContext(context.Context) GetClustersClusterNetworkArrayOutput
 }
 
-type GetClustersClusterNodeGroupsAwArray []GetClustersClusterNodeGroupsAwInput
+type GetClustersClusterNetworkArray []GetClustersClusterNetworkInput
 
-func (GetClustersClusterNodeGroupsAwArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetClustersClusterNodeGroupsAw)(nil)).Elem()
+func (GetClustersClusterNetworkArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClustersClusterNetwork)(nil)).Elem()
 }
 
-func (i GetClustersClusterNodeGroupsAwArray) ToGetClustersClusterNodeGroupsAwArrayOutput() GetClustersClusterNodeGroupsAwArrayOutput {
-	return i.ToGetClustersClusterNodeGroupsAwArrayOutputWithContext(context.Background())
+func (i GetClustersClusterNetworkArray) ToGetClustersClusterNetworkArrayOutput() GetClustersClusterNetworkArrayOutput {
+	return i.ToGetClustersClusterNetworkArrayOutputWithContext(context.Background())
 }
 
-func (i GetClustersClusterNodeGroupsAwArray) ToGetClustersClusterNodeGroupsAwArrayOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAwArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNodeGroupsAwArrayOutput)
+func (i GetClustersClusterNetworkArray) ToGetClustersClusterNetworkArrayOutputWithContext(ctx context.Context) GetClustersClusterNetworkArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNetworkArrayOutput)
 }
 
-type GetClustersClusterNodeGroupsAwOutput struct{ *pulumi.OutputState }
+type GetClustersClusterNetworkOutput struct{ *pulumi.OutputState }
 
-func (GetClustersClusterNodeGroupsAwOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterNodeGroupsAw)(nil)).Elem()
+func (GetClustersClusterNetworkOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClustersClusterNetwork)(nil)).Elem()
 }
 
-func (o GetClustersClusterNodeGroupsAwOutput) ToGetClustersClusterNodeGroupsAwOutput() GetClustersClusterNodeGroupsAwOutput {
+func (o GetClustersClusterNetworkOutput) ToGetClustersClusterNetworkOutput() GetClustersClusterNetworkOutput {
 	return o
 }
 
-func (o GetClustersClusterNodeGroupsAwOutput) ToGetClustersClusterNodeGroupsAwOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAwOutput {
+func (o GetClustersClusterNetworkOutput) ToGetClustersClusterNetworkOutputWithContext(ctx context.Context) GetClustersClusterNetworkOutput {
 	return o
-}
-
-// Availability zones of the AWS node group
-func (o GetClustersClusterNodeGroupsAwOutput) AvailabilityZones() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAw) []string { return v.AvailabilityZones }).(pulumi.StringArrayOutput)
 }
 
 // CIDR of the AWS node group
-func (o GetClustersClusterNodeGroupsAwOutput) Cidr() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAw) string { return v.Cidr }).(pulumi.StringOutput)
+func (o GetClustersClusterNetworkOutput) Cidr() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersClusterNetwork) string { return v.Cidr }).(pulumi.StringOutput)
 }
 
-// Instance type of the AWS node group
-func (o GetClustersClusterNodeGroupsAwOutput) InstanceType() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAw) string { return v.InstanceType }).(pulumi.StringOutput)
+// Is the network external
+func (o GetClustersClusterNetworkOutput) External() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetClustersClusterNetwork) bool { return v.External }).(pulumi.BoolOutput)
 }
 
-// Node location of the AWS node group
-func (o GetClustersClusterNodeGroupsAwOutput) NodeLocation() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAw) string { return v.NodeLocation }).(pulumi.StringOutput)
-}
-
-func (o GetClustersClusterNodeGroupsAwOutput) Nodes() GetClustersClusterNodeGroupsAwNodeArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAw) []GetClustersClusterNodeGroupsAwNode { return v.Nodes }).(GetClustersClusterNodeGroupsAwNodeArrayOutput)
-}
-
-func (o GetClustersClusterNodeGroupsAwOutput) PrivateSubnets() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAw) []string { return v.PrivateSubnets }).(pulumi.StringArrayOutput)
-}
-
-func (o GetClustersClusterNodeGroupsAwOutput) PublicSubnets() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAw) []string { return v.PublicSubnets }).(pulumi.StringArrayOutput)
-}
-
-// Region of the AWS node group
-func (o GetClustersClusterNodeGroupsAwOutput) Region() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAw) string { return v.Region }).(pulumi.StringOutput)
-}
-
-// Volume IOPS of the AWS node group
-func (o GetClustersClusterNodeGroupsAwOutput) VolumeIops() pulumi.IntOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAw) int { return v.VolumeIops }).(pulumi.IntOutput)
-}
-
-// Volume size of the AWS node group
-func (o GetClustersClusterNodeGroupsAwOutput) VolumeSize() pulumi.IntOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAw) int { return v.VolumeSize }).(pulumi.IntOutput)
-}
-
-// Volume type of the AWS node group
-func (o GetClustersClusterNodeGroupsAwOutput) VolumeType() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAw) string { return v.VolumeType }).(pulumi.StringOutput)
-}
-
-type GetClustersClusterNodeGroupsAwArrayOutput struct{ *pulumi.OutputState }
-
-func (GetClustersClusterNodeGroupsAwArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetClustersClusterNodeGroupsAw)(nil)).Elem()
-}
-
-func (o GetClustersClusterNodeGroupsAwArrayOutput) ToGetClustersClusterNodeGroupsAwArrayOutput() GetClustersClusterNodeGroupsAwArrayOutput {
-	return o
-}
-
-func (o GetClustersClusterNodeGroupsAwArrayOutput) ToGetClustersClusterNodeGroupsAwArrayOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAwArrayOutput {
-	return o
-}
-
-func (o GetClustersClusterNodeGroupsAwArrayOutput) Index(i pulumi.IntInput) GetClustersClusterNodeGroupsAwOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClustersClusterNodeGroupsAw {
-		return vs[0].([]GetClustersClusterNodeGroupsAw)[vs[1].(int)]
-	}).(GetClustersClusterNodeGroupsAwOutput)
-}
-
-type GetClustersClusterNodeGroupsAwNode struct {
-	// Display name of the node
-	DisplayName string `pulumi:"displayName"`
-	// IP address of the node
-	IpAddress string `pulumi:"ipAddress"`
-	// Is the node active
-	IsActive bool `pulumi:"isActive"`
-}
-
-// GetClustersClusterNodeGroupsAwNodeInput is an input type that accepts GetClustersClusterNodeGroupsAwNodeArgs and GetClustersClusterNodeGroupsAwNodeOutput values.
-// You can construct a concrete instance of `GetClustersClusterNodeGroupsAwNodeInput` via:
-//
-//	GetClustersClusterNodeGroupsAwNodeArgs{...}
-type GetClustersClusterNodeGroupsAwNodeInput interface {
-	pulumi.Input
-
-	ToGetClustersClusterNodeGroupsAwNodeOutput() GetClustersClusterNodeGroupsAwNodeOutput
-	ToGetClustersClusterNodeGroupsAwNodeOutputWithContext(context.Context) GetClustersClusterNodeGroupsAwNodeOutput
-}
-
-type GetClustersClusterNodeGroupsAwNodeArgs struct {
-	// Display name of the node
-	DisplayName pulumi.StringInput `pulumi:"displayName"`
-	// IP address of the node
-	IpAddress pulumi.StringInput `pulumi:"ipAddress"`
-	// Is the node active
-	IsActive pulumi.BoolInput `pulumi:"isActive"`
-}
-
-func (GetClustersClusterNodeGroupsAwNodeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterNodeGroupsAwNode)(nil)).Elem()
-}
-
-func (i GetClustersClusterNodeGroupsAwNodeArgs) ToGetClustersClusterNodeGroupsAwNodeOutput() GetClustersClusterNodeGroupsAwNodeOutput {
-	return i.ToGetClustersClusterNodeGroupsAwNodeOutputWithContext(context.Background())
-}
-
-func (i GetClustersClusterNodeGroupsAwNodeArgs) ToGetClustersClusterNodeGroupsAwNodeOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAwNodeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNodeGroupsAwNodeOutput)
-}
-
-// GetClustersClusterNodeGroupsAwNodeArrayInput is an input type that accepts GetClustersClusterNodeGroupsAwNodeArray and GetClustersClusterNodeGroupsAwNodeArrayOutput values.
-// You can construct a concrete instance of `GetClustersClusterNodeGroupsAwNodeArrayInput` via:
-//
-//	GetClustersClusterNodeGroupsAwNodeArray{ GetClustersClusterNodeGroupsAwNodeArgs{...} }
-type GetClustersClusterNodeGroupsAwNodeArrayInput interface {
-	pulumi.Input
-
-	ToGetClustersClusterNodeGroupsAwNodeArrayOutput() GetClustersClusterNodeGroupsAwNodeArrayOutput
-	ToGetClustersClusterNodeGroupsAwNodeArrayOutputWithContext(context.Context) GetClustersClusterNodeGroupsAwNodeArrayOutput
-}
-
-type GetClustersClusterNodeGroupsAwNodeArray []GetClustersClusterNodeGroupsAwNodeInput
-
-func (GetClustersClusterNodeGroupsAwNodeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetClustersClusterNodeGroupsAwNode)(nil)).Elem()
-}
-
-func (i GetClustersClusterNodeGroupsAwNodeArray) ToGetClustersClusterNodeGroupsAwNodeArrayOutput() GetClustersClusterNodeGroupsAwNodeArrayOutput {
-	return i.ToGetClustersClusterNodeGroupsAwNodeArrayOutputWithContext(context.Background())
-}
-
-func (i GetClustersClusterNodeGroupsAwNodeArray) ToGetClustersClusterNodeGroupsAwNodeArrayOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAwNodeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNodeGroupsAwNodeArrayOutput)
-}
-
-type GetClustersClusterNodeGroupsAwNodeOutput struct{ *pulumi.OutputState }
-
-func (GetClustersClusterNodeGroupsAwNodeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterNodeGroupsAwNode)(nil)).Elem()
-}
-
-func (o GetClustersClusterNodeGroupsAwNodeOutput) ToGetClustersClusterNodeGroupsAwNodeOutput() GetClustersClusterNodeGroupsAwNodeOutput {
-	return o
-}
-
-func (o GetClustersClusterNodeGroupsAwNodeOutput) ToGetClustersClusterNodeGroupsAwNodeOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAwNodeOutput {
-	return o
-}
-
-// Display name of the node
-func (o GetClustersClusterNodeGroupsAwNodeOutput) DisplayName() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAwNode) string { return v.DisplayName }).(pulumi.StringOutput)
+// External ID of the network
+func (o GetClustersClusterNetworkOutput) ExternalId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersClusterNetwork) string { return v.ExternalId }).(pulumi.StringOutput)
 }
 
 // IP address of the node
-func (o GetClustersClusterNodeGroupsAwNodeOutput) IpAddress() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAwNode) string { return v.IpAddress }).(pulumi.StringOutput)
+func (o GetClustersClusterNetworkOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersClusterNetwork) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// Is the node active
-func (o GetClustersClusterNodeGroupsAwNodeOutput) IsActive() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAwNode) bool { return v.IsActive }).(pulumi.BoolOutput)
+func (o GetClustersClusterNetworkOutput) PrivateSubnets() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetClustersClusterNetwork) []string { return v.PrivateSubnets }).(pulumi.StringArrayOutput)
 }
 
-type GetClustersClusterNodeGroupsAwNodeArrayOutput struct{ *pulumi.OutputState }
-
-func (GetClustersClusterNodeGroupsAwNodeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetClustersClusterNodeGroupsAwNode)(nil)).Elem()
+func (o GetClustersClusterNetworkOutput) PublicSubnets() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetClustersClusterNetwork) []string { return v.PublicSubnets }).(pulumi.StringArrayOutput)
 }
 
-func (o GetClustersClusterNodeGroupsAwNodeArrayOutput) ToGetClustersClusterNodeGroupsAwNodeArrayOutput() GetClustersClusterNodeGroupsAwNodeArrayOutput {
+// Region of the network
+func (o GetClustersClusterNetworkOutput) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersClusterNetwork) string { return v.Region }).(pulumi.StringOutput)
+}
+
+type GetClustersClusterNetworkArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClustersClusterNetworkArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClustersClusterNetwork)(nil)).Elem()
+}
+
+func (o GetClustersClusterNetworkArrayOutput) ToGetClustersClusterNetworkArrayOutput() GetClustersClusterNetworkArrayOutput {
 	return o
 }
 
-func (o GetClustersClusterNodeGroupsAwNodeArrayOutput) ToGetClustersClusterNodeGroupsAwNodeArrayOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAwNodeArrayOutput {
+func (o GetClustersClusterNetworkArrayOutput) ToGetClustersClusterNetworkArrayOutputWithContext(ctx context.Context) GetClustersClusterNetworkArrayOutput {
 	return o
 }
 
-func (o GetClustersClusterNodeGroupsAwNodeArrayOutput) Index(i pulumi.IntInput) GetClustersClusterNodeGroupsAwNodeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClustersClusterNodeGroupsAwNode {
-		return vs[0].([]GetClustersClusterNodeGroupsAwNode)[vs[1].(int)]
-	}).(GetClustersClusterNodeGroupsAwNodeOutput)
+func (o GetClustersClusterNetworkArrayOutput) Index(i pulumi.IntInput) GetClustersClusterNetworkOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClustersClusterNetwork {
+		return vs[0].([]GetClustersClusterNetwork)[vs[1].(int)]
+	}).(GetClustersClusterNetworkOutput)
 }
 
-type GetClustersClusterNodeGroupsAzure struct {
-	// Availability zones of the AWS node group
-	AvailabilityZones []string `pulumi:"availabilityZones"`
-	// CIDR of the AWS node group
-	Cidr string `pulumi:"cidr"`
-	// Instance type of the AWS node group
+type GetClustersClusterNode struct {
+	// Cloud provider availability zone name
+	AvailabilityZone string `pulumi:"availabilityZone"`
+	// Instance type used for the node
 	InstanceType string `pulumi:"instanceType"`
-	// Node location of the AWS node group
-	NodeLocation   string                                  `pulumi:"nodeLocation"`
-	Nodes          []GetClustersClusterNodeGroupsAzureNode `pulumi:"nodes"`
-	PrivateSubnets []string                                `pulumi:"privateSubnets"`
-	PublicSubnets  []string                                `pulumi:"publicSubnets"`
-	// Region of the AWS node group
+	// IP address of the node
+	Name    string   `pulumi:"name"`
+	Options []string `pulumi:"options"`
+	// Region of the network
 	Region string `pulumi:"region"`
-	// Volume IOPS of the AWS node group
+	// Volume IOPS of the node data volume
 	VolumeIops int `pulumi:"volumeIops"`
-	// Volume size of the AWS node group
+	// Volume size of the node data volume
 	VolumeSize int `pulumi:"volumeSize"`
-	// Volume type of the AWS node group
+	// Volume type of the node data volume
 	VolumeType string `pulumi:"volumeType"`
 }
 
-// GetClustersClusterNodeGroupsAzureInput is an input type that accepts GetClustersClusterNodeGroupsAzureArgs and GetClustersClusterNodeGroupsAzureOutput values.
-// You can construct a concrete instance of `GetClustersClusterNodeGroupsAzureInput` via:
+// GetClustersClusterNodeInput is an input type that accepts GetClustersClusterNodeArgs and GetClustersClusterNodeOutput values.
+// You can construct a concrete instance of `GetClustersClusterNodeInput` via:
 //
-//	GetClustersClusterNodeGroupsAzureArgs{...}
-type GetClustersClusterNodeGroupsAzureInput interface {
+//	GetClustersClusterNodeArgs{...}
+type GetClustersClusterNodeInput interface {
 	pulumi.Input
 
-	ToGetClustersClusterNodeGroupsAzureOutput() GetClustersClusterNodeGroupsAzureOutput
-	ToGetClustersClusterNodeGroupsAzureOutputWithContext(context.Context) GetClustersClusterNodeGroupsAzureOutput
+	ToGetClustersClusterNodeOutput() GetClustersClusterNodeOutput
+	ToGetClustersClusterNodeOutputWithContext(context.Context) GetClustersClusterNodeOutput
 }
 
-type GetClustersClusterNodeGroupsAzureArgs struct {
-	// Availability zones of the AWS node group
-	AvailabilityZones pulumi.StringArrayInput `pulumi:"availabilityZones"`
-	// CIDR of the AWS node group
-	Cidr pulumi.StringInput `pulumi:"cidr"`
-	// Instance type of the AWS node group
+type GetClustersClusterNodeArgs struct {
+	// Cloud provider availability zone name
+	AvailabilityZone pulumi.StringInput `pulumi:"availabilityZone"`
+	// Instance type used for the node
 	InstanceType pulumi.StringInput `pulumi:"instanceType"`
-	// Node location of the AWS node group
-	NodeLocation   pulumi.StringInput                              `pulumi:"nodeLocation"`
-	Nodes          GetClustersClusterNodeGroupsAzureNodeArrayInput `pulumi:"nodes"`
-	PrivateSubnets pulumi.StringArrayInput                         `pulumi:"privateSubnets"`
-	PublicSubnets  pulumi.StringArrayInput                         `pulumi:"publicSubnets"`
-	// Region of the AWS node group
+	// IP address of the node
+	Name    pulumi.StringInput      `pulumi:"name"`
+	Options pulumi.StringArrayInput `pulumi:"options"`
+	// Region of the network
 	Region pulumi.StringInput `pulumi:"region"`
-	// Volume IOPS of the AWS node group
+	// Volume IOPS of the node data volume
 	VolumeIops pulumi.IntInput `pulumi:"volumeIops"`
-	// Volume size of the AWS node group
+	// Volume size of the node data volume
 	VolumeSize pulumi.IntInput `pulumi:"volumeSize"`
-	// Volume type of the AWS node group
+	// Volume type of the node data volume
 	VolumeType pulumi.StringInput `pulumi:"volumeType"`
 }
 
-func (GetClustersClusterNodeGroupsAzureArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterNodeGroupsAzure)(nil)).Elem()
+func (GetClustersClusterNodeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClustersClusterNode)(nil)).Elem()
 }
 
-func (i GetClustersClusterNodeGroupsAzureArgs) ToGetClustersClusterNodeGroupsAzureOutput() GetClustersClusterNodeGroupsAzureOutput {
-	return i.ToGetClustersClusterNodeGroupsAzureOutputWithContext(context.Background())
+func (i GetClustersClusterNodeArgs) ToGetClustersClusterNodeOutput() GetClustersClusterNodeOutput {
+	return i.ToGetClustersClusterNodeOutputWithContext(context.Background())
 }
 
-func (i GetClustersClusterNodeGroupsAzureArgs) ToGetClustersClusterNodeGroupsAzureOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAzureOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNodeGroupsAzureOutput)
+func (i GetClustersClusterNodeArgs) ToGetClustersClusterNodeOutputWithContext(ctx context.Context) GetClustersClusterNodeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNodeOutput)
 }
 
-// GetClustersClusterNodeGroupsAzureArrayInput is an input type that accepts GetClustersClusterNodeGroupsAzureArray and GetClustersClusterNodeGroupsAzureArrayOutput values.
-// You can construct a concrete instance of `GetClustersClusterNodeGroupsAzureArrayInput` via:
+// GetClustersClusterNodeArrayInput is an input type that accepts GetClustersClusterNodeArray and GetClustersClusterNodeArrayOutput values.
+// You can construct a concrete instance of `GetClustersClusterNodeArrayInput` via:
 //
-//	GetClustersClusterNodeGroupsAzureArray{ GetClustersClusterNodeGroupsAzureArgs{...} }
-type GetClustersClusterNodeGroupsAzureArrayInput interface {
+//	GetClustersClusterNodeArray{ GetClustersClusterNodeArgs{...} }
+type GetClustersClusterNodeArrayInput interface {
 	pulumi.Input
 
-	ToGetClustersClusterNodeGroupsAzureArrayOutput() GetClustersClusterNodeGroupsAzureArrayOutput
-	ToGetClustersClusterNodeGroupsAzureArrayOutputWithContext(context.Context) GetClustersClusterNodeGroupsAzureArrayOutput
+	ToGetClustersClusterNodeArrayOutput() GetClustersClusterNodeArrayOutput
+	ToGetClustersClusterNodeArrayOutputWithContext(context.Context) GetClustersClusterNodeArrayOutput
 }
 
-type GetClustersClusterNodeGroupsAzureArray []GetClustersClusterNodeGroupsAzureInput
+type GetClustersClusterNodeArray []GetClustersClusterNodeInput
 
-func (GetClustersClusterNodeGroupsAzureArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetClustersClusterNodeGroupsAzure)(nil)).Elem()
+func (GetClustersClusterNodeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClustersClusterNode)(nil)).Elem()
 }
 
-func (i GetClustersClusterNodeGroupsAzureArray) ToGetClustersClusterNodeGroupsAzureArrayOutput() GetClustersClusterNodeGroupsAzureArrayOutput {
-	return i.ToGetClustersClusterNodeGroupsAzureArrayOutputWithContext(context.Background())
+func (i GetClustersClusterNodeArray) ToGetClustersClusterNodeArrayOutput() GetClustersClusterNodeArrayOutput {
+	return i.ToGetClustersClusterNodeArrayOutputWithContext(context.Background())
 }
 
-func (i GetClustersClusterNodeGroupsAzureArray) ToGetClustersClusterNodeGroupsAzureArrayOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAzureArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNodeGroupsAzureArrayOutput)
+func (i GetClustersClusterNodeArray) ToGetClustersClusterNodeArrayOutputWithContext(ctx context.Context) GetClustersClusterNodeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNodeArrayOutput)
 }
 
-type GetClustersClusterNodeGroupsAzureOutput struct{ *pulumi.OutputState }
+type GetClustersClusterNodeOutput struct{ *pulumi.OutputState }
 
-func (GetClustersClusterNodeGroupsAzureOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterNodeGroupsAzure)(nil)).Elem()
+func (GetClustersClusterNodeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClustersClusterNode)(nil)).Elem()
 }
 
-func (o GetClustersClusterNodeGroupsAzureOutput) ToGetClustersClusterNodeGroupsAzureOutput() GetClustersClusterNodeGroupsAzureOutput {
+func (o GetClustersClusterNodeOutput) ToGetClustersClusterNodeOutput() GetClustersClusterNodeOutput {
 	return o
 }
 
-func (o GetClustersClusterNodeGroupsAzureOutput) ToGetClustersClusterNodeGroupsAzureOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAzureOutput {
+func (o GetClustersClusterNodeOutput) ToGetClustersClusterNodeOutputWithContext(ctx context.Context) GetClustersClusterNodeOutput {
 	return o
 }
 
-// Availability zones of the AWS node group
-func (o GetClustersClusterNodeGroupsAzureOutput) AvailabilityZones() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAzure) []string { return v.AvailabilityZones }).(pulumi.StringArrayOutput)
+// Cloud provider availability zone name
+func (o GetClustersClusterNodeOutput) AvailabilityZone() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersClusterNode) string { return v.AvailabilityZone }).(pulumi.StringOutput)
 }
 
-// CIDR of the AWS node group
-func (o GetClustersClusterNodeGroupsAzureOutput) Cidr() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAzure) string { return v.Cidr }).(pulumi.StringOutput)
-}
-
-// Instance type of the AWS node group
-func (o GetClustersClusterNodeGroupsAzureOutput) InstanceType() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAzure) string { return v.InstanceType }).(pulumi.StringOutput)
-}
-
-// Node location of the AWS node group
-func (o GetClustersClusterNodeGroupsAzureOutput) NodeLocation() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAzure) string { return v.NodeLocation }).(pulumi.StringOutput)
-}
-
-func (o GetClustersClusterNodeGroupsAzureOutput) Nodes() GetClustersClusterNodeGroupsAzureNodeArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAzure) []GetClustersClusterNodeGroupsAzureNode { return v.Nodes }).(GetClustersClusterNodeGroupsAzureNodeArrayOutput)
-}
-
-func (o GetClustersClusterNodeGroupsAzureOutput) PrivateSubnets() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAzure) []string { return v.PrivateSubnets }).(pulumi.StringArrayOutput)
-}
-
-func (o GetClustersClusterNodeGroupsAzureOutput) PublicSubnets() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAzure) []string { return v.PublicSubnets }).(pulumi.StringArrayOutput)
-}
-
-// Region of the AWS node group
-func (o GetClustersClusterNodeGroupsAzureOutput) Region() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAzure) string { return v.Region }).(pulumi.StringOutput)
-}
-
-// Volume IOPS of the AWS node group
-func (o GetClustersClusterNodeGroupsAzureOutput) VolumeIops() pulumi.IntOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAzure) int { return v.VolumeIops }).(pulumi.IntOutput)
-}
-
-// Volume size of the AWS node group
-func (o GetClustersClusterNodeGroupsAzureOutput) VolumeSize() pulumi.IntOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAzure) int { return v.VolumeSize }).(pulumi.IntOutput)
-}
-
-// Volume type of the AWS node group
-func (o GetClustersClusterNodeGroupsAzureOutput) VolumeType() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAzure) string { return v.VolumeType }).(pulumi.StringOutput)
-}
-
-type GetClustersClusterNodeGroupsAzureArrayOutput struct{ *pulumi.OutputState }
-
-func (GetClustersClusterNodeGroupsAzureArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetClustersClusterNodeGroupsAzure)(nil)).Elem()
-}
-
-func (o GetClustersClusterNodeGroupsAzureArrayOutput) ToGetClustersClusterNodeGroupsAzureArrayOutput() GetClustersClusterNodeGroupsAzureArrayOutput {
-	return o
-}
-
-func (o GetClustersClusterNodeGroupsAzureArrayOutput) ToGetClustersClusterNodeGroupsAzureArrayOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAzureArrayOutput {
-	return o
-}
-
-func (o GetClustersClusterNodeGroupsAzureArrayOutput) Index(i pulumi.IntInput) GetClustersClusterNodeGroupsAzureOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClustersClusterNodeGroupsAzure {
-		return vs[0].([]GetClustersClusterNodeGroupsAzure)[vs[1].(int)]
-	}).(GetClustersClusterNodeGroupsAzureOutput)
-}
-
-type GetClustersClusterNodeGroupsAzureNode struct {
-	// Display name of the node
-	DisplayName string `pulumi:"displayName"`
-	// IP address of the node
-	IpAddress string `pulumi:"ipAddress"`
-	// Is the node active
-	IsActive bool `pulumi:"isActive"`
-}
-
-// GetClustersClusterNodeGroupsAzureNodeInput is an input type that accepts GetClustersClusterNodeGroupsAzureNodeArgs and GetClustersClusterNodeGroupsAzureNodeOutput values.
-// You can construct a concrete instance of `GetClustersClusterNodeGroupsAzureNodeInput` via:
-//
-//	GetClustersClusterNodeGroupsAzureNodeArgs{...}
-type GetClustersClusterNodeGroupsAzureNodeInput interface {
-	pulumi.Input
-
-	ToGetClustersClusterNodeGroupsAzureNodeOutput() GetClustersClusterNodeGroupsAzureNodeOutput
-	ToGetClustersClusterNodeGroupsAzureNodeOutputWithContext(context.Context) GetClustersClusterNodeGroupsAzureNodeOutput
-}
-
-type GetClustersClusterNodeGroupsAzureNodeArgs struct {
-	// Display name of the node
-	DisplayName pulumi.StringInput `pulumi:"displayName"`
-	// IP address of the node
-	IpAddress pulumi.StringInput `pulumi:"ipAddress"`
-	// Is the node active
-	IsActive pulumi.BoolInput `pulumi:"isActive"`
-}
-
-func (GetClustersClusterNodeGroupsAzureNodeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterNodeGroupsAzureNode)(nil)).Elem()
-}
-
-func (i GetClustersClusterNodeGroupsAzureNodeArgs) ToGetClustersClusterNodeGroupsAzureNodeOutput() GetClustersClusterNodeGroupsAzureNodeOutput {
-	return i.ToGetClustersClusterNodeGroupsAzureNodeOutputWithContext(context.Background())
-}
-
-func (i GetClustersClusterNodeGroupsAzureNodeArgs) ToGetClustersClusterNodeGroupsAzureNodeOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAzureNodeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNodeGroupsAzureNodeOutput)
-}
-
-// GetClustersClusterNodeGroupsAzureNodeArrayInput is an input type that accepts GetClustersClusterNodeGroupsAzureNodeArray and GetClustersClusterNodeGroupsAzureNodeArrayOutput values.
-// You can construct a concrete instance of `GetClustersClusterNodeGroupsAzureNodeArrayInput` via:
-//
-//	GetClustersClusterNodeGroupsAzureNodeArray{ GetClustersClusterNodeGroupsAzureNodeArgs{...} }
-type GetClustersClusterNodeGroupsAzureNodeArrayInput interface {
-	pulumi.Input
-
-	ToGetClustersClusterNodeGroupsAzureNodeArrayOutput() GetClustersClusterNodeGroupsAzureNodeArrayOutput
-	ToGetClustersClusterNodeGroupsAzureNodeArrayOutputWithContext(context.Context) GetClustersClusterNodeGroupsAzureNodeArrayOutput
-}
-
-type GetClustersClusterNodeGroupsAzureNodeArray []GetClustersClusterNodeGroupsAzureNodeInput
-
-func (GetClustersClusterNodeGroupsAzureNodeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetClustersClusterNodeGroupsAzureNode)(nil)).Elem()
-}
-
-func (i GetClustersClusterNodeGroupsAzureNodeArray) ToGetClustersClusterNodeGroupsAzureNodeArrayOutput() GetClustersClusterNodeGroupsAzureNodeArrayOutput {
-	return i.ToGetClustersClusterNodeGroupsAzureNodeArrayOutputWithContext(context.Background())
-}
-
-func (i GetClustersClusterNodeGroupsAzureNodeArray) ToGetClustersClusterNodeGroupsAzureNodeArrayOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAzureNodeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNodeGroupsAzureNodeArrayOutput)
-}
-
-type GetClustersClusterNodeGroupsAzureNodeOutput struct{ *pulumi.OutputState }
-
-func (GetClustersClusterNodeGroupsAzureNodeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterNodeGroupsAzureNode)(nil)).Elem()
-}
-
-func (o GetClustersClusterNodeGroupsAzureNodeOutput) ToGetClustersClusterNodeGroupsAzureNodeOutput() GetClustersClusterNodeGroupsAzureNodeOutput {
-	return o
-}
-
-func (o GetClustersClusterNodeGroupsAzureNodeOutput) ToGetClustersClusterNodeGroupsAzureNodeOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAzureNodeOutput {
-	return o
-}
-
-// Display name of the node
-func (o GetClustersClusterNodeGroupsAzureNodeOutput) DisplayName() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAzureNode) string { return v.DisplayName }).(pulumi.StringOutput)
+// Instance type used for the node
+func (o GetClustersClusterNodeOutput) InstanceType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersClusterNode) string { return v.InstanceType }).(pulumi.StringOutput)
 }
 
 // IP address of the node
-func (o GetClustersClusterNodeGroupsAzureNodeOutput) IpAddress() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAzureNode) string { return v.IpAddress }).(pulumi.StringOutput)
+func (o GetClustersClusterNodeOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersClusterNode) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// Is the node active
-func (o GetClustersClusterNodeGroupsAzureNodeOutput) IsActive() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsAzureNode) bool { return v.IsActive }).(pulumi.BoolOutput)
+func (o GetClustersClusterNodeOutput) Options() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetClustersClusterNode) []string { return v.Options }).(pulumi.StringArrayOutput)
 }
 
-type GetClustersClusterNodeGroupsAzureNodeArrayOutput struct{ *pulumi.OutputState }
-
-func (GetClustersClusterNodeGroupsAzureNodeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetClustersClusterNodeGroupsAzureNode)(nil)).Elem()
+// Region of the network
+func (o GetClustersClusterNodeOutput) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersClusterNode) string { return v.Region }).(pulumi.StringOutput)
 }
 
-func (o GetClustersClusterNodeGroupsAzureNodeArrayOutput) ToGetClustersClusterNodeGroupsAzureNodeArrayOutput() GetClustersClusterNodeGroupsAzureNodeArrayOutput {
+// Volume IOPS of the node data volume
+func (o GetClustersClusterNodeOutput) VolumeIops() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClustersClusterNode) int { return v.VolumeIops }).(pulumi.IntOutput)
+}
+
+// Volume size of the node data volume
+func (o GetClustersClusterNodeOutput) VolumeSize() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClustersClusterNode) int { return v.VolumeSize }).(pulumi.IntOutput)
+}
+
+// Volume type of the node data volume
+func (o GetClustersClusterNodeOutput) VolumeType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersClusterNode) string { return v.VolumeType }).(pulumi.StringOutput)
+}
+
+type GetClustersClusterNodeArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClustersClusterNodeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClustersClusterNode)(nil)).Elem()
+}
+
+func (o GetClustersClusterNodeArrayOutput) ToGetClustersClusterNodeArrayOutput() GetClustersClusterNodeArrayOutput {
 	return o
 }
 
-func (o GetClustersClusterNodeGroupsAzureNodeArrayOutput) ToGetClustersClusterNodeGroupsAzureNodeArrayOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsAzureNodeArrayOutput {
+func (o GetClustersClusterNodeArrayOutput) ToGetClustersClusterNodeArrayOutputWithContext(ctx context.Context) GetClustersClusterNodeArrayOutput {
 	return o
 }
 
-func (o GetClustersClusterNodeGroupsAzureNodeArrayOutput) Index(i pulumi.IntInput) GetClustersClusterNodeGroupsAzureNodeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClustersClusterNodeGroupsAzureNode {
-		return vs[0].([]GetClustersClusterNodeGroupsAzureNode)[vs[1].(int)]
-	}).(GetClustersClusterNodeGroupsAzureNodeOutput)
-}
-
-type GetClustersClusterNodeGroupsGoogle struct {
-	// Availability zones of the AWS node group
-	AvailabilityZones []string `pulumi:"availabilityZones"`
-	// CIDR of the AWS node group
-	Cidr string `pulumi:"cidr"`
-	// Instance type of the AWS node group
-	InstanceType string `pulumi:"instanceType"`
-	// Node location of the AWS node group
-	NodeLocation   string                                   `pulumi:"nodeLocation"`
-	Nodes          []GetClustersClusterNodeGroupsGoogleNode `pulumi:"nodes"`
-	PrivateSubnets []string                                 `pulumi:"privateSubnets"`
-	PublicSubnets  []string                                 `pulumi:"publicSubnets"`
-	// Region of the AWS node group
-	Region string `pulumi:"region"`
-	// Volume IOPS of the AWS node group
-	VolumeIops int `pulumi:"volumeIops"`
-	// Volume size of the AWS node group
-	VolumeSize int `pulumi:"volumeSize"`
-	// Volume type of the AWS node group
-	VolumeType string `pulumi:"volumeType"`
-}
-
-// GetClustersClusterNodeGroupsGoogleInput is an input type that accepts GetClustersClusterNodeGroupsGoogleArgs and GetClustersClusterNodeGroupsGoogleOutput values.
-// You can construct a concrete instance of `GetClustersClusterNodeGroupsGoogleInput` via:
-//
-//	GetClustersClusterNodeGroupsGoogleArgs{...}
-type GetClustersClusterNodeGroupsGoogleInput interface {
-	pulumi.Input
-
-	ToGetClustersClusterNodeGroupsGoogleOutput() GetClustersClusterNodeGroupsGoogleOutput
-	ToGetClustersClusterNodeGroupsGoogleOutputWithContext(context.Context) GetClustersClusterNodeGroupsGoogleOutput
-}
-
-type GetClustersClusterNodeGroupsGoogleArgs struct {
-	// Availability zones of the AWS node group
-	AvailabilityZones pulumi.StringArrayInput `pulumi:"availabilityZones"`
-	// CIDR of the AWS node group
-	Cidr pulumi.StringInput `pulumi:"cidr"`
-	// Instance type of the AWS node group
-	InstanceType pulumi.StringInput `pulumi:"instanceType"`
-	// Node location of the AWS node group
-	NodeLocation   pulumi.StringInput                               `pulumi:"nodeLocation"`
-	Nodes          GetClustersClusterNodeGroupsGoogleNodeArrayInput `pulumi:"nodes"`
-	PrivateSubnets pulumi.StringArrayInput                          `pulumi:"privateSubnets"`
-	PublicSubnets  pulumi.StringArrayInput                          `pulumi:"publicSubnets"`
-	// Region of the AWS node group
-	Region pulumi.StringInput `pulumi:"region"`
-	// Volume IOPS of the AWS node group
-	VolumeIops pulumi.IntInput `pulumi:"volumeIops"`
-	// Volume size of the AWS node group
-	VolumeSize pulumi.IntInput `pulumi:"volumeSize"`
-	// Volume type of the AWS node group
-	VolumeType pulumi.StringInput `pulumi:"volumeType"`
-}
-
-func (GetClustersClusterNodeGroupsGoogleArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterNodeGroupsGoogle)(nil)).Elem()
-}
-
-func (i GetClustersClusterNodeGroupsGoogleArgs) ToGetClustersClusterNodeGroupsGoogleOutput() GetClustersClusterNodeGroupsGoogleOutput {
-	return i.ToGetClustersClusterNodeGroupsGoogleOutputWithContext(context.Background())
-}
-
-func (i GetClustersClusterNodeGroupsGoogleArgs) ToGetClustersClusterNodeGroupsGoogleOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsGoogleOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNodeGroupsGoogleOutput)
-}
-
-// GetClustersClusterNodeGroupsGoogleArrayInput is an input type that accepts GetClustersClusterNodeGroupsGoogleArray and GetClustersClusterNodeGroupsGoogleArrayOutput values.
-// You can construct a concrete instance of `GetClustersClusterNodeGroupsGoogleArrayInput` via:
-//
-//	GetClustersClusterNodeGroupsGoogleArray{ GetClustersClusterNodeGroupsGoogleArgs{...} }
-type GetClustersClusterNodeGroupsGoogleArrayInput interface {
-	pulumi.Input
-
-	ToGetClustersClusterNodeGroupsGoogleArrayOutput() GetClustersClusterNodeGroupsGoogleArrayOutput
-	ToGetClustersClusterNodeGroupsGoogleArrayOutputWithContext(context.Context) GetClustersClusterNodeGroupsGoogleArrayOutput
-}
-
-type GetClustersClusterNodeGroupsGoogleArray []GetClustersClusterNodeGroupsGoogleInput
-
-func (GetClustersClusterNodeGroupsGoogleArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetClustersClusterNodeGroupsGoogle)(nil)).Elem()
-}
-
-func (i GetClustersClusterNodeGroupsGoogleArray) ToGetClustersClusterNodeGroupsGoogleArrayOutput() GetClustersClusterNodeGroupsGoogleArrayOutput {
-	return i.ToGetClustersClusterNodeGroupsGoogleArrayOutputWithContext(context.Background())
-}
-
-func (i GetClustersClusterNodeGroupsGoogleArray) ToGetClustersClusterNodeGroupsGoogleArrayOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsGoogleArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNodeGroupsGoogleArrayOutput)
-}
-
-type GetClustersClusterNodeGroupsGoogleOutput struct{ *pulumi.OutputState }
-
-func (GetClustersClusterNodeGroupsGoogleOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterNodeGroupsGoogle)(nil)).Elem()
-}
-
-func (o GetClustersClusterNodeGroupsGoogleOutput) ToGetClustersClusterNodeGroupsGoogleOutput() GetClustersClusterNodeGroupsGoogleOutput {
-	return o
-}
-
-func (o GetClustersClusterNodeGroupsGoogleOutput) ToGetClustersClusterNodeGroupsGoogleOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsGoogleOutput {
-	return o
-}
-
-// Availability zones of the AWS node group
-func (o GetClustersClusterNodeGroupsGoogleOutput) AvailabilityZones() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsGoogle) []string { return v.AvailabilityZones }).(pulumi.StringArrayOutput)
-}
-
-// CIDR of the AWS node group
-func (o GetClustersClusterNodeGroupsGoogleOutput) Cidr() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsGoogle) string { return v.Cidr }).(pulumi.StringOutput)
-}
-
-// Instance type of the AWS node group
-func (o GetClustersClusterNodeGroupsGoogleOutput) InstanceType() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsGoogle) string { return v.InstanceType }).(pulumi.StringOutput)
-}
-
-// Node location of the AWS node group
-func (o GetClustersClusterNodeGroupsGoogleOutput) NodeLocation() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsGoogle) string { return v.NodeLocation }).(pulumi.StringOutput)
-}
-
-func (o GetClustersClusterNodeGroupsGoogleOutput) Nodes() GetClustersClusterNodeGroupsGoogleNodeArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsGoogle) []GetClustersClusterNodeGroupsGoogleNode { return v.Nodes }).(GetClustersClusterNodeGroupsGoogleNodeArrayOutput)
-}
-
-func (o GetClustersClusterNodeGroupsGoogleOutput) PrivateSubnets() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsGoogle) []string { return v.PrivateSubnets }).(pulumi.StringArrayOutput)
-}
-
-func (o GetClustersClusterNodeGroupsGoogleOutput) PublicSubnets() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsGoogle) []string { return v.PublicSubnets }).(pulumi.StringArrayOutput)
-}
-
-// Region of the AWS node group
-func (o GetClustersClusterNodeGroupsGoogleOutput) Region() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsGoogle) string { return v.Region }).(pulumi.StringOutput)
-}
-
-// Volume IOPS of the AWS node group
-func (o GetClustersClusterNodeGroupsGoogleOutput) VolumeIops() pulumi.IntOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsGoogle) int { return v.VolumeIops }).(pulumi.IntOutput)
-}
-
-// Volume size of the AWS node group
-func (o GetClustersClusterNodeGroupsGoogleOutput) VolumeSize() pulumi.IntOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsGoogle) int { return v.VolumeSize }).(pulumi.IntOutput)
-}
-
-// Volume type of the AWS node group
-func (o GetClustersClusterNodeGroupsGoogleOutput) VolumeType() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsGoogle) string { return v.VolumeType }).(pulumi.StringOutput)
-}
-
-type GetClustersClusterNodeGroupsGoogleArrayOutput struct{ *pulumi.OutputState }
-
-func (GetClustersClusterNodeGroupsGoogleArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetClustersClusterNodeGroupsGoogle)(nil)).Elem()
-}
-
-func (o GetClustersClusterNodeGroupsGoogleArrayOutput) ToGetClustersClusterNodeGroupsGoogleArrayOutput() GetClustersClusterNodeGroupsGoogleArrayOutput {
-	return o
-}
-
-func (o GetClustersClusterNodeGroupsGoogleArrayOutput) ToGetClustersClusterNodeGroupsGoogleArrayOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsGoogleArrayOutput {
-	return o
-}
-
-func (o GetClustersClusterNodeGroupsGoogleArrayOutput) Index(i pulumi.IntInput) GetClustersClusterNodeGroupsGoogleOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClustersClusterNodeGroupsGoogle {
-		return vs[0].([]GetClustersClusterNodeGroupsGoogle)[vs[1].(int)]
-	}).(GetClustersClusterNodeGroupsGoogleOutput)
-}
-
-type GetClustersClusterNodeGroupsGoogleNode struct {
-	// Display name of the node
-	DisplayName string `pulumi:"displayName"`
-	// IP address of the node
-	IpAddress string `pulumi:"ipAddress"`
-	// Is the node active
-	IsActive bool `pulumi:"isActive"`
-}
-
-// GetClustersClusterNodeGroupsGoogleNodeInput is an input type that accepts GetClustersClusterNodeGroupsGoogleNodeArgs and GetClustersClusterNodeGroupsGoogleNodeOutput values.
-// You can construct a concrete instance of `GetClustersClusterNodeGroupsGoogleNodeInput` via:
-//
-//	GetClustersClusterNodeGroupsGoogleNodeArgs{...}
-type GetClustersClusterNodeGroupsGoogleNodeInput interface {
-	pulumi.Input
-
-	ToGetClustersClusterNodeGroupsGoogleNodeOutput() GetClustersClusterNodeGroupsGoogleNodeOutput
-	ToGetClustersClusterNodeGroupsGoogleNodeOutputWithContext(context.Context) GetClustersClusterNodeGroupsGoogleNodeOutput
-}
-
-type GetClustersClusterNodeGroupsGoogleNodeArgs struct {
-	// Display name of the node
-	DisplayName pulumi.StringInput `pulumi:"displayName"`
-	// IP address of the node
-	IpAddress pulumi.StringInput `pulumi:"ipAddress"`
-	// Is the node active
-	IsActive pulumi.BoolInput `pulumi:"isActive"`
-}
-
-func (GetClustersClusterNodeGroupsGoogleNodeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterNodeGroupsGoogleNode)(nil)).Elem()
-}
-
-func (i GetClustersClusterNodeGroupsGoogleNodeArgs) ToGetClustersClusterNodeGroupsGoogleNodeOutput() GetClustersClusterNodeGroupsGoogleNodeOutput {
-	return i.ToGetClustersClusterNodeGroupsGoogleNodeOutputWithContext(context.Background())
-}
-
-func (i GetClustersClusterNodeGroupsGoogleNodeArgs) ToGetClustersClusterNodeGroupsGoogleNodeOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsGoogleNodeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNodeGroupsGoogleNodeOutput)
-}
-
-// GetClustersClusterNodeGroupsGoogleNodeArrayInput is an input type that accepts GetClustersClusterNodeGroupsGoogleNodeArray and GetClustersClusterNodeGroupsGoogleNodeArrayOutput values.
-// You can construct a concrete instance of `GetClustersClusterNodeGroupsGoogleNodeArrayInput` via:
-//
-//	GetClustersClusterNodeGroupsGoogleNodeArray{ GetClustersClusterNodeGroupsGoogleNodeArgs{...} }
-type GetClustersClusterNodeGroupsGoogleNodeArrayInput interface {
-	pulumi.Input
-
-	ToGetClustersClusterNodeGroupsGoogleNodeArrayOutput() GetClustersClusterNodeGroupsGoogleNodeArrayOutput
-	ToGetClustersClusterNodeGroupsGoogleNodeArrayOutputWithContext(context.Context) GetClustersClusterNodeGroupsGoogleNodeArrayOutput
-}
-
-type GetClustersClusterNodeGroupsGoogleNodeArray []GetClustersClusterNodeGroupsGoogleNodeInput
-
-func (GetClustersClusterNodeGroupsGoogleNodeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetClustersClusterNodeGroupsGoogleNode)(nil)).Elem()
-}
-
-func (i GetClustersClusterNodeGroupsGoogleNodeArray) ToGetClustersClusterNodeGroupsGoogleNodeArrayOutput() GetClustersClusterNodeGroupsGoogleNodeArrayOutput {
-	return i.ToGetClustersClusterNodeGroupsGoogleNodeArrayOutputWithContext(context.Background())
-}
-
-func (i GetClustersClusterNodeGroupsGoogleNodeArray) ToGetClustersClusterNodeGroupsGoogleNodeArrayOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsGoogleNodeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetClustersClusterNodeGroupsGoogleNodeArrayOutput)
-}
-
-type GetClustersClusterNodeGroupsGoogleNodeOutput struct{ *pulumi.OutputState }
-
-func (GetClustersClusterNodeGroupsGoogleNodeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetClustersClusterNodeGroupsGoogleNode)(nil)).Elem()
-}
-
-func (o GetClustersClusterNodeGroupsGoogleNodeOutput) ToGetClustersClusterNodeGroupsGoogleNodeOutput() GetClustersClusterNodeGroupsGoogleNodeOutput {
-	return o
-}
-
-func (o GetClustersClusterNodeGroupsGoogleNodeOutput) ToGetClustersClusterNodeGroupsGoogleNodeOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsGoogleNodeOutput {
-	return o
-}
-
-// Display name of the node
-func (o GetClustersClusterNodeGroupsGoogleNodeOutput) DisplayName() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsGoogleNode) string { return v.DisplayName }).(pulumi.StringOutput)
-}
-
-// IP address of the node
-func (o GetClustersClusterNodeGroupsGoogleNodeOutput) IpAddress() pulumi.StringOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsGoogleNode) string { return v.IpAddress }).(pulumi.StringOutput)
-}
-
-// Is the node active
-func (o GetClustersClusterNodeGroupsGoogleNodeOutput) IsActive() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetClustersClusterNodeGroupsGoogleNode) bool { return v.IsActive }).(pulumi.BoolOutput)
-}
-
-type GetClustersClusterNodeGroupsGoogleNodeArrayOutput struct{ *pulumi.OutputState }
-
-func (GetClustersClusterNodeGroupsGoogleNodeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetClustersClusterNodeGroupsGoogleNode)(nil)).Elem()
-}
-
-func (o GetClustersClusterNodeGroupsGoogleNodeArrayOutput) ToGetClustersClusterNodeGroupsGoogleNodeArrayOutput() GetClustersClusterNodeGroupsGoogleNodeArrayOutput {
-	return o
-}
-
-func (o GetClustersClusterNodeGroupsGoogleNodeArrayOutput) ToGetClustersClusterNodeGroupsGoogleNodeArrayOutputWithContext(ctx context.Context) GetClustersClusterNodeGroupsGoogleNodeArrayOutput {
-	return o
-}
-
-func (o GetClustersClusterNodeGroupsGoogleNodeArrayOutput) Index(i pulumi.IntInput) GetClustersClusterNodeGroupsGoogleNodeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClustersClusterNodeGroupsGoogleNode {
-		return vs[0].([]GetClustersClusterNodeGroupsGoogleNode)[vs[1].(int)]
-	}).(GetClustersClusterNodeGroupsGoogleNodeOutput)
+func (o GetClustersClusterNodeArrayOutput) Index(i pulumi.IntInput) GetClustersClusterNodeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClustersClusterNode {
+		return vs[0].([]GetClustersClusterNode)[vs[1].(int)]
+	}).(GetClustersClusterNodeOutput)
 }
 
 type GetDatabasesDatabase struct {
 	// Updated at of the database
-	ClusterId string `pulumi:"clusterId"`
+	ClusterId  string                          `pulumi:"clusterId"`
+	Components []GetDatabasesDatabaseComponent `pulumi:"components"`
+	// Config version of the database
+	ConfigVersion *string `pulumi:"configVersion"`
 	// Created at of the database
 	CreatedAt string `pulumi:"createdAt"`
 	// Domain of the database
-	Domain string `pulumi:"domain"`
+	Domain     string                         `pulumi:"domain"`
+	Extensions GetDatabasesDatabaseExtensions `pulumi:"extensions"`
 	// ID of the database
 	Id string `pulumi:"id"`
 	// Name of the database
@@ -2938,8 +1107,14 @@ type GetDatabasesDatabase struct {
 	Nodes []GetDatabasesDatabaseNode `pulumi:"nodes"`
 	// Options for creating the database
 	Options []string `pulumi:"options"`
+	// Postgres version of the database
+	PgVersion string                     `pulumi:"pgVersion"`
+	Roles     []GetDatabasesDatabaseRole `pulumi:"roles"`
 	// Status of the database
 	Status string `pulumi:"status"`
+	// Storage used of the database
+	StorageUsed int                         `pulumi:"storageUsed"`
+	Tables      []GetDatabasesDatabaseTable `pulumi:"tables"`
 	// Updated at of the database
 	UpdatedAt string `pulumi:"updatedAt"`
 }
@@ -2957,11 +1132,15 @@ type GetDatabasesDatabaseInput interface {
 
 type GetDatabasesDatabaseArgs struct {
 	// Updated at of the database
-	ClusterId pulumi.StringInput `pulumi:"clusterId"`
+	ClusterId  pulumi.StringInput                      `pulumi:"clusterId"`
+	Components GetDatabasesDatabaseComponentArrayInput `pulumi:"components"`
+	// Config version of the database
+	ConfigVersion pulumi.StringPtrInput `pulumi:"configVersion"`
 	// Created at of the database
 	CreatedAt pulumi.StringInput `pulumi:"createdAt"`
 	// Domain of the database
-	Domain pulumi.StringInput `pulumi:"domain"`
+	Domain     pulumi.StringInput                  `pulumi:"domain"`
+	Extensions GetDatabasesDatabaseExtensionsInput `pulumi:"extensions"`
 	// ID of the database
 	Id pulumi.StringInput `pulumi:"id"`
 	// Name of the database
@@ -2969,8 +1148,14 @@ type GetDatabasesDatabaseArgs struct {
 	Nodes GetDatabasesDatabaseNodeArrayInput `pulumi:"nodes"`
 	// Options for creating the database
 	Options pulumi.StringArrayInput `pulumi:"options"`
+	// Postgres version of the database
+	PgVersion pulumi.StringInput                 `pulumi:"pgVersion"`
+	Roles     GetDatabasesDatabaseRoleArrayInput `pulumi:"roles"`
 	// Status of the database
 	Status pulumi.StringInput `pulumi:"status"`
+	// Storage used of the database
+	StorageUsed pulumi.IntInput                     `pulumi:"storageUsed"`
+	Tables      GetDatabasesDatabaseTableArrayInput `pulumi:"tables"`
 	// Updated at of the database
 	UpdatedAt pulumi.StringInput `pulumi:"updatedAt"`
 }
@@ -3031,6 +1216,15 @@ func (o GetDatabasesDatabaseOutput) ClusterId() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDatabasesDatabase) string { return v.ClusterId }).(pulumi.StringOutput)
 }
 
+func (o GetDatabasesDatabaseOutput) Components() GetDatabasesDatabaseComponentArrayOutput {
+	return o.ApplyT(func(v GetDatabasesDatabase) []GetDatabasesDatabaseComponent { return v.Components }).(GetDatabasesDatabaseComponentArrayOutput)
+}
+
+// Config version of the database
+func (o GetDatabasesDatabaseOutput) ConfigVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetDatabasesDatabase) *string { return v.ConfigVersion }).(pulumi.StringPtrOutput)
+}
+
 // Created at of the database
 func (o GetDatabasesDatabaseOutput) CreatedAt() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDatabasesDatabase) string { return v.CreatedAt }).(pulumi.StringOutput)
@@ -3039,6 +1233,10 @@ func (o GetDatabasesDatabaseOutput) CreatedAt() pulumi.StringOutput {
 // Domain of the database
 func (o GetDatabasesDatabaseOutput) Domain() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDatabasesDatabase) string { return v.Domain }).(pulumi.StringOutput)
+}
+
+func (o GetDatabasesDatabaseOutput) Extensions() GetDatabasesDatabaseExtensionsOutput {
+	return o.ApplyT(func(v GetDatabasesDatabase) GetDatabasesDatabaseExtensions { return v.Extensions }).(GetDatabasesDatabaseExtensionsOutput)
 }
 
 // ID of the database
@@ -3060,9 +1258,27 @@ func (o GetDatabasesDatabaseOutput) Options() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v GetDatabasesDatabase) []string { return v.Options }).(pulumi.StringArrayOutput)
 }
 
+// Postgres version of the database
+func (o GetDatabasesDatabaseOutput) PgVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabase) string { return v.PgVersion }).(pulumi.StringOutput)
+}
+
+func (o GetDatabasesDatabaseOutput) Roles() GetDatabasesDatabaseRoleArrayOutput {
+	return o.ApplyT(func(v GetDatabasesDatabase) []GetDatabasesDatabaseRole { return v.Roles }).(GetDatabasesDatabaseRoleArrayOutput)
+}
+
 // Status of the database
 func (o GetDatabasesDatabaseOutput) Status() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDatabasesDatabase) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// Storage used of the database
+func (o GetDatabasesDatabaseOutput) StorageUsed() pulumi.IntOutput {
+	return o.ApplyT(func(v GetDatabasesDatabase) int { return v.StorageUsed }).(pulumi.IntOutput)
+}
+
+func (o GetDatabasesDatabaseOutput) Tables() GetDatabasesDatabaseTableArrayOutput {
+	return o.ApplyT(func(v GetDatabasesDatabase) []GetDatabasesDatabaseTable { return v.Tables }).(GetDatabasesDatabaseTableArrayOutput)
 }
 
 // Updated at of the database
@@ -3090,11 +1306,218 @@ func (o GetDatabasesDatabaseArrayOutput) Index(i pulumi.IntInput) GetDatabasesDa
 	}).(GetDatabasesDatabaseOutput)
 }
 
-type GetDatabasesDatabaseNode struct {
-	Connection GetDatabasesDatabaseNodeConnection `pulumi:"connection"`
-	Location   GetDatabasesDatabaseNodeLocation   `pulumi:"location"`
-	// Name of the database
+type GetDatabasesDatabaseComponent struct {
+	// Id of the component
+	Id string `pulumi:"id"`
+	// Name of the component
 	Name string `pulumi:"name"`
+	// Release date of the component
+	ReleaseDate string `pulumi:"releaseDate"`
+	// Status of the component
+	Status string `pulumi:"status"`
+	// Version of the component
+	Version string `pulumi:"version"`
+}
+
+// GetDatabasesDatabaseComponentInput is an input type that accepts GetDatabasesDatabaseComponentArgs and GetDatabasesDatabaseComponentOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseComponentInput` via:
+//
+//	GetDatabasesDatabaseComponentArgs{...}
+type GetDatabasesDatabaseComponentInput interface {
+	pulumi.Input
+
+	ToGetDatabasesDatabaseComponentOutput() GetDatabasesDatabaseComponentOutput
+	ToGetDatabasesDatabaseComponentOutputWithContext(context.Context) GetDatabasesDatabaseComponentOutput
+}
+
+type GetDatabasesDatabaseComponentArgs struct {
+	// Id of the component
+	Id pulumi.StringInput `pulumi:"id"`
+	// Name of the component
+	Name pulumi.StringInput `pulumi:"name"`
+	// Release date of the component
+	ReleaseDate pulumi.StringInput `pulumi:"releaseDate"`
+	// Status of the component
+	Status pulumi.StringInput `pulumi:"status"`
+	// Version of the component
+	Version pulumi.StringInput `pulumi:"version"`
+}
+
+func (GetDatabasesDatabaseComponentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseComponent)(nil)).Elem()
+}
+
+func (i GetDatabasesDatabaseComponentArgs) ToGetDatabasesDatabaseComponentOutput() GetDatabasesDatabaseComponentOutput {
+	return i.ToGetDatabasesDatabaseComponentOutputWithContext(context.Background())
+}
+
+func (i GetDatabasesDatabaseComponentArgs) ToGetDatabasesDatabaseComponentOutputWithContext(ctx context.Context) GetDatabasesDatabaseComponentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseComponentOutput)
+}
+
+// GetDatabasesDatabaseComponentArrayInput is an input type that accepts GetDatabasesDatabaseComponentArray and GetDatabasesDatabaseComponentArrayOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseComponentArrayInput` via:
+//
+//	GetDatabasesDatabaseComponentArray{ GetDatabasesDatabaseComponentArgs{...} }
+type GetDatabasesDatabaseComponentArrayInput interface {
+	pulumi.Input
+
+	ToGetDatabasesDatabaseComponentArrayOutput() GetDatabasesDatabaseComponentArrayOutput
+	ToGetDatabasesDatabaseComponentArrayOutputWithContext(context.Context) GetDatabasesDatabaseComponentArrayOutput
+}
+
+type GetDatabasesDatabaseComponentArray []GetDatabasesDatabaseComponentInput
+
+func (GetDatabasesDatabaseComponentArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetDatabasesDatabaseComponent)(nil)).Elem()
+}
+
+func (i GetDatabasesDatabaseComponentArray) ToGetDatabasesDatabaseComponentArrayOutput() GetDatabasesDatabaseComponentArrayOutput {
+	return i.ToGetDatabasesDatabaseComponentArrayOutputWithContext(context.Background())
+}
+
+func (i GetDatabasesDatabaseComponentArray) ToGetDatabasesDatabaseComponentArrayOutputWithContext(ctx context.Context) GetDatabasesDatabaseComponentArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseComponentArrayOutput)
+}
+
+type GetDatabasesDatabaseComponentOutput struct{ *pulumi.OutputState }
+
+func (GetDatabasesDatabaseComponentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseComponent)(nil)).Elem()
+}
+
+func (o GetDatabasesDatabaseComponentOutput) ToGetDatabasesDatabaseComponentOutput() GetDatabasesDatabaseComponentOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseComponentOutput) ToGetDatabasesDatabaseComponentOutputWithContext(ctx context.Context) GetDatabasesDatabaseComponentOutput {
+	return o
+}
+
+// Id of the component
+func (o GetDatabasesDatabaseComponentOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseComponent) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// Name of the component
+func (o GetDatabasesDatabaseComponentOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseComponent) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Release date of the component
+func (o GetDatabasesDatabaseComponentOutput) ReleaseDate() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseComponent) string { return v.ReleaseDate }).(pulumi.StringOutput)
+}
+
+// Status of the component
+func (o GetDatabasesDatabaseComponentOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseComponent) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// Version of the component
+func (o GetDatabasesDatabaseComponentOutput) Version() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseComponent) string { return v.Version }).(pulumi.StringOutput)
+}
+
+type GetDatabasesDatabaseComponentArrayOutput struct{ *pulumi.OutputState }
+
+func (GetDatabasesDatabaseComponentArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetDatabasesDatabaseComponent)(nil)).Elem()
+}
+
+func (o GetDatabasesDatabaseComponentArrayOutput) ToGetDatabasesDatabaseComponentArrayOutput() GetDatabasesDatabaseComponentArrayOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseComponentArrayOutput) ToGetDatabasesDatabaseComponentArrayOutputWithContext(ctx context.Context) GetDatabasesDatabaseComponentArrayOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseComponentArrayOutput) Index(i pulumi.IntInput) GetDatabasesDatabaseComponentOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetDatabasesDatabaseComponent {
+		return vs[0].([]GetDatabasesDatabaseComponent)[vs[1].(int)]
+	}).(GetDatabasesDatabaseComponentOutput)
+}
+
+type GetDatabasesDatabaseExtensions struct {
+	// Auto manage of the extension
+	AutoManage bool `pulumi:"autoManage"`
+	// Available of the extension
+	Availables []string `pulumi:"availables"`
+	// Requested of the extension
+	Requesteds []string `pulumi:"requesteds"`
+}
+
+// GetDatabasesDatabaseExtensionsInput is an input type that accepts GetDatabasesDatabaseExtensionsArgs and GetDatabasesDatabaseExtensionsOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseExtensionsInput` via:
+//
+//	GetDatabasesDatabaseExtensionsArgs{...}
+type GetDatabasesDatabaseExtensionsInput interface {
+	pulumi.Input
+
+	ToGetDatabasesDatabaseExtensionsOutput() GetDatabasesDatabaseExtensionsOutput
+	ToGetDatabasesDatabaseExtensionsOutputWithContext(context.Context) GetDatabasesDatabaseExtensionsOutput
+}
+
+type GetDatabasesDatabaseExtensionsArgs struct {
+	// Auto manage of the extension
+	AutoManage pulumi.BoolInput `pulumi:"autoManage"`
+	// Available of the extension
+	Availables pulumi.StringArrayInput `pulumi:"availables"`
+	// Requested of the extension
+	Requesteds pulumi.StringArrayInput `pulumi:"requesteds"`
+}
+
+func (GetDatabasesDatabaseExtensionsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseExtensions)(nil)).Elem()
+}
+
+func (i GetDatabasesDatabaseExtensionsArgs) ToGetDatabasesDatabaseExtensionsOutput() GetDatabasesDatabaseExtensionsOutput {
+	return i.ToGetDatabasesDatabaseExtensionsOutputWithContext(context.Background())
+}
+
+func (i GetDatabasesDatabaseExtensionsArgs) ToGetDatabasesDatabaseExtensionsOutputWithContext(ctx context.Context) GetDatabasesDatabaseExtensionsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseExtensionsOutput)
+}
+
+type GetDatabasesDatabaseExtensionsOutput struct{ *pulumi.OutputState }
+
+func (GetDatabasesDatabaseExtensionsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseExtensions)(nil)).Elem()
+}
+
+func (o GetDatabasesDatabaseExtensionsOutput) ToGetDatabasesDatabaseExtensionsOutput() GetDatabasesDatabaseExtensionsOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseExtensionsOutput) ToGetDatabasesDatabaseExtensionsOutputWithContext(ctx context.Context) GetDatabasesDatabaseExtensionsOutput {
+	return o
+}
+
+// Auto manage of the extension
+func (o GetDatabasesDatabaseExtensionsOutput) AutoManage() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseExtensions) bool { return v.AutoManage }).(pulumi.BoolOutput)
+}
+
+// Available of the extension
+func (o GetDatabasesDatabaseExtensionsOutput) Availables() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseExtensions) []string { return v.Availables }).(pulumi.StringArrayOutput)
+}
+
+// Requested of the extension
+func (o GetDatabasesDatabaseExtensionsOutput) Requesteds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseExtensions) []string { return v.Requesteds }).(pulumi.StringArrayOutput)
+}
+
+type GetDatabasesDatabaseNode struct {
+	Connection          GetDatabasesDatabaseNodeConnection          `pulumi:"connection"`
+	DistanceMeasurement GetDatabasesDatabaseNodeDistanceMeasurement `pulumi:"distanceMeasurement"`
+	Extensions          GetDatabasesDatabaseNodeExtensions          `pulumi:"extensions"`
+	Location            GetDatabasesDatabaseNodeLocation            `pulumi:"location"`
+	// Name of the component
+	Name string `pulumi:"name"`
+	// Region of the location
+	Region GetDatabasesDatabaseNodeRegion `pulumi:"region"`
 }
 
 // GetDatabasesDatabaseNodeInput is an input type that accepts GetDatabasesDatabaseNodeArgs and GetDatabasesDatabaseNodeOutput values.
@@ -3109,10 +1532,14 @@ type GetDatabasesDatabaseNodeInput interface {
 }
 
 type GetDatabasesDatabaseNodeArgs struct {
-	Connection GetDatabasesDatabaseNodeConnectionInput `pulumi:"connection"`
-	Location   GetDatabasesDatabaseNodeLocationInput   `pulumi:"location"`
-	// Name of the database
+	Connection          GetDatabasesDatabaseNodeConnectionInput          `pulumi:"connection"`
+	DistanceMeasurement GetDatabasesDatabaseNodeDistanceMeasurementInput `pulumi:"distanceMeasurement"`
+	Extensions          GetDatabasesDatabaseNodeExtensionsInput          `pulumi:"extensions"`
+	Location            GetDatabasesDatabaseNodeLocationInput            `pulumi:"location"`
+	// Name of the component
 	Name pulumi.StringInput `pulumi:"name"`
+	// Region of the location
+	Region GetDatabasesDatabaseNodeRegionInput `pulumi:"region"`
 }
 
 func (GetDatabasesDatabaseNodeArgs) ElementType() reflect.Type {
@@ -3170,13 +1597,28 @@ func (o GetDatabasesDatabaseNodeOutput) Connection() GetDatabasesDatabaseNodeCon
 	return o.ApplyT(func(v GetDatabasesDatabaseNode) GetDatabasesDatabaseNodeConnection { return v.Connection }).(GetDatabasesDatabaseNodeConnectionOutput)
 }
 
+func (o GetDatabasesDatabaseNodeOutput) DistanceMeasurement() GetDatabasesDatabaseNodeDistanceMeasurementOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNode) GetDatabasesDatabaseNodeDistanceMeasurement {
+		return v.DistanceMeasurement
+	}).(GetDatabasesDatabaseNodeDistanceMeasurementOutput)
+}
+
+func (o GetDatabasesDatabaseNodeOutput) Extensions() GetDatabasesDatabaseNodeExtensionsOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNode) GetDatabasesDatabaseNodeExtensions { return v.Extensions }).(GetDatabasesDatabaseNodeExtensionsOutput)
+}
+
 func (o GetDatabasesDatabaseNodeOutput) Location() GetDatabasesDatabaseNodeLocationOutput {
 	return o.ApplyT(func(v GetDatabasesDatabaseNode) GetDatabasesDatabaseNodeLocation { return v.Location }).(GetDatabasesDatabaseNodeLocationOutput)
 }
 
-// Name of the database
+// Name of the component
 func (o GetDatabasesDatabaseNodeOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDatabasesDatabaseNode) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Region of the location
+func (o GetDatabasesDatabaseNodeOutput) Region() GetDatabasesDatabaseNodeRegionOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNode) GetDatabasesDatabaseNodeRegion { return v.Region }).(GetDatabasesDatabaseNodeRegionOutput)
 }
 
 type GetDatabasesDatabaseNodeArrayOutput struct{ *pulumi.OutputState }
@@ -3202,8 +1644,14 @@ func (o GetDatabasesDatabaseNodeArrayOutput) Index(i pulumi.IntInput) GetDatabas
 type GetDatabasesDatabaseNodeConnection struct {
 	// Database of the node
 	Database string `pulumi:"database"`
+	// External IP of the node
+	ExternalIpAddress string `pulumi:"externalIpAddress"`
 	// Host of the node
 	Host string `pulumi:"host"`
+	// Internal Host of the node
+	InternalHost string `pulumi:"internalHost"`
+	// Internal IP of the node
+	InternalIpAddress string `pulumi:"internalIpAddress"`
 	// Password of the node
 	Password string `pulumi:"password"`
 	// Port of the node
@@ -3226,8 +1674,14 @@ type GetDatabasesDatabaseNodeConnectionInput interface {
 type GetDatabasesDatabaseNodeConnectionArgs struct {
 	// Database of the node
 	Database pulumi.StringInput `pulumi:"database"`
+	// External IP of the node
+	ExternalIpAddress pulumi.StringInput `pulumi:"externalIpAddress"`
 	// Host of the node
 	Host pulumi.StringInput `pulumi:"host"`
+	// Internal Host of the node
+	InternalHost pulumi.StringInput `pulumi:"internalHost"`
+	// Internal IP of the node
+	InternalIpAddress pulumi.StringInput `pulumi:"internalIpAddress"`
 	// Password of the node
 	Password pulumi.StringInput `pulumi:"password"`
 	// Port of the node
@@ -3267,9 +1721,24 @@ func (o GetDatabasesDatabaseNodeConnectionOutput) Database() pulumi.StringOutput
 	return o.ApplyT(func(v GetDatabasesDatabaseNodeConnection) string { return v.Database }).(pulumi.StringOutput)
 }
 
+// External IP of the node
+func (o GetDatabasesDatabaseNodeConnectionOutput) ExternalIpAddress() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeConnection) string { return v.ExternalIpAddress }).(pulumi.StringOutput)
+}
+
 // Host of the node
 func (o GetDatabasesDatabaseNodeConnectionOutput) Host() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDatabasesDatabaseNodeConnection) string { return v.Host }).(pulumi.StringOutput)
+}
+
+// Internal Host of the node
+func (o GetDatabasesDatabaseNodeConnectionOutput) InternalHost() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeConnection) string { return v.InternalHost }).(pulumi.StringOutput)
+}
+
+// Internal IP of the node
+func (o GetDatabasesDatabaseNodeConnectionOutput) InternalIpAddress() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeConnection) string { return v.InternalIpAddress }).(pulumi.StringOutput)
 }
 
 // Password of the node
@@ -3287,7 +1756,225 @@ func (o GetDatabasesDatabaseNodeConnectionOutput) Username() pulumi.StringOutput
 	return o.ApplyT(func(v GetDatabasesDatabaseNodeConnection) string { return v.Username }).(pulumi.StringOutput)
 }
 
+type GetDatabasesDatabaseNodeDistanceMeasurement struct {
+	// Distance from a reference point
+	Distance float64 `pulumi:"distance"`
+	// Latitude of the reference point
+	FromLatitude float64 `pulumi:"fromLatitude"`
+	// Longitude of the reference point
+	FromLongitude float64 `pulumi:"fromLongitude"`
+	// Unit of distance measurement
+	Unit string `pulumi:"unit"`
+}
+
+// GetDatabasesDatabaseNodeDistanceMeasurementInput is an input type that accepts GetDatabasesDatabaseNodeDistanceMeasurementArgs and GetDatabasesDatabaseNodeDistanceMeasurementOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseNodeDistanceMeasurementInput` via:
+//
+//	GetDatabasesDatabaseNodeDistanceMeasurementArgs{...}
+type GetDatabasesDatabaseNodeDistanceMeasurementInput interface {
+	pulumi.Input
+
+	ToGetDatabasesDatabaseNodeDistanceMeasurementOutput() GetDatabasesDatabaseNodeDistanceMeasurementOutput
+	ToGetDatabasesDatabaseNodeDistanceMeasurementOutputWithContext(context.Context) GetDatabasesDatabaseNodeDistanceMeasurementOutput
+}
+
+type GetDatabasesDatabaseNodeDistanceMeasurementArgs struct {
+	// Distance from a reference point
+	Distance pulumi.Float64Input `pulumi:"distance"`
+	// Latitude of the reference point
+	FromLatitude pulumi.Float64Input `pulumi:"fromLatitude"`
+	// Longitude of the reference point
+	FromLongitude pulumi.Float64Input `pulumi:"fromLongitude"`
+	// Unit of distance measurement
+	Unit pulumi.StringInput `pulumi:"unit"`
+}
+
+func (GetDatabasesDatabaseNodeDistanceMeasurementArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodeDistanceMeasurement)(nil)).Elem()
+}
+
+func (i GetDatabasesDatabaseNodeDistanceMeasurementArgs) ToGetDatabasesDatabaseNodeDistanceMeasurementOutput() GetDatabasesDatabaseNodeDistanceMeasurementOutput {
+	return i.ToGetDatabasesDatabaseNodeDistanceMeasurementOutputWithContext(context.Background())
+}
+
+func (i GetDatabasesDatabaseNodeDistanceMeasurementArgs) ToGetDatabasesDatabaseNodeDistanceMeasurementOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeDistanceMeasurementOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodeDistanceMeasurementOutput)
+}
+
+type GetDatabasesDatabaseNodeDistanceMeasurementOutput struct{ *pulumi.OutputState }
+
+func (GetDatabasesDatabaseNodeDistanceMeasurementOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodeDistanceMeasurement)(nil)).Elem()
+}
+
+func (o GetDatabasesDatabaseNodeDistanceMeasurementOutput) ToGetDatabasesDatabaseNodeDistanceMeasurementOutput() GetDatabasesDatabaseNodeDistanceMeasurementOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseNodeDistanceMeasurementOutput) ToGetDatabasesDatabaseNodeDistanceMeasurementOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeDistanceMeasurementOutput {
+	return o
+}
+
+// Distance from a reference point
+func (o GetDatabasesDatabaseNodeDistanceMeasurementOutput) Distance() pulumi.Float64Output {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeDistanceMeasurement) float64 { return v.Distance }).(pulumi.Float64Output)
+}
+
+// Latitude of the reference point
+func (o GetDatabasesDatabaseNodeDistanceMeasurementOutput) FromLatitude() pulumi.Float64Output {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeDistanceMeasurement) float64 { return v.FromLatitude }).(pulumi.Float64Output)
+}
+
+// Longitude of the reference point
+func (o GetDatabasesDatabaseNodeDistanceMeasurementOutput) FromLongitude() pulumi.Float64Output {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeDistanceMeasurement) float64 { return v.FromLongitude }).(pulumi.Float64Output)
+}
+
+// Unit of distance measurement
+func (o GetDatabasesDatabaseNodeDistanceMeasurementOutput) Unit() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeDistanceMeasurement) string { return v.Unit }).(pulumi.StringOutput)
+}
+
+type GetDatabasesDatabaseNodeExtensions struct {
+	Errors GetDatabasesDatabaseNodeExtensionsErrors `pulumi:"errors"`
+	// List of installed extensions
+	Installeds []string `pulumi:"installeds"`
+}
+
+// GetDatabasesDatabaseNodeExtensionsInput is an input type that accepts GetDatabasesDatabaseNodeExtensionsArgs and GetDatabasesDatabaseNodeExtensionsOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseNodeExtensionsInput` via:
+//
+//	GetDatabasesDatabaseNodeExtensionsArgs{...}
+type GetDatabasesDatabaseNodeExtensionsInput interface {
+	pulumi.Input
+
+	ToGetDatabasesDatabaseNodeExtensionsOutput() GetDatabasesDatabaseNodeExtensionsOutput
+	ToGetDatabasesDatabaseNodeExtensionsOutputWithContext(context.Context) GetDatabasesDatabaseNodeExtensionsOutput
+}
+
+type GetDatabasesDatabaseNodeExtensionsArgs struct {
+	Errors GetDatabasesDatabaseNodeExtensionsErrorsInput `pulumi:"errors"`
+	// List of installed extensions
+	Installeds pulumi.StringArrayInput `pulumi:"installeds"`
+}
+
+func (GetDatabasesDatabaseNodeExtensionsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodeExtensions)(nil)).Elem()
+}
+
+func (i GetDatabasesDatabaseNodeExtensionsArgs) ToGetDatabasesDatabaseNodeExtensionsOutput() GetDatabasesDatabaseNodeExtensionsOutput {
+	return i.ToGetDatabasesDatabaseNodeExtensionsOutputWithContext(context.Background())
+}
+
+func (i GetDatabasesDatabaseNodeExtensionsArgs) ToGetDatabasesDatabaseNodeExtensionsOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeExtensionsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodeExtensionsOutput)
+}
+
+type GetDatabasesDatabaseNodeExtensionsOutput struct{ *pulumi.OutputState }
+
+func (GetDatabasesDatabaseNodeExtensionsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodeExtensions)(nil)).Elem()
+}
+
+func (o GetDatabasesDatabaseNodeExtensionsOutput) ToGetDatabasesDatabaseNodeExtensionsOutput() GetDatabasesDatabaseNodeExtensionsOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseNodeExtensionsOutput) ToGetDatabasesDatabaseNodeExtensionsOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeExtensionsOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseNodeExtensionsOutput) Errors() GetDatabasesDatabaseNodeExtensionsErrorsOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeExtensions) GetDatabasesDatabaseNodeExtensionsErrors { return v.Errors }).(GetDatabasesDatabaseNodeExtensionsErrorsOutput)
+}
+
+// List of installed extensions
+func (o GetDatabasesDatabaseNodeExtensionsOutput) Installeds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeExtensions) []string { return v.Installeds }).(pulumi.StringArrayOutput)
+}
+
+type GetDatabasesDatabaseNodeExtensionsErrors struct {
+	// Error code anim9ef
+	Anim9ef string `pulumi:"anim9ef"`
+	// Error code enim3b
+	Enim3b string `pulumi:"enim3b"`
+	// Error code laborumd
+	Laborumd string `pulumi:"laborumd"`
+	// Error code mollit267
+	Mollit267 string `pulumi:"mollit267"`
+}
+
+// GetDatabasesDatabaseNodeExtensionsErrorsInput is an input type that accepts GetDatabasesDatabaseNodeExtensionsErrorsArgs and GetDatabasesDatabaseNodeExtensionsErrorsOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseNodeExtensionsErrorsInput` via:
+//
+//	GetDatabasesDatabaseNodeExtensionsErrorsArgs{...}
+type GetDatabasesDatabaseNodeExtensionsErrorsInput interface {
+	pulumi.Input
+
+	ToGetDatabasesDatabaseNodeExtensionsErrorsOutput() GetDatabasesDatabaseNodeExtensionsErrorsOutput
+	ToGetDatabasesDatabaseNodeExtensionsErrorsOutputWithContext(context.Context) GetDatabasesDatabaseNodeExtensionsErrorsOutput
+}
+
+type GetDatabasesDatabaseNodeExtensionsErrorsArgs struct {
+	// Error code anim9ef
+	Anim9ef pulumi.StringInput `pulumi:"anim9ef"`
+	// Error code enim3b
+	Enim3b pulumi.StringInput `pulumi:"enim3b"`
+	// Error code laborumd
+	Laborumd pulumi.StringInput `pulumi:"laborumd"`
+	// Error code mollit267
+	Mollit267 pulumi.StringInput `pulumi:"mollit267"`
+}
+
+func (GetDatabasesDatabaseNodeExtensionsErrorsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodeExtensionsErrors)(nil)).Elem()
+}
+
+func (i GetDatabasesDatabaseNodeExtensionsErrorsArgs) ToGetDatabasesDatabaseNodeExtensionsErrorsOutput() GetDatabasesDatabaseNodeExtensionsErrorsOutput {
+	return i.ToGetDatabasesDatabaseNodeExtensionsErrorsOutputWithContext(context.Background())
+}
+
+func (i GetDatabasesDatabaseNodeExtensionsErrorsArgs) ToGetDatabasesDatabaseNodeExtensionsErrorsOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeExtensionsErrorsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodeExtensionsErrorsOutput)
+}
+
+type GetDatabasesDatabaseNodeExtensionsErrorsOutput struct{ *pulumi.OutputState }
+
+func (GetDatabasesDatabaseNodeExtensionsErrorsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodeExtensionsErrors)(nil)).Elem()
+}
+
+func (o GetDatabasesDatabaseNodeExtensionsErrorsOutput) ToGetDatabasesDatabaseNodeExtensionsErrorsOutput() GetDatabasesDatabaseNodeExtensionsErrorsOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseNodeExtensionsErrorsOutput) ToGetDatabasesDatabaseNodeExtensionsErrorsOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeExtensionsErrorsOutput {
+	return o
+}
+
+// Error code anim9ef
+func (o GetDatabasesDatabaseNodeExtensionsErrorsOutput) Anim9ef() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeExtensionsErrors) string { return v.Anim9ef }).(pulumi.StringOutput)
+}
+
+// Error code enim3b
+func (o GetDatabasesDatabaseNodeExtensionsErrorsOutput) Enim3b() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeExtensionsErrors) string { return v.Enim3b }).(pulumi.StringOutput)
+}
+
+// Error code laborumd
+func (o GetDatabasesDatabaseNodeExtensionsErrorsOutput) Laborumd() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeExtensionsErrors) string { return v.Laborumd }).(pulumi.StringOutput)
+}
+
+// Error code mollit267
+func (o GetDatabasesDatabaseNodeExtensionsErrorsOutput) Mollit267() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeExtensionsErrors) string { return v.Mollit267 }).(pulumi.StringOutput)
+}
+
 type GetDatabasesDatabaseNodeLocation struct {
+	// City of the location
+	City string `pulumi:"city"`
 	// Code of the location
 	Code string `pulumi:"code"`
 	// Country of the location
@@ -3296,10 +1983,18 @@ type GetDatabasesDatabaseNodeLocation struct {
 	Latitude float64 `pulumi:"latitude"`
 	// Longitude of the location
 	Longitude float64 `pulumi:"longitude"`
-	// Name of the database
+	// Metro code of the location
+	MetroCode string `pulumi:"metroCode"`
+	// Name of the component
 	Name string `pulumi:"name"`
+	// Postal code of the location
+	PostalCode string `pulumi:"postalCode"`
 	// Region of the location
 	Region string `pulumi:"region"`
+	// Region code of the location
+	RegionCode string `pulumi:"regionCode"`
+	// Timezone of the location
+	Timezone string `pulumi:"timezone"`
 }
 
 // GetDatabasesDatabaseNodeLocationInput is an input type that accepts GetDatabasesDatabaseNodeLocationArgs and GetDatabasesDatabaseNodeLocationOutput values.
@@ -3314,6 +2009,8 @@ type GetDatabasesDatabaseNodeLocationInput interface {
 }
 
 type GetDatabasesDatabaseNodeLocationArgs struct {
+	// City of the location
+	City pulumi.StringInput `pulumi:"city"`
 	// Code of the location
 	Code pulumi.StringInput `pulumi:"code"`
 	// Country of the location
@@ -3322,10 +2019,18 @@ type GetDatabasesDatabaseNodeLocationArgs struct {
 	Latitude pulumi.Float64Input `pulumi:"latitude"`
 	// Longitude of the location
 	Longitude pulumi.Float64Input `pulumi:"longitude"`
-	// Name of the database
+	// Metro code of the location
+	MetroCode pulumi.StringInput `pulumi:"metroCode"`
+	// Name of the component
 	Name pulumi.StringInput `pulumi:"name"`
+	// Postal code of the location
+	PostalCode pulumi.StringInput `pulumi:"postalCode"`
 	// Region of the location
 	Region pulumi.StringInput `pulumi:"region"`
+	// Region code of the location
+	RegionCode pulumi.StringInput `pulumi:"regionCode"`
+	// Timezone of the location
+	Timezone pulumi.StringInput `pulumi:"timezone"`
 }
 
 func (GetDatabasesDatabaseNodeLocationArgs) ElementType() reflect.Type {
@@ -3354,6 +2059,11 @@ func (o GetDatabasesDatabaseNodeLocationOutput) ToGetDatabasesDatabaseNodeLocati
 	return o
 }
 
+// City of the location
+func (o GetDatabasesDatabaseNodeLocationOutput) City() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.City }).(pulumi.StringOutput)
+}
+
 // Code of the location
 func (o GetDatabasesDatabaseNodeLocationOutput) Code() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.Code }).(pulumi.StringOutput)
@@ -3374,9 +2084,19 @@ func (o GetDatabasesDatabaseNodeLocationOutput) Longitude() pulumi.Float64Output
 	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) float64 { return v.Longitude }).(pulumi.Float64Output)
 }
 
-// Name of the database
+// Metro code of the location
+func (o GetDatabasesDatabaseNodeLocationOutput) MetroCode() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.MetroCode }).(pulumi.StringOutput)
+}
+
+// Name of the component
 func (o GetDatabasesDatabaseNodeLocationOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Postal code of the location
+func (o GetDatabasesDatabaseNodeLocationOutput) PostalCode() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.PostalCode }).(pulumi.StringOutput)
 }
 
 // Region of the location
@@ -3384,95 +2104,758 @@ func (o GetDatabasesDatabaseNodeLocationOutput) Region() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.Region }).(pulumi.StringOutput)
 }
 
+// Region code of the location
+func (o GetDatabasesDatabaseNodeLocationOutput) RegionCode() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.RegionCode }).(pulumi.StringOutput)
+}
+
+// Timezone of the location
+func (o GetDatabasesDatabaseNodeLocationOutput) Timezone() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.Timezone }).(pulumi.StringOutput)
+}
+
+type GetDatabasesDatabaseNodeRegion struct {
+	// Active status of the region
+	Active bool `pulumi:"active"`
+	// Availability zones of the region
+	AvailabilityZones []string `pulumi:"availabilityZones"`
+	// Cloud provider of the region
+	Cloud string `pulumi:"cloud"`
+	// Code of the location
+	Code string `pulumi:"code"`
+	// Name of the component
+	Name string `pulumi:"name"`
+	// Parent region
+	Parent string `pulumi:"parent"`
+}
+
+// GetDatabasesDatabaseNodeRegionInput is an input type that accepts GetDatabasesDatabaseNodeRegionArgs and GetDatabasesDatabaseNodeRegionOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseNodeRegionInput` via:
+//
+//	GetDatabasesDatabaseNodeRegionArgs{...}
+type GetDatabasesDatabaseNodeRegionInput interface {
+	pulumi.Input
+
+	ToGetDatabasesDatabaseNodeRegionOutput() GetDatabasesDatabaseNodeRegionOutput
+	ToGetDatabasesDatabaseNodeRegionOutputWithContext(context.Context) GetDatabasesDatabaseNodeRegionOutput
+}
+
+type GetDatabasesDatabaseNodeRegionArgs struct {
+	// Active status of the region
+	Active pulumi.BoolInput `pulumi:"active"`
+	// Availability zones of the region
+	AvailabilityZones pulumi.StringArrayInput `pulumi:"availabilityZones"`
+	// Cloud provider of the region
+	Cloud pulumi.StringInput `pulumi:"cloud"`
+	// Code of the location
+	Code pulumi.StringInput `pulumi:"code"`
+	// Name of the component
+	Name pulumi.StringInput `pulumi:"name"`
+	// Parent region
+	Parent pulumi.StringInput `pulumi:"parent"`
+}
+
+func (GetDatabasesDatabaseNodeRegionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodeRegion)(nil)).Elem()
+}
+
+func (i GetDatabasesDatabaseNodeRegionArgs) ToGetDatabasesDatabaseNodeRegionOutput() GetDatabasesDatabaseNodeRegionOutput {
+	return i.ToGetDatabasesDatabaseNodeRegionOutputWithContext(context.Background())
+}
+
+func (i GetDatabasesDatabaseNodeRegionArgs) ToGetDatabasesDatabaseNodeRegionOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeRegionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodeRegionOutput)
+}
+
+type GetDatabasesDatabaseNodeRegionOutput struct{ *pulumi.OutputState }
+
+func (GetDatabasesDatabaseNodeRegionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodeRegion)(nil)).Elem()
+}
+
+func (o GetDatabasesDatabaseNodeRegionOutput) ToGetDatabasesDatabaseNodeRegionOutput() GetDatabasesDatabaseNodeRegionOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseNodeRegionOutput) ToGetDatabasesDatabaseNodeRegionOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeRegionOutput {
+	return o
+}
+
+// Active status of the region
+func (o GetDatabasesDatabaseNodeRegionOutput) Active() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeRegion) bool { return v.Active }).(pulumi.BoolOutput)
+}
+
+// Availability zones of the region
+func (o GetDatabasesDatabaseNodeRegionOutput) AvailabilityZones() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeRegion) []string { return v.AvailabilityZones }).(pulumi.StringArrayOutput)
+}
+
+// Cloud provider of the region
+func (o GetDatabasesDatabaseNodeRegionOutput) Cloud() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeRegion) string { return v.Cloud }).(pulumi.StringOutput)
+}
+
+// Code of the location
+func (o GetDatabasesDatabaseNodeRegionOutput) Code() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeRegion) string { return v.Code }).(pulumi.StringOutput)
+}
+
+// Name of the component
+func (o GetDatabasesDatabaseNodeRegionOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeRegion) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Parent region
+func (o GetDatabasesDatabaseNodeRegionOutput) Parent() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodeRegion) string { return v.Parent }).(pulumi.StringOutput)
+}
+
+type GetDatabasesDatabaseRole struct {
+	// Bypass RLS
+	BypassRls bool `pulumi:"bypassRls"`
+	// Connection limit
+	ConnectionLimit int `pulumi:"connectionLimit"`
+	// Create database
+	CreateDb bool `pulumi:"createDb"`
+	// Create role
+	CreateRole bool `pulumi:"createRole"`
+	// Inherit
+	Inherit bool `pulumi:"inherit"`
+	// Login
+	Login bool `pulumi:"login"`
+	// Name of the component
+	Name string `pulumi:"name"`
+	// Replication
+	Replication bool `pulumi:"replication"`
+	// Superuser
+	Superuser bool `pulumi:"superuser"`
+}
+
+// GetDatabasesDatabaseRoleInput is an input type that accepts GetDatabasesDatabaseRoleArgs and GetDatabasesDatabaseRoleOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseRoleInput` via:
+//
+//	GetDatabasesDatabaseRoleArgs{...}
+type GetDatabasesDatabaseRoleInput interface {
+	pulumi.Input
+
+	ToGetDatabasesDatabaseRoleOutput() GetDatabasesDatabaseRoleOutput
+	ToGetDatabasesDatabaseRoleOutputWithContext(context.Context) GetDatabasesDatabaseRoleOutput
+}
+
+type GetDatabasesDatabaseRoleArgs struct {
+	// Bypass RLS
+	BypassRls pulumi.BoolInput `pulumi:"bypassRls"`
+	// Connection limit
+	ConnectionLimit pulumi.IntInput `pulumi:"connectionLimit"`
+	// Create database
+	CreateDb pulumi.BoolInput `pulumi:"createDb"`
+	// Create role
+	CreateRole pulumi.BoolInput `pulumi:"createRole"`
+	// Inherit
+	Inherit pulumi.BoolInput `pulumi:"inherit"`
+	// Login
+	Login pulumi.BoolInput `pulumi:"login"`
+	// Name of the component
+	Name pulumi.StringInput `pulumi:"name"`
+	// Replication
+	Replication pulumi.BoolInput `pulumi:"replication"`
+	// Superuser
+	Superuser pulumi.BoolInput `pulumi:"superuser"`
+}
+
+func (GetDatabasesDatabaseRoleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseRole)(nil)).Elem()
+}
+
+func (i GetDatabasesDatabaseRoleArgs) ToGetDatabasesDatabaseRoleOutput() GetDatabasesDatabaseRoleOutput {
+	return i.ToGetDatabasesDatabaseRoleOutputWithContext(context.Background())
+}
+
+func (i GetDatabasesDatabaseRoleArgs) ToGetDatabasesDatabaseRoleOutputWithContext(ctx context.Context) GetDatabasesDatabaseRoleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseRoleOutput)
+}
+
+// GetDatabasesDatabaseRoleArrayInput is an input type that accepts GetDatabasesDatabaseRoleArray and GetDatabasesDatabaseRoleArrayOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseRoleArrayInput` via:
+//
+//	GetDatabasesDatabaseRoleArray{ GetDatabasesDatabaseRoleArgs{...} }
+type GetDatabasesDatabaseRoleArrayInput interface {
+	pulumi.Input
+
+	ToGetDatabasesDatabaseRoleArrayOutput() GetDatabasesDatabaseRoleArrayOutput
+	ToGetDatabasesDatabaseRoleArrayOutputWithContext(context.Context) GetDatabasesDatabaseRoleArrayOutput
+}
+
+type GetDatabasesDatabaseRoleArray []GetDatabasesDatabaseRoleInput
+
+func (GetDatabasesDatabaseRoleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetDatabasesDatabaseRole)(nil)).Elem()
+}
+
+func (i GetDatabasesDatabaseRoleArray) ToGetDatabasesDatabaseRoleArrayOutput() GetDatabasesDatabaseRoleArrayOutput {
+	return i.ToGetDatabasesDatabaseRoleArrayOutputWithContext(context.Background())
+}
+
+func (i GetDatabasesDatabaseRoleArray) ToGetDatabasesDatabaseRoleArrayOutputWithContext(ctx context.Context) GetDatabasesDatabaseRoleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseRoleArrayOutput)
+}
+
+type GetDatabasesDatabaseRoleOutput struct{ *pulumi.OutputState }
+
+func (GetDatabasesDatabaseRoleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseRole)(nil)).Elem()
+}
+
+func (o GetDatabasesDatabaseRoleOutput) ToGetDatabasesDatabaseRoleOutput() GetDatabasesDatabaseRoleOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseRoleOutput) ToGetDatabasesDatabaseRoleOutputWithContext(ctx context.Context) GetDatabasesDatabaseRoleOutput {
+	return o
+}
+
+// Bypass RLS
+func (o GetDatabasesDatabaseRoleOutput) BypassRls() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseRole) bool { return v.BypassRls }).(pulumi.BoolOutput)
+}
+
+// Connection limit
+func (o GetDatabasesDatabaseRoleOutput) ConnectionLimit() pulumi.IntOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseRole) int { return v.ConnectionLimit }).(pulumi.IntOutput)
+}
+
+// Create database
+func (o GetDatabasesDatabaseRoleOutput) CreateDb() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseRole) bool { return v.CreateDb }).(pulumi.BoolOutput)
+}
+
+// Create role
+func (o GetDatabasesDatabaseRoleOutput) CreateRole() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseRole) bool { return v.CreateRole }).(pulumi.BoolOutput)
+}
+
+// Inherit
+func (o GetDatabasesDatabaseRoleOutput) Inherit() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseRole) bool { return v.Inherit }).(pulumi.BoolOutput)
+}
+
+// Login
+func (o GetDatabasesDatabaseRoleOutput) Login() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseRole) bool { return v.Login }).(pulumi.BoolOutput)
+}
+
+// Name of the component
+func (o GetDatabasesDatabaseRoleOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseRole) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Replication
+func (o GetDatabasesDatabaseRoleOutput) Replication() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseRole) bool { return v.Replication }).(pulumi.BoolOutput)
+}
+
+// Superuser
+func (o GetDatabasesDatabaseRoleOutput) Superuser() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseRole) bool { return v.Superuser }).(pulumi.BoolOutput)
+}
+
+type GetDatabasesDatabaseRoleArrayOutput struct{ *pulumi.OutputState }
+
+func (GetDatabasesDatabaseRoleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetDatabasesDatabaseRole)(nil)).Elem()
+}
+
+func (o GetDatabasesDatabaseRoleArrayOutput) ToGetDatabasesDatabaseRoleArrayOutput() GetDatabasesDatabaseRoleArrayOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseRoleArrayOutput) ToGetDatabasesDatabaseRoleArrayOutputWithContext(ctx context.Context) GetDatabasesDatabaseRoleArrayOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseRoleArrayOutput) Index(i pulumi.IntInput) GetDatabasesDatabaseRoleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetDatabasesDatabaseRole {
+		return vs[0].([]GetDatabasesDatabaseRole)[vs[1].(int)]
+	}).(GetDatabasesDatabaseRoleOutput)
+}
+
+type GetDatabasesDatabaseTable struct {
+	Columns []GetDatabasesDatabaseTableColumn `pulumi:"columns"`
+	// Name of the component
+	Name string `pulumi:"name"`
+	// Primary key of the table
+	PrimaryKeys []string `pulumi:"primaryKeys"`
+	// Replication sets of the table
+	ReplicationSets []string `pulumi:"replicationSets"`
+	// Schema of the table
+	Schema string `pulumi:"schema"`
+	// Status of the component
+	Statuses []GetDatabasesDatabaseTableStatus `pulumi:"statuses"`
+}
+
+// GetDatabasesDatabaseTableInput is an input type that accepts GetDatabasesDatabaseTableArgs and GetDatabasesDatabaseTableOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseTableInput` via:
+//
+//	GetDatabasesDatabaseTableArgs{...}
+type GetDatabasesDatabaseTableInput interface {
+	pulumi.Input
+
+	ToGetDatabasesDatabaseTableOutput() GetDatabasesDatabaseTableOutput
+	ToGetDatabasesDatabaseTableOutputWithContext(context.Context) GetDatabasesDatabaseTableOutput
+}
+
+type GetDatabasesDatabaseTableArgs struct {
+	Columns GetDatabasesDatabaseTableColumnArrayInput `pulumi:"columns"`
+	// Name of the component
+	Name pulumi.StringInput `pulumi:"name"`
+	// Primary key of the table
+	PrimaryKeys pulumi.StringArrayInput `pulumi:"primaryKeys"`
+	// Replication sets of the table
+	ReplicationSets pulumi.StringArrayInput `pulumi:"replicationSets"`
+	// Schema of the table
+	Schema pulumi.StringInput `pulumi:"schema"`
+	// Status of the component
+	Statuses GetDatabasesDatabaseTableStatusArrayInput `pulumi:"statuses"`
+}
+
+func (GetDatabasesDatabaseTableArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseTable)(nil)).Elem()
+}
+
+func (i GetDatabasesDatabaseTableArgs) ToGetDatabasesDatabaseTableOutput() GetDatabasesDatabaseTableOutput {
+	return i.ToGetDatabasesDatabaseTableOutputWithContext(context.Background())
+}
+
+func (i GetDatabasesDatabaseTableArgs) ToGetDatabasesDatabaseTableOutputWithContext(ctx context.Context) GetDatabasesDatabaseTableOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseTableOutput)
+}
+
+// GetDatabasesDatabaseTableArrayInput is an input type that accepts GetDatabasesDatabaseTableArray and GetDatabasesDatabaseTableArrayOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseTableArrayInput` via:
+//
+//	GetDatabasesDatabaseTableArray{ GetDatabasesDatabaseTableArgs{...} }
+type GetDatabasesDatabaseTableArrayInput interface {
+	pulumi.Input
+
+	ToGetDatabasesDatabaseTableArrayOutput() GetDatabasesDatabaseTableArrayOutput
+	ToGetDatabasesDatabaseTableArrayOutputWithContext(context.Context) GetDatabasesDatabaseTableArrayOutput
+}
+
+type GetDatabasesDatabaseTableArray []GetDatabasesDatabaseTableInput
+
+func (GetDatabasesDatabaseTableArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetDatabasesDatabaseTable)(nil)).Elem()
+}
+
+func (i GetDatabasesDatabaseTableArray) ToGetDatabasesDatabaseTableArrayOutput() GetDatabasesDatabaseTableArrayOutput {
+	return i.ToGetDatabasesDatabaseTableArrayOutputWithContext(context.Background())
+}
+
+func (i GetDatabasesDatabaseTableArray) ToGetDatabasesDatabaseTableArrayOutputWithContext(ctx context.Context) GetDatabasesDatabaseTableArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseTableArrayOutput)
+}
+
+type GetDatabasesDatabaseTableOutput struct{ *pulumi.OutputState }
+
+func (GetDatabasesDatabaseTableOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseTable)(nil)).Elem()
+}
+
+func (o GetDatabasesDatabaseTableOutput) ToGetDatabasesDatabaseTableOutput() GetDatabasesDatabaseTableOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseTableOutput) ToGetDatabasesDatabaseTableOutputWithContext(ctx context.Context) GetDatabasesDatabaseTableOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseTableOutput) Columns() GetDatabasesDatabaseTableColumnArrayOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTable) []GetDatabasesDatabaseTableColumn { return v.Columns }).(GetDatabasesDatabaseTableColumnArrayOutput)
+}
+
+// Name of the component
+func (o GetDatabasesDatabaseTableOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTable) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Primary key of the table
+func (o GetDatabasesDatabaseTableOutput) PrimaryKeys() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTable) []string { return v.PrimaryKeys }).(pulumi.StringArrayOutput)
+}
+
+// Replication sets of the table
+func (o GetDatabasesDatabaseTableOutput) ReplicationSets() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTable) []string { return v.ReplicationSets }).(pulumi.StringArrayOutput)
+}
+
+// Schema of the table
+func (o GetDatabasesDatabaseTableOutput) Schema() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTable) string { return v.Schema }).(pulumi.StringOutput)
+}
+
+// Status of the component
+func (o GetDatabasesDatabaseTableOutput) Statuses() GetDatabasesDatabaseTableStatusArrayOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTable) []GetDatabasesDatabaseTableStatus { return v.Statuses }).(GetDatabasesDatabaseTableStatusArrayOutput)
+}
+
+type GetDatabasesDatabaseTableArrayOutput struct{ *pulumi.OutputState }
+
+func (GetDatabasesDatabaseTableArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetDatabasesDatabaseTable)(nil)).Elem()
+}
+
+func (o GetDatabasesDatabaseTableArrayOutput) ToGetDatabasesDatabaseTableArrayOutput() GetDatabasesDatabaseTableArrayOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseTableArrayOutput) ToGetDatabasesDatabaseTableArrayOutputWithContext(ctx context.Context) GetDatabasesDatabaseTableArrayOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseTableArrayOutput) Index(i pulumi.IntInput) GetDatabasesDatabaseTableOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetDatabasesDatabaseTable {
+		return vs[0].([]GetDatabasesDatabaseTable)[vs[1].(int)]
+	}).(GetDatabasesDatabaseTableOutput)
+}
+
+type GetDatabasesDatabaseTableColumn struct {
+	// Data type of the column
+	DataType string `pulumi:"dataType"`
+	// Default of the column
+	Default string `pulumi:"default"`
+	// Is nullable of the column
+	IsNullable bool `pulumi:"isNullable"`
+	// Is primary key of the column
+	IsPrimaryKey bool `pulumi:"isPrimaryKey"`
+	// Name of the component
+	Name string `pulumi:"name"`
+	// Ordinal position of the column
+	OrdinalPosition int `pulumi:"ordinalPosition"`
+}
+
+// GetDatabasesDatabaseTableColumnInput is an input type that accepts GetDatabasesDatabaseTableColumnArgs and GetDatabasesDatabaseTableColumnOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseTableColumnInput` via:
+//
+//	GetDatabasesDatabaseTableColumnArgs{...}
+type GetDatabasesDatabaseTableColumnInput interface {
+	pulumi.Input
+
+	ToGetDatabasesDatabaseTableColumnOutput() GetDatabasesDatabaseTableColumnOutput
+	ToGetDatabasesDatabaseTableColumnOutputWithContext(context.Context) GetDatabasesDatabaseTableColumnOutput
+}
+
+type GetDatabasesDatabaseTableColumnArgs struct {
+	// Data type of the column
+	DataType pulumi.StringInput `pulumi:"dataType"`
+	// Default of the column
+	Default pulumi.StringInput `pulumi:"default"`
+	// Is nullable of the column
+	IsNullable pulumi.BoolInput `pulumi:"isNullable"`
+	// Is primary key of the column
+	IsPrimaryKey pulumi.BoolInput `pulumi:"isPrimaryKey"`
+	// Name of the component
+	Name pulumi.StringInput `pulumi:"name"`
+	// Ordinal position of the column
+	OrdinalPosition pulumi.IntInput `pulumi:"ordinalPosition"`
+}
+
+func (GetDatabasesDatabaseTableColumnArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseTableColumn)(nil)).Elem()
+}
+
+func (i GetDatabasesDatabaseTableColumnArgs) ToGetDatabasesDatabaseTableColumnOutput() GetDatabasesDatabaseTableColumnOutput {
+	return i.ToGetDatabasesDatabaseTableColumnOutputWithContext(context.Background())
+}
+
+func (i GetDatabasesDatabaseTableColumnArgs) ToGetDatabasesDatabaseTableColumnOutputWithContext(ctx context.Context) GetDatabasesDatabaseTableColumnOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseTableColumnOutput)
+}
+
+// GetDatabasesDatabaseTableColumnArrayInput is an input type that accepts GetDatabasesDatabaseTableColumnArray and GetDatabasesDatabaseTableColumnArrayOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseTableColumnArrayInput` via:
+//
+//	GetDatabasesDatabaseTableColumnArray{ GetDatabasesDatabaseTableColumnArgs{...} }
+type GetDatabasesDatabaseTableColumnArrayInput interface {
+	pulumi.Input
+
+	ToGetDatabasesDatabaseTableColumnArrayOutput() GetDatabasesDatabaseTableColumnArrayOutput
+	ToGetDatabasesDatabaseTableColumnArrayOutputWithContext(context.Context) GetDatabasesDatabaseTableColumnArrayOutput
+}
+
+type GetDatabasesDatabaseTableColumnArray []GetDatabasesDatabaseTableColumnInput
+
+func (GetDatabasesDatabaseTableColumnArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetDatabasesDatabaseTableColumn)(nil)).Elem()
+}
+
+func (i GetDatabasesDatabaseTableColumnArray) ToGetDatabasesDatabaseTableColumnArrayOutput() GetDatabasesDatabaseTableColumnArrayOutput {
+	return i.ToGetDatabasesDatabaseTableColumnArrayOutputWithContext(context.Background())
+}
+
+func (i GetDatabasesDatabaseTableColumnArray) ToGetDatabasesDatabaseTableColumnArrayOutputWithContext(ctx context.Context) GetDatabasesDatabaseTableColumnArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseTableColumnArrayOutput)
+}
+
+type GetDatabasesDatabaseTableColumnOutput struct{ *pulumi.OutputState }
+
+func (GetDatabasesDatabaseTableColumnOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseTableColumn)(nil)).Elem()
+}
+
+func (o GetDatabasesDatabaseTableColumnOutput) ToGetDatabasesDatabaseTableColumnOutput() GetDatabasesDatabaseTableColumnOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseTableColumnOutput) ToGetDatabasesDatabaseTableColumnOutputWithContext(ctx context.Context) GetDatabasesDatabaseTableColumnOutput {
+	return o
+}
+
+// Data type of the column
+func (o GetDatabasesDatabaseTableColumnOutput) DataType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTableColumn) string { return v.DataType }).(pulumi.StringOutput)
+}
+
+// Default of the column
+func (o GetDatabasesDatabaseTableColumnOutput) Default() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTableColumn) string { return v.Default }).(pulumi.StringOutput)
+}
+
+// Is nullable of the column
+func (o GetDatabasesDatabaseTableColumnOutput) IsNullable() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTableColumn) bool { return v.IsNullable }).(pulumi.BoolOutput)
+}
+
+// Is primary key of the column
+func (o GetDatabasesDatabaseTableColumnOutput) IsPrimaryKey() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTableColumn) bool { return v.IsPrimaryKey }).(pulumi.BoolOutput)
+}
+
+// Name of the component
+func (o GetDatabasesDatabaseTableColumnOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTableColumn) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Ordinal position of the column
+func (o GetDatabasesDatabaseTableColumnOutput) OrdinalPosition() pulumi.IntOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTableColumn) int { return v.OrdinalPosition }).(pulumi.IntOutput)
+}
+
+type GetDatabasesDatabaseTableColumnArrayOutput struct{ *pulumi.OutputState }
+
+func (GetDatabasesDatabaseTableColumnArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetDatabasesDatabaseTableColumn)(nil)).Elem()
+}
+
+func (o GetDatabasesDatabaseTableColumnArrayOutput) ToGetDatabasesDatabaseTableColumnArrayOutput() GetDatabasesDatabaseTableColumnArrayOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseTableColumnArrayOutput) ToGetDatabasesDatabaseTableColumnArrayOutputWithContext(ctx context.Context) GetDatabasesDatabaseTableColumnArrayOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseTableColumnArrayOutput) Index(i pulumi.IntInput) GetDatabasesDatabaseTableColumnOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetDatabasesDatabaseTableColumn {
+		return vs[0].([]GetDatabasesDatabaseTableColumn)[vs[1].(int)]
+	}).(GetDatabasesDatabaseTableColumnOutput)
+}
+
+type GetDatabasesDatabaseTableStatus struct {
+	// Aligned of the table
+	Aligned bool `pulumi:"aligned"`
+	// Node name of the table
+	NodeName string `pulumi:"nodeName"`
+	// Present of the table
+	Present bool `pulumi:"present"`
+	// Replicating of the table
+	Replicating bool `pulumi:"replicating"`
+}
+
+// GetDatabasesDatabaseTableStatusInput is an input type that accepts GetDatabasesDatabaseTableStatusArgs and GetDatabasesDatabaseTableStatusOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseTableStatusInput` via:
+//
+//	GetDatabasesDatabaseTableStatusArgs{...}
+type GetDatabasesDatabaseTableStatusInput interface {
+	pulumi.Input
+
+	ToGetDatabasesDatabaseTableStatusOutput() GetDatabasesDatabaseTableStatusOutput
+	ToGetDatabasesDatabaseTableStatusOutputWithContext(context.Context) GetDatabasesDatabaseTableStatusOutput
+}
+
+type GetDatabasesDatabaseTableStatusArgs struct {
+	// Aligned of the table
+	Aligned pulumi.BoolInput `pulumi:"aligned"`
+	// Node name of the table
+	NodeName pulumi.StringInput `pulumi:"nodeName"`
+	// Present of the table
+	Present pulumi.BoolInput `pulumi:"present"`
+	// Replicating of the table
+	Replicating pulumi.BoolInput `pulumi:"replicating"`
+}
+
+func (GetDatabasesDatabaseTableStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseTableStatus)(nil)).Elem()
+}
+
+func (i GetDatabasesDatabaseTableStatusArgs) ToGetDatabasesDatabaseTableStatusOutput() GetDatabasesDatabaseTableStatusOutput {
+	return i.ToGetDatabasesDatabaseTableStatusOutputWithContext(context.Background())
+}
+
+func (i GetDatabasesDatabaseTableStatusArgs) ToGetDatabasesDatabaseTableStatusOutputWithContext(ctx context.Context) GetDatabasesDatabaseTableStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseTableStatusOutput)
+}
+
+// GetDatabasesDatabaseTableStatusArrayInput is an input type that accepts GetDatabasesDatabaseTableStatusArray and GetDatabasesDatabaseTableStatusArrayOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseTableStatusArrayInput` via:
+//
+//	GetDatabasesDatabaseTableStatusArray{ GetDatabasesDatabaseTableStatusArgs{...} }
+type GetDatabasesDatabaseTableStatusArrayInput interface {
+	pulumi.Input
+
+	ToGetDatabasesDatabaseTableStatusArrayOutput() GetDatabasesDatabaseTableStatusArrayOutput
+	ToGetDatabasesDatabaseTableStatusArrayOutputWithContext(context.Context) GetDatabasesDatabaseTableStatusArrayOutput
+}
+
+type GetDatabasesDatabaseTableStatusArray []GetDatabasesDatabaseTableStatusInput
+
+func (GetDatabasesDatabaseTableStatusArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetDatabasesDatabaseTableStatus)(nil)).Elem()
+}
+
+func (i GetDatabasesDatabaseTableStatusArray) ToGetDatabasesDatabaseTableStatusArrayOutput() GetDatabasesDatabaseTableStatusArrayOutput {
+	return i.ToGetDatabasesDatabaseTableStatusArrayOutputWithContext(context.Background())
+}
+
+func (i GetDatabasesDatabaseTableStatusArray) ToGetDatabasesDatabaseTableStatusArrayOutputWithContext(ctx context.Context) GetDatabasesDatabaseTableStatusArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseTableStatusArrayOutput)
+}
+
+type GetDatabasesDatabaseTableStatusOutput struct{ *pulumi.OutputState }
+
+func (GetDatabasesDatabaseTableStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseTableStatus)(nil)).Elem()
+}
+
+func (o GetDatabasesDatabaseTableStatusOutput) ToGetDatabasesDatabaseTableStatusOutput() GetDatabasesDatabaseTableStatusOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseTableStatusOutput) ToGetDatabasesDatabaseTableStatusOutputWithContext(ctx context.Context) GetDatabasesDatabaseTableStatusOutput {
+	return o
+}
+
+// Aligned of the table
+func (o GetDatabasesDatabaseTableStatusOutput) Aligned() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTableStatus) bool { return v.Aligned }).(pulumi.BoolOutput)
+}
+
+// Node name of the table
+func (o GetDatabasesDatabaseTableStatusOutput) NodeName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTableStatus) string { return v.NodeName }).(pulumi.StringOutput)
+}
+
+// Present of the table
+func (o GetDatabasesDatabaseTableStatusOutput) Present() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTableStatus) bool { return v.Present }).(pulumi.BoolOutput)
+}
+
+// Replicating of the table
+func (o GetDatabasesDatabaseTableStatusOutput) Replicating() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseTableStatus) bool { return v.Replicating }).(pulumi.BoolOutput)
+}
+
+type GetDatabasesDatabaseTableStatusArrayOutput struct{ *pulumi.OutputState }
+
+func (GetDatabasesDatabaseTableStatusArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetDatabasesDatabaseTableStatus)(nil)).Elem()
+}
+
+func (o GetDatabasesDatabaseTableStatusArrayOutput) ToGetDatabasesDatabaseTableStatusArrayOutput() GetDatabasesDatabaseTableStatusArrayOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseTableStatusArrayOutput) ToGetDatabasesDatabaseTableStatusArrayOutputWithContext(ctx context.Context) GetDatabasesDatabaseTableStatusArrayOutput {
+	return o
+}
+
+func (o GetDatabasesDatabaseTableStatusArrayOutput) Index(i pulumi.IntInput) GetDatabasesDatabaseTableStatusOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetDatabasesDatabaseTableStatus {
+		return vs[0].([]GetDatabasesDatabaseTableStatus)[vs[1].(int)]
+	}).(GetDatabasesDatabaseTableStatusOutput)
+}
+
 func init() {
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterFirewallInput)(nil)).Elem(), ClusterFirewallArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterFirewallArrayInput)(nil)).Elem(), ClusterFirewallArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeGroupsInput)(nil)).Elem(), ClusterNodeGroupsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeGroupsPtrInput)(nil)).Elem(), ClusterNodeGroupsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeGroupsAwInput)(nil)).Elem(), ClusterNodeGroupsAwArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeGroupsAwArrayInput)(nil)).Elem(), ClusterNodeGroupsAwArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeGroupsAwNodeInput)(nil)).Elem(), ClusterNodeGroupsAwNodeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeGroupsAwNodeArrayInput)(nil)).Elem(), ClusterNodeGroupsAwNodeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeGroupsAzureInput)(nil)).Elem(), ClusterNodeGroupsAzureArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeGroupsAzureArrayInput)(nil)).Elem(), ClusterNodeGroupsAzureArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeGroupsAzureNodeInput)(nil)).Elem(), ClusterNodeGroupsAzureNodeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeGroupsAzureNodeArrayInput)(nil)).Elem(), ClusterNodeGroupsAzureNodeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeGroupsGoogleInput)(nil)).Elem(), ClusterNodeGroupsGoogleArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeGroupsGoogleArrayInput)(nil)).Elem(), ClusterNodeGroupsGoogleArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeGroupsGoogleNodeInput)(nil)).Elem(), ClusterNodeGroupsGoogleNodeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeGroupsGoogleNodeArrayInput)(nil)).Elem(), ClusterNodeGroupsGoogleNodeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeInput)(nil)).Elem(), DatabaseNodeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeArrayInput)(nil)).Elem(), DatabaseNodeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeConnectionInput)(nil)).Elem(), DatabaseNodeConnectionArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeConnectionPtrInput)(nil)).Elem(), DatabaseNodeConnectionArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeLocationInput)(nil)).Elem(), DatabaseNodeLocationArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeLocationPtrInput)(nil)).Elem(), DatabaseNodeLocationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterFirewallRuleInput)(nil)).Elem(), ClusterFirewallRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterFirewallRuleArrayInput)(nil)).Elem(), ClusterFirewallRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNetworkInput)(nil)).Elem(), ClusterNetworkArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNetworkArrayInput)(nil)).Elem(), ClusterNetworkArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeInput)(nil)).Elem(), ClusterNodeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeArrayInput)(nil)).Elem(), ClusterNodeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterInput)(nil)).Elem(), GetClustersClusterArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterArrayInput)(nil)).Elem(), GetClustersClusterArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterFirewallInput)(nil)).Elem(), GetClustersClusterFirewallArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterFirewallArrayInput)(nil)).Elem(), GetClustersClusterFirewallArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNodeGroupsInput)(nil)).Elem(), GetClustersClusterNodeGroupsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNodeGroupsAwInput)(nil)).Elem(), GetClustersClusterNodeGroupsAwArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNodeGroupsAwArrayInput)(nil)).Elem(), GetClustersClusterNodeGroupsAwArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNodeGroupsAwNodeInput)(nil)).Elem(), GetClustersClusterNodeGroupsAwNodeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNodeGroupsAwNodeArrayInput)(nil)).Elem(), GetClustersClusterNodeGroupsAwNodeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNodeGroupsAzureInput)(nil)).Elem(), GetClustersClusterNodeGroupsAzureArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNodeGroupsAzureArrayInput)(nil)).Elem(), GetClustersClusterNodeGroupsAzureArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNodeGroupsAzureNodeInput)(nil)).Elem(), GetClustersClusterNodeGroupsAzureNodeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNodeGroupsAzureNodeArrayInput)(nil)).Elem(), GetClustersClusterNodeGroupsAzureNodeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNodeGroupsGoogleInput)(nil)).Elem(), GetClustersClusterNodeGroupsGoogleArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNodeGroupsGoogleArrayInput)(nil)).Elem(), GetClustersClusterNodeGroupsGoogleArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNodeGroupsGoogleNodeInput)(nil)).Elem(), GetClustersClusterNodeGroupsGoogleNodeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNodeGroupsGoogleNodeArrayInput)(nil)).Elem(), GetClustersClusterNodeGroupsGoogleNodeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterCloudAccountInput)(nil)).Elem(), GetClustersClusterCloudAccountArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterFirewallRuleInput)(nil)).Elem(), GetClustersClusterFirewallRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterFirewallRuleArrayInput)(nil)).Elem(), GetClustersClusterFirewallRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNetworkInput)(nil)).Elem(), GetClustersClusterNetworkArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNetworkArrayInput)(nil)).Elem(), GetClustersClusterNetworkArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNodeInput)(nil)).Elem(), GetClustersClusterNodeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterNodeArrayInput)(nil)).Elem(), GetClustersClusterNodeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseInput)(nil)).Elem(), GetDatabasesDatabaseArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseArrayInput)(nil)).Elem(), GetDatabasesDatabaseArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseComponentInput)(nil)).Elem(), GetDatabasesDatabaseComponentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseComponentArrayInput)(nil)).Elem(), GetDatabasesDatabaseComponentArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseExtensionsInput)(nil)).Elem(), GetDatabasesDatabaseExtensionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodeInput)(nil)).Elem(), GetDatabasesDatabaseNodeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodeArrayInput)(nil)).Elem(), GetDatabasesDatabaseNodeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodeConnectionInput)(nil)).Elem(), GetDatabasesDatabaseNodeConnectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodeDistanceMeasurementInput)(nil)).Elem(), GetDatabasesDatabaseNodeDistanceMeasurementArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodeExtensionsInput)(nil)).Elem(), GetDatabasesDatabaseNodeExtensionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodeExtensionsErrorsInput)(nil)).Elem(), GetDatabasesDatabaseNodeExtensionsErrorsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodeLocationInput)(nil)).Elem(), GetDatabasesDatabaseNodeLocationArgs{})
-	pulumi.RegisterOutputType(ClusterFirewallOutput{})
-	pulumi.RegisterOutputType(ClusterFirewallArrayOutput{})
-	pulumi.RegisterOutputType(ClusterNodeGroupsOutput{})
-	pulumi.RegisterOutputType(ClusterNodeGroupsPtrOutput{})
-	pulumi.RegisterOutputType(ClusterNodeGroupsAwOutput{})
-	pulumi.RegisterOutputType(ClusterNodeGroupsAwArrayOutput{})
-	pulumi.RegisterOutputType(ClusterNodeGroupsAwNodeOutput{})
-	pulumi.RegisterOutputType(ClusterNodeGroupsAwNodeArrayOutput{})
-	pulumi.RegisterOutputType(ClusterNodeGroupsAzureOutput{})
-	pulumi.RegisterOutputType(ClusterNodeGroupsAzureArrayOutput{})
-	pulumi.RegisterOutputType(ClusterNodeGroupsAzureNodeOutput{})
-	pulumi.RegisterOutputType(ClusterNodeGroupsAzureNodeArrayOutput{})
-	pulumi.RegisterOutputType(ClusterNodeGroupsGoogleOutput{})
-	pulumi.RegisterOutputType(ClusterNodeGroupsGoogleArrayOutput{})
-	pulumi.RegisterOutputType(ClusterNodeGroupsGoogleNodeOutput{})
-	pulumi.RegisterOutputType(ClusterNodeGroupsGoogleNodeArrayOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeArrayOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeConnectionOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeConnectionPtrOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeLocationOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeLocationPtrOutput{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodeRegionInput)(nil)).Elem(), GetDatabasesDatabaseNodeRegionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseRoleInput)(nil)).Elem(), GetDatabasesDatabaseRoleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseRoleArrayInput)(nil)).Elem(), GetDatabasesDatabaseRoleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseTableInput)(nil)).Elem(), GetDatabasesDatabaseTableArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseTableArrayInput)(nil)).Elem(), GetDatabasesDatabaseTableArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseTableColumnInput)(nil)).Elem(), GetDatabasesDatabaseTableColumnArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseTableColumnArrayInput)(nil)).Elem(), GetDatabasesDatabaseTableColumnArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseTableStatusInput)(nil)).Elem(), GetDatabasesDatabaseTableStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseTableStatusArrayInput)(nil)).Elem(), GetDatabasesDatabaseTableStatusArray{})
+	pulumi.RegisterOutputType(ClusterFirewallRuleOutput{})
+	pulumi.RegisterOutputType(ClusterFirewallRuleArrayOutput{})
+	pulumi.RegisterOutputType(ClusterNetworkOutput{})
+	pulumi.RegisterOutputType(ClusterNetworkArrayOutput{})
+	pulumi.RegisterOutputType(ClusterNodeOutput{})
+	pulumi.RegisterOutputType(ClusterNodeArrayOutput{})
 	pulumi.RegisterOutputType(GetClustersClusterOutput{})
 	pulumi.RegisterOutputType(GetClustersClusterArrayOutput{})
-	pulumi.RegisterOutputType(GetClustersClusterFirewallOutput{})
-	pulumi.RegisterOutputType(GetClustersClusterFirewallArrayOutput{})
-	pulumi.RegisterOutputType(GetClustersClusterNodeGroupsOutput{})
-	pulumi.RegisterOutputType(GetClustersClusterNodeGroupsAwOutput{})
-	pulumi.RegisterOutputType(GetClustersClusterNodeGroupsAwArrayOutput{})
-	pulumi.RegisterOutputType(GetClustersClusterNodeGroupsAwNodeOutput{})
-	pulumi.RegisterOutputType(GetClustersClusterNodeGroupsAwNodeArrayOutput{})
-	pulumi.RegisterOutputType(GetClustersClusterNodeGroupsAzureOutput{})
-	pulumi.RegisterOutputType(GetClustersClusterNodeGroupsAzureArrayOutput{})
-	pulumi.RegisterOutputType(GetClustersClusterNodeGroupsAzureNodeOutput{})
-	pulumi.RegisterOutputType(GetClustersClusterNodeGroupsAzureNodeArrayOutput{})
-	pulumi.RegisterOutputType(GetClustersClusterNodeGroupsGoogleOutput{})
-	pulumi.RegisterOutputType(GetClustersClusterNodeGroupsGoogleArrayOutput{})
-	pulumi.RegisterOutputType(GetClustersClusterNodeGroupsGoogleNodeOutput{})
-	pulumi.RegisterOutputType(GetClustersClusterNodeGroupsGoogleNodeArrayOutput{})
+	pulumi.RegisterOutputType(GetClustersClusterCloudAccountOutput{})
+	pulumi.RegisterOutputType(GetClustersClusterFirewallRuleOutput{})
+	pulumi.RegisterOutputType(GetClustersClusterFirewallRuleArrayOutput{})
+	pulumi.RegisterOutputType(GetClustersClusterNetworkOutput{})
+	pulumi.RegisterOutputType(GetClustersClusterNetworkArrayOutput{})
+	pulumi.RegisterOutputType(GetClustersClusterNodeOutput{})
+	pulumi.RegisterOutputType(GetClustersClusterNodeArrayOutput{})
 	pulumi.RegisterOutputType(GetDatabasesDatabaseOutput{})
 	pulumi.RegisterOutputType(GetDatabasesDatabaseArrayOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseComponentOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseComponentArrayOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseExtensionsOutput{})
 	pulumi.RegisterOutputType(GetDatabasesDatabaseNodeOutput{})
 	pulumi.RegisterOutputType(GetDatabasesDatabaseNodeArrayOutput{})
 	pulumi.RegisterOutputType(GetDatabasesDatabaseNodeConnectionOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseNodeDistanceMeasurementOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseNodeExtensionsOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseNodeExtensionsErrorsOutput{})
 	pulumi.RegisterOutputType(GetDatabasesDatabaseNodeLocationOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseNodeRegionOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseRoleOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseRoleArrayOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseTableOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseTableArrayOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseTableColumnOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseTableColumnArrayOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseTableStatusOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseTableStatusArrayOutput{})
 }
