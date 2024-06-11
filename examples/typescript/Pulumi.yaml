@@ -1,4 +1,4 @@
-name: test-demo
+name: typescript
 runtime: nodejs
 description: A minimal TypeScript Pulumi program
 config:
