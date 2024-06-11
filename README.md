@@ -149,4 +149,4 @@ For more detailed examples, please refer to the examples directory in this repos
 ## License
 This project is licensed under the terms of the Apache License. See the [LICENSE](LICENSE) file for details.
 
-Thank you for using the Pulumi pgEdge provider!
+Thank you for using the pgEdge Pulumi provider!
