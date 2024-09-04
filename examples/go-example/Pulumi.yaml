@@ -1,0 +1,7 @@
+name: pgedge-pulumi-go-example
+runtime: go
+description: A minimal pgEdge Pulumi example with Go
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: go

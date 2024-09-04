@@ -1,15 +1,13 @@
-module github.com/pgEdge/pulumi-pgedge/examples/go
+module pgedge-pulumi-go-example
 
 go 1.21.5
 
 toolchain go1.22.2
 
 require (
-	github.com/pgEdge/pulumi-pgedge/sdk v0.0.0-20240610233232-b228dc9881cf
+	github.com/pgEdge/pulumi-pgedge/sdk v0.0.0-20240611001425-e9ab7a060a1f
 	github.com/pulumi/pulumi/sdk/v3 v3.119.0
 )
-
-require github.com/stretchr/objx v0.2.0 // indirect
 
 require (
 	dario.cat/mergo v1.0.0 // indirect
