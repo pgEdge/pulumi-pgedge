@@ -10,7 +10,7 @@ import (
 	tfbridge "github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
 )
 
-//go:embed schema-embed.json
+//go:embed schema.json
 var pulumiSchema []byte
 
 //go:embed bridge-metadata.json
