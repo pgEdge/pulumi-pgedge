@@ -53,6 +53,7 @@ jobs:
         with:
           go-version: '1.21.x'
       - name: Build and Publish Node.js SDK
+        working-directory: ./sdk/nodejs
         run: |
           npm install
           npm run build
@@ -60,4 +61,5 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Build Go SDK
+        working-directory: ./sdk/go
         run: go build ./...
