@@ -3,9 +3,7 @@ version: 2
 archives:
   - id: archive
     name_template: '{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}'
-before:
-  hooks:
-    - make tfgen
+
 builds:
   - binary: pulumi-resource-pgedge
     dir: provider
