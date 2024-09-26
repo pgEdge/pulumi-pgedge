@@ -105,3 +105,14 @@ install_sdks:: install_dotnet_sdk install_python_sdk install_nodejs_sdk
 test::
 	cd examples && go test -v -tags=all -parallel ${TESTPARALLELISM} -timeout 2h
 
+release::
+	@if [ -n "$(CUSTOM_VERSION)" ]; then \
+		VERSION="$(CUSTOM_VERSION)"; \
+	elif [ -z "$(VERSION)" ]; then \
+		echo "VERSION is not set. Either set VERSION or use CUSTOM_VERSION=x.x.x"; \
+		exit 1; \
+	fi; \
+	echo "Creating release for version v$$VERSION"; \
+	git tag -a v$$VERSION -m "Release v$$VERSION"; \
+	git push origin v$$VERSION; \
+	echo "Release v$$VERSION has been created and pushed"
