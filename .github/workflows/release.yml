@@ -1,90 +1,63 @@
 name: release
+
 on:
   push:
     tags:
       - 'v*'
+
 permissions:
   contents: write
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  PUBLISH_NPM: true
-  NPM_REGISTRY_URL: https://registry.npmjs.org
+
 jobs:
-  publish_binary:
-    name: publish
+  goreleaser:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Install Go
-        uses: actions/setup-go@4d34df0c2316fe8122ab82dc22947d607c0c91f9 # v4.0.0
+      - name: Set up Go
+        uses: actions/setup-go@v5
         with:
-          go-version: ${{matrix.goversion}}
-          cache: true
-      - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.5.0
-        with:
-          repo: pulumi/pulumictl
-      - name: Set PreRelease Version
-        run: echo "GORELEASER_CURRENT_TAG=v$(pulumictl get version --language generic)" >> $GITHUB_ENV
+          go-version: '1.21.x'
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@111c56156bcc6918c056dbef52164cfa583dc549 # v5.2.0
+        uses: crazy-max/ghaction-import-gpg@v5.2.0
         id: import_gpg
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@f82d6c1c344bcacabba2c841718984797f664a6b # v4.2.0
+        uses: goreleaser/goreleaser-action@v6
         with:
+          distribution: goreleaser
+          version: latest
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
-    strategy:
-      fail-fast: true
-      matrix:
-        goversion:
-          - '1.20'
+
   publish_sdk:
     name: Publish SDKs
     runs-on: ubuntu-latest
-    needs: publish_binary
+    needs: goreleaser
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.nodeversion }}
-          registry-url: ${{ env.NPM_REGISTRY_URL }}
+          node-version: '18.x'
+          registry-url: https://registry.npmjs.org
       - name: Setup Go
-        uses: actions/setup-go@4d34df0c2316fe8122ab82dc22947d607c0c91f9 # v4.0.0
+        uses: actions/setup-go@v5
         with:
-          go-version: ${{ matrix.goversion }}
-          cache: true
+          go-version: '1.21.x'
       - name: Build and Publish Node.js SDK
-        if: matrix.language == 'nodejs'
         run: |
           npm install
           npm run build
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Build and Publish Go SDK
-        if: matrix.language == 'go'
-        run: |
-          go build ./...
-    strategy:
-      fail-fast: true
-      matrix:
-        goversion:
-          - '1.20'
-        language:
-          - nodejs
-          - go
-        nodeversion:
-          - 18.x
+      - name: Build Go SDK
+        run: go build ./...

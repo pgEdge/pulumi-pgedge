@@ -1,3 +1,5 @@
+version: 2
+
 archives:
   - id: archive
     name_template: '{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}'
@@ -19,10 +21,6 @@ builds:
     ldflags:
       - -X github.com/pgEdge/pulumi-pgedge/provider/pkg/version.Version={{.Tag }}
     main: ./cmd/pulumi-resource-pgedge/
-changelog:
-  skip: true
 release:
   disable: false
   prerelease: auto
-snapshot:
-  name_template: '{{ .Tag }}-SNAPSHOT'
