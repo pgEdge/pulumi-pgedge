@@ -14,7 +14,7 @@ namespace Pgedge.Pgedge.Outputs
     [OutputType]
     public sealed class GetDatabasesDatabaseNodeExtensionsResult
     {
-        public readonly Outputs.GetDatabasesDatabaseNodeExtensionsErrorsResult Errors;
+        public readonly ImmutableDictionary<string, string> Errors;
         /// <summary>
         /// List of installed extensions
         /// </summary>
@@ -22,7 +22,7 @@ namespace Pgedge.Pgedge.Outputs
 
         [OutputConstructor]
         private GetDatabasesDatabaseNodeExtensionsResult(
-            Outputs.GetDatabasesDatabaseNodeExtensionsErrorsResult errors,
+            ImmutableDictionary<string, string> errors,
 
             ImmutableArray<string> installeds)
         {

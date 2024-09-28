@@ -15,14 +15,21 @@ namespace Pgedge.Pgedge.Outputs
     public sealed class GetDatabasesDatabaseResult
     {
         /// <summary>
+        /// Backup configuration for the database
+        /// </summary>
+        public readonly Outputs.GetDatabasesDatabaseBackupsResult Backups;
+        /// <summary>
         /// Updated at of the database
         /// </summary>
         public readonly string ClusterId;
+        /// <summary>
+        /// Components of the database
+        /// </summary>
         public readonly ImmutableArray<Outputs.GetDatabasesDatabaseComponentResult> Components;
         /// <summary>
         /// Config version of the database
         /// </summary>
-        public readonly string? ConfigVersion;
+        public readonly string ConfigVersion;
         /// <summary>
         /// Created at of the database
         /// </summary>
@@ -31,6 +38,9 @@ namespace Pgedge.Pgedge.Outputs
         /// Domain of the database
         /// </summary>
         public readonly string Domain;
+        /// <summary>
+        /// Extensions configuration for the database
+        /// </summary>
         public readonly Outputs.GetDatabasesDatabaseExtensionsResult Extensions;
         /// <summary>
         /// ID of the database
@@ -40,6 +50,9 @@ namespace Pgedge.Pgedge.Outputs
         /// Name of the database
         /// </summary>
         public readonly string Name;
+        /// <summary>
+        /// Nodes of the database
+        /// </summary>
         public readonly ImmutableArray<Outputs.GetDatabasesDatabaseNodeResult> Nodes;
         /// <summary>
         /// Options for creating the database
@@ -49,6 +62,9 @@ namespace Pgedge.Pgedge.Outputs
         /// Postgres version of the database
         /// </summary>
         public readonly string PgVersion;
+        /// <summary>
+        /// Roles in the database
+        /// </summary>
         public readonly ImmutableArray<Outputs.GetDatabasesDatabaseRoleResult> Roles;
         /// <summary>
         /// Status of the database
@@ -58,7 +74,6 @@ namespace Pgedge.Pgedge.Outputs
         /// Storage used of the database
         /// </summary>
         public readonly int StorageUsed;
-        public readonly ImmutableArray<Outputs.GetDatabasesDatabaseTableResult> Tables;
         /// <summary>
         /// Updated at of the database
         /// </summary>
@@ -66,11 +81,13 @@ namespace Pgedge.Pgedge.Outputs
 
         [OutputConstructor]
         private GetDatabasesDatabaseResult(
+            Outputs.GetDatabasesDatabaseBackupsResult backups,
+
             string clusterId,
 
             ImmutableArray<Outputs.GetDatabasesDatabaseComponentResult> components,
 
-            string? configVersion,
+            string configVersion,
 
             string createdAt,
 
@@ -94,10 +111,9 @@ namespace Pgedge.Pgedge.Outputs
 
             int storageUsed,
 
-            ImmutableArray<Outputs.GetDatabasesDatabaseTableResult> tables,
-
             string updatedAt)
         {
+            Backups = backups;
             ClusterId = clusterId;
             Components = components;
             ConfigVersion = configVersion;
@@ -112,7 +128,6 @@ namespace Pgedge.Pgedge.Outputs
             Roles = roles;
             Status = status;
             StorageUsed = storageUsed;
-            Tables = tables;
             UpdatedAt = updatedAt;
         }
     }

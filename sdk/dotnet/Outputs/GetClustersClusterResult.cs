@@ -14,7 +14,14 @@ namespace Pgedge.Pgedge.Outputs
     [OutputType]
     public sealed class GetClustersClusterResult
     {
-        public readonly Outputs.GetClustersClusterCloudAccountResult CloudAccount;
+        /// <summary>
+        /// Backup store IDs of the cluster
+        /// </summary>
+        public readonly ImmutableArray<string> BackupStoreIds;
+        /// <summary>
+        /// Capacity of the cluster
+        /// </summary>
+        public readonly int Capacity;
         /// <summary>
         /// Cloud account ID of the cluster
         /// </summary>
@@ -40,6 +47,10 @@ namespace Pgedge.Pgedge.Outputs
         public readonly ImmutableArray<Outputs.GetClustersClusterNodeResult> Nodes;
         public readonly ImmutableArray<string> Regions;
         /// <summary>
+        /// Resource tags of the cluster
+        /// </summary>
+        public readonly ImmutableDictionary<string, string> ResourceTags;
+        /// <summary>
         /// SSH key ID of the cluster
         /// </summary>
         public readonly string SshKeyId;
@@ -50,7 +61,9 @@ namespace Pgedge.Pgedge.Outputs
 
         [OutputConstructor]
         private GetClustersClusterResult(
-            Outputs.GetClustersClusterCloudAccountResult cloudAccount,
+            ImmutableArray<string> backupStoreIds,
+
+            int capacity,
 
             string cloudAccountId,
 
@@ -70,11 +83,14 @@ namespace Pgedge.Pgedge.Outputs
 
             ImmutableArray<string> regions,
 
+            ImmutableDictionary<string, string> resourceTags,
+
             string sshKeyId,
 
             string status)
         {
-            CloudAccount = cloudAccount;
+            BackupStoreIds = backupStoreIds;
+            Capacity = capacity;
             CloudAccountId = cloudAccountId;
             CreatedAt = createdAt;
             FirewallRules = firewallRules;
@@ -84,6 +100,7 @@ namespace Pgedge.Pgedge.Outputs
             NodeLocation = nodeLocation;
             Nodes = nodes;
             Regions = regions;
+            ResourceTags = resourceTags;
             SshKeyId = sshKeyId;
             Status = status;
         }

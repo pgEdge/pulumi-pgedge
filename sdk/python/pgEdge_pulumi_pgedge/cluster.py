@@ -17,32 +17,29 @@ __all__ = ['ClusterArgs', 'Cluster']
 class ClusterArgs:
     def __init__(__self__, *,
                  cloud_account_id: pulumi.Input[str],
+                 networks: pulumi.Input[Sequence[pulumi.Input['ClusterNetworkArgs']]],
+                 node_location: pulumi.Input[str],
+                 nodes: pulumi.Input[Sequence[pulumi.Input['ClusterNodeArgs']]],
                  regions: pulumi.Input[Sequence[pulumi.Input[str]]],
                  firewall_rules: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterFirewallRuleArgs']]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 networks: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterNetworkArgs']]]] = None,
-                 node_location: Optional[pulumi.Input[str]] = None,
-                 nodes: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterNodeArgs']]]] = None,
                  ssh_key_id: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Cluster resource.
         :param pulumi.Input[str] cloud_account_id: ID of the target cloud account
-        :param pulumi.Input[str] name: Name of the network
         :param pulumi.Input[str] node_location: Network location for nodes (public or private)
+        :param pulumi.Input[str] name: Name of the network
         :param pulumi.Input[str] ssh_key_id: ID of the SSH key to add to the cluster nodes
         """
         pulumi.set(__self__, "cloud_account_id", cloud_account_id)
+        pulumi.set(__self__, "networks", networks)
+        pulumi.set(__self__, "node_location", node_location)
+        pulumi.set(__self__, "nodes", nodes)
         pulumi.set(__self__, "regions", regions)
         if firewall_rules is not None:
             pulumi.set(__self__, "firewall_rules", firewall_rules)
         if name is not None:
             pulumi.set(__self__, "name", name)
-        if networks is not None:
-            pulumi.set(__self__, "networks", networks)
-        if node_location is not None:
-            pulumi.set(__self__, "node_location", node_location)
-        if nodes is not None:
-            pulumi.set(__self__, "nodes", nodes)
         if ssh_key_id is not None:
             pulumi.set(__self__, "ssh_key_id", ssh_key_id)
 
@@ -57,6 +54,36 @@ class ClusterArgs:
     @cloud_account_id.setter
     def cloud_account_id(self, value: pulumi.Input[str]):
         pulumi.set(self, "cloud_account_id", value)
+
+    @property
+    @pulumi.getter
+    def networks(self) -> pulumi.Input[Sequence[pulumi.Input['ClusterNetworkArgs']]]:
+        return pulumi.get(self, "networks")
+
+    @networks.setter
+    def networks(self, value: pulumi.Input[Sequence[pulumi.Input['ClusterNetworkArgs']]]):
+        pulumi.set(self, "networks", value)
+
+    @property
+    @pulumi.getter(name="nodeLocation")
+    def node_location(self) -> pulumi.Input[str]:
+        """
+        Network location for nodes (public or private)
+        """
+        return pulumi.get(self, "node_location")
+
+    @node_location.setter
+    def node_location(self, value: pulumi.Input[str]):
+        pulumi.set(self, "node_location", value)
+
+    @property
+    @pulumi.getter
+    def nodes(self) -> pulumi.Input[Sequence[pulumi.Input['ClusterNodeArgs']]]:
+        return pulumi.get(self, "nodes")
+
+    @nodes.setter
+    def nodes(self, value: pulumi.Input[Sequence[pulumi.Input['ClusterNodeArgs']]]):
+        pulumi.set(self, "nodes", value)
 
     @property
     @pulumi.getter
@@ -87,36 +114,6 @@ class ClusterArgs:
     @name.setter
     def name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "name", value)
-
-    @property
-    @pulumi.getter
-    def networks(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ClusterNetworkArgs']]]]:
-        return pulumi.get(self, "networks")
-
-    @networks.setter
-    def networks(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterNetworkArgs']]]]):
-        pulumi.set(self, "networks", value)
-
-    @property
-    @pulumi.getter(name="nodeLocation")
-    def node_location(self) -> Optional[pulumi.Input[str]]:
-        """
-        Network location for nodes (public or private)
-        """
-        return pulumi.get(self, "node_location")
-
-    @node_location.setter
-    def node_location(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "node_location", value)
-
-    @property
-    @pulumi.getter
-    def nodes(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ClusterNodeArgs']]]]:
-        return pulumi.get(self, "nodes")
-
-    @nodes.setter
-    def nodes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterNodeArgs']]]]):
-        pulumi.set(self, "nodes", value)
 
     @property
     @pulumi.getter(name="sshKeyId")
@@ -353,8 +350,14 @@ class Cluster(pulumi.CustomResource):
             __props__.__dict__["cloud_account_id"] = cloud_account_id
             __props__.__dict__["firewall_rules"] = firewall_rules
             __props__.__dict__["name"] = name
+            if networks is None and not opts.urn:
+                raise TypeError("Missing required property 'networks'")
             __props__.__dict__["networks"] = networks
+            if node_location is None and not opts.urn:
+                raise TypeError("Missing required property 'node_location'")
             __props__.__dict__["node_location"] = node_location
+            if nodes is None and not opts.urn:
+                raise TypeError("Missing required property 'nodes'")
             __props__.__dict__["nodes"] = nodes
             if regions is None and not opts.urn:
                 raise TypeError("Missing required property 'regions'")
@@ -466,7 +469,7 @@ class Cluster(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="sshKeyId")
-    def ssh_key_id(self) -> pulumi.Output[str]:
+    def ssh_key_id(self) -> pulumi.Output[Optional[str]]:
         """
         ID of the SSH key to add to the cluster nodes
         """

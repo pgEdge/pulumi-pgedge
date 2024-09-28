@@ -32,7 +32,7 @@ namespace Pgedge.Pgedge
 
         private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("pgedge");
 
-        private static readonly __Value<string?> _baseUrl = new __Value<string?>(() => __config.Get("baseUrl"));
+        private static readonly __Value<string?> _baseUrl = new __Value<string?>(() => __config.Get("baseUrl") ?? Utilities.GetEnv("PGEDGE_BASE_URL"));
         /// <summary>
         /// Base Url to use when connecting to the PgEdge service.
         /// </summary>

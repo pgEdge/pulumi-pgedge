@@ -17,10 +17,22 @@ namespace Pgedge.Pgedge
     public partial class Database : global::Pulumi.CustomResource
     {
         /// <summary>
+        /// Backup configuration for the database.
+        /// </summary>
+        [Output("backups")]
+        public Output<Outputs.DatabaseBackups> Backups { get; private set; } = null!;
+
+        /// <summary>
         /// ID of the cluster to place the database on
         /// </summary>
         [Output("clusterId")]
         public Output<string> ClusterId { get; private set; } = null!;
+
+        /// <summary>
+        /// List of components in the database.
+        /// </summary>
+        [Output("components")]
+        public Output<ImmutableArray<Outputs.DatabaseComponent>> Components { get; private set; } = null!;
 
         /// <summary>
         /// Config version of the database
@@ -41,10 +53,22 @@ namespace Pgedge.Pgedge
         public Output<string> Domain { get; private set; } = null!;
 
         /// <summary>
+        /// Extensions configuration for the database.
+        /// </summary>
+        [Output("extensions")]
+        public Output<Outputs.DatabaseExtensions> Extensions { get; private set; } = null!;
+
+        /// <summary>
         /// Name of the database
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
+
+        /// <summary>
+        /// List of nodes in the database.
+        /// </summary>
+        [Output("nodes")]
+        public Output<ImmutableArray<Outputs.DatabaseNode>> Nodes { get; private set; } = null!;
 
         /// <summary>
         /// Options for creating the database
@@ -57,6 +81,12 @@ namespace Pgedge.Pgedge
         /// </summary>
         [Output("pgVersion")]
         public Output<string> PgVersion { get; private set; } = null!;
+
+        /// <summary>
+        /// List of roles in the database.
+        /// </summary>
+        [Output("roles")]
+        public Output<ImmutableArray<Outputs.DatabaseRole>> Roles { get; private set; } = null!;
 
         /// <summary>
         /// Status of the database
@@ -99,6 +129,7 @@ namespace Pgedge.Pgedge
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                PluginDownloadURL = "github://api.github.com/pgEdge/pulumi-pgedge",
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -123,6 +154,12 @@ namespace Pgedge.Pgedge
     public sealed class DatabaseArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// Backup configuration for the database.
+        /// </summary>
+        [Input("backups")]
+        public Input<Inputs.DatabaseBackupsArgs>? Backups { get; set; }
+
+        /// <summary>
         /// ID of the cluster to place the database on
         /// </summary>
         [Input("clusterId", required: true)]
@@ -135,10 +172,28 @@ namespace Pgedge.Pgedge
         public Input<string>? ConfigVersion { get; set; }
 
         /// <summary>
+        /// Extensions configuration for the database.
+        /// </summary>
+        [Input("extensions")]
+        public Input<Inputs.DatabaseExtensionsArgs>? Extensions { get; set; }
+
+        /// <summary>
         /// Name of the database
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
+
+        [Input("nodes")]
+        private InputList<Inputs.DatabaseNodeArgs>? _nodes;
+
+        /// <summary>
+        /// List of nodes in the database.
+        /// </summary>
+        public InputList<Inputs.DatabaseNodeArgs> Nodes
+        {
+            get => _nodes ?? (_nodes = new InputList<Inputs.DatabaseNodeArgs>());
+            set => _nodes = value;
+        }
 
         [Input("options")]
         private InputList<string>? _options;
@@ -152,6 +207,18 @@ namespace Pgedge.Pgedge
             set => _options = value;
         }
 
+        [Input("roles")]
+        private InputList<Inputs.DatabaseRoleArgs>? _roles;
+
+        /// <summary>
+        /// List of roles in the database.
+        /// </summary>
+        public InputList<Inputs.DatabaseRoleArgs> Roles
+        {
+            get => _roles ?? (_roles = new InputList<Inputs.DatabaseRoleArgs>());
+            set => _roles = value;
+        }
+
         public DatabaseArgs()
         {
         }
@@ -161,10 +228,28 @@ namespace Pgedge.Pgedge
     public sealed class DatabaseState : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// Backup configuration for the database.
+        /// </summary>
+        [Input("backups")]
+        public Input<Inputs.DatabaseBackupsGetArgs>? Backups { get; set; }
+
+        /// <summary>
         /// ID of the cluster to place the database on
         /// </summary>
         [Input("clusterId")]
         public Input<string>? ClusterId { get; set; }
+
+        [Input("components")]
+        private InputList<Inputs.DatabaseComponentGetArgs>? _components;
+
+        /// <summary>
+        /// List of components in the database.
+        /// </summary>
+        public InputList<Inputs.DatabaseComponentGetArgs> Components
+        {
+            get => _components ?? (_components = new InputList<Inputs.DatabaseComponentGetArgs>());
+            set => _components = value;
+        }
 
         /// <summary>
         /// Config version of the database
@@ -185,10 +270,28 @@ namespace Pgedge.Pgedge
         public Input<string>? Domain { get; set; }
 
         /// <summary>
+        /// Extensions configuration for the database.
+        /// </summary>
+        [Input("extensions")]
+        public Input<Inputs.DatabaseExtensionsGetArgs>? Extensions { get; set; }
+
+        /// <summary>
         /// Name of the database
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
+
+        [Input("nodes")]
+        private InputList<Inputs.DatabaseNodeGetArgs>? _nodes;
+
+        /// <summary>
+        /// List of nodes in the database.
+        /// </summary>
+        public InputList<Inputs.DatabaseNodeGetArgs> Nodes
+        {
+            get => _nodes ?? (_nodes = new InputList<Inputs.DatabaseNodeGetArgs>());
+            set => _nodes = value;
+        }
 
         [Input("options")]
         private InputList<string>? _options;
@@ -207,6 +310,18 @@ namespace Pgedge.Pgedge
         /// </summary>
         [Input("pgVersion")]
         public Input<string>? PgVersion { get; set; }
+
+        [Input("roles")]
+        private InputList<Inputs.DatabaseRoleGetArgs>? _roles;
+
+        /// <summary>
+        /// List of roles in the database.
+        /// </summary>
+        public InputList<Inputs.DatabaseRoleGetArgs> Roles
+        {
+            get => _roles ?? (_roles = new InputList<Inputs.DatabaseRoleGetArgs>());
+            set => _roles = value;
+        }
 
         /// <summary>
         /// Status of the database

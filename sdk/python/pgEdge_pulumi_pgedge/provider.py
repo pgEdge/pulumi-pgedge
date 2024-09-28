@@ -19,6 +19,8 @@ class ProviderArgs:
         The set of arguments for constructing a Provider resource.
         :param pulumi.Input[str] base_url: Base Url to use when connecting to the PgEdge service.
         """
+        if base_url is None:
+            base_url = _utilities.get_env('PGEDGE_BASE_URL')
         if base_url is not None:
             pulumi.set(__self__, "base_url", base_url)
 
@@ -89,6 +91,8 @@ class Provider(pulumi.ProviderResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ProviderArgs.__new__(ProviderArgs)
 
+            if base_url is None:
+                base_url = _utilities.get_env('PGEDGE_BASE_URL')
             __props__.__dict__["base_url"] = base_url
         super(Provider, __self__).__init__(
             'pgedge',

@@ -29,7 +29,7 @@ type Cluster struct {
 	Nodes        ClusterNodeArrayOutput   `pulumi:"nodes"`
 	Regions      pulumi.StringArrayOutput `pulumi:"regions"`
 	// ID of the SSH key to add to the cluster nodes
-	SshKeyId pulumi.StringOutput `pulumi:"sshKeyId"`
+	SshKeyId pulumi.StringPtrOutput `pulumi:"sshKeyId"`
 	// Status of the cluster
 	Status pulumi.StringOutput `pulumi:"status"`
 }
@@ -43,6 +43,15 @@ func NewCluster(ctx *pulumi.Context,
 
 	if args.CloudAccountId == nil {
 		return nil, errors.New("invalid value for required argument 'CloudAccountId'")
+	}
+	if args.Networks == nil {
+		return nil, errors.New("invalid value for required argument 'Networks'")
+	}
+	if args.NodeLocation == nil {
+		return nil, errors.New("invalid value for required argument 'NodeLocation'")
+	}
+	if args.Nodes == nil {
+		return nil, errors.New("invalid value for required argument 'Nodes'")
 	}
 	if args.Regions == nil {
 		return nil, errors.New("invalid value for required argument 'Regions'")
@@ -119,7 +128,7 @@ type clusterArgs struct {
 	Name     *string          `pulumi:"name"`
 	Networks []ClusterNetwork `pulumi:"networks"`
 	// Network location for nodes (public or private)
-	NodeLocation *string       `pulumi:"nodeLocation"`
+	NodeLocation string        `pulumi:"nodeLocation"`
 	Nodes        []ClusterNode `pulumi:"nodes"`
 	Regions      []string      `pulumi:"regions"`
 	// ID of the SSH key to add to the cluster nodes
@@ -135,7 +144,7 @@ type ClusterArgs struct {
 	Name     pulumi.StringPtrInput
 	Networks ClusterNetworkArrayInput
 	// Network location for nodes (public or private)
-	NodeLocation pulumi.StringPtrInput
+	NodeLocation pulumi.StringInput
 	Nodes        ClusterNodeArrayInput
 	Regions      pulumi.StringArrayInput
 	// ID of the SSH key to add to the cluster nodes
@@ -266,8 +275,8 @@ func (o ClusterOutput) Regions() pulumi.StringArrayOutput {
 }
 
 // ID of the SSH key to add to the cluster nodes
-func (o ClusterOutput) SshKeyId() pulumi.StringOutput {
-	return o.ApplyT(func(v *Cluster) pulumi.StringOutput { return v.SshKeyId }).(pulumi.StringOutput)
+func (o ClusterOutput) SshKeyId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Cluster) pulumi.StringPtrOutput { return v.SshKeyId }).(pulumi.StringPtrOutput)
 }
 
 // Status of the cluster

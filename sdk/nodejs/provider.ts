@@ -41,7 +41,7 @@ export class Provider extends pulumi.ProviderResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
-            resourceInputs["baseUrl"] = args ? args.baseUrl : undefined;
+            resourceInputs["baseUrl"] = (args ? args.baseUrl : undefined) ?? utilities.getEnv("PGEDGE_BASE_URL");
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Provider.__pulumiType, name, resourceInputs, opts);

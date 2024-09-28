@@ -24,7 +24,7 @@ setup(name='pgEdge_pulumi_pgedge',
       description="A Pulumi package for creating and managing pgedge cloud resources.",
       long_description=readme(),
       long_description_content_type='text/markdown',
-      keywords='pulumi pgedge category/cloud',
+      keywords='pulumi pgedge category/cloud category/database',
       url='https://www.pgedge.com',
       project_urls={
           'Repository': 'https://github.com/pgEdge/pulumi-pgedge'

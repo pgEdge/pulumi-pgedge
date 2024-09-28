@@ -12,32 +12,40 @@ namespace Pgedge.Pgedge.Outputs
 {
 
     [OutputType]
-    public sealed class GetClustersClusterCloudAccountResult
+    public sealed class DatabaseComponent
     {
         /// <summary>
-        /// Display name of the node
+        /// ID of the database
         /// </summary>
-        public readonly string Id;
+        public readonly string? Id;
         /// <summary>
-        /// IP address of the node
+        /// Name of the database
         /// </summary>
-        public readonly string Name;
+        public readonly string? Name;
+        public readonly string? ReleaseDate;
         /// <summary>
-        /// Type of the node
+        /// Status of the database
         /// </summary>
-        public readonly string Type;
+        public readonly string? Status;
+        public readonly string? Version;
 
         [OutputConstructor]
-        private GetClustersClusterCloudAccountResult(
-            string id,
+        private DatabaseComponent(
+            string? id,
 
-            string name,
+            string? name,
 
-            string type)
+            string? releaseDate,
+
+            string? status,
+
+            string? version)
         {
             Id = id;
             Name = name;
-            Type = type;
+            ReleaseDate = releaseDate;
+            Status = status;
+            Version = version;
         }
     }
 }

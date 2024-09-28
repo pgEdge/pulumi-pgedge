@@ -56,7 +56,7 @@ namespace Pgedge.Pgedge
         /// ID of the SSH key to add to the cluster nodes
         /// </summary>
         [Output("sshKeyId")]
-        public Output<string> SshKeyId { get; private set; } = null!;
+        public Output<string?> SshKeyId { get; private set; } = null!;
 
         /// <summary>
         /// Status of the cluster
@@ -87,6 +87,7 @@ namespace Pgedge.Pgedge
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                PluginDownloadURL = "github://api.github.com/pgEdge/pulumi-pgedge",
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -130,7 +131,7 @@ namespace Pgedge.Pgedge
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        [Input("networks")]
+        [Input("networks", required: true)]
         private InputList<Inputs.ClusterNetworkArgs>? _networks;
         public InputList<Inputs.ClusterNetworkArgs> Networks
         {
@@ -141,10 +142,10 @@ namespace Pgedge.Pgedge
         /// <summary>
         /// Network location for nodes (public or private)
         /// </summary>
-        [Input("nodeLocation")]
-        public Input<string>? NodeLocation { get; set; }
+        [Input("nodeLocation", required: true)]
+        public Input<string> NodeLocation { get; set; } = null!;
 
-        [Input("nodes")]
+        [Input("nodes", required: true)]
         private InputList<Inputs.ClusterNodeArgs>? _nodes;
         public InputList<Inputs.ClusterNodeArgs> Nodes
         {

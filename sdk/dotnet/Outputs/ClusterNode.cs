@@ -21,12 +21,11 @@ namespace Pgedge.Pgedge.Outputs
         /// <summary>
         /// Instance type used for the node
         /// </summary>
-        public readonly string? InstanceType;
+        public readonly string InstanceType;
         /// <summary>
         /// Node name
         /// </summary>
-        public readonly string? Name;
-        public readonly ImmutableArray<string> Options;
+        public readonly string Name;
         /// <summary>
         /// Cloud provider region
         /// </summary>
@@ -48,11 +47,9 @@ namespace Pgedge.Pgedge.Outputs
         private ClusterNode(
             string? availabilityZone,
 
-            string? instanceType,
+            string instanceType,
 
-            string? name,
-
-            ImmutableArray<string> options,
+            string name,
 
             string region,
 
@@ -65,7 +62,6 @@ namespace Pgedge.Pgedge.Outputs
             AvailabilityZone = availabilityZone;
             InstanceType = instanceType;
             Name = name;
-            Options = options;
             Region = region;
             VolumeIops = volumeIops;
             VolumeSize = volumeSize;

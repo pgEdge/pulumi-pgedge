@@ -16,20 +16,30 @@ import (
 type Database struct {
 	pulumi.CustomResourceState
 
+	// Backup configuration for the database.
+	Backups DatabaseBackupsOutput `pulumi:"backups"`
 	// ID of the cluster to place the database on
 	ClusterId pulumi.StringOutput `pulumi:"clusterId"`
+	// List of components in the database.
+	Components DatabaseComponentArrayOutput `pulumi:"components"`
 	// Config version of the database
 	ConfigVersion pulumi.StringOutput `pulumi:"configVersion"`
 	// Created at of the database
 	CreatedAt pulumi.StringOutput `pulumi:"createdAt"`
 	// Domain of the database
 	Domain pulumi.StringOutput `pulumi:"domain"`
+	// Extensions configuration for the database.
+	Extensions DatabaseExtensionsOutput `pulumi:"extensions"`
 	// Name of the database
 	Name pulumi.StringOutput `pulumi:"name"`
+	// List of nodes in the database.
+	Nodes DatabaseNodeArrayOutput `pulumi:"nodes"`
 	// Options for creating the database
 	Options pulumi.StringArrayOutput `pulumi:"options"`
 	// Postgres version of the database
 	PgVersion pulumi.StringOutput `pulumi:"pgVersion"`
+	// List of roles in the database.
+	Roles DatabaseRoleArrayOutput `pulumi:"roles"`
 	// Status of the database
 	Status pulumi.StringOutput `pulumi:"status"`
 	// Storage used of the database
@@ -71,20 +81,30 @@ func GetDatabase(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Database resources.
 type databaseState struct {
+	// Backup configuration for the database.
+	Backups *DatabaseBackups `pulumi:"backups"`
 	// ID of the cluster to place the database on
 	ClusterId *string `pulumi:"clusterId"`
+	// List of components in the database.
+	Components []DatabaseComponent `pulumi:"components"`
 	// Config version of the database
 	ConfigVersion *string `pulumi:"configVersion"`
 	// Created at of the database
 	CreatedAt *string `pulumi:"createdAt"`
 	// Domain of the database
 	Domain *string `pulumi:"domain"`
+	// Extensions configuration for the database.
+	Extensions *DatabaseExtensions `pulumi:"extensions"`
 	// Name of the database
 	Name *string `pulumi:"name"`
+	// List of nodes in the database.
+	Nodes []DatabaseNode `pulumi:"nodes"`
 	// Options for creating the database
 	Options []string `pulumi:"options"`
 	// Postgres version of the database
 	PgVersion *string `pulumi:"pgVersion"`
+	// List of roles in the database.
+	Roles []DatabaseRole `pulumi:"roles"`
 	// Status of the database
 	Status *string `pulumi:"status"`
 	// Storage used of the database
@@ -94,20 +114,30 @@ type databaseState struct {
 }
 
 type DatabaseState struct {
+	// Backup configuration for the database.
+	Backups DatabaseBackupsPtrInput
 	// ID of the cluster to place the database on
 	ClusterId pulumi.StringPtrInput
+	// List of components in the database.
+	Components DatabaseComponentArrayInput
 	// Config version of the database
 	ConfigVersion pulumi.StringPtrInput
 	// Created at of the database
 	CreatedAt pulumi.StringPtrInput
 	// Domain of the database
 	Domain pulumi.StringPtrInput
+	// Extensions configuration for the database.
+	Extensions DatabaseExtensionsPtrInput
 	// Name of the database
 	Name pulumi.StringPtrInput
+	// List of nodes in the database.
+	Nodes DatabaseNodeArrayInput
 	// Options for creating the database
 	Options pulumi.StringArrayInput
 	// Postgres version of the database
 	PgVersion pulumi.StringPtrInput
+	// List of roles in the database.
+	Roles DatabaseRoleArrayInput
 	// Status of the database
 	Status pulumi.StringPtrInput
 	// Storage used of the database
@@ -121,26 +151,42 @@ func (DatabaseState) ElementType() reflect.Type {
 }
 
 type databaseArgs struct {
+	// Backup configuration for the database.
+	Backups *DatabaseBackups `pulumi:"backups"`
 	// ID of the cluster to place the database on
 	ClusterId string `pulumi:"clusterId"`
 	// Config version of the database
 	ConfigVersion *string `pulumi:"configVersion"`
+	// Extensions configuration for the database.
+	Extensions *DatabaseExtensions `pulumi:"extensions"`
 	// Name of the database
 	Name *string `pulumi:"name"`
+	// List of nodes in the database.
+	Nodes []DatabaseNode `pulumi:"nodes"`
 	// Options for creating the database
 	Options []string `pulumi:"options"`
+	// List of roles in the database.
+	Roles []DatabaseRole `pulumi:"roles"`
 }
 
 // The set of arguments for constructing a Database resource.
 type DatabaseArgs struct {
+	// Backup configuration for the database.
+	Backups DatabaseBackupsPtrInput
 	// ID of the cluster to place the database on
 	ClusterId pulumi.StringInput
 	// Config version of the database
 	ConfigVersion pulumi.StringPtrInput
+	// Extensions configuration for the database.
+	Extensions DatabaseExtensionsPtrInput
 	// Name of the database
 	Name pulumi.StringPtrInput
+	// List of nodes in the database.
+	Nodes DatabaseNodeArrayInput
 	// Options for creating the database
 	Options pulumi.StringArrayInput
+	// List of roles in the database.
+	Roles DatabaseRoleArrayInput
 }
 
 func (DatabaseArgs) ElementType() reflect.Type {
@@ -230,9 +276,19 @@ func (o DatabaseOutput) ToDatabaseOutputWithContext(ctx context.Context) Databas
 	return o
 }
 
+// Backup configuration for the database.
+func (o DatabaseOutput) Backups() DatabaseBackupsOutput {
+	return o.ApplyT(func(v *Database) DatabaseBackupsOutput { return v.Backups }).(DatabaseBackupsOutput)
+}
+
 // ID of the cluster to place the database on
 func (o DatabaseOutput) ClusterId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.ClusterId }).(pulumi.StringOutput)
+}
+
+// List of components in the database.
+func (o DatabaseOutput) Components() DatabaseComponentArrayOutput {
+	return o.ApplyT(func(v *Database) DatabaseComponentArrayOutput { return v.Components }).(DatabaseComponentArrayOutput)
 }
 
 // Config version of the database
@@ -250,9 +306,19 @@ func (o DatabaseOutput) Domain() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.Domain }).(pulumi.StringOutput)
 }
 
+// Extensions configuration for the database.
+func (o DatabaseOutput) Extensions() DatabaseExtensionsOutput {
+	return o.ApplyT(func(v *Database) DatabaseExtensionsOutput { return v.Extensions }).(DatabaseExtensionsOutput)
+}
+
 // Name of the database
 func (o DatabaseOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// List of nodes in the database.
+func (o DatabaseOutput) Nodes() DatabaseNodeArrayOutput {
+	return o.ApplyT(func(v *Database) DatabaseNodeArrayOutput { return v.Nodes }).(DatabaseNodeArrayOutput)
 }
 
 // Options for creating the database
@@ -263,6 +329,11 @@ func (o DatabaseOutput) Options() pulumi.StringArrayOutput {
 // Postgres version of the database
 func (o DatabaseOutput) PgVersion() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.PgVersion }).(pulumi.StringOutput)
+}
+
+// List of roles in the database.
+func (o DatabaseOutput) Roles() DatabaseRoleArrayOutput {
+	return o.ApplyT(func(v *Database) DatabaseRoleArrayOutput { return v.Roles }).(DatabaseRoleArrayOutput)
 }
 
 // Status of the database

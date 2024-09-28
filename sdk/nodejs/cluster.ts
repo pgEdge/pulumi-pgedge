@@ -60,7 +60,7 @@ export class Cluster extends pulumi.CustomResource {
     /**
      * ID of the SSH key to add to the cluster nodes
      */
-    public readonly sshKeyId!: pulumi.Output<string>;
+    public readonly sshKeyId!: pulumi.Output<string | undefined>;
     /**
      * Status of the cluster
      */
@@ -93,6 +93,15 @@ export class Cluster extends pulumi.CustomResource {
             const args = argsOrState as ClusterArgs | undefined;
             if ((!args || args.cloudAccountId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'cloudAccountId'");
+            }
+            if ((!args || args.networks === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'networks'");
+            }
+            if ((!args || args.nodeLocation === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'nodeLocation'");
+            }
+            if ((!args || args.nodes === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'nodes'");
             }
             if ((!args || args.regions === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'regions'");
@@ -160,12 +169,12 @@ export interface ClusterArgs {
      * Name of the network
      */
     name?: pulumi.Input<string>;
-    networks?: pulumi.Input<pulumi.Input<inputs.ClusterNetwork>[]>;
+    networks: pulumi.Input<pulumi.Input<inputs.ClusterNetwork>[]>;
     /**
      * Network location for nodes (public or private)
      */
-    nodeLocation?: pulumi.Input<string>;
-    nodes?: pulumi.Input<pulumi.Input<inputs.ClusterNode>[]>;
+    nodeLocation: pulumi.Input<string>;
+    nodes: pulumi.Input<pulumi.Input<inputs.ClusterNode>[]>;
     regions: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * ID of the SSH key to add to the cluster nodes

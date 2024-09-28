@@ -16,36 +16,10 @@ namespace Pgedge.Pgedge.Inputs
         /// <summary>
         /// CIDR range for the network
         /// </summary>
-        [Input("cidr")]
-        public Input<string>? Cidr { get; set; }
+        [Input("cidr", required: true)]
+        public Input<string> Cidr { get; set; } = null!;
 
-        /// <summary>
-        /// Is the network externally defined
-        /// </summary>
-        [Input("external")]
-        public Input<bool>? External { get; set; }
-
-        /// <summary>
-        /// ID of the network, if externally defined
-        /// </summary>
-        [Input("externalId")]
-        public Input<string>? ExternalId { get; set; }
-
-        /// <summary>
-        /// Name of the network
-        /// </summary>
-        [Input("name")]
-        public Input<string>? Name { get; set; }
-
-        [Input("privateSubnets")]
-        private InputList<string>? _privateSubnets;
-        public InputList<string> PrivateSubnets
-        {
-            get => _privateSubnets ?? (_privateSubnets = new InputList<string>());
-            set => _privateSubnets = value;
-        }
-
-        [Input("publicSubnets")]
+        [Input("publicSubnets", required: true)]
         private InputList<string>? _publicSubnets;
         public InputList<string> PublicSubnets
         {

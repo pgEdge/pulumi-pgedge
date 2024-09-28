@@ -22,22 +22,14 @@ namespace Pgedge.Pgedge.Inputs
         /// <summary>
         /// Instance type used for the node
         /// </summary>
-        [Input("instanceType")]
-        public Input<string>? InstanceType { get; set; }
+        [Input("instanceType", required: true)]
+        public Input<string> InstanceType { get; set; } = null!;
 
         /// <summary>
         /// Node name
         /// </summary>
-        [Input("name")]
-        public Input<string>? Name { get; set; }
-
-        [Input("options")]
-        private InputList<string>? _options;
-        public InputList<string> Options
-        {
-            get => _options ?? (_options = new InputList<string>());
-            set => _options = value;
-        }
+        [Input("name", required: true)]
+        public Input<string> Name { get; set; } = null!;
 
         /// <summary>
         /// Cloud provider region
