@@ -19,7 +19,7 @@ namespace Pgedge.Pgedge.Outputs
         /// </summary>
         public readonly Outputs.GetDatabasesDatabaseNodeConnectionResult Connection;
         /// <summary>
-        /// Node extensions
+        /// Extensions configuration for the database
         /// </summary>
         public readonly Outputs.GetDatabasesDatabaseNodeExtensionsResult Extensions;
         /// <summary>
@@ -27,11 +27,11 @@ namespace Pgedge.Pgedge.Outputs
         /// </summary>
         public readonly Outputs.GetDatabasesDatabaseNodeLocationResult Location;
         /// <summary>
-        /// Name of the component
+        /// Component name
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// Region of the location
+        /// Node region
         /// </summary>
         public readonly Outputs.GetDatabasesDatabaseNodeRegionResult Region;
 

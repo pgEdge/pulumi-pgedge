@@ -15,16 +15,15 @@ __all__ = ['BackupStoreArgs', 'BackupStore']
 class BackupStoreArgs:
     def __init__(__self__, *,
                  cloud_account_id: pulumi.Input[str],
-                 name: Optional[pulumi.Input[str]] = None,
-                 region: Optional[pulumi.Input[str]] = None):
+                 region: pulumi.Input[str],
+                 name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a BackupStore resource.
         """
         pulumi.set(__self__, "cloud_account_id", cloud_account_id)
+        pulumi.set(__self__, "region", region)
         if name is not None:
             pulumi.set(__self__, "name", name)
-        if region is not None:
-            pulumi.set(__self__, "region", region)
 
     @property
     @pulumi.getter(name="cloudAccountId")
@@ -37,21 +36,21 @@ class BackupStoreArgs:
 
     @property
     @pulumi.getter
+    def region(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "region")
+
+    @region.setter
+    def region(self, value: pulumi.Input[str]):
+        pulumi.set(self, "region", value)
+
+    @property
+    @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         return pulumi.get(self, "name")
 
     @name.setter
     def name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "name", value)
-
-    @property
-    @pulumi.getter
-    def region(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "region")
-
-    @region.setter
-    def region(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "region", value)
 
 
 @pulumi.input_type
@@ -223,6 +222,8 @@ class BackupStore(pulumi.CustomResource):
                 raise TypeError("Missing required property 'cloud_account_id'")
             __props__.__dict__["cloud_account_id"] = cloud_account_id
             __props__.__dict__["name"] = name
+            if region is None and not opts.urn:
+                raise TypeError("Missing required property 'region'")
             __props__.__dict__["region"] = region
             __props__.__dict__["cloud_account_type"] = None
             __props__.__dict__["cluster_ids"] = None
@@ -304,7 +305,7 @@ class BackupStore(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def region(self) -> pulumi.Output[Optional[str]]:
+    def region(self) -> pulumi.Output[str]:
         return pulumi.get(self, "region")
 
     @property

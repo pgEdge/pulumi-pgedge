@@ -19,7 +19,7 @@ namespace Pgedge.Pgedge.Outputs
         /// </summary>
         public readonly Outputs.GetDatabasesDatabaseBackupsResult Backups;
         /// <summary>
-        /// Updated at of the database
+        /// ID of the cluster this database belongs to
         /// </summary>
         public readonly string ClusterId;
         /// <summary>
@@ -27,11 +27,11 @@ namespace Pgedge.Pgedge.Outputs
         /// </summary>
         public readonly ImmutableArray<Outputs.GetDatabasesDatabaseComponentResult> Components;
         /// <summary>
-        /// Config version of the database
+        /// Configuration version of the database
         /// </summary>
         public readonly string ConfigVersion;
         /// <summary>
-        /// Created at of the database
+        /// Creation timestamp of the database
         /// </summary>
         public readonly string CreatedAt;
         /// <summary>
@@ -55,11 +55,11 @@ namespace Pgedge.Pgedge.Outputs
         /// </summary>
         public readonly ImmutableArray<Outputs.GetDatabasesDatabaseNodeResult> Nodes;
         /// <summary>
-        /// Options for creating the database
+        /// Options for the database
         /// </summary>
         public readonly ImmutableArray<string> Options;
         /// <summary>
-        /// Postgres version of the database
+        /// PostgreSQL version of the database
         /// </summary>
         public readonly string PgVersion;
         /// <summary>
@@ -71,11 +71,11 @@ namespace Pgedge.Pgedge.Outputs
         /// </summary>
         public readonly string Status;
         /// <summary>
-        /// Storage used of the database
+        /// Storage used by the database in bytes
         /// </summary>
         public readonly int StorageUsed;
         /// <summary>
-        /// Updated at of the database
+        /// Last update timestamp of the database
         /// </summary>
         public readonly string UpdatedAt;
 

@@ -12,9 +12,15 @@ namespace Pgedge.Pgedge
 {
     public static class GetSSHKeys
     {
+        /// <summary>
+        /// Data source for pgEdge SSH keys.
+        /// </summary>
         public static Task<GetSSHKeysResult> InvokeAsync(InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetSSHKeysResult>("pgedge:index/getSSHKeys:getSSHKeys", InvokeArgs.Empty, options.WithDefaults());
 
+        /// <summary>
+        /// Data source for pgEdge SSH keys.
+        /// </summary>
         public static Output<GetSSHKeysResult> Invoke(InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetSSHKeysResult>("pgedge:index/getSSHKeys:getSSHKeys", InvokeArgs.Empty, options.WithDefaults());
     }

@@ -14,13 +14,47 @@ namespace Pgedge.Pgedge.Inputs
     public sealed class ClusterNetworkArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// CIDR range for the network
+        /// CIDR of the network
         /// </summary>
         [Input("cidr", required: true)]
         public Input<string> Cidr { get; set; } = null!;
 
+        /// <summary>
+        /// Whether the network is external
+        /// </summary>
+        [Input("external")]
+        public Input<bool>? External { get; set; }
+
+        /// <summary>
+        /// External ID of the network
+        /// </summary>
+        [Input("externalId")]
+        public Input<string>? ExternalId { get; set; }
+
+        /// <summary>
+        /// Name of the network
+        /// </summary>
+        [Input("name")]
+        public Input<string>? Name { get; set; }
+
+        [Input("privateSubnets")]
+        private InputList<string>? _privateSubnets;
+
+        /// <summary>
+        /// List of private subnets
+        /// </summary>
+        public InputList<string> PrivateSubnets
+        {
+            get => _privateSubnets ?? (_privateSubnets = new InputList<string>());
+            set => _privateSubnets = value;
+        }
+
         [Input("publicSubnets", required: true)]
         private InputList<string>? _publicSubnets;
+
+        /// <summary>
+        /// List of public subnets
+        /// </summary>
         public InputList<string> PublicSubnets
         {
             get => _publicSubnets ?? (_publicSubnets = new InputList<string>());

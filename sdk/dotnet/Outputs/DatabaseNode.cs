@@ -17,9 +17,6 @@ namespace Pgedge.Pgedge.Outputs
         public readonly Outputs.DatabaseNodeConnection? Connection;
         public readonly Outputs.DatabaseNodeExtensions? Extensions;
         public readonly Outputs.DatabaseNodeLocation? Location;
-        /// <summary>
-        /// Name of the database
-        /// </summary>
         public readonly string? Name;
         public readonly Outputs.DatabaseNodeRegion? Region;
 

@@ -115,7 +115,8 @@ class SSHKey(pulumi.CustomResource):
                  public_key: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a SSHKey resource with the given unique name, props, and options.
+        Manages a pgEdge SSH key.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] name: The name of the SSH key.
@@ -128,7 +129,8 @@ class SSHKey(pulumi.CustomResource):
                  args: SSHKeyArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a SSHKey resource with the given unique name, props, and options.
+        Manages a pgEdge SSH key.
+
         :param str resource_name: The name of the resource.
         :param SSHKeyArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

@@ -13,13 +13,13 @@ namespace Pgedge.Pgedge
     public static class GetDatabases
     {
         /// <summary>
-        /// Interface with the pgEdge service API.
+        /// Data source for pgEdge databases
         /// </summary>
         public static Task<GetDatabasesResult> InvokeAsync(InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetDatabasesResult>("pgedge:index/getDatabases:getDatabases", InvokeArgs.Empty, options.WithDefaults());
 
         /// <summary>
-        /// Interface with the pgEdge service API.
+        /// Data source for pgEdge databases
         /// </summary>
         public static Output<GetDatabasesResult> Invoke(InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetDatabasesResult>("pgedge:index/getDatabases:getDatabases", InvokeArgs.Empty, options.WithDefaults());

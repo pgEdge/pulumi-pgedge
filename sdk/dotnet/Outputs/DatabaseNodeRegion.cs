@@ -18,9 +18,6 @@ namespace Pgedge.Pgedge.Outputs
         public readonly ImmutableArray<string> AvailabilityZones;
         public readonly string? Cloud;
         public readonly string? Code;
-        /// <summary>
-        /// Name of the database
-        /// </summary>
         public readonly string? Name;
         public readonly string? Parent;
 

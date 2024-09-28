@@ -31,9 +31,6 @@ namespace Pgedge.Pgedge.Inputs
         [Input("login")]
         public Input<bool>? Login { get; set; }
 
-        /// <summary>
-        /// Name of the database
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 

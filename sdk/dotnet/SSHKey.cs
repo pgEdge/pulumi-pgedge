@@ -10,6 +10,9 @@ using Pulumi;
 
 namespace Pgedge.Pgedge
 {
+    /// <summary>
+    /// Manages a pgEdge SSH key.
+    /// </summary>
     [PgedgeResourceType("pgedge:index/sSHKey:SSHKey")]
     public partial class SSHKey : global::Pulumi.CustomResource
     {

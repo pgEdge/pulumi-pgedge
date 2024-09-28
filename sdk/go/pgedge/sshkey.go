@@ -12,6 +12,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// Manages a pgEdge SSH key.
 type SSHKey struct {
 	pulumi.CustomResourceState
 

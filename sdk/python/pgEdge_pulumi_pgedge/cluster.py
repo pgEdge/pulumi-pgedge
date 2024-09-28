@@ -21,34 +21,38 @@ class ClusterArgs:
                  node_location: pulumi.Input[str],
                  nodes: pulumi.Input[Sequence[pulumi.Input['ClusterNodeArgs']]],
                  regions: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 backup_store_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 capacity: Optional[pulumi.Input[int]] = None,
                  firewall_rules: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterFirewallRuleArgs']]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 resource_tags: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  ssh_key_id: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Cluster resource.
-        :param pulumi.Input[str] cloud_account_id: ID of the target cloud account
-        :param pulumi.Input[str] node_location: Network location for nodes (public or private)
-        :param pulumi.Input[str] name: Name of the network
-        :param pulumi.Input[str] ssh_key_id: ID of the SSH key to add to the cluster nodes
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] backup_store_ids: List of backup store IDs to associate with the cluster
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] resource_tags: A map of tags to assign to the cluster
         """
         pulumi.set(__self__, "cloud_account_id", cloud_account_id)
         pulumi.set(__self__, "networks", networks)
         pulumi.set(__self__, "node_location", node_location)
         pulumi.set(__self__, "nodes", nodes)
         pulumi.set(__self__, "regions", regions)
+        if backup_store_ids is not None:
+            pulumi.set(__self__, "backup_store_ids", backup_store_ids)
+        if capacity is not None:
+            pulumi.set(__self__, "capacity", capacity)
         if firewall_rules is not None:
             pulumi.set(__self__, "firewall_rules", firewall_rules)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if resource_tags is not None:
+            pulumi.set(__self__, "resource_tags", resource_tags)
         if ssh_key_id is not None:
             pulumi.set(__self__, "ssh_key_id", ssh_key_id)
 
     @property
     @pulumi.getter(name="cloudAccountId")
     def cloud_account_id(self) -> pulumi.Input[str]:
-        """
-        ID of the target cloud account
-        """
         return pulumi.get(self, "cloud_account_id")
 
     @cloud_account_id.setter
@@ -67,9 +71,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="nodeLocation")
     def node_location(self) -> pulumi.Input[str]:
-        """
-        Network location for nodes (public or private)
-        """
         return pulumi.get(self, "node_location")
 
     @node_location.setter
@@ -95,6 +96,27 @@ class ClusterArgs:
         pulumi.set(self, "regions", value)
 
     @property
+    @pulumi.getter(name="backupStoreIds")
+    def backup_store_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        List of backup store IDs to associate with the cluster
+        """
+        return pulumi.get(self, "backup_store_ids")
+
+    @backup_store_ids.setter
+    def backup_store_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "backup_store_ids", value)
+
+    @property
+    @pulumi.getter
+    def capacity(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "capacity")
+
+    @capacity.setter
+    def capacity(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "capacity", value)
+
+    @property
     @pulumi.getter(name="firewallRules")
     def firewall_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ClusterFirewallRuleArgs']]]]:
         return pulumi.get(self, "firewall_rules")
@@ -106,9 +128,6 @@ class ClusterArgs:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of the network
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -116,11 +135,20 @@ class ClusterArgs:
         pulumi.set(self, "name", value)
 
     @property
+    @pulumi.getter(name="resourceTags")
+    def resource_tags(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        """
+        A map of tags to assign to the cluster
+        """
+        return pulumi.get(self, "resource_tags")
+
+    @resource_tags.setter
+    def resource_tags(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "resource_tags", value)
+
+    @property
     @pulumi.getter(name="sshKeyId")
     def ssh_key_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        ID of the SSH key to add to the cluster nodes
-        """
         return pulumi.get(self, "ssh_key_id")
 
     @ssh_key_id.setter
@@ -131,6 +159,8 @@ class ClusterArgs:
 @pulumi.input_type
 class _ClusterState:
     def __init__(__self__, *,
+                 backup_store_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 capacity: Optional[pulumi.Input[int]] = None,
                  cloud_account_id: Optional[pulumi.Input[str]] = None,
                  created_at: Optional[pulumi.Input[str]] = None,
                  firewall_rules: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterFirewallRuleArgs']]]] = None,
@@ -139,17 +169,18 @@ class _ClusterState:
                  node_location: Optional[pulumi.Input[str]] = None,
                  nodes: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterNodeArgs']]]] = None,
                  regions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 resource_tags: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  ssh_key_id: Optional[pulumi.Input[str]] = None,
                  status: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Cluster resources.
-        :param pulumi.Input[str] cloud_account_id: ID of the target cloud account
-        :param pulumi.Input[str] created_at: Creation time of the cluster
-        :param pulumi.Input[str] name: Name of the network
-        :param pulumi.Input[str] node_location: Network location for nodes (public or private)
-        :param pulumi.Input[str] ssh_key_id: ID of the SSH key to add to the cluster nodes
-        :param pulumi.Input[str] status: Status of the cluster
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] backup_store_ids: List of backup store IDs to associate with the cluster
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] resource_tags: A map of tags to assign to the cluster
         """
+        if backup_store_ids is not None:
+            pulumi.set(__self__, "backup_store_ids", backup_store_ids)
+        if capacity is not None:
+            pulumi.set(__self__, "capacity", capacity)
         if cloud_account_id is not None:
             pulumi.set(__self__, "cloud_account_id", cloud_account_id)
         if created_at is not None:
@@ -166,17 +197,37 @@ class _ClusterState:
             pulumi.set(__self__, "nodes", nodes)
         if regions is not None:
             pulumi.set(__self__, "regions", regions)
+        if resource_tags is not None:
+            pulumi.set(__self__, "resource_tags", resource_tags)
         if ssh_key_id is not None:
             pulumi.set(__self__, "ssh_key_id", ssh_key_id)
         if status is not None:
             pulumi.set(__self__, "status", status)
 
     @property
+    @pulumi.getter(name="backupStoreIds")
+    def backup_store_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        List of backup store IDs to associate with the cluster
+        """
+        return pulumi.get(self, "backup_store_ids")
+
+    @backup_store_ids.setter
+    def backup_store_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "backup_store_ids", value)
+
+    @property
+    @pulumi.getter
+    def capacity(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "capacity")
+
+    @capacity.setter
+    def capacity(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "capacity", value)
+
+    @property
     @pulumi.getter(name="cloudAccountId")
     def cloud_account_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        ID of the target cloud account
-        """
         return pulumi.get(self, "cloud_account_id")
 
     @cloud_account_id.setter
@@ -186,9 +237,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="createdAt")
     def created_at(self) -> Optional[pulumi.Input[str]]:
-        """
-        Creation time of the cluster
-        """
         return pulumi.get(self, "created_at")
 
     @created_at.setter
@@ -207,9 +255,6 @@ class _ClusterState:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of the network
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -228,9 +273,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="nodeLocation")
     def node_location(self) -> Optional[pulumi.Input[str]]:
-        """
-        Network location for nodes (public or private)
-        """
         return pulumi.get(self, "node_location")
 
     @node_location.setter
@@ -256,11 +298,20 @@ class _ClusterState:
         pulumi.set(self, "regions", value)
 
     @property
+    @pulumi.getter(name="resourceTags")
+    def resource_tags(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        """
+        A map of tags to assign to the cluster
+        """
+        return pulumi.get(self, "resource_tags")
+
+    @resource_tags.setter
+    def resource_tags(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "resource_tags", value)
+
+    @property
     @pulumi.getter(name="sshKeyId")
     def ssh_key_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        ID of the SSH key to add to the cluster nodes
-        """
         return pulumi.get(self, "ssh_key_id")
 
     @ssh_key_id.setter
@@ -270,9 +321,6 @@ class _ClusterState:
     @property
     @pulumi.getter
     def status(self) -> Optional[pulumi.Input[str]]:
-        """
-        Status of the cluster
-        """
         return pulumi.get(self, "status")
 
     @status.setter
@@ -285,6 +333,8 @@ class Cluster(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 backup_store_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 capacity: Optional[pulumi.Input[int]] = None,
                  cloud_account_id: Optional[pulumi.Input[str]] = None,
                  firewall_rules: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterFirewallRuleArgs']]]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
@@ -292,17 +342,15 @@ class Cluster(pulumi.CustomResource):
                  node_location: Optional[pulumi.Input[str]] = None,
                  nodes: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterNodeArgs']]]]] = None,
                  regions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 resource_tags: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  ssh_key_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Interface with the pgEdge service API for clusters.
-
+        Create a Cluster resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] cloud_account_id: ID of the target cloud account
-        :param pulumi.Input[str] name: Name of the network
-        :param pulumi.Input[str] node_location: Network location for nodes (public or private)
-        :param pulumi.Input[str] ssh_key_id: ID of the SSH key to add to the cluster nodes
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] backup_store_ids: List of backup store IDs to associate with the cluster
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] resource_tags: A map of tags to assign to the cluster
         """
         ...
     @overload
@@ -311,8 +359,7 @@ class Cluster(pulumi.CustomResource):
                  args: ClusterArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Interface with the pgEdge service API for clusters.
-
+        Create a Cluster resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param ClusterArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -328,6 +375,8 @@ class Cluster(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 backup_store_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 capacity: Optional[pulumi.Input[int]] = None,
                  cloud_account_id: Optional[pulumi.Input[str]] = None,
                  firewall_rules: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterFirewallRuleArgs']]]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
@@ -335,6 +384,7 @@ class Cluster(pulumi.CustomResource):
                  node_location: Optional[pulumi.Input[str]] = None,
                  nodes: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterNodeArgs']]]]] = None,
                  regions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 resource_tags: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  ssh_key_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -345,6 +395,8 @@ class Cluster(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ClusterArgs.__new__(ClusterArgs)
 
+            __props__.__dict__["backup_store_ids"] = backup_store_ids
+            __props__.__dict__["capacity"] = capacity
             if cloud_account_id is None and not opts.urn:
                 raise TypeError("Missing required property 'cloud_account_id'")
             __props__.__dict__["cloud_account_id"] = cloud_account_id
@@ -362,6 +414,7 @@ class Cluster(pulumi.CustomResource):
             if regions is None and not opts.urn:
                 raise TypeError("Missing required property 'regions'")
             __props__.__dict__["regions"] = regions
+            __props__.__dict__["resource_tags"] = resource_tags
             __props__.__dict__["ssh_key_id"] = ssh_key_id
             __props__.__dict__["created_at"] = None
             __props__.__dict__["status"] = None
@@ -375,6 +428,8 @@ class Cluster(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            backup_store_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+            capacity: Optional[pulumi.Input[int]] = None,
             cloud_account_id: Optional[pulumi.Input[str]] = None,
             created_at: Optional[pulumi.Input[str]] = None,
             firewall_rules: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterFirewallRuleArgs']]]]] = None,
@@ -383,6 +438,7 @@ class Cluster(pulumi.CustomResource):
             node_location: Optional[pulumi.Input[str]] = None,
             nodes: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterNodeArgs']]]]] = None,
             regions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+            resource_tags: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
             ssh_key_id: Optional[pulumi.Input[str]] = None,
             status: Optional[pulumi.Input[str]] = None) -> 'Cluster':
         """
@@ -392,17 +448,15 @@ class Cluster(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] cloud_account_id: ID of the target cloud account
-        :param pulumi.Input[str] created_at: Creation time of the cluster
-        :param pulumi.Input[str] name: Name of the network
-        :param pulumi.Input[str] node_location: Network location for nodes (public or private)
-        :param pulumi.Input[str] ssh_key_id: ID of the SSH key to add to the cluster nodes
-        :param pulumi.Input[str] status: Status of the cluster
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] backup_store_ids: List of backup store IDs to associate with the cluster
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] resource_tags: A map of tags to assign to the cluster
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
         __props__ = _ClusterState.__new__(_ClusterState)
 
+        __props__.__dict__["backup_store_ids"] = backup_store_ids
+        __props__.__dict__["capacity"] = capacity
         __props__.__dict__["cloud_account_id"] = cloud_account_id
         __props__.__dict__["created_at"] = created_at
         __props__.__dict__["firewall_rules"] = firewall_rules
@@ -411,24 +465,32 @@ class Cluster(pulumi.CustomResource):
         __props__.__dict__["node_location"] = node_location
         __props__.__dict__["nodes"] = nodes
         __props__.__dict__["regions"] = regions
+        __props__.__dict__["resource_tags"] = resource_tags
         __props__.__dict__["ssh_key_id"] = ssh_key_id
         __props__.__dict__["status"] = status
         return Cluster(resource_name, opts=opts, __props__=__props__)
 
     @property
+    @pulumi.getter(name="backupStoreIds")
+    def backup_store_ids(self) -> pulumi.Output[Sequence[str]]:
+        """
+        List of backup store IDs to associate with the cluster
+        """
+        return pulumi.get(self, "backup_store_ids")
+
+    @property
+    @pulumi.getter
+    def capacity(self) -> pulumi.Output[int]:
+        return pulumi.get(self, "capacity")
+
+    @property
     @pulumi.getter(name="cloudAccountId")
     def cloud_account_id(self) -> pulumi.Output[str]:
-        """
-        ID of the target cloud account
-        """
         return pulumi.get(self, "cloud_account_id")
 
     @property
     @pulumi.getter(name="createdAt")
     def created_at(self) -> pulumi.Output[str]:
-        """
-        Creation time of the cluster
-        """
         return pulumi.get(self, "created_at")
 
     @property
@@ -439,9 +501,6 @@ class Cluster(pulumi.CustomResource):
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
-        """
-        Name of the network
-        """
         return pulumi.get(self, "name")
 
     @property
@@ -452,9 +511,6 @@ class Cluster(pulumi.CustomResource):
     @property
     @pulumi.getter(name="nodeLocation")
     def node_location(self) -> pulumi.Output[str]:
-        """
-        Network location for nodes (public or private)
-        """
         return pulumi.get(self, "node_location")
 
     @property
@@ -468,18 +524,20 @@ class Cluster(pulumi.CustomResource):
         return pulumi.get(self, "regions")
 
     @property
+    @pulumi.getter(name="resourceTags")
+    def resource_tags(self) -> pulumi.Output[Mapping[str, str]]:
+        """
+        A map of tags to assign to the cluster
+        """
+        return pulumi.get(self, "resource_tags")
+
+    @property
     @pulumi.getter(name="sshKeyId")
     def ssh_key_id(self) -> pulumi.Output[Optional[str]]:
-        """
-        ID of the SSH key to add to the cluster nodes
-        """
         return pulumi.get(self, "ssh_key_id")
 
     @property
     @pulumi.getter
     def status(self) -> pulumi.Output[str]:
-        """
-        Status of the cluster
-        """
         return pulumi.get(self, "status")
 

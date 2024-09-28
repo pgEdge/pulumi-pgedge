@@ -6,25 +6,35 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
 export interface ClusterFirewallRule {
-    /**
-     * Name of the network
-     */
     name: string;
-    /**
-     * Port whose traffic is allowed
-     */
     port: number;
-    /**
-     * CIDRs and/or IP addresses allowed
-     */
     sources: string[];
 }
 
 export interface ClusterNetwork {
     /**
-     * CIDR range for the network
+     * CIDR of the network
      */
     cidr: string;
+    /**
+     * Whether the network is external
+     */
+    external: boolean;
+    /**
+     * External ID of the network
+     */
+    externalId: string;
+    /**
+     * Name of the network
+     */
+    name: string;
+    /**
+     * List of private subnets
+     */
+    privateSubnets: string[];
+    /**
+     * List of public subnets
+     */
     publicSubnets: string[];
     /**
      * Region of the network
@@ -33,33 +43,12 @@ export interface ClusterNetwork {
 }
 
 export interface ClusterNode {
-    /**
-     * Cloud provider availability zone name
-     */
     availabilityZone: string;
-    /**
-     * Instance type used for the node
-     */
     instanceType: string;
-    /**
-     * Node name
-     */
     name: string;
-    /**
-     * Cloud provider region
-     */
     region: string;
-    /**
-     * Volume IOPS of the node data volume
-     */
     volumeIops: number;
-    /**
-     * Volume size of the node data volume
-     */
     volumeSize: number;
-    /**
-     * Volume type of the node data volume
-     */
     volumeType: string;
 }
 
@@ -76,7 +65,7 @@ export interface DatabaseBackups {
 
 export interface DatabaseBackupsConfig {
     /**
-     * ID of the database
+     * Unique identifier for the backup config.
      */
     id: string;
     /**
@@ -123,7 +112,7 @@ export interface DatabaseBackupsConfigRepository {
      */
     gcsEndpoint: string;
     /**
-     * ID of the database
+     * Unique identifier for the backup config.
      */
     id: string;
     /**
@@ -158,28 +147,19 @@ export interface DatabaseBackupsConfigSchedule {
      */
     cronExpression: string;
     /**
-     * ID of the database
+     * Unique identifier for the backup config.
      */
     id: string;
     /**
-     * Type of the schedule.
+     * Type of the repository.
      */
     type: string;
 }
 
 export interface DatabaseComponent {
-    /**
-     * ID of the database
-     */
     id: string;
-    /**
-     * Name of the database
-     */
     name: string;
     releaseDate: string;
-    /**
-     * Status of the database
-     */
     status: string;
     version: string;
 }
@@ -194,9 +174,6 @@ export interface DatabaseNode {
     connection: outputs.DatabaseNodeConnection;
     extensions: outputs.DatabaseNodeExtensions;
     location: outputs.DatabaseNodeLocation;
-    /**
-     * Name of the database
-     */
     name: string;
     region: outputs.DatabaseNodeRegion;
 }
@@ -224,9 +201,6 @@ export interface DatabaseNodeLocation {
     latitude: number;
     longitude: number;
     metroCode: string;
-    /**
-     * Name of the database
-     */
     name: string;
     postalCode: string;
     region: string;
@@ -239,9 +213,6 @@ export interface DatabaseNodeRegion {
     availabilityZones: string[];
     cloud: string;
     code: string;
-    /**
-     * Name of the database
-     */
     name: string;
     parent: string;
 }
@@ -253,9 +224,6 @@ export interface DatabaseRole {
     createRole: boolean;
     inherit: boolean;
     login: boolean;
-    /**
-     * Name of the database
-     */
     name: string;
     replication: boolean;
     superuser: boolean;
@@ -353,7 +321,7 @@ export interface GetClustersCluster {
 
 export interface GetClustersClusterFirewallRule {
     /**
-     * IP address of the node
+     * Name of the firewall rule
      */
     name: string;
     /**
@@ -368,7 +336,7 @@ export interface GetClustersClusterFirewallRule {
 
 export interface GetClustersClusterNetwork {
     /**
-     * CIDR of the AWS node group
+     * CIDR of the network
      */
     cidr: string;
     /**
@@ -380,7 +348,7 @@ export interface GetClustersClusterNetwork {
      */
     externalId: string;
     /**
-     * IP address of the node
+     * Name of the firewall rule
      */
     name: string;
     privateSubnets: string[];
@@ -401,7 +369,7 @@ export interface GetClustersClusterNode {
      */
     instanceType: string;
     /**
-     * IP address of the node
+     * Name of the firewall rule
      */
     name: string;
     options: string[];
@@ -429,7 +397,7 @@ export interface GetDatabasesDatabase {
      */
     backups: outputs.GetDatabasesDatabaseBackups;
     /**
-     * Updated at of the database
+     * ID of the cluster this database belongs to
      */
     clusterId: string;
     /**
@@ -437,11 +405,11 @@ export interface GetDatabasesDatabase {
      */
     components: outputs.GetDatabasesDatabaseComponent[];
     /**
-     * Config version of the database
+     * Configuration version of the database
      */
     configVersion: string;
     /**
-     * Created at of the database
+     * Creation timestamp of the database
      */
     createdAt: string;
     /**
@@ -465,11 +433,11 @@ export interface GetDatabasesDatabase {
      */
     nodes: outputs.GetDatabasesDatabaseNode[];
     /**
-     * Options for creating the database
+     * Options for the database
      */
     options: string[];
     /**
-     * Postgres version of the database
+     * PostgreSQL version of the database
      */
     pgVersion: string;
     /**
@@ -481,11 +449,11 @@ export interface GetDatabasesDatabase {
      */
     status: string;
     /**
-     * Storage used of the database
+     * Storage used by the database in bytes
      */
     storageUsed: number;
     /**
-     * Updated at of the database
+     * Last update timestamp of the database
      */
     updatedAt: string;
 }
@@ -503,11 +471,11 @@ export interface GetDatabasesDatabaseBackups {
 
 export interface GetDatabasesDatabaseBackupsConfig {
     /**
-     * Id of the component
+     * Backup configuration ID
      */
     id: string;
     /**
-     * Node name of the table
+     * Node name
      */
     nodeName: string;
     /**
@@ -529,7 +497,7 @@ export interface GetDatabasesDatabaseBackupsConfigRepository {
     gcsBucket: string;
     gcsEndpoint: string;
     /**
-     * Id of the component
+     * Backup configuration ID
      */
     id: string;
     retentionFull: number;
@@ -543,7 +511,7 @@ export interface GetDatabasesDatabaseBackupsConfigRepository {
 export interface GetDatabasesDatabaseBackupsConfigSchedule {
     cronExpression: string;
     /**
-     * Id of the component
+     * Backup configuration ID
      */
     id: string;
     type: string;
@@ -551,38 +519,38 @@ export interface GetDatabasesDatabaseBackupsConfigSchedule {
 
 export interface GetDatabasesDatabaseComponent {
     /**
-     * Id of the component
+     * Backup configuration ID
      */
     id: string;
     /**
-     * Name of the component
+     * Component name
      */
     name: string;
     /**
-     * Release date of the component
+     * Component release date
      */
     releaseDate: string;
     /**
-     * Status of the component
+     * Component status
      */
     status: string;
     /**
-     * Version of the component
+     * Component version
      */
     version: string;
 }
 
 export interface GetDatabasesDatabaseExtensions {
     /**
-     * Auto manage of the extension
+     * Auto-manage extensions
      */
     autoManage: boolean;
     /**
-     * Available of the extension
+     * Available extensions
      */
     availables: string[];
     /**
-     * Requested of the extension
+     * Requested extensions
      */
     requesteds: string[];
 }
@@ -593,7 +561,7 @@ export interface GetDatabasesDatabaseNode {
      */
     connection: outputs.GetDatabasesDatabaseNodeConnection;
     /**
-     * Node extensions
+     * Extensions configuration for the database
      */
     extensions: outputs.GetDatabasesDatabaseNodeExtensions;
     /**
@@ -601,168 +569,72 @@ export interface GetDatabasesDatabaseNode {
      */
     location: outputs.GetDatabasesDatabaseNodeLocation;
     /**
-     * Name of the component
+     * Component name
      */
     name: string;
     /**
-     * Region of the location
+     * Node region
      */
     region: outputs.GetDatabasesDatabaseNodeRegion;
 }
 
 export interface GetDatabasesDatabaseNodeConnection {
-    /**
-     * Database of the node
-     */
     database: string;
-    /**
-     * External IP of the node
-     */
     externalIpAddress: string;
-    /**
-     * Host of the node
-     */
     host: string;
-    /**
-     * Internal Host of the node
-     */
     internalHost: string;
-    /**
-     * Internal IP of the node
-     */
     internalIpAddress: string;
-    /**
-     * Password of the node
-     */
     password: string;
-    /**
-     * Port of the node
-     */
     port: number;
-    /**
-     * Username of the node
-     */
     username: string;
 }
 
 export interface GetDatabasesDatabaseNodeExtensions {
     errors: {[key: string]: string};
-    /**
-     * List of installed extensions
-     */
     installeds: string[];
 }
 
 export interface GetDatabasesDatabaseNodeLocation {
-    /**
-     * City of the location
-     */
     city: string;
-    /**
-     * Code of the location
-     */
     code: string;
-    /**
-     * Country of the location
-     */
     country: string;
-    /**
-     * Latitude of the location
-     */
     latitude: number;
-    /**
-     * Longitude of the location
-     */
     longitude: number;
-    /**
-     * Metro code of the location
-     */
     metroCode: string;
     /**
-     * Name of the component
+     * Component name
      */
     name: string;
-    /**
-     * Postal code of the location
-     */
     postalCode: string;
-    /**
-     * Region of the location
-     */
     region: string;
-    /**
-     * Region code of the location
-     */
     regionCode: string;
-    /**
-     * Timezone of the location
-     */
     timezone: string;
 }
 
 export interface GetDatabasesDatabaseNodeRegion {
-    /**
-     * Active status of the region
-     */
     active: boolean;
-    /**
-     * Availability zones of the region
-     */
     availabilityZones: string[];
-    /**
-     * Cloud provider of the region
-     */
     cloud: string;
-    /**
-     * Code of the location
-     */
     code: string;
     /**
-     * Name of the component
+     * Component name
      */
     name: string;
-    /**
-     * Parent region
-     */
     parent: string;
 }
 
 export interface GetDatabasesDatabaseRole {
-    /**
-     * Bypass RLS
-     */
     bypassRls: boolean;
-    /**
-     * Connection limit
-     */
     connectionLimit: number;
-    /**
-     * Create database
-     */
     createDb: boolean;
-    /**
-     * Create role
-     */
     createRole: boolean;
-    /**
-     * Inherit
-     */
     inherit: boolean;
-    /**
-     * Login
-     */
     login: boolean;
     /**
-     * Name of the component
+     * Component name
      */
     name: string;
-    /**
-     * Replication
-     */
     replication: boolean;
-    /**
-     * Superuser
-     */
     superuser: boolean;
 }
 

@@ -15,7 +15,7 @@ namespace Pgedge.Pgedge.Outputs
     public sealed class DatabaseBackupsConfig
     {
         /// <summary>
-        /// ID of the database
+        /// Unique identifier for the backup config.
         /// </summary>
         public readonly string? Id;
         /// <summary>

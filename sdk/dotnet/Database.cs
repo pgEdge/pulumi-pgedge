@@ -11,7 +11,7 @@ using Pulumi;
 namespace Pgedge.Pgedge
 {
     /// <summary>
-    /// Interface with the pgEdge service API.
+    /// Manages a pgEdge database.
     /// </summary>
     [PgedgeResourceType("pgedge:index/database:Database")]
     public partial class Database : global::Pulumi.CustomResource
@@ -23,7 +23,7 @@ namespace Pgedge.Pgedge
         public Output<Outputs.DatabaseBackups> Backups { get; private set; } = null!;
 
         /// <summary>
-        /// ID of the cluster to place the database on
+        /// The ID of the cluster this database belongs to.
         /// </summary>
         [Output("clusterId")]
         public Output<string> ClusterId { get; private set; } = null!;
@@ -35,19 +35,19 @@ namespace Pgedge.Pgedge
         public Output<ImmutableArray<Outputs.DatabaseComponent>> Components { get; private set; } = null!;
 
         /// <summary>
-        /// Config version of the database
+        /// The configuration version of the database.
         /// </summary>
         [Output("configVersion")]
         public Output<string> ConfigVersion { get; private set; } = null!;
 
         /// <summary>
-        /// Created at of the database
+        /// The timestamp when the database was created.
         /// </summary>
         [Output("createdAt")]
         public Output<string> CreatedAt { get; private set; } = null!;
 
         /// <summary>
-        /// Domain of the database
+        /// The domain associated with the database.
         /// </summary>
         [Output("domain")]
         public Output<string> Domain { get; private set; } = null!;
@@ -59,7 +59,7 @@ namespace Pgedge.Pgedge
         public Output<Outputs.DatabaseExtensions> Extensions { get; private set; } = null!;
 
         /// <summary>
-        /// Name of the database
+        /// The name of the database.
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
@@ -71,13 +71,13 @@ namespace Pgedge.Pgedge
         public Output<ImmutableArray<Outputs.DatabaseNode>> Nodes { get; private set; } = null!;
 
         /// <summary>
-        /// Options for creating the database
+        /// A list of options for the database.
         /// </summary>
         [Output("options")]
         public Output<ImmutableArray<string>> Options { get; private set; } = null!;
 
         /// <summary>
-        /// Postgres version of the database
+        /// The PostgreSQL version of the database.
         /// </summary>
         [Output("pgVersion")]
         public Output<string> PgVersion { get; private set; } = null!;
@@ -89,19 +89,19 @@ namespace Pgedge.Pgedge
         public Output<ImmutableArray<Outputs.DatabaseRole>> Roles { get; private set; } = null!;
 
         /// <summary>
-        /// Status of the database
+        /// The current status of the database.
         /// </summary>
         [Output("status")]
         public Output<string> Status { get; private set; } = null!;
 
         /// <summary>
-        /// Storage used of the database
+        /// The amount of storage used by the database in bytes.
         /// </summary>
         [Output("storageUsed")]
         public Output<int> StorageUsed { get; private set; } = null!;
 
         /// <summary>
-        /// Updated at of the database
+        /// The timestamp when the database was last updated.
         /// </summary>
         [Output("updatedAt")]
         public Output<string> UpdatedAt { get; private set; } = null!;
@@ -160,13 +160,13 @@ namespace Pgedge.Pgedge
         public Input<Inputs.DatabaseBackupsArgs>? Backups { get; set; }
 
         /// <summary>
-        /// ID of the cluster to place the database on
+        /// The ID of the cluster this database belongs to.
         /// </summary>
         [Input("clusterId", required: true)]
         public Input<string> ClusterId { get; set; } = null!;
 
         /// <summary>
-        /// Config version of the database
+        /// The configuration version of the database.
         /// </summary>
         [Input("configVersion")]
         public Input<string>? ConfigVersion { get; set; }
@@ -178,7 +178,7 @@ namespace Pgedge.Pgedge
         public Input<Inputs.DatabaseExtensionsArgs>? Extensions { get; set; }
 
         /// <summary>
-        /// Name of the database
+        /// The name of the database.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -199,7 +199,7 @@ namespace Pgedge.Pgedge
         private InputList<string>? _options;
 
         /// <summary>
-        /// Options for creating the database
+        /// A list of options for the database.
         /// </summary>
         public InputList<string> Options
         {
@@ -234,7 +234,7 @@ namespace Pgedge.Pgedge
         public Input<Inputs.DatabaseBackupsGetArgs>? Backups { get; set; }
 
         /// <summary>
-        /// ID of the cluster to place the database on
+        /// The ID of the cluster this database belongs to.
         /// </summary>
         [Input("clusterId")]
         public Input<string>? ClusterId { get; set; }
@@ -252,19 +252,19 @@ namespace Pgedge.Pgedge
         }
 
         /// <summary>
-        /// Config version of the database
+        /// The configuration version of the database.
         /// </summary>
         [Input("configVersion")]
         public Input<string>? ConfigVersion { get; set; }
 
         /// <summary>
-        /// Created at of the database
+        /// The timestamp when the database was created.
         /// </summary>
         [Input("createdAt")]
         public Input<string>? CreatedAt { get; set; }
 
         /// <summary>
-        /// Domain of the database
+        /// The domain associated with the database.
         /// </summary>
         [Input("domain")]
         public Input<string>? Domain { get; set; }
@@ -276,7 +276,7 @@ namespace Pgedge.Pgedge
         public Input<Inputs.DatabaseExtensionsGetArgs>? Extensions { get; set; }
 
         /// <summary>
-        /// Name of the database
+        /// The name of the database.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -297,7 +297,7 @@ namespace Pgedge.Pgedge
         private InputList<string>? _options;
 
         /// <summary>
-        /// Options for creating the database
+        /// A list of options for the database.
         /// </summary>
         public InputList<string> Options
         {
@@ -306,7 +306,7 @@ namespace Pgedge.Pgedge
         }
 
         /// <summary>
-        /// Postgres version of the database
+        /// The PostgreSQL version of the database.
         /// </summary>
         [Input("pgVersion")]
         public Input<string>? PgVersion { get; set; }
@@ -324,19 +324,19 @@ namespace Pgedge.Pgedge
         }
 
         /// <summary>
-        /// Status of the database
+        /// The current status of the database.
         /// </summary>
         [Input("status")]
         public Input<string>? Status { get; set; }
 
         /// <summary>
-        /// Storage used of the database
+        /// The amount of storage used by the database in bytes.
         /// </summary>
         [Input("storageUsed")]
         public Input<int>? StorageUsed { get; set; }
 
         /// <summary>
-        /// Updated at of the database
+        /// The timestamp when the database was last updated.
         /// </summary>
         [Input("updatedAt")]
         public Input<string>? UpdatedAt { get; set; }

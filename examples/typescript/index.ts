@@ -14,7 +14,7 @@ const cloudAccount = new pgedge.CloudAccount("exampleCloudAccount", {
   type: "aws",
   description: "My AWS Cloud Account",
   credentials: {
-    role_arn: "arn:aws:iam::211125296439:role/pgedge-13e32c",
+    role_arn: "arn:aws:iam::21112529deae39:role/pgedge-135232c",
   },
 }, { dependsOn: sshKey });
 

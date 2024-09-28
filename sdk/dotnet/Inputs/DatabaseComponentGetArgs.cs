@@ -13,24 +13,15 @@ namespace Pgedge.Pgedge.Inputs
 
     public sealed class DatabaseComponentGetArgs : global::Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// ID of the database
-        /// </summary>
         [Input("id")]
         public Input<string>? Id { get; set; }
 
-        /// <summary>
-        /// Name of the database
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         [Input("releaseDate")]
         public Input<string>? ReleaseDate { get; set; }
 
-        /// <summary>
-        /// Status of the database
-        /// </summary>
         [Input("status")]
         public Input<string>? Status { get; set; }
 

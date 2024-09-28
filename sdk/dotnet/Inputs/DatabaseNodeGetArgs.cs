@@ -22,9 +22,6 @@ namespace Pgedge.Pgedge.Inputs
         [Input("location")]
         public Input<Inputs.DatabaseNodeLocationGetArgs>? Location { get; set; }
 
-        /// <summary>
-        /// Name of the database
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 

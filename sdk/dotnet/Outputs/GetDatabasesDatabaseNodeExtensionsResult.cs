@@ -15,9 +15,6 @@ namespace Pgedge.Pgedge.Outputs
     public sealed class GetDatabasesDatabaseNodeExtensionsResult
     {
         public readonly ImmutableDictionary<string, string> Errors;
-        /// <summary>
-        /// List of installed extensions
-        /// </summary>
         public readonly ImmutableArray<string> Installeds;
 
         [OutputConstructor]

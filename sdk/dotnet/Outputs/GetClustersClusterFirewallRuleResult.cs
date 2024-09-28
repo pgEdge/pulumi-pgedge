@@ -15,7 +15,7 @@ namespace Pgedge.Pgedge.Outputs
     public sealed class GetClustersClusterFirewallRuleResult
     {
         /// <summary>
-        /// IP address of the node
+        /// Name of the firewall rule
         /// </summary>
         public readonly string Name;
         /// <summary>

@@ -20,9 +20,6 @@ namespace Pgedge.Pgedge.Outputs
         public readonly bool? CreateRole;
         public readonly bool? Inherit;
         public readonly bool? Login;
-        /// <summary>
-        /// Name of the database
-        /// </summary>
         public readonly string? Name;
         public readonly bool? Replication;
         public readonly bool? Superuser;

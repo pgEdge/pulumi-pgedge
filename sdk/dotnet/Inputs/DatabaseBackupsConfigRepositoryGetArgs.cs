@@ -56,7 +56,7 @@ namespace Pgedge.Pgedge.Inputs
         public Input<string>? GcsEndpoint { get; set; }
 
         /// <summary>
-        /// ID of the database
+        /// Unique identifier for the backup config.
         /// </summary>
         [Input("id")]
         public Input<string>? Id { get; set; }

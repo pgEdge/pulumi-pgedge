@@ -15,23 +15,23 @@ namespace Pgedge.Pgedge.Outputs
     public sealed class GetDatabasesDatabaseComponentResult
     {
         /// <summary>
-        /// Id of the component
+        /// Backup configuration ID
         /// </summary>
         public readonly string Id;
         /// <summary>
-        /// Name of the component
+        /// Component name
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// Release date of the component
+        /// Component release date
         /// </summary>
         public readonly string ReleaseDate;
         /// <summary>
-        /// Status of the component
+        /// Component status
         /// </summary>
         public readonly string Status;
         /// <summary>
-        /// Version of the component
+        /// Component version
         /// </summary>
         public readonly string Version;
 

@@ -14,33 +14,12 @@ namespace Pgedge.Pgedge.Outputs
     [OutputType]
     public sealed class ClusterNode
     {
-        /// <summary>
-        /// Cloud provider availability zone name
-        /// </summary>
         public readonly string? AvailabilityZone;
-        /// <summary>
-        /// Instance type used for the node
-        /// </summary>
         public readonly string InstanceType;
-        /// <summary>
-        /// Node name
-        /// </summary>
         public readonly string Name;
-        /// <summary>
-        /// Cloud provider region
-        /// </summary>
         public readonly string Region;
-        /// <summary>
-        /// Volume IOPS of the node data volume
-        /// </summary>
         public readonly int? VolumeIops;
-        /// <summary>
-        /// Volume size of the node data volume
-        /// </summary>
         public readonly int? VolumeSize;
-        /// <summary>
-        /// Volume type of the node data volume
-        /// </summary>
         public readonly string? VolumeType;
 
         [OutputConstructor]

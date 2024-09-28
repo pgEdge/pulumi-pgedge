@@ -14,29 +14,14 @@ namespace Pgedge.Pgedge.Outputs
     [OutputType]
     public sealed class GetDatabasesDatabaseNodeRegionResult
     {
-        /// <summary>
-        /// Active status of the region
-        /// </summary>
         public readonly bool Active;
-        /// <summary>
-        /// Availability zones of the region
-        /// </summary>
         public readonly ImmutableArray<string> AvailabilityZones;
-        /// <summary>
-        /// Cloud provider of the region
-        /// </summary>
         public readonly string Cloud;
-        /// <summary>
-        /// Code of the location
-        /// </summary>
         public readonly string Code;
         /// <summary>
-        /// Name of the component
+        /// Component name
         /// </summary>
         public readonly string Name;
-        /// <summary>
-        /// Parent region
-        /// </summary>
         public readonly string Parent;
 
         [OutputConstructor]

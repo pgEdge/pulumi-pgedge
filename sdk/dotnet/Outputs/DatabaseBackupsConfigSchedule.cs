@@ -19,11 +19,11 @@ namespace Pgedge.Pgedge.Outputs
         /// </summary>
         public readonly string? CronExpression;
         /// <summary>
-        /// ID of the database
+        /// Unique identifier for the backup config.
         /// </summary>
         public readonly string? Id;
         /// <summary>
-        /// Type of the schedule.
+        /// Type of the repository.
         /// </summary>
         public readonly string? Type;
 

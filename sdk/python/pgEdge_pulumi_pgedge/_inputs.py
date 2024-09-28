@@ -33,11 +33,6 @@ class ClusterFirewallRuleArgs:
                  name: pulumi.Input[str],
                  port: pulumi.Input[int],
                  sources: pulumi.Input[Sequence[pulumi.Input[str]]]):
-        """
-        :param pulumi.Input[str] name: Name of the network
-        :param pulumi.Input[int] port: Port whose traffic is allowed
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] sources: CIDRs and/or IP addresses allowed
-        """
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "port", port)
         pulumi.set(__self__, "sources", sources)
@@ -45,9 +40,6 @@ class ClusterFirewallRuleArgs:
     @property
     @pulumi.getter
     def name(self) -> pulumi.Input[str]:
-        """
-        Name of the network
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -57,9 +49,6 @@ class ClusterFirewallRuleArgs:
     @property
     @pulumi.getter
     def port(self) -> pulumi.Input[int]:
-        """
-        Port whose traffic is allowed
-        """
         return pulumi.get(self, "port")
 
     @port.setter
@@ -69,9 +58,6 @@ class ClusterFirewallRuleArgs:
     @property
     @pulumi.getter
     def sources(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
-        """
-        CIDRs and/or IP addresses allowed
-        """
         return pulumi.get(self, "sources")
 
     @sources.setter
@@ -84,20 +70,37 @@ class ClusterNetworkArgs:
     def __init__(__self__, *,
                  cidr: pulumi.Input[str],
                  public_subnets: pulumi.Input[Sequence[pulumi.Input[str]]],
-                 region: pulumi.Input[str]):
+                 region: pulumi.Input[str],
+                 external: Optional[pulumi.Input[bool]] = None,
+                 external_id: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 private_subnets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
-        :param pulumi.Input[str] cidr: CIDR range for the network
+        :param pulumi.Input[str] cidr: CIDR of the network
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] public_subnets: List of public subnets
         :param pulumi.Input[str] region: Region of the network
+        :param pulumi.Input[bool] external: Whether the network is external
+        :param pulumi.Input[str] external_id: External ID of the network
+        :param pulumi.Input[str] name: Name of the network
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] private_subnets: List of private subnets
         """
         pulumi.set(__self__, "cidr", cidr)
         pulumi.set(__self__, "public_subnets", public_subnets)
         pulumi.set(__self__, "region", region)
+        if external is not None:
+            pulumi.set(__self__, "external", external)
+        if external_id is not None:
+            pulumi.set(__self__, "external_id", external_id)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if private_subnets is not None:
+            pulumi.set(__self__, "private_subnets", private_subnets)
 
     @property
     @pulumi.getter
     def cidr(self) -> pulumi.Input[str]:
         """
-        CIDR range for the network
+        CIDR of the network
         """
         return pulumi.get(self, "cidr")
 
@@ -108,6 +111,9 @@ class ClusterNetworkArgs:
     @property
     @pulumi.getter(name="publicSubnets")
     def public_subnets(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
+        """
+        List of public subnets
+        """
         return pulumi.get(self, "public_subnets")
 
     @public_subnets.setter
@@ -126,6 +132,54 @@ class ClusterNetworkArgs:
     def region(self, value: pulumi.Input[str]):
         pulumi.set(self, "region", value)
 
+    @property
+    @pulumi.getter
+    def external(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether the network is external
+        """
+        return pulumi.get(self, "external")
+
+    @external.setter
+    def external(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "external", value)
+
+    @property
+    @pulumi.getter(name="externalId")
+    def external_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        External ID of the network
+        """
+        return pulumi.get(self, "external_id")
+
+    @external_id.setter
+    def external_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "external_id", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Name of the network
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="privateSubnets")
+    def private_subnets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        List of private subnets
+        """
+        return pulumi.get(self, "private_subnets")
+
+    @private_subnets.setter
+    def private_subnets(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "private_subnets", value)
+
 
 @pulumi.input_type
 class ClusterNodeArgs:
@@ -137,15 +191,6 @@ class ClusterNodeArgs:
                  volume_iops: Optional[pulumi.Input[int]] = None,
                  volume_size: Optional[pulumi.Input[int]] = None,
                  volume_type: Optional[pulumi.Input[str]] = None):
-        """
-        :param pulumi.Input[str] instance_type: Instance type used for the node
-        :param pulumi.Input[str] name: Node name
-        :param pulumi.Input[str] region: Cloud provider region
-        :param pulumi.Input[str] availability_zone: Cloud provider availability zone name
-        :param pulumi.Input[int] volume_iops: Volume IOPS of the node data volume
-        :param pulumi.Input[int] volume_size: Volume size of the node data volume
-        :param pulumi.Input[str] volume_type: Volume type of the node data volume
-        """
         pulumi.set(__self__, "instance_type", instance_type)
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "region", region)
@@ -161,9 +206,6 @@ class ClusterNodeArgs:
     @property
     @pulumi.getter(name="instanceType")
     def instance_type(self) -> pulumi.Input[str]:
-        """
-        Instance type used for the node
-        """
         return pulumi.get(self, "instance_type")
 
     @instance_type.setter
@@ -173,9 +215,6 @@ class ClusterNodeArgs:
     @property
     @pulumi.getter
     def name(self) -> pulumi.Input[str]:
-        """
-        Node name
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -185,9 +224,6 @@ class ClusterNodeArgs:
     @property
     @pulumi.getter
     def region(self) -> pulumi.Input[str]:
-        """
-        Cloud provider region
-        """
         return pulumi.get(self, "region")
 
     @region.setter
@@ -197,9 +233,6 @@ class ClusterNodeArgs:
     @property
     @pulumi.getter(name="availabilityZone")
     def availability_zone(self) -> Optional[pulumi.Input[str]]:
-        """
-        Cloud provider availability zone name
-        """
         return pulumi.get(self, "availability_zone")
 
     @availability_zone.setter
@@ -209,9 +242,6 @@ class ClusterNodeArgs:
     @property
     @pulumi.getter(name="volumeIops")
     def volume_iops(self) -> Optional[pulumi.Input[int]]:
-        """
-        Volume IOPS of the node data volume
-        """
         return pulumi.get(self, "volume_iops")
 
     @volume_iops.setter
@@ -221,9 +251,6 @@ class ClusterNodeArgs:
     @property
     @pulumi.getter(name="volumeSize")
     def volume_size(self) -> Optional[pulumi.Input[int]]:
-        """
-        Volume size of the node data volume
-        """
         return pulumi.get(self, "volume_size")
 
     @volume_size.setter
@@ -233,9 +260,6 @@ class ClusterNodeArgs:
     @property
     @pulumi.getter(name="volumeType")
     def volume_type(self) -> Optional[pulumi.Input[str]]:
-        """
-        Volume type of the node data volume
-        """
         return pulumi.get(self, "volume_type")
 
     @volume_type.setter
@@ -290,7 +314,7 @@ class DatabaseBackupsConfigArgs:
                  repositories: Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseBackupsConfigRepositoryArgs']]]] = None,
                  schedules: Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseBackupsConfigScheduleArgs']]]] = None):
         """
-        :param pulumi.Input[str] id: ID of the database
+        :param pulumi.Input[str] id: Unique identifier for the backup config.
         :param pulumi.Input[str] node_name: Name of the node.
         :param pulumi.Input[Sequence[pulumi.Input['DatabaseBackupsConfigRepositoryArgs']]] repositories: List of backup repositories.
         :param pulumi.Input[Sequence[pulumi.Input['DatabaseBackupsConfigScheduleArgs']]] schedules: List of backup schedules.
@@ -308,7 +332,7 @@ class DatabaseBackupsConfigArgs:
     @pulumi.getter
     def id(self) -> Optional[pulumi.Input[str]]:
         """
-        ID of the database
+        Unique identifier for the backup config.
         """
         return pulumi.get(self, "id")
 
@@ -378,7 +402,7 @@ class DatabaseBackupsConfigRepositoryArgs:
         :param pulumi.Input[str] base_path: Base path for the repository.
         :param pulumi.Input[str] gcs_bucket: GCS bucket name.
         :param pulumi.Input[str] gcs_endpoint: GCS endpoint.
-        :param pulumi.Input[str] id: ID of the database
+        :param pulumi.Input[str] id: Unique identifier for the backup config.
         :param pulumi.Input[int] retention_full: Retention period for full backups.
         :param pulumi.Input[str] retention_full_type: Type of retention for full backups.
         :param pulumi.Input[str] s3_bucket: S3 bucket name.
@@ -503,7 +527,7 @@ class DatabaseBackupsConfigRepositoryArgs:
     @pulumi.getter
     def id(self) -> Optional[pulumi.Input[str]]:
         """
-        ID of the database
+        Unique identifier for the backup config.
         """
         return pulumi.get(self, "id")
 
@@ -592,8 +616,8 @@ class DatabaseBackupsConfigScheduleArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         :param pulumi.Input[str] cron_expression: Cron expression for the schedule.
-        :param pulumi.Input[str] id: ID of the database
-        :param pulumi.Input[str] type: Type of the schedule.
+        :param pulumi.Input[str] id: Unique identifier for the backup config.
+        :param pulumi.Input[str] type: Type of the repository.
         """
         if cron_expression is not None:
             pulumi.set(__self__, "cron_expression", cron_expression)
@@ -618,7 +642,7 @@ class DatabaseBackupsConfigScheduleArgs:
     @pulumi.getter
     def id(self) -> Optional[pulumi.Input[str]]:
         """
-        ID of the database
+        Unique identifier for the backup config.
         """
         return pulumi.get(self, "id")
 
@@ -630,7 +654,7 @@ class DatabaseBackupsConfigScheduleArgs:
     @pulumi.getter
     def type(self) -> Optional[pulumi.Input[str]]:
         """
-        Type of the schedule.
+        Type of the repository.
         """
         return pulumi.get(self, "type")
 
@@ -647,11 +671,6 @@ class DatabaseComponentArgs:
                  release_date: Optional[pulumi.Input[str]] = None,
                  status: Optional[pulumi.Input[str]] = None,
                  version: Optional[pulumi.Input[str]] = None):
-        """
-        :param pulumi.Input[str] id: ID of the database
-        :param pulumi.Input[str] name: Name of the database
-        :param pulumi.Input[str] status: Status of the database
-        """
         if id is not None:
             pulumi.set(__self__, "id", id)
         if name is not None:
@@ -666,9 +685,6 @@ class DatabaseComponentArgs:
     @property
     @pulumi.getter
     def id(self) -> Optional[pulumi.Input[str]]:
-        """
-        ID of the database
-        """
         return pulumi.get(self, "id")
 
     @id.setter
@@ -678,9 +694,6 @@ class DatabaseComponentArgs:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of the database
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -699,9 +712,6 @@ class DatabaseComponentArgs:
     @property
     @pulumi.getter
     def status(self) -> Optional[pulumi.Input[str]]:
-        """
-        Status of the database
-        """
         return pulumi.get(self, "status")
 
     @status.setter
@@ -767,9 +777,6 @@ class DatabaseNodeArgs:
                  location: Optional[pulumi.Input['DatabaseNodeLocationArgs']] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  region: Optional[pulumi.Input['DatabaseNodeRegionArgs']] = None):
-        """
-        :param pulumi.Input[str] name: Name of the database
-        """
         if connection is not None:
             pulumi.set(__self__, "connection", connection)
         if extensions is not None:
@@ -811,9 +818,6 @@ class DatabaseNodeArgs:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of the database
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -974,9 +978,6 @@ class DatabaseNodeLocationArgs:
                  region: Optional[pulumi.Input[str]] = None,
                  region_code: Optional[pulumi.Input[str]] = None,
                  timezone: Optional[pulumi.Input[str]] = None):
-        """
-        :param pulumi.Input[str] name: Name of the database
-        """
         if city is not None:
             pulumi.set(__self__, "city", city)
         if code is not None:
@@ -1057,9 +1058,6 @@ class DatabaseNodeLocationArgs:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of the database
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -1112,9 +1110,6 @@ class DatabaseNodeRegionArgs:
                  code: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  parent: Optional[pulumi.Input[str]] = None):
-        """
-        :param pulumi.Input[str] name: Name of the database
-        """
         if active is not None:
             pulumi.set(__self__, "active", active)
         if availability_zones is not None:
@@ -1167,9 +1162,6 @@ class DatabaseNodeRegionArgs:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of the database
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -1198,9 +1190,6 @@ class DatabaseRoleArgs:
                  name: Optional[pulumi.Input[str]] = None,
                  replication: Optional[pulumi.Input[bool]] = None,
                  superuser: Optional[pulumi.Input[bool]] = None):
-        """
-        :param pulumi.Input[str] name: Name of the database
-        """
         if bypass_rls is not None:
             pulumi.set(__self__, "bypass_rls", bypass_rls)
         if connection_limit is not None:
@@ -1277,9 +1266,6 @@ class DatabaseRoleArgs:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of the database
-        """
         return pulumi.get(self, "name")
 
     @name.setter

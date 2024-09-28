@@ -4,6 +4,9 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Manages a pgEdge SSH key.
+ */
 export class SSHKey extends pulumi.CustomResource {
     /**
      * Get an existing SSHKey resource's state with the given name, ID, and optional extra

@@ -15,15 +15,15 @@ namespace Pgedge.Pgedge.Outputs
     public sealed class GetDatabasesDatabaseExtensionsResult
     {
         /// <summary>
-        /// Auto manage of the extension
+        /// Auto-manage extensions
         /// </summary>
         public readonly bool AutoManage;
         /// <summary>
-        /// Available of the extension
+        /// Available extensions
         /// </summary>
         public readonly ImmutableArray<string> Availables;
         /// <summary>
-        /// Requested of the extension
+        /// Requested extensions
         /// </summary>
         public readonly ImmutableArray<string> Requesteds;
 

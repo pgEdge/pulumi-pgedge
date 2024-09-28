@@ -38,7 +38,7 @@ export class BackupStore extends pulumi.CustomResource {
     public /*out*/ readonly createdAt!: pulumi.Output<string>;
     public readonly name!: pulumi.Output<string>;
     public /*out*/ readonly properties!: pulumi.Output<{[key: string]: string}>;
-    public readonly region!: pulumi.Output<string | undefined>;
+    public readonly region!: pulumi.Output<string>;
     public /*out*/ readonly status!: pulumi.Output<string>;
     public /*out*/ readonly updatedAt!: pulumi.Output<string>;
 
@@ -68,6 +68,9 @@ export class BackupStore extends pulumi.CustomResource {
             const args = argsOrState as BackupStoreArgs | undefined;
             if ((!args || args.cloudAccountId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'cloudAccountId'");
+            }
+            if ((!args || args.region === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'region'");
             }
             resourceInputs["cloudAccountId"] = args ? args.cloudAccountId : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
@@ -105,5 +108,5 @@ export interface BackupStoreState {
 export interface BackupStoreArgs {
     cloudAccountId: pulumi.Input<string>;
     name?: pulumi.Input<string>;
-    region?: pulumi.Input<string>;
+    region: pulumi.Input<string>;
 }

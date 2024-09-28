@@ -26,13 +26,13 @@ class DatabaseArgs:
                  roles: Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseRoleArgs']]]] = None):
         """
         The set of arguments for constructing a Database resource.
-        :param pulumi.Input[str] cluster_id: ID of the cluster to place the database on
+        :param pulumi.Input[str] cluster_id: The ID of the cluster this database belongs to.
         :param pulumi.Input['DatabaseBackupsArgs'] backups: Backup configuration for the database.
-        :param pulumi.Input[str] config_version: Config version of the database
+        :param pulumi.Input[str] config_version: The configuration version of the database.
         :param pulumi.Input['DatabaseExtensionsArgs'] extensions: Extensions configuration for the database.
-        :param pulumi.Input[str] name: Name of the database
+        :param pulumi.Input[str] name: The name of the database.
         :param pulumi.Input[Sequence[pulumi.Input['DatabaseNodeArgs']]] nodes: List of nodes in the database.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] options: Options for creating the database
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] options: A list of options for the database.
         :param pulumi.Input[Sequence[pulumi.Input['DatabaseRoleArgs']]] roles: List of roles in the database.
         """
         pulumi.set(__self__, "cluster_id", cluster_id)
@@ -55,7 +55,7 @@ class DatabaseArgs:
     @pulumi.getter(name="clusterId")
     def cluster_id(self) -> pulumi.Input[str]:
         """
-        ID of the cluster to place the database on
+        The ID of the cluster this database belongs to.
         """
         return pulumi.get(self, "cluster_id")
 
@@ -79,7 +79,7 @@ class DatabaseArgs:
     @pulumi.getter(name="configVersion")
     def config_version(self) -> Optional[pulumi.Input[str]]:
         """
-        Config version of the database
+        The configuration version of the database.
         """
         return pulumi.get(self, "config_version")
 
@@ -103,7 +103,7 @@ class DatabaseArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        Name of the database
+        The name of the database.
         """
         return pulumi.get(self, "name")
 
@@ -127,7 +127,7 @@ class DatabaseArgs:
     @pulumi.getter
     def options(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        Options for creating the database
+        A list of options for the database.
         """
         return pulumi.get(self, "options")
 
@@ -169,20 +169,20 @@ class _DatabaseState:
         """
         Input properties used for looking up and filtering Database resources.
         :param pulumi.Input['DatabaseBackupsArgs'] backups: Backup configuration for the database.
-        :param pulumi.Input[str] cluster_id: ID of the cluster to place the database on
+        :param pulumi.Input[str] cluster_id: The ID of the cluster this database belongs to.
         :param pulumi.Input[Sequence[pulumi.Input['DatabaseComponentArgs']]] components: List of components in the database.
-        :param pulumi.Input[str] config_version: Config version of the database
-        :param pulumi.Input[str] created_at: Created at of the database
-        :param pulumi.Input[str] domain: Domain of the database
+        :param pulumi.Input[str] config_version: The configuration version of the database.
+        :param pulumi.Input[str] created_at: The timestamp when the database was created.
+        :param pulumi.Input[str] domain: The domain associated with the database.
         :param pulumi.Input['DatabaseExtensionsArgs'] extensions: Extensions configuration for the database.
-        :param pulumi.Input[str] name: Name of the database
+        :param pulumi.Input[str] name: The name of the database.
         :param pulumi.Input[Sequence[pulumi.Input['DatabaseNodeArgs']]] nodes: List of nodes in the database.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] options: Options for creating the database
-        :param pulumi.Input[str] pg_version: Postgres version of the database
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] options: A list of options for the database.
+        :param pulumi.Input[str] pg_version: The PostgreSQL version of the database.
         :param pulumi.Input[Sequence[pulumi.Input['DatabaseRoleArgs']]] roles: List of roles in the database.
-        :param pulumi.Input[str] status: Status of the database
-        :param pulumi.Input[int] storage_used: Storage used of the database
-        :param pulumi.Input[str] updated_at: Updated at of the database
+        :param pulumi.Input[str] status: The current status of the database.
+        :param pulumi.Input[int] storage_used: The amount of storage used by the database in bytes.
+        :param pulumi.Input[str] updated_at: The timestamp when the database was last updated.
         """
         if backups is not None:
             pulumi.set(__self__, "backups", backups)
@@ -231,7 +231,7 @@ class _DatabaseState:
     @pulumi.getter(name="clusterId")
     def cluster_id(self) -> Optional[pulumi.Input[str]]:
         """
-        ID of the cluster to place the database on
+        The ID of the cluster this database belongs to.
         """
         return pulumi.get(self, "cluster_id")
 
@@ -255,7 +255,7 @@ class _DatabaseState:
     @pulumi.getter(name="configVersion")
     def config_version(self) -> Optional[pulumi.Input[str]]:
         """
-        Config version of the database
+        The configuration version of the database.
         """
         return pulumi.get(self, "config_version")
 
@@ -267,7 +267,7 @@ class _DatabaseState:
     @pulumi.getter(name="createdAt")
     def created_at(self) -> Optional[pulumi.Input[str]]:
         """
-        Created at of the database
+        The timestamp when the database was created.
         """
         return pulumi.get(self, "created_at")
 
@@ -279,7 +279,7 @@ class _DatabaseState:
     @pulumi.getter
     def domain(self) -> Optional[pulumi.Input[str]]:
         """
-        Domain of the database
+        The domain associated with the database.
         """
         return pulumi.get(self, "domain")
 
@@ -303,7 +303,7 @@ class _DatabaseState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        Name of the database
+        The name of the database.
         """
         return pulumi.get(self, "name")
 
@@ -327,7 +327,7 @@ class _DatabaseState:
     @pulumi.getter
     def options(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        Options for creating the database
+        A list of options for the database.
         """
         return pulumi.get(self, "options")
 
@@ -339,7 +339,7 @@ class _DatabaseState:
     @pulumi.getter(name="pgVersion")
     def pg_version(self) -> Optional[pulumi.Input[str]]:
         """
-        Postgres version of the database
+        The PostgreSQL version of the database.
         """
         return pulumi.get(self, "pg_version")
 
@@ -363,7 +363,7 @@ class _DatabaseState:
     @pulumi.getter
     def status(self) -> Optional[pulumi.Input[str]]:
         """
-        Status of the database
+        The current status of the database.
         """
         return pulumi.get(self, "status")
 
@@ -375,7 +375,7 @@ class _DatabaseState:
     @pulumi.getter(name="storageUsed")
     def storage_used(self) -> Optional[pulumi.Input[int]]:
         """
-        Storage used of the database
+        The amount of storage used by the database in bytes.
         """
         return pulumi.get(self, "storage_used")
 
@@ -387,7 +387,7 @@ class _DatabaseState:
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> Optional[pulumi.Input[str]]:
         """
-        Updated at of the database
+        The timestamp when the database was last updated.
         """
         return pulumi.get(self, "updated_at")
 
@@ -411,17 +411,17 @@ class Database(pulumi.CustomResource):
                  roles: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseRoleArgs']]]]] = None,
                  __props__=None):
         """
-        Interface with the pgEdge service API.
+        Manages a pgEdge database.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[pulumi.InputType['DatabaseBackupsArgs']] backups: Backup configuration for the database.
-        :param pulumi.Input[str] cluster_id: ID of the cluster to place the database on
-        :param pulumi.Input[str] config_version: Config version of the database
+        :param pulumi.Input[str] cluster_id: The ID of the cluster this database belongs to.
+        :param pulumi.Input[str] config_version: The configuration version of the database.
         :param pulumi.Input[pulumi.InputType['DatabaseExtensionsArgs']] extensions: Extensions configuration for the database.
-        :param pulumi.Input[str] name: Name of the database
+        :param pulumi.Input[str] name: The name of the database.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseNodeArgs']]]] nodes: List of nodes in the database.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] options: Options for creating the database
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] options: A list of options for the database.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseRoleArgs']]]] roles: List of roles in the database.
         """
         ...
@@ -431,7 +431,7 @@ class Database(pulumi.CustomResource):
                  args: DatabaseArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Interface with the pgEdge service API.
+        Manages a pgEdge database.
 
         :param str resource_name: The name of the resource.
         :param DatabaseArgs args: The arguments to use to populate this resource's properties.
@@ -515,20 +515,20 @@ class Database(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[pulumi.InputType['DatabaseBackupsArgs']] backups: Backup configuration for the database.
-        :param pulumi.Input[str] cluster_id: ID of the cluster to place the database on
+        :param pulumi.Input[str] cluster_id: The ID of the cluster this database belongs to.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseComponentArgs']]]] components: List of components in the database.
-        :param pulumi.Input[str] config_version: Config version of the database
-        :param pulumi.Input[str] created_at: Created at of the database
-        :param pulumi.Input[str] domain: Domain of the database
+        :param pulumi.Input[str] config_version: The configuration version of the database.
+        :param pulumi.Input[str] created_at: The timestamp when the database was created.
+        :param pulumi.Input[str] domain: The domain associated with the database.
         :param pulumi.Input[pulumi.InputType['DatabaseExtensionsArgs']] extensions: Extensions configuration for the database.
-        :param pulumi.Input[str] name: Name of the database
+        :param pulumi.Input[str] name: The name of the database.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseNodeArgs']]]] nodes: List of nodes in the database.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] options: Options for creating the database
-        :param pulumi.Input[str] pg_version: Postgres version of the database
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] options: A list of options for the database.
+        :param pulumi.Input[str] pg_version: The PostgreSQL version of the database.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseRoleArgs']]]] roles: List of roles in the database.
-        :param pulumi.Input[str] status: Status of the database
-        :param pulumi.Input[int] storage_used: Storage used of the database
-        :param pulumi.Input[str] updated_at: Updated at of the database
+        :param pulumi.Input[str] status: The current status of the database.
+        :param pulumi.Input[int] storage_used: The amount of storage used by the database in bytes.
+        :param pulumi.Input[str] updated_at: The timestamp when the database was last updated.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -563,7 +563,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter(name="clusterId")
     def cluster_id(self) -> pulumi.Output[str]:
         """
-        ID of the cluster to place the database on
+        The ID of the cluster this database belongs to.
         """
         return pulumi.get(self, "cluster_id")
 
@@ -579,7 +579,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter(name="configVersion")
     def config_version(self) -> pulumi.Output[str]:
         """
-        Config version of the database
+        The configuration version of the database.
         """
         return pulumi.get(self, "config_version")
 
@@ -587,7 +587,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter(name="createdAt")
     def created_at(self) -> pulumi.Output[str]:
         """
-        Created at of the database
+        The timestamp when the database was created.
         """
         return pulumi.get(self, "created_at")
 
@@ -595,7 +595,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter
     def domain(self) -> pulumi.Output[str]:
         """
-        Domain of the database
+        The domain associated with the database.
         """
         return pulumi.get(self, "domain")
 
@@ -611,7 +611,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
         """
-        Name of the database
+        The name of the database.
         """
         return pulumi.get(self, "name")
 
@@ -627,7 +627,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter
     def options(self) -> pulumi.Output[Optional[Sequence[str]]]:
         """
-        Options for creating the database
+        A list of options for the database.
         """
         return pulumi.get(self, "options")
 
@@ -635,7 +635,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter(name="pgVersion")
     def pg_version(self) -> pulumi.Output[str]:
         """
-        Postgres version of the database
+        The PostgreSQL version of the database.
         """
         return pulumi.get(self, "pg_version")
 
@@ -651,7 +651,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter
     def status(self) -> pulumi.Output[str]:
         """
-        Status of the database
+        The current status of the database.
         """
         return pulumi.get(self, "status")
 
@@ -659,7 +659,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter(name="storageUsed")
     def storage_used(self) -> pulumi.Output[int]:
         """
-        Storage used of the database
+        The amount of storage used by the database in bytes.
         """
         return pulumi.get(self, "storage_used")
 
@@ -667,7 +667,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> pulumi.Output[str]:
         """
-        Updated at of the database
+        The timestamp when the database was last updated.
         """
         return pulumi.get(self, "updated_at")
 

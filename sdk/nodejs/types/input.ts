@@ -6,25 +6,35 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
 export interface ClusterFirewallRule {
-    /**
-     * Name of the network
-     */
     name: pulumi.Input<string>;
-    /**
-     * Port whose traffic is allowed
-     */
     port: pulumi.Input<number>;
-    /**
-     * CIDRs and/or IP addresses allowed
-     */
     sources: pulumi.Input<pulumi.Input<string>[]>;
 }
 
 export interface ClusterNetwork {
     /**
-     * CIDR range for the network
+     * CIDR of the network
      */
     cidr: pulumi.Input<string>;
+    /**
+     * Whether the network is external
+     */
+    external?: pulumi.Input<boolean>;
+    /**
+     * External ID of the network
+     */
+    externalId?: pulumi.Input<string>;
+    /**
+     * Name of the network
+     */
+    name?: pulumi.Input<string>;
+    /**
+     * List of private subnets
+     */
+    privateSubnets?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * List of public subnets
+     */
     publicSubnets: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Region of the network
@@ -33,33 +43,12 @@ export interface ClusterNetwork {
 }
 
 export interface ClusterNode {
-    /**
-     * Cloud provider availability zone name
-     */
     availabilityZone?: pulumi.Input<string>;
-    /**
-     * Instance type used for the node
-     */
     instanceType: pulumi.Input<string>;
-    /**
-     * Node name
-     */
     name: pulumi.Input<string>;
-    /**
-     * Cloud provider region
-     */
     region: pulumi.Input<string>;
-    /**
-     * Volume IOPS of the node data volume
-     */
     volumeIops?: pulumi.Input<number>;
-    /**
-     * Volume size of the node data volume
-     */
     volumeSize?: pulumi.Input<number>;
-    /**
-     * Volume type of the node data volume
-     */
     volumeType?: pulumi.Input<string>;
 }
 
@@ -76,7 +65,7 @@ export interface DatabaseBackups {
 
 export interface DatabaseBackupsConfig {
     /**
-     * ID of the database
+     * Unique identifier for the backup config.
      */
     id?: pulumi.Input<string>;
     /**
@@ -123,7 +112,7 @@ export interface DatabaseBackupsConfigRepository {
      */
     gcsEndpoint?: pulumi.Input<string>;
     /**
-     * ID of the database
+     * Unique identifier for the backup config.
      */
     id?: pulumi.Input<string>;
     /**
@@ -158,28 +147,19 @@ export interface DatabaseBackupsConfigSchedule {
      */
     cronExpression?: pulumi.Input<string>;
     /**
-     * ID of the database
+     * Unique identifier for the backup config.
      */
     id?: pulumi.Input<string>;
     /**
-     * Type of the schedule.
+     * Type of the repository.
      */
     type?: pulumi.Input<string>;
 }
 
 export interface DatabaseComponent {
-    /**
-     * ID of the database
-     */
     id?: pulumi.Input<string>;
-    /**
-     * Name of the database
-     */
     name?: pulumi.Input<string>;
     releaseDate?: pulumi.Input<string>;
-    /**
-     * Status of the database
-     */
     status?: pulumi.Input<string>;
     version?: pulumi.Input<string>;
 }
@@ -194,9 +174,6 @@ export interface DatabaseNode {
     connection?: pulumi.Input<inputs.DatabaseNodeConnection>;
     extensions?: pulumi.Input<inputs.DatabaseNodeExtensions>;
     location?: pulumi.Input<inputs.DatabaseNodeLocation>;
-    /**
-     * Name of the database
-     */
     name?: pulumi.Input<string>;
     region?: pulumi.Input<inputs.DatabaseNodeRegion>;
 }
@@ -224,9 +201,6 @@ export interface DatabaseNodeLocation {
     latitude?: pulumi.Input<number>;
     longitude?: pulumi.Input<number>;
     metroCode?: pulumi.Input<string>;
-    /**
-     * Name of the database
-     */
     name?: pulumi.Input<string>;
     postalCode?: pulumi.Input<string>;
     region?: pulumi.Input<string>;
@@ -239,9 +213,6 @@ export interface DatabaseNodeRegion {
     availabilityZones?: pulumi.Input<pulumi.Input<string>[]>;
     cloud?: pulumi.Input<string>;
     code?: pulumi.Input<string>;
-    /**
-     * Name of the database
-     */
     name?: pulumi.Input<string>;
     parent?: pulumi.Input<string>;
 }
@@ -253,9 +224,6 @@ export interface DatabaseRole {
     createRole?: pulumi.Input<boolean>;
     inherit?: pulumi.Input<boolean>;
     login?: pulumi.Input<boolean>;
-    /**
-     * Name of the database
-     */
     name?: pulumi.Input<string>;
     replication?: pulumi.Input<boolean>;
     superuser?: pulumi.Input<boolean>;

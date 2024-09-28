@@ -31,9 +31,6 @@ namespace Pgedge.Pgedge.Inputs
         [Input("metroCode")]
         public Input<string>? MetroCode { get; set; }
 
-        /// <summary>
-        /// Name of the database
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 

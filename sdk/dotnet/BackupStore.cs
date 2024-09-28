@@ -32,7 +32,7 @@ namespace Pgedge.Pgedge
         public Output<ImmutableDictionary<string, string>> Properties { get; private set; } = null!;
 
         [Output("region")]
-        public Output<string?> Region { get; private set; } = null!;
+        public Output<string> Region { get; private set; } = null!;
 
         [Output("status")]
         public Output<string> Status { get; private set; } = null!;
@@ -93,8 +93,8 @@ namespace Pgedge.Pgedge
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        [Input("region")]
-        public Input<string>? Region { get; set; }
+        [Input("region", required: true)]
+        public Input<string> Region { get; set; } = null!;
 
         public BackupStoreArgs()
         {

@@ -13,24 +13,14 @@ namespace Pgedge.Pgedge.Inputs
 
     public sealed class ClusterFirewallRuleGetArgs : global::Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Name of the network
-        /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
-        /// <summary>
-        /// Port whose traffic is allowed
-        /// </summary>
         [Input("port", required: true)]
         public Input<int> Port { get; set; } = null!;
 
         [Input("sources", required: true)]
         private InputList<string>? _sources;
-
-        /// <summary>
-        /// CIDRs and/or IP addresses allowed
-        /// </summary>
         public InputList<string> Sources
         {
             get => _sources ?? (_sources = new InputList<string>());

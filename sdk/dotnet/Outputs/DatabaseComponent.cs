@@ -14,18 +14,9 @@ namespace Pgedge.Pgedge.Outputs
     [OutputType]
     public sealed class DatabaseComponent
     {
-        /// <summary>
-        /// ID of the database
-        /// </summary>
         public readonly string? Id;
-        /// <summary>
-        /// Name of the database
-        /// </summary>
         public readonly string? Name;
         public readonly string? ReleaseDate;
-        /// <summary>
-        /// Status of the database
-        /// </summary>
         public readonly string? Status;
         public readonly string? Version;
 

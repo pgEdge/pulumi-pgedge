@@ -43,7 +43,7 @@ namespace Pgedge.Pgedge.Outputs
         /// </summary>
         public readonly string? GcsEndpoint;
         /// <summary>
-        /// ID of the database
+        /// Unique identifier for the backup config.
         /// </summary>
         public readonly string? Id;
         /// <summary>

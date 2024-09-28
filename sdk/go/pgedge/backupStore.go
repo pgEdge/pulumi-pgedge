@@ -21,7 +21,7 @@ type BackupStore struct {
 	CreatedAt        pulumi.StringOutput      `pulumi:"createdAt"`
 	Name             pulumi.StringOutput      `pulumi:"name"`
 	Properties       pulumi.StringMapOutput   `pulumi:"properties"`
-	Region           pulumi.StringPtrOutput   `pulumi:"region"`
+	Region           pulumi.StringOutput      `pulumi:"region"`
 	Status           pulumi.StringOutput      `pulumi:"status"`
 	UpdatedAt        pulumi.StringOutput      `pulumi:"updatedAt"`
 }
@@ -35,6 +35,9 @@ func NewBackupStore(ctx *pulumi.Context,
 
 	if args.CloudAccountId == nil {
 		return nil, errors.New("invalid value for required argument 'CloudAccountId'")
+	}
+	if args.Region == nil {
+		return nil, errors.New("invalid value for required argument 'Region'")
 	}
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource BackupStore
@@ -89,14 +92,14 @@ func (BackupStoreState) ElementType() reflect.Type {
 type backupStoreArgs struct {
 	CloudAccountId string  `pulumi:"cloudAccountId"`
 	Name           *string `pulumi:"name"`
-	Region         *string `pulumi:"region"`
+	Region         string  `pulumi:"region"`
 }
 
 // The set of arguments for constructing a BackupStore resource.
 type BackupStoreArgs struct {
 	CloudAccountId pulumi.StringInput
 	Name           pulumi.StringPtrInput
-	Region         pulumi.StringPtrInput
+	Region         pulumi.StringInput
 }
 
 func (BackupStoreArgs) ElementType() reflect.Type {
@@ -210,8 +213,8 @@ func (o BackupStoreOutput) Properties() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *BackupStore) pulumi.StringMapOutput { return v.Properties }).(pulumi.StringMapOutput)
 }
 
-func (o BackupStoreOutput) Region() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *BackupStore) pulumi.StringPtrOutput { return v.Region }).(pulumi.StringPtrOutput)
+func (o BackupStoreOutput) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v *BackupStore) pulumi.StringOutput { return v.Region }).(pulumi.StringOutput)
 }
 
 func (o BackupStoreOutput) Status() pulumi.StringOutput {

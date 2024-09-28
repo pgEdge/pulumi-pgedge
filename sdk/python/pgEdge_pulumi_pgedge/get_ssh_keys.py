@@ -56,7 +56,7 @@ class AwaitableGetSSHKeysResult(GetSSHKeysResult):
 
 def get_ssh_keys(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetSSHKeysResult:
     """
-    Use this data source to access information about an existing resource.
+    Data source for pgEdge SSH keys.
     """
     __args__ = dict()
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
@@ -70,6 +70,6 @@ def get_ssh_keys(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetSSH
 @_utilities.lift_output_func(get_ssh_keys)
 def get_ssh_keys_output(opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetSSHKeysResult]:
     """
-    Use this data source to access information about an existing resource.
+    Data source for pgEdge SSH keys.
     """
     ...

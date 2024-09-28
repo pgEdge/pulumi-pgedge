@@ -54,11 +54,6 @@ class ClusterFirewallRule(dict):
                  name: str,
                  port: int,
                  sources: Sequence[str]):
-        """
-        :param str name: Name of the network
-        :param int port: Port whose traffic is allowed
-        :param Sequence[str] sources: CIDRs and/or IP addresses allowed
-        """
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "port", port)
         pulumi.set(__self__, "sources", sources)
@@ -66,25 +61,16 @@ class ClusterFirewallRule(dict):
     @property
     @pulumi.getter
     def name(self) -> str:
-        """
-        Name of the network
-        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def port(self) -> int:
-        """
-        Port whose traffic is allowed
-        """
         return pulumi.get(self, "port")
 
     @property
     @pulumi.getter
     def sources(self) -> Sequence[str]:
-        """
-        CIDRs and/or IP addresses allowed
-        """
         return pulumi.get(self, "sources")
 
 
@@ -95,6 +81,10 @@ class ClusterNetwork(dict):
         suggest = None
         if key == "publicSubnets":
             suggest = "public_subnets"
+        elif key == "externalId":
+            suggest = "external_id"
+        elif key == "privateSubnets":
+            suggest = "private_subnets"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ClusterNetwork. Access the value via the '{suggest}' property getter instead.")
@@ -110,26 +100,46 @@ class ClusterNetwork(dict):
     def __init__(__self__, *,
                  cidr: str,
                  public_subnets: Sequence[str],
-                 region: str):
+                 region: str,
+                 external: Optional[bool] = None,
+                 external_id: Optional[str] = None,
+                 name: Optional[str] = None,
+                 private_subnets: Optional[Sequence[str]] = None):
         """
-        :param str cidr: CIDR range for the network
+        :param str cidr: CIDR of the network
+        :param Sequence[str] public_subnets: List of public subnets
         :param str region: Region of the network
+        :param bool external: Whether the network is external
+        :param str external_id: External ID of the network
+        :param str name: Name of the network
+        :param Sequence[str] private_subnets: List of private subnets
         """
         pulumi.set(__self__, "cidr", cidr)
         pulumi.set(__self__, "public_subnets", public_subnets)
         pulumi.set(__self__, "region", region)
+        if external is not None:
+            pulumi.set(__self__, "external", external)
+        if external_id is not None:
+            pulumi.set(__self__, "external_id", external_id)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if private_subnets is not None:
+            pulumi.set(__self__, "private_subnets", private_subnets)
 
     @property
     @pulumi.getter
     def cidr(self) -> str:
         """
-        CIDR range for the network
+        CIDR of the network
         """
         return pulumi.get(self, "cidr")
 
     @property
     @pulumi.getter(name="publicSubnets")
     def public_subnets(self) -> Sequence[str]:
+        """
+        List of public subnets
+        """
         return pulumi.get(self, "public_subnets")
 
     @property
@@ -139,6 +149,38 @@ class ClusterNetwork(dict):
         Region of the network
         """
         return pulumi.get(self, "region")
+
+    @property
+    @pulumi.getter
+    def external(self) -> Optional[bool]:
+        """
+        Whether the network is external
+        """
+        return pulumi.get(self, "external")
+
+    @property
+    @pulumi.getter(name="externalId")
+    def external_id(self) -> Optional[str]:
+        """
+        External ID of the network
+        """
+        return pulumi.get(self, "external_id")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of the network
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="privateSubnets")
+    def private_subnets(self) -> Optional[Sequence[str]]:
+        """
+        List of private subnets
+        """
+        return pulumi.get(self, "private_subnets")
 
 
 @pulumi.output_type
@@ -176,15 +218,6 @@ class ClusterNode(dict):
                  volume_iops: Optional[int] = None,
                  volume_size: Optional[int] = None,
                  volume_type: Optional[str] = None):
-        """
-        :param str instance_type: Instance type used for the node
-        :param str name: Node name
-        :param str region: Cloud provider region
-        :param str availability_zone: Cloud provider availability zone name
-        :param int volume_iops: Volume IOPS of the node data volume
-        :param int volume_size: Volume size of the node data volume
-        :param str volume_type: Volume type of the node data volume
-        """
         pulumi.set(__self__, "instance_type", instance_type)
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "region", region)
@@ -200,57 +233,36 @@ class ClusterNode(dict):
     @property
     @pulumi.getter(name="instanceType")
     def instance_type(self) -> str:
-        """
-        Instance type used for the node
-        """
         return pulumi.get(self, "instance_type")
 
     @property
     @pulumi.getter
     def name(self) -> str:
-        """
-        Node name
-        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def region(self) -> str:
-        """
-        Cloud provider region
-        """
         return pulumi.get(self, "region")
 
     @property
     @pulumi.getter(name="availabilityZone")
     def availability_zone(self) -> Optional[str]:
-        """
-        Cloud provider availability zone name
-        """
         return pulumi.get(self, "availability_zone")
 
     @property
     @pulumi.getter(name="volumeIops")
     def volume_iops(self) -> Optional[int]:
-        """
-        Volume IOPS of the node data volume
-        """
         return pulumi.get(self, "volume_iops")
 
     @property
     @pulumi.getter(name="volumeSize")
     def volume_size(self) -> Optional[int]:
-        """
-        Volume size of the node data volume
-        """
         return pulumi.get(self, "volume_size")
 
     @property
     @pulumi.getter(name="volumeType")
     def volume_type(self) -> Optional[str]:
-        """
-        Volume type of the node data volume
-        """
         return pulumi.get(self, "volume_type")
 
 
@@ -310,7 +322,7 @@ class DatabaseBackupsConfig(dict):
                  repositories: Optional[Sequence['outputs.DatabaseBackupsConfigRepository']] = None,
                  schedules: Optional[Sequence['outputs.DatabaseBackupsConfigSchedule']] = None):
         """
-        :param str id: ID of the database
+        :param str id: Unique identifier for the backup config.
         :param str node_name: Name of the node.
         :param Sequence['DatabaseBackupsConfigRepositoryArgs'] repositories: List of backup repositories.
         :param Sequence['DatabaseBackupsConfigScheduleArgs'] schedules: List of backup schedules.
@@ -328,7 +340,7 @@ class DatabaseBackupsConfig(dict):
     @pulumi.getter
     def id(self) -> Optional[str]:
         """
-        ID of the database
+        Unique identifier for the backup config.
         """
         return pulumi.get(self, "id")
 
@@ -421,7 +433,7 @@ class DatabaseBackupsConfigRepository(dict):
         :param str base_path: Base path for the repository.
         :param str gcs_bucket: GCS bucket name.
         :param str gcs_endpoint: GCS endpoint.
-        :param str id: ID of the database
+        :param str id: Unique identifier for the backup config.
         :param int retention_full: Retention period for full backups.
         :param str retention_full_type: Type of retention for full backups.
         :param str s3_bucket: S3 bucket name.
@@ -518,7 +530,7 @@ class DatabaseBackupsConfigRepository(dict):
     @pulumi.getter
     def id(self) -> Optional[str]:
         """
-        ID of the database
+        Unique identifier for the backup config.
         """
         return pulumi.get(self, "id")
 
@@ -596,8 +608,8 @@ class DatabaseBackupsConfigSchedule(dict):
                  type: Optional[str] = None):
         """
         :param str cron_expression: Cron expression for the schedule.
-        :param str id: ID of the database
-        :param str type: Type of the schedule.
+        :param str id: Unique identifier for the backup config.
+        :param str type: Type of the repository.
         """
         if cron_expression is not None:
             pulumi.set(__self__, "cron_expression", cron_expression)
@@ -618,7 +630,7 @@ class DatabaseBackupsConfigSchedule(dict):
     @pulumi.getter
     def id(self) -> Optional[str]:
         """
-        ID of the database
+        Unique identifier for the backup config.
         """
         return pulumi.get(self, "id")
 
@@ -626,7 +638,7 @@ class DatabaseBackupsConfigSchedule(dict):
     @pulumi.getter
     def type(self) -> Optional[str]:
         """
-        Type of the schedule.
+        Type of the repository.
         """
         return pulumi.get(self, "type")
 
@@ -656,11 +668,6 @@ class DatabaseComponent(dict):
                  release_date: Optional[str] = None,
                  status: Optional[str] = None,
                  version: Optional[str] = None):
-        """
-        :param str id: ID of the database
-        :param str name: Name of the database
-        :param str status: Status of the database
-        """
         if id is not None:
             pulumi.set(__self__, "id", id)
         if name is not None:
@@ -675,17 +682,11 @@ class DatabaseComponent(dict):
     @property
     @pulumi.getter
     def id(self) -> Optional[str]:
-        """
-        ID of the database
-        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter
     def name(self) -> Optional[str]:
-        """
-        Name of the database
-        """
         return pulumi.get(self, "name")
 
     @property
@@ -696,9 +697,6 @@ class DatabaseComponent(dict):
     @property
     @pulumi.getter
     def status(self) -> Optional[str]:
-        """
-        Status of the database
-        """
         return pulumi.get(self, "status")
 
     @property
@@ -761,9 +759,6 @@ class DatabaseNode(dict):
                  location: Optional['outputs.DatabaseNodeLocation'] = None,
                  name: Optional[str] = None,
                  region: Optional['outputs.DatabaseNodeRegion'] = None):
-        """
-        :param str name: Name of the database
-        """
         if connection is not None:
             pulumi.set(__self__, "connection", connection)
         if extensions is not None:
@@ -793,9 +788,6 @@ class DatabaseNode(dict):
     @property
     @pulumi.getter
     def name(self) -> Optional[str]:
-        """
-        Name of the database
-        """
         return pulumi.get(self, "name")
 
     @property
@@ -950,9 +942,6 @@ class DatabaseNodeLocation(dict):
                  region: Optional[str] = None,
                  region_code: Optional[str] = None,
                  timezone: Optional[str] = None):
-        """
-        :param str name: Name of the database
-        """
         if city is not None:
             pulumi.set(__self__, "city", city)
         if code is not None:
@@ -1009,9 +998,6 @@ class DatabaseNodeLocation(dict):
     @property
     @pulumi.getter
     def name(self) -> Optional[str]:
-        """
-        Name of the database
-        """
         return pulumi.get(self, "name")
 
     @property
@@ -1061,9 +1047,6 @@ class DatabaseNodeRegion(dict):
                  code: Optional[str] = None,
                  name: Optional[str] = None,
                  parent: Optional[str] = None):
-        """
-        :param str name: Name of the database
-        """
         if active is not None:
             pulumi.set(__self__, "active", active)
         if availability_zones is not None:
@@ -1100,9 +1083,6 @@ class DatabaseNodeRegion(dict):
     @property
     @pulumi.getter
     def name(self) -> Optional[str]:
-        """
-        Name of the database
-        """
         return pulumi.get(self, "name")
 
     @property
@@ -1146,9 +1126,6 @@ class DatabaseRole(dict):
                  name: Optional[str] = None,
                  replication: Optional[bool] = None,
                  superuser: Optional[bool] = None):
-        """
-        :param str name: Name of the database
-        """
         if bypass_rls is not None:
             pulumi.set(__self__, "bypass_rls", bypass_rls)
         if connection_limit is not None:
@@ -1201,9 +1178,6 @@ class DatabaseRole(dict):
     @property
     @pulumi.getter
     def name(self) -> Optional[str]:
-        """
-        Name of the database
-        """
         return pulumi.get(self, "name")
 
     @property
@@ -1521,7 +1495,7 @@ class GetClustersClusterFirewallRuleResult(dict):
                  port: int,
                  sources: Sequence[str]):
         """
-        :param str name: IP address of the node
+        :param str name: Name of the firewall rule
         :param int port: Port for the firewall rule
         :param Sequence[str] sources: Sources for the firewall rule
         """
@@ -1533,7 +1507,7 @@ class GetClustersClusterFirewallRuleResult(dict):
     @pulumi.getter
     def name(self) -> str:
         """
-        IP address of the node
+        Name of the firewall rule
         """
         return pulumi.get(self, "name")
 
@@ -1565,10 +1539,10 @@ class GetClustersClusterNetworkResult(dict):
                  public_subnets: Sequence[str],
                  region: str):
         """
-        :param str cidr: CIDR of the AWS node group
+        :param str cidr: CIDR of the network
         :param bool external: Is the network external
         :param str external_id: External ID of the network
-        :param str name: IP address of the node
+        :param str name: Name of the firewall rule
         :param str region: Region of the network
         """
         pulumi.set(__self__, "cidr", cidr)
@@ -1583,7 +1557,7 @@ class GetClustersClusterNetworkResult(dict):
     @pulumi.getter
     def cidr(self) -> str:
         """
-        CIDR of the AWS node group
+        CIDR of the network
         """
         return pulumi.get(self, "cidr")
 
@@ -1607,7 +1581,7 @@ class GetClustersClusterNetworkResult(dict):
     @pulumi.getter
     def name(self) -> str:
         """
-        IP address of the node
+        Name of the firewall rule
         """
         return pulumi.get(self, "name")
 
@@ -1644,7 +1618,7 @@ class GetClustersClusterNodeResult(dict):
         """
         :param str availability_zone: Cloud provider availability zone name
         :param str instance_type: Instance type used for the node
-        :param str name: IP address of the node
+        :param str name: Name of the firewall rule
         :param str region: Region of the network
         :param int volume_iops: Volume IOPS of the node data volume
         :param int volume_size: Volume size of the node data volume
@@ -1679,7 +1653,7 @@ class GetClustersClusterNodeResult(dict):
     @pulumi.getter
     def name(self) -> str:
         """
-        IP address of the node
+        Name of the firewall rule
         """
         return pulumi.get(self, "name")
 
@@ -1742,21 +1716,21 @@ class GetDatabasesDatabaseResult(dict):
                  updated_at: str):
         """
         :param 'GetDatabasesDatabaseBackupsArgs' backups: Backup configuration for the database
-        :param str cluster_id: Updated at of the database
+        :param str cluster_id: ID of the cluster this database belongs to
         :param Sequence['GetDatabasesDatabaseComponentArgs'] components: Components of the database
-        :param str config_version: Config version of the database
-        :param str created_at: Created at of the database
+        :param str config_version: Configuration version of the database
+        :param str created_at: Creation timestamp of the database
         :param str domain: Domain of the database
         :param 'GetDatabasesDatabaseExtensionsArgs' extensions: Extensions configuration for the database
         :param str id: ID of the database
         :param str name: Name of the database
         :param Sequence['GetDatabasesDatabaseNodeArgs'] nodes: Nodes of the database
-        :param Sequence[str] options: Options for creating the database
-        :param str pg_version: Postgres version of the database
+        :param Sequence[str] options: Options for the database
+        :param str pg_version: PostgreSQL version of the database
         :param Sequence['GetDatabasesDatabaseRoleArgs'] roles: Roles in the database
         :param str status: Status of the database
-        :param int storage_used: Storage used of the database
-        :param str updated_at: Updated at of the database
+        :param int storage_used: Storage used by the database in bytes
+        :param str updated_at: Last update timestamp of the database
         """
         pulumi.set(__self__, "backups", backups)
         pulumi.set(__self__, "cluster_id", cluster_id)
@@ -1787,7 +1761,7 @@ class GetDatabasesDatabaseResult(dict):
     @pulumi.getter(name="clusterId")
     def cluster_id(self) -> str:
         """
-        Updated at of the database
+        ID of the cluster this database belongs to
         """
         return pulumi.get(self, "cluster_id")
 
@@ -1803,7 +1777,7 @@ class GetDatabasesDatabaseResult(dict):
     @pulumi.getter(name="configVersion")
     def config_version(self) -> str:
         """
-        Config version of the database
+        Configuration version of the database
         """
         return pulumi.get(self, "config_version")
 
@@ -1811,7 +1785,7 @@ class GetDatabasesDatabaseResult(dict):
     @pulumi.getter(name="createdAt")
     def created_at(self) -> str:
         """
-        Created at of the database
+        Creation timestamp of the database
         """
         return pulumi.get(self, "created_at")
 
@@ -1859,7 +1833,7 @@ class GetDatabasesDatabaseResult(dict):
     @pulumi.getter
     def options(self) -> Sequence[str]:
         """
-        Options for creating the database
+        Options for the database
         """
         return pulumi.get(self, "options")
 
@@ -1867,7 +1841,7 @@ class GetDatabasesDatabaseResult(dict):
     @pulumi.getter(name="pgVersion")
     def pg_version(self) -> str:
         """
-        Postgres version of the database
+        PostgreSQL version of the database
         """
         return pulumi.get(self, "pg_version")
 
@@ -1891,7 +1865,7 @@ class GetDatabasesDatabaseResult(dict):
     @pulumi.getter(name="storageUsed")
     def storage_used(self) -> int:
         """
-        Storage used of the database
+        Storage used by the database in bytes
         """
         return pulumi.get(self, "storage_used")
 
@@ -1899,7 +1873,7 @@ class GetDatabasesDatabaseResult(dict):
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> str:
         """
-        Updated at of the database
+        Last update timestamp of the database
         """
         return pulumi.get(self, "updated_at")
 
@@ -1941,8 +1915,8 @@ class GetDatabasesDatabaseBackupsConfigResult(dict):
                  repositories: Sequence['outputs.GetDatabasesDatabaseBackupsConfigRepositoryResult'],
                  schedules: Sequence['outputs.GetDatabasesDatabaseBackupsConfigScheduleResult']):
         """
-        :param str id: Id of the component
-        :param str node_name: Node name of the table
+        :param str id: Backup configuration ID
+        :param str node_name: Node name
         :param Sequence['GetDatabasesDatabaseBackupsConfigRepositoryArgs'] repositories: Backup repositories
         :param Sequence['GetDatabasesDatabaseBackupsConfigScheduleArgs'] schedules: Backup schedules
         """
@@ -1955,7 +1929,7 @@ class GetDatabasesDatabaseBackupsConfigResult(dict):
     @pulumi.getter
     def id(self) -> str:
         """
-        Id of the component
+        Backup configuration ID
         """
         return pulumi.get(self, "id")
 
@@ -1963,7 +1937,7 @@ class GetDatabasesDatabaseBackupsConfigResult(dict):
     @pulumi.getter(name="nodeName")
     def node_name(self) -> str:
         """
-        Node name of the table
+        Node name
         """
         return pulumi.get(self, "node_name")
 
@@ -2002,7 +1976,7 @@ class GetDatabasesDatabaseBackupsConfigRepositoryResult(dict):
                  s3_region: str,
                  type: str):
         """
-        :param str id: Id of the component
+        :param str id: Backup configuration ID
         """
         pulumi.set(__self__, "azure_account", azure_account)
         pulumi.set(__self__, "azure_container", azure_container)
@@ -2058,7 +2032,7 @@ class GetDatabasesDatabaseBackupsConfigRepositoryResult(dict):
     @pulumi.getter
     def id(self) -> str:
         """
-        Id of the component
+        Backup configuration ID
         """
         return pulumi.get(self, "id")
 
@@ -2100,7 +2074,7 @@ class GetDatabasesDatabaseBackupsConfigScheduleResult(dict):
                  id: str,
                  type: str):
         """
-        :param str id: Id of the component
+        :param str id: Backup configuration ID
         """
         pulumi.set(__self__, "cron_expression", cron_expression)
         pulumi.set(__self__, "id", id)
@@ -2115,7 +2089,7 @@ class GetDatabasesDatabaseBackupsConfigScheduleResult(dict):
     @pulumi.getter
     def id(self) -> str:
         """
-        Id of the component
+        Backup configuration ID
         """
         return pulumi.get(self, "id")
 
@@ -2134,11 +2108,11 @@ class GetDatabasesDatabaseComponentResult(dict):
                  status: str,
                  version: str):
         """
-        :param str id: Id of the component
-        :param str name: Name of the component
-        :param str release_date: Release date of the component
-        :param str status: Status of the component
-        :param str version: Version of the component
+        :param str id: Backup configuration ID
+        :param str name: Component name
+        :param str release_date: Component release date
+        :param str status: Component status
+        :param str version: Component version
         """
         pulumi.set(__self__, "id", id)
         pulumi.set(__self__, "name", name)
@@ -2150,7 +2124,7 @@ class GetDatabasesDatabaseComponentResult(dict):
     @pulumi.getter
     def id(self) -> str:
         """
-        Id of the component
+        Backup configuration ID
         """
         return pulumi.get(self, "id")
 
@@ -2158,7 +2132,7 @@ class GetDatabasesDatabaseComponentResult(dict):
     @pulumi.getter
     def name(self) -> str:
         """
-        Name of the component
+        Component name
         """
         return pulumi.get(self, "name")
 
@@ -2166,7 +2140,7 @@ class GetDatabasesDatabaseComponentResult(dict):
     @pulumi.getter(name="releaseDate")
     def release_date(self) -> str:
         """
-        Release date of the component
+        Component release date
         """
         return pulumi.get(self, "release_date")
 
@@ -2174,7 +2148,7 @@ class GetDatabasesDatabaseComponentResult(dict):
     @pulumi.getter
     def status(self) -> str:
         """
-        Status of the component
+        Component status
         """
         return pulumi.get(self, "status")
 
@@ -2182,7 +2156,7 @@ class GetDatabasesDatabaseComponentResult(dict):
     @pulumi.getter
     def version(self) -> str:
         """
-        Version of the component
+        Component version
         """
         return pulumi.get(self, "version")
 
@@ -2194,9 +2168,9 @@ class GetDatabasesDatabaseExtensionsResult(dict):
                  availables: Sequence[str],
                  requesteds: Sequence[str]):
         """
-        :param bool auto_manage: Auto manage of the extension
-        :param Sequence[str] availables: Available of the extension
-        :param Sequence[str] requesteds: Requested of the extension
+        :param bool auto_manage: Auto-manage extensions
+        :param Sequence[str] availables: Available extensions
+        :param Sequence[str] requesteds: Requested extensions
         """
         pulumi.set(__self__, "auto_manage", auto_manage)
         pulumi.set(__self__, "availables", availables)
@@ -2206,7 +2180,7 @@ class GetDatabasesDatabaseExtensionsResult(dict):
     @pulumi.getter(name="autoManage")
     def auto_manage(self) -> bool:
         """
-        Auto manage of the extension
+        Auto-manage extensions
         """
         return pulumi.get(self, "auto_manage")
 
@@ -2214,7 +2188,7 @@ class GetDatabasesDatabaseExtensionsResult(dict):
     @pulumi.getter
     def availables(self) -> Sequence[str]:
         """
-        Available of the extension
+        Available extensions
         """
         return pulumi.get(self, "availables")
 
@@ -2222,7 +2196,7 @@ class GetDatabasesDatabaseExtensionsResult(dict):
     @pulumi.getter
     def requesteds(self) -> Sequence[str]:
         """
-        Requested of the extension
+        Requested extensions
         """
         return pulumi.get(self, "requesteds")
 
@@ -2237,10 +2211,10 @@ class GetDatabasesDatabaseNodeResult(dict):
                  region: 'outputs.GetDatabasesDatabaseNodeRegionResult'):
         """
         :param 'GetDatabasesDatabaseNodeConnectionArgs' connection: Node connection details
-        :param 'GetDatabasesDatabaseNodeExtensionsArgs' extensions: Node extensions
+        :param 'GetDatabasesDatabaseNodeExtensionsArgs' extensions: Extensions configuration for the database
         :param 'GetDatabasesDatabaseNodeLocationArgs' location: Node location
-        :param str name: Name of the component
-        :param 'GetDatabasesDatabaseNodeRegionArgs' region: Region of the location
+        :param str name: Component name
+        :param 'GetDatabasesDatabaseNodeRegionArgs' region: Node region
         """
         pulumi.set(__self__, "connection", connection)
         pulumi.set(__self__, "extensions", extensions)
@@ -2260,7 +2234,7 @@ class GetDatabasesDatabaseNodeResult(dict):
     @pulumi.getter
     def extensions(self) -> 'outputs.GetDatabasesDatabaseNodeExtensionsResult':
         """
-        Node extensions
+        Extensions configuration for the database
         """
         return pulumi.get(self, "extensions")
 
@@ -2276,7 +2250,7 @@ class GetDatabasesDatabaseNodeResult(dict):
     @pulumi.getter
     def name(self) -> str:
         """
-        Name of the component
+        Component name
         """
         return pulumi.get(self, "name")
 
@@ -2284,7 +2258,7 @@ class GetDatabasesDatabaseNodeResult(dict):
     @pulumi.getter
     def region(self) -> 'outputs.GetDatabasesDatabaseNodeRegionResult':
         """
-        Region of the location
+        Node region
         """
         return pulumi.get(self, "region")
 
@@ -2300,16 +2274,6 @@ class GetDatabasesDatabaseNodeConnectionResult(dict):
                  password: str,
                  port: int,
                  username: str):
-        """
-        :param str database: Database of the node
-        :param str external_ip_address: External IP of the node
-        :param str host: Host of the node
-        :param str internal_host: Internal Host of the node
-        :param str internal_ip_address: Internal IP of the node
-        :param str password: Password of the node
-        :param int port: Port of the node
-        :param str username: Username of the node
-        """
         pulumi.set(__self__, "database", database)
         pulumi.set(__self__, "external_ip_address", external_ip_address)
         pulumi.set(__self__, "host", host)
@@ -2322,65 +2286,41 @@ class GetDatabasesDatabaseNodeConnectionResult(dict):
     @property
     @pulumi.getter
     def database(self) -> str:
-        """
-        Database of the node
-        """
         return pulumi.get(self, "database")
 
     @property
     @pulumi.getter(name="externalIpAddress")
     def external_ip_address(self) -> str:
-        """
-        External IP of the node
-        """
         return pulumi.get(self, "external_ip_address")
 
     @property
     @pulumi.getter
     def host(self) -> str:
-        """
-        Host of the node
-        """
         return pulumi.get(self, "host")
 
     @property
     @pulumi.getter(name="internalHost")
     def internal_host(self) -> str:
-        """
-        Internal Host of the node
-        """
         return pulumi.get(self, "internal_host")
 
     @property
     @pulumi.getter(name="internalIpAddress")
     def internal_ip_address(self) -> str:
-        """
-        Internal IP of the node
-        """
         return pulumi.get(self, "internal_ip_address")
 
     @property
     @pulumi.getter
     def password(self) -> str:
-        """
-        Password of the node
-        """
         return pulumi.get(self, "password")
 
     @property
     @pulumi.getter
     def port(self) -> int:
-        """
-        Port of the node
-        """
         return pulumi.get(self, "port")
 
     @property
     @pulumi.getter
     def username(self) -> str:
-        """
-        Username of the node
-        """
         return pulumi.get(self, "username")
 
 
@@ -2389,9 +2329,6 @@ class GetDatabasesDatabaseNodeExtensionsResult(dict):
     def __init__(__self__, *,
                  errors: Mapping[str, str],
                  installeds: Sequence[str]):
-        """
-        :param Sequence[str] installeds: List of installed extensions
-        """
         pulumi.set(__self__, "errors", errors)
         pulumi.set(__self__, "installeds", installeds)
 
@@ -2403,9 +2340,6 @@ class GetDatabasesDatabaseNodeExtensionsResult(dict):
     @property
     @pulumi.getter
     def installeds(self) -> Sequence[str]:
-        """
-        List of installed extensions
-        """
         return pulumi.get(self, "installeds")
 
 
@@ -2424,17 +2358,7 @@ class GetDatabasesDatabaseNodeLocationResult(dict):
                  region_code: str,
                  timezone: str):
         """
-        :param str city: City of the location
-        :param str code: Code of the location
-        :param str country: Country of the location
-        :param float latitude: Latitude of the location
-        :param float longitude: Longitude of the location
-        :param str metro_code: Metro code of the location
-        :param str name: Name of the component
-        :param str postal_code: Postal code of the location
-        :param str region: Region of the location
-        :param str region_code: Region code of the location
-        :param str timezone: Timezone of the location
+        :param str name: Component name
         """
         pulumi.set(__self__, "city", city)
         pulumi.set(__self__, "code", code)
@@ -2451,89 +2375,59 @@ class GetDatabasesDatabaseNodeLocationResult(dict):
     @property
     @pulumi.getter
     def city(self) -> str:
-        """
-        City of the location
-        """
         return pulumi.get(self, "city")
 
     @property
     @pulumi.getter
     def code(self) -> str:
-        """
-        Code of the location
-        """
         return pulumi.get(self, "code")
 
     @property
     @pulumi.getter
     def country(self) -> str:
-        """
-        Country of the location
-        """
         return pulumi.get(self, "country")
 
     @property
     @pulumi.getter
     def latitude(self) -> float:
-        """
-        Latitude of the location
-        """
         return pulumi.get(self, "latitude")
 
     @property
     @pulumi.getter
     def longitude(self) -> float:
-        """
-        Longitude of the location
-        """
         return pulumi.get(self, "longitude")
 
     @property
     @pulumi.getter(name="metroCode")
     def metro_code(self) -> str:
-        """
-        Metro code of the location
-        """
         return pulumi.get(self, "metro_code")
 
     @property
     @pulumi.getter
     def name(self) -> str:
         """
-        Name of the component
+        Component name
         """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter(name="postalCode")
     def postal_code(self) -> str:
-        """
-        Postal code of the location
-        """
         return pulumi.get(self, "postal_code")
 
     @property
     @pulumi.getter
     def region(self) -> str:
-        """
-        Region of the location
-        """
         return pulumi.get(self, "region")
 
     @property
     @pulumi.getter(name="regionCode")
     def region_code(self) -> str:
-        """
-        Region code of the location
-        """
         return pulumi.get(self, "region_code")
 
     @property
     @pulumi.getter
     def timezone(self) -> str:
-        """
-        Timezone of the location
-        """
         return pulumi.get(self, "timezone")
 
 
@@ -2547,12 +2441,7 @@ class GetDatabasesDatabaseNodeRegionResult(dict):
                  name: str,
                  parent: str):
         """
-        :param bool active: Active status of the region
-        :param Sequence[str] availability_zones: Availability zones of the region
-        :param str cloud: Cloud provider of the region
-        :param str code: Code of the location
-        :param str name: Name of the component
-        :param str parent: Parent region
+        :param str name: Component name
         """
         pulumi.set(__self__, "active", active)
         pulumi.set(__self__, "availability_zones", availability_zones)
@@ -2564,49 +2453,34 @@ class GetDatabasesDatabaseNodeRegionResult(dict):
     @property
     @pulumi.getter
     def active(self) -> bool:
-        """
-        Active status of the region
-        """
         return pulumi.get(self, "active")
 
     @property
     @pulumi.getter(name="availabilityZones")
     def availability_zones(self) -> Sequence[str]:
-        """
-        Availability zones of the region
-        """
         return pulumi.get(self, "availability_zones")
 
     @property
     @pulumi.getter
     def cloud(self) -> str:
-        """
-        Cloud provider of the region
-        """
         return pulumi.get(self, "cloud")
 
     @property
     @pulumi.getter
     def code(self) -> str:
-        """
-        Code of the location
-        """
         return pulumi.get(self, "code")
 
     @property
     @pulumi.getter
     def name(self) -> str:
         """
-        Name of the component
+        Component name
         """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def parent(self) -> str:
-        """
-        Parent region
-        """
         return pulumi.get(self, "parent")
 
 
@@ -2623,15 +2497,7 @@ class GetDatabasesDatabaseRoleResult(dict):
                  replication: bool,
                  superuser: bool):
         """
-        :param bool bypass_rls: Bypass RLS
-        :param int connection_limit: Connection limit
-        :param bool create_db: Create database
-        :param bool create_role: Create role
-        :param bool inherit: Inherit
-        :param bool login: Login
-        :param str name: Name of the component
-        :param bool replication: Replication
-        :param bool superuser: Superuser
+        :param str name: Component name
         """
         pulumi.set(__self__, "bypass_rls", bypass_rls)
         pulumi.set(__self__, "connection_limit", connection_limit)
@@ -2646,73 +2512,49 @@ class GetDatabasesDatabaseRoleResult(dict):
     @property
     @pulumi.getter(name="bypassRls")
     def bypass_rls(self) -> bool:
-        """
-        Bypass RLS
-        """
         return pulumi.get(self, "bypass_rls")
 
     @property
     @pulumi.getter(name="connectionLimit")
     def connection_limit(self) -> int:
-        """
-        Connection limit
-        """
         return pulumi.get(self, "connection_limit")
 
     @property
     @pulumi.getter(name="createDb")
     def create_db(self) -> bool:
-        """
-        Create database
-        """
         return pulumi.get(self, "create_db")
 
     @property
     @pulumi.getter(name="createRole")
     def create_role(self) -> bool:
-        """
-        Create role
-        """
         return pulumi.get(self, "create_role")
 
     @property
     @pulumi.getter
     def inherit(self) -> bool:
-        """
-        Inherit
-        """
         return pulumi.get(self, "inherit")
 
     @property
     @pulumi.getter
     def login(self) -> bool:
-        """
-        Login
-        """
         return pulumi.get(self, "login")
 
     @property
     @pulumi.getter
     def name(self) -> str:
         """
-        Name of the component
+        Component name
         """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def replication(self) -> bool:
-        """
-        Replication
-        """
         return pulumi.get(self, "replication")
 
     @property
     @pulumi.getter
     def superuser(self) -> bool:
-        """
-        Superuser
-        """
         return pulumi.get(self, "superuser")
 
 

@@ -22,7 +22,7 @@ namespace Pgedge.Pgedge.Outputs
         public readonly string GcsBucket;
         public readonly string GcsEndpoint;
         /// <summary>
-        /// Id of the component
+        /// Backup configuration ID
         /// </summary>
         public readonly string Id;
         public readonly int RetentionFull;

@@ -15,6 +15,9 @@
             "pgedge_cluster": {
                 "current": "pgedge:index/cluster:Cluster",
                 "fields": {
+                    "backup_store_ids": {
+                        "maxItemsOne": false
+                    },
                     "firewall_rules": {
                         "maxItemsOne": false,
                         "elem": {
@@ -29,6 +32,9 @@
                         "maxItemsOne": false,
                         "elem": {
                             "fields": {
+                                "private_subnets": {
+                                    "maxItemsOne": false
+                                },
                                 "public_subnets": {
                                     "maxItemsOne": false
                                 }
@@ -281,6 +287,8 @@
         },
         "renamedProperties": {
             "pgedge:index/ClusterNetwork:ClusterNetwork": {
+                "externalId": "external_id",
+                "privateSubnets": "private_subnets",
                 "publicSubnets": "public_subnets"
             },
             "pgedge:index/ClusterNode:ClusterNode": {
@@ -355,10 +363,12 @@
                 "updatedAt": "updated_at"
             },
             "pgedge:index/cluster:Cluster": {
+                "backupStoreIds": "backup_store_ids",
                 "cloudAccountId": "cloud_account_id",
                 "createdAt": "created_at",
                 "firewallRules": "firewall_rules",
                 "nodeLocation": "node_location",
+                "resourceTags": "resource_tags",
                 "sshKeyId": "ssh_key_id"
             },
             "pgedge:index/database:Database": {

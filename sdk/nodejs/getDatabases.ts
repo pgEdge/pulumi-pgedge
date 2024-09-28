@@ -7,7 +7,7 @@ import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
- * Interface with the pgEdge service API.
+ * Data source for pgEdge databases
  */
 export function getDatabases(opts?: pulumi.InvokeOptions): Promise<GetDatabasesResult> {
 
@@ -27,7 +27,7 @@ export interface GetDatabasesResult {
     readonly id: string;
 }
 /**
- * Interface with the pgEdge service API.
+ * Data source for pgEdge databases
  */
 export function getDatabasesOutput(opts?: pulumi.InvokeOptions): pulumi.Output<GetDatabasesResult> {
     return pulumi.output(getDatabases(opts))

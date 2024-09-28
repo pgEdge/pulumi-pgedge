@@ -15,11 +15,11 @@ namespace Pgedge.Pgedge.Outputs
     public sealed class GetDatabasesDatabaseBackupsConfigResult
     {
         /// <summary>
-        /// Id of the component
+        /// Backup configuration ID
         /// </summary>
         public readonly string Id;
         /// <summary>
-        /// Node name of the table
+        /// Node name
         /// </summary>
         public readonly string NodeName;
         /// <summary>

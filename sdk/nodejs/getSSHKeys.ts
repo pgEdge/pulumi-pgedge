@@ -6,6 +6,9 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
+/**
+ * Data source for pgEdge SSH keys.
+ */
 export function getSSHKeys(opts?: pulumi.InvokeOptions): Promise<GetSSHKeysResult> {
 
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -23,6 +26,9 @@ export interface GetSSHKeysResult {
     readonly id: string;
     readonly sshKeys: outputs.GetSSHKeysSshKey[];
 }
+/**
+ * Data source for pgEdge SSH keys.
+ */
 export function getSSHKeysOutput(opts?: pulumi.InvokeOptions): pulumi.Output<GetSSHKeysResult> {
     return pulumi.output(getSSHKeys(opts))
 }

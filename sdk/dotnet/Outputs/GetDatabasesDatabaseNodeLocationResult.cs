@@ -14,49 +14,19 @@ namespace Pgedge.Pgedge.Outputs
     [OutputType]
     public sealed class GetDatabasesDatabaseNodeLocationResult
     {
-        /// <summary>
-        /// City of the location
-        /// </summary>
         public readonly string City;
-        /// <summary>
-        /// Code of the location
-        /// </summary>
         public readonly string Code;
-        /// <summary>
-        /// Country of the location
-        /// </summary>
         public readonly string Country;
-        /// <summary>
-        /// Latitude of the location
-        /// </summary>
         public readonly double Latitude;
-        /// <summary>
-        /// Longitude of the location
-        /// </summary>
         public readonly double Longitude;
-        /// <summary>
-        /// Metro code of the location
-        /// </summary>
         public readonly string MetroCode;
         /// <summary>
-        /// Name of the component
+        /// Component name
         /// </summary>
         public readonly string Name;
-        /// <summary>
-        /// Postal code of the location
-        /// </summary>
         public readonly string PostalCode;
-        /// <summary>
-        /// Region of the location
-        /// </summary>
         public readonly string Region;
-        /// <summary>
-        /// Region code of the location
-        /// </summary>
         public readonly string RegionCode;
-        /// <summary>
-        /// Timezone of the location
-        /// </summary>
         public readonly string Timezone;
 
         [OutputConstructor]

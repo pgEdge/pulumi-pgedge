@@ -12,7 +12,7 @@
     "license": "Apache-2.0",
     "attribution": "This Pulumi package is based on the [`pgedge` Terraform Provider](https://github.com/pgEdge/terraform-provider-pgedge).",
     "repository": "https://github.com/pgEdge/pulumi-pgedge",
-    "logoUrl": "https://www.pgedge.com/wp-content/uploads/2022/10/pgedge-logo-light.svg",
+    "logoUrl": "https://pgedge-public-assets.s3.amazonaws.com/product/images/pgedge_mark.svg",
     "pluginDownloadURL": "github://api.github.com/pgEdge/pulumi-pgedge",
     "publisher": "pgEdge",
     "meta": {
@@ -72,19 +72,16 @@
         "pgedge:index/ClusterFirewallRule:ClusterFirewallRule": {
             "properties": {
                 "name": {
-                    "type": "string",
-                    "description": "Name of the network\n"
+                    "type": "string"
                 },
                 "port": {
-                    "type": "integer",
-                    "description": "Port whose traffic is allowed\n"
+                    "type": "integer"
                 },
                 "sources": {
                     "type": "array",
                     "items": {
                         "type": "string"
-                    },
-                    "description": "CIDRs and/or IP addresses allowed\n"
+                    }
                 }
             },
             "type": "object",
@@ -98,13 +95,33 @@
             "properties": {
                 "cidr": {
                     "type": "string",
-                    "description": "CIDR range for the network\n"
+                    "description": "CIDR of the network\n"
+                },
+                "external": {
+                    "type": "boolean",
+                    "description": "Whether the network is external\n"
+                },
+                "externalId": {
+                    "type": "string",
+                    "description": "External ID of the network\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the network\n"
+                },
+                "privateSubnets": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of private subnets\n"
                 },
                 "publicSubnets": {
                     "type": "array",
                     "items": {
                         "type": "string"
-                    }
+                    },
+                    "description": "List of public subnets\n"
                 },
                 "region": {
                     "type": "string",
@@ -116,37 +133,43 @@
                 "cidr",
                 "publicSubnets",
                 "region"
-            ]
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "cidr",
+                        "external",
+                        "externalId",
+                        "name",
+                        "privateSubnets",
+                        "publicSubnets",
+                        "region"
+                    ]
+                }
+            }
         },
         "pgedge:index/ClusterNode:ClusterNode": {
             "properties": {
                 "availabilityZone": {
-                    "type": "string",
-                    "description": "Cloud provider availability zone name\n"
+                    "type": "string"
                 },
                 "instanceType": {
-                    "type": "string",
-                    "description": "Instance type used for the node\n"
+                    "type": "string"
                 },
                 "name": {
-                    "type": "string",
-                    "description": "Node name\n"
+                    "type": "string"
                 },
                 "region": {
-                    "type": "string",
-                    "description": "Cloud provider region\n"
+                    "type": "string"
                 },
                 "volumeIops": {
-                    "type": "integer",
-                    "description": "Volume IOPS of the node data volume\n"
+                    "type": "integer"
                 },
                 "volumeSize": {
-                    "type": "integer",
-                    "description": "Volume size of the node data volume\n"
+                    "type": "integer"
                 },
                 "volumeType": {
-                    "type": "string",
-                    "description": "Volume type of the node data volume\n"
+                    "type": "string"
                 }
             },
             "type": "object",
@@ -197,7 +220,7 @@
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "ID of the database\n"
+                    "description": "Unique identifier for the backup config.\n"
                 },
                 "nodeName": {
                     "type": "string",
@@ -262,7 +285,7 @@
                 },
                 "id": {
                     "type": "string",
-                    "description": "ID of the database\n"
+                    "description": "Unique identifier for the backup config.\n"
                 },
                 "retentionFull": {
                     "type": "integer",
@@ -319,11 +342,11 @@
                 },
                 "id": {
                     "type": "string",
-                    "description": "ID of the database\n"
+                    "description": "Unique identifier for the backup config.\n"
                 },
                 "type": {
                     "type": "string",
-                    "description": "Type of the schedule.\n"
+                    "description": "Type of the repository.\n"
                 }
             },
             "type": "object",
@@ -340,19 +363,16 @@
         "pgedge:index/DatabaseComponent:DatabaseComponent": {
             "properties": {
                 "id": {
-                    "type": "string",
-                    "description": "ID of the database\n"
+                    "type": "string"
                 },
                 "name": {
-                    "type": "string",
-                    "description": "Name of the database\n"
+                    "type": "string"
                 },
                 "releaseDate": {
                     "type": "string"
                 },
                 "status": {
-                    "type": "string",
-                    "description": "Status of the database\n"
+                    "type": "string"
                 },
                 "version": {
                     "type": "string"
@@ -412,8 +432,7 @@
                     "$ref": "#/types/pgedge:index/DatabaseNodeLocation:DatabaseNodeLocation"
                 },
                 "name": {
-                    "type": "string",
-                    "description": "Name of the database\n"
+                    "type": "string"
                 },
                 "region": {
                     "$ref": "#/types/pgedge:index/DatabaseNodeRegion:DatabaseNodeRegion"
@@ -521,8 +540,7 @@
                     "type": "string"
                 },
                 "name": {
-                    "type": "string",
-                    "description": "Name of the database\n"
+                    "type": "string"
                 },
                 "postalCode": {
                     "type": "string"
@@ -574,8 +592,7 @@
                     "type": "string"
                 },
                 "name": {
-                    "type": "string",
-                    "description": "Name of the database\n"
+                    "type": "string"
                 },
                 "parent": {
                     "type": "string"
@@ -616,8 +633,7 @@
                     "type": "boolean"
                 },
                 "name": {
-                    "type": "string",
-                    "description": "Name of the database\n"
+                    "type": "string"
                 },
                 "replication": {
                     "type": "boolean"
@@ -847,7 +863,7 @@
             "properties": {
                 "name": {
                     "type": "string",
-                    "description": "IP address of the node\n"
+                    "description": "Name of the firewall rule\n"
                 },
                 "port": {
                     "type": "integer",
@@ -877,7 +893,7 @@
             "properties": {
                 "cidr": {
                     "type": "string",
-                    "description": "CIDR of the AWS node group\n"
+                    "description": "CIDR of the network\n"
                 },
                 "external": {
                     "type": "boolean",
@@ -889,7 +905,7 @@
                 },
                 "name": {
                     "type": "string",
-                    "description": "IP address of the node\n"
+                    "description": "Name of the firewall rule\n"
                 },
                 "privateSubnets": {
                     "type": "array",
@@ -936,7 +952,7 @@
                 },
                 "name": {
                     "type": "string",
-                    "description": "IP address of the node\n"
+                    "description": "Name of the firewall rule\n"
                 },
                 "options": {
                     "type": "array",
@@ -986,7 +1002,7 @@
                 },
                 "clusterId": {
                     "type": "string",
-                    "description": "Updated at of the database\n"
+                    "description": "ID of the cluster this database belongs to\n"
                 },
                 "components": {
                     "type": "array",
@@ -997,11 +1013,11 @@
                 },
                 "configVersion": {
                     "type": "string",
-                    "description": "Config version of the database\n"
+                    "description": "Configuration version of the database\n"
                 },
                 "createdAt": {
                     "type": "string",
-                    "description": "Created at of the database\n"
+                    "description": "Creation timestamp of the database\n"
                 },
                 "domain": {
                     "type": "string",
@@ -1031,11 +1047,11 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "Options for creating the database\n"
+                    "description": "Options for the database\n"
                 },
                 "pgVersion": {
                     "type": "string",
-                    "description": "Postgres version of the database\n"
+                    "description": "PostgreSQL version of the database\n"
                 },
                 "roles": {
                     "type": "array",
@@ -1050,11 +1066,11 @@
                 },
                 "storageUsed": {
                     "type": "integer",
-                    "description": "Storage used of the database\n"
+                    "description": "Storage used by the database in bytes\n"
                 },
                 "updatedAt": {
                     "type": "string",
-                    "description": "Updated at of the database\n"
+                    "description": "Last update timestamp of the database\n"
                 }
             },
             "type": "object",
@@ -1111,11 +1127,11 @@
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "Id of the component\n"
+                    "description": "Backup configuration ID\n"
                 },
                 "nodeName": {
                     "type": "string",
-                    "description": "Node name of the table\n"
+                    "description": "Node name\n"
                 },
                 "repositories": {
                     "type": "array",
@@ -1170,7 +1186,7 @@
                 },
                 "id": {
                     "type": "string",
-                    "description": "Id of the component\n"
+                    "description": "Backup configuration ID\n"
                 },
                 "retentionFull": {
                     "type": "integer"
@@ -1221,7 +1237,7 @@
                 },
                 "id": {
                     "type": "string",
-                    "description": "Id of the component\n"
+                    "description": "Backup configuration ID\n"
                 },
                 "type": {
                     "type": "string"
@@ -1243,23 +1259,23 @@
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "Id of the component\n"
+                    "description": "Backup configuration ID\n"
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name of the component\n"
+                    "description": "Component name\n"
                 },
                 "releaseDate": {
                     "type": "string",
-                    "description": "Release date of the component\n"
+                    "description": "Component release date\n"
                 },
                 "status": {
                     "type": "string",
-                    "description": "Status of the component\n"
+                    "description": "Component status\n"
                 },
                 "version": {
                     "type": "string",
-                    "description": "Version of the component\n"
+                    "description": "Component version\n"
                 }
             },
             "type": "object",
@@ -1280,21 +1296,21 @@
             "properties": {
                 "autoManage": {
                     "type": "boolean",
-                    "description": "Auto manage of the extension\n"
+                    "description": "Auto-manage extensions\n"
                 },
                 "availables": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     },
-                    "description": "Available of the extension\n"
+                    "description": "Available extensions\n"
                 },
                 "requesteds": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     },
-                    "description": "Requested of the extension\n"
+                    "description": "Requested extensions\n"
                 }
             },
             "type": "object",
@@ -1317,7 +1333,7 @@
                 },
                 "extensions": {
                     "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodeExtensions:getDatabasesDatabaseNodeExtensions",
-                    "description": "Node extensions\n"
+                    "description": "Extensions configuration for the database\n"
                 },
                 "location": {
                     "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodeLocation:getDatabasesDatabaseNodeLocation",
@@ -1325,11 +1341,11 @@
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name of the component\n"
+                    "description": "Component name\n"
                 },
                 "region": {
                     "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodeRegion:getDatabasesDatabaseNodeRegion",
-                    "description": "Region of the location\n"
+                    "description": "Node region\n"
                 }
             },
             "type": "object",
@@ -1349,36 +1365,28 @@
         "pgedge:index/getDatabasesDatabaseNodeConnection:getDatabasesDatabaseNodeConnection": {
             "properties": {
                 "database": {
-                    "type": "string",
-                    "description": "Database of the node\n"
+                    "type": "string"
                 },
                 "externalIpAddress": {
-                    "type": "string",
-                    "description": "External IP of the node\n"
+                    "type": "string"
                 },
                 "host": {
-                    "type": "string",
-                    "description": "Host of the node\n"
+                    "type": "string"
                 },
                 "internalHost": {
-                    "type": "string",
-                    "description": "Internal Host of the node\n"
+                    "type": "string"
                 },
                 "internalIpAddress": {
-                    "type": "string",
-                    "description": "Internal IP of the node\n"
+                    "type": "string"
                 },
                 "password": {
-                    "type": "string",
-                    "description": "Password of the node\n"
+                    "type": "string"
                 },
                 "port": {
-                    "type": "integer",
-                    "description": "Port of the node\n"
+                    "type": "integer"
                 },
                 "username": {
-                    "type": "string",
-                    "description": "Username of the node\n"
+                    "type": "string"
                 }
             },
             "type": "object",
@@ -1410,8 +1418,7 @@
                     "type": "array",
                     "items": {
                         "type": "string"
-                    },
-                    "description": "List of installed extensions\n"
+                    }
                 }
             },
             "type": "object",
@@ -1428,48 +1435,38 @@
         "pgedge:index/getDatabasesDatabaseNodeLocation:getDatabasesDatabaseNodeLocation": {
             "properties": {
                 "city": {
-                    "type": "string",
-                    "description": "City of the location\n"
+                    "type": "string"
                 },
                 "code": {
-                    "type": "string",
-                    "description": "Code of the location\n"
+                    "type": "string"
                 },
                 "country": {
-                    "type": "string",
-                    "description": "Country of the location\n"
+                    "type": "string"
                 },
                 "latitude": {
-                    "type": "number",
-                    "description": "Latitude of the location\n"
+                    "type": "number"
                 },
                 "longitude": {
-                    "type": "number",
-                    "description": "Longitude of the location\n"
+                    "type": "number"
                 },
                 "metroCode": {
-                    "type": "string",
-                    "description": "Metro code of the location\n"
+                    "type": "string"
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name of the component\n"
+                    "description": "Component name\n"
                 },
                 "postalCode": {
-                    "type": "string",
-                    "description": "Postal code of the location\n"
+                    "type": "string"
                 },
                 "region": {
-                    "type": "string",
-                    "description": "Region of the location\n"
+                    "type": "string"
                 },
                 "regionCode": {
-                    "type": "string",
-                    "description": "Region code of the location\n"
+                    "type": "string"
                 },
                 "timezone": {
-                    "type": "string",
-                    "description": "Timezone of the location\n"
+                    "type": "string"
                 }
             },
             "type": "object",
@@ -1495,31 +1492,26 @@
         "pgedge:index/getDatabasesDatabaseNodeRegion:getDatabasesDatabaseNodeRegion": {
             "properties": {
                 "active": {
-                    "type": "boolean",
-                    "description": "Active status of the region\n"
+                    "type": "boolean"
                 },
                 "availabilityZones": {
                     "type": "array",
                     "items": {
                         "type": "string"
-                    },
-                    "description": "Availability zones of the region\n"
+                    }
                 },
                 "cloud": {
-                    "type": "string",
-                    "description": "Cloud provider of the region\n"
+                    "type": "string"
                 },
                 "code": {
-                    "type": "string",
-                    "description": "Code of the location\n"
+                    "type": "string"
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name of the component\n"
+                    "description": "Component name\n"
                 },
                 "parent": {
-                    "type": "string",
-                    "description": "Parent region\n"
+                    "type": "string"
                 }
             },
             "type": "object",
@@ -1540,40 +1532,32 @@
         "pgedge:index/getDatabasesDatabaseRole:getDatabasesDatabaseRole": {
             "properties": {
                 "bypassRls": {
-                    "type": "boolean",
-                    "description": "Bypass RLS\n"
+                    "type": "boolean"
                 },
                 "connectionLimit": {
-                    "type": "integer",
-                    "description": "Connection limit\n"
+                    "type": "integer"
                 },
                 "createDb": {
-                    "type": "boolean",
-                    "description": "Create database\n"
+                    "type": "boolean"
                 },
                 "createRole": {
-                    "type": "boolean",
-                    "description": "Create role\n"
+                    "type": "boolean"
                 },
                 "inherit": {
-                    "type": "boolean",
-                    "description": "Inherit\n"
+                    "type": "boolean"
                 },
                 "login": {
-                    "type": "boolean",
-                    "description": "Login\n"
+                    "type": "boolean"
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name of the component\n"
+                    "description": "Component name\n"
                 },
                 "replication": {
-                    "type": "boolean",
-                    "description": "Replication\n"
+                    "type": "boolean"
                 },
                 "superuser": {
-                    "type": "boolean",
-                    "description": "Superuser\n"
+                    "type": "boolean"
                 }
             },
             "type": "object",
@@ -1691,6 +1675,7 @@
                 "createdAt",
                 "name",
                 "properties",
+                "region",
                 "status",
                 "updatedAt"
             ],
@@ -1706,7 +1691,8 @@
                 }
             },
             "requiredInputs": [
-                "cloudAccountId"
+                "cloudAccountId",
+                "region"
             ],
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering BackupStore resources.\n",
@@ -1829,15 +1815,22 @@
             }
         },
         "pgedge:index/cluster:Cluster": {
-            "description": "Interface with the pgEdge service API for clusters.\n",
             "properties": {
+                "backupStoreIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of backup store IDs to associate with the cluster\n"
+                },
+                "capacity": {
+                    "type": "integer"
+                },
                 "cloudAccountId": {
-                    "type": "string",
-                    "description": "ID of the target cloud account\n"
+                    "type": "string"
                 },
                 "createdAt": {
-                    "type": "string",
-                    "description": "Creation time of the cluster\n"
+                    "type": "string"
                 },
                 "firewallRules": {
                     "type": "array",
@@ -1846,8 +1839,7 @@
                     }
                 },
                 "name": {
-                    "type": "string",
-                    "description": "Name of the network\n"
+                    "type": "string"
                 },
                 "networks": {
                     "type": "array",
@@ -1856,8 +1848,7 @@
                     }
                 },
                 "nodeLocation": {
-                    "type": "string",
-                    "description": "Network location for nodes (public or private)\n"
+                    "type": "string"
                 },
                 "nodes": {
                     "type": "array",
@@ -1871,16 +1862,23 @@
                         "type": "string"
                     }
                 },
+                "resourceTags": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "A map of tags to assign to the cluster\n"
+                },
                 "sshKeyId": {
-                    "type": "string",
-                    "description": "ID of the SSH key to add to the cluster nodes\n"
+                    "type": "string"
                 },
                 "status": {
-                    "type": "string",
-                    "description": "Status of the cluster\n"
+                    "type": "string"
                 }
             },
             "required": [
+                "backupStoreIds",
+                "capacity",
                 "cloudAccountId",
                 "createdAt",
                 "name",
@@ -1888,12 +1886,22 @@
                 "nodeLocation",
                 "nodes",
                 "regions",
+                "resourceTags",
                 "status"
             ],
             "inputProperties": {
+                "backupStoreIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of backup store IDs to associate with the cluster\n"
+                },
+                "capacity": {
+                    "type": "integer"
+                },
                 "cloudAccountId": {
-                    "type": "string",
-                    "description": "ID of the target cloud account\n"
+                    "type": "string"
                 },
                 "firewallRules": {
                     "type": "array",
@@ -1902,8 +1910,7 @@
                     }
                 },
                 "name": {
-                    "type": "string",
-                    "description": "Name of the network\n"
+                    "type": "string"
                 },
                 "networks": {
                     "type": "array",
@@ -1912,8 +1919,7 @@
                     }
                 },
                 "nodeLocation": {
-                    "type": "string",
-                    "description": "Network location for nodes (public or private)\n"
+                    "type": "string"
                 },
                 "nodes": {
                     "type": "array",
@@ -1927,9 +1933,15 @@
                         "type": "string"
                     }
                 },
+                "resourceTags": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "A map of tags to assign to the cluster\n"
+                },
                 "sshKeyId": {
-                    "type": "string",
-                    "description": "ID of the SSH key to add to the cluster nodes\n"
+                    "type": "string"
                 }
             },
             "requiredInputs": [
@@ -1942,13 +1954,21 @@
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering Cluster resources.\n",
                 "properties": {
+                    "backupStoreIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of backup store IDs to associate with the cluster\n"
+                    },
+                    "capacity": {
+                        "type": "integer"
+                    },
                     "cloudAccountId": {
-                        "type": "string",
-                        "description": "ID of the target cloud account\n"
+                        "type": "string"
                     },
                     "createdAt": {
-                        "type": "string",
-                        "description": "Creation time of the cluster\n"
+                        "type": "string"
                     },
                     "firewallRules": {
                         "type": "array",
@@ -1957,8 +1977,7 @@
                         }
                     },
                     "name": {
-                        "type": "string",
-                        "description": "Name of the network\n"
+                        "type": "string"
                     },
                     "networks": {
                         "type": "array",
@@ -1967,8 +1986,7 @@
                         }
                     },
                     "nodeLocation": {
-                        "type": "string",
-                        "description": "Network location for nodes (public or private)\n"
+                        "type": "string"
                     },
                     "nodes": {
                         "type": "array",
@@ -1982,20 +2000,25 @@
                             "type": "string"
                         }
                     },
+                    "resourceTags": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "A map of tags to assign to the cluster\n"
+                    },
                     "sshKeyId": {
-                        "type": "string",
-                        "description": "ID of the SSH key to add to the cluster nodes\n"
+                        "type": "string"
                     },
                     "status": {
-                        "type": "string",
-                        "description": "Status of the cluster\n"
+                        "type": "string"
                     }
                 },
                 "type": "object"
             }
         },
         "pgedge:index/database:Database": {
-            "description": "Interface with the pgEdge service API.\n",
+            "description": "Manages a pgEdge database.\n",
             "properties": {
                 "backups": {
                     "$ref": "#/types/pgedge:index/DatabaseBackups:DatabaseBackups",
@@ -2003,7 +2026,7 @@
                 },
                 "clusterId": {
                     "type": "string",
-                    "description": "ID of the cluster to place the database on\n"
+                    "description": "The ID of the cluster this database belongs to.\n"
                 },
                 "components": {
                     "type": "array",
@@ -2014,15 +2037,15 @@
                 },
                 "configVersion": {
                     "type": "string",
-                    "description": "Config version of the database\n"
+                    "description": "The configuration version of the database.\n"
                 },
                 "createdAt": {
                     "type": "string",
-                    "description": "Created at of the database\n"
+                    "description": "The timestamp when the database was created.\n"
                 },
                 "domain": {
                     "type": "string",
-                    "description": "Domain of the database\n"
+                    "description": "The domain associated with the database.\n"
                 },
                 "extensions": {
                     "$ref": "#/types/pgedge:index/DatabaseExtensions:DatabaseExtensions",
@@ -2030,7 +2053,7 @@
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name of the database\n"
+                    "description": "The name of the database.\n"
                 },
                 "nodes": {
                     "type": "array",
@@ -2044,11 +2067,11 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "Options for creating the database\n"
+                    "description": "A list of options for the database.\n"
                 },
                 "pgVersion": {
                     "type": "string",
-                    "description": "Postgres version of the database\n"
+                    "description": "The PostgreSQL version of the database.\n"
                 },
                 "roles": {
                     "type": "array",
@@ -2059,15 +2082,15 @@
                 },
                 "status": {
                     "type": "string",
-                    "description": "Status of the database\n"
+                    "description": "The current status of the database.\n"
                 },
                 "storageUsed": {
                     "type": "integer",
-                    "description": "Storage used of the database\n"
+                    "description": "The amount of storage used by the database in bytes.\n"
                 },
                 "updatedAt": {
                     "type": "string",
-                    "description": "Updated at of the database\n"
+                    "description": "The timestamp when the database was last updated.\n"
                 }
             },
             "required": [
@@ -2093,11 +2116,11 @@
                 },
                 "clusterId": {
                     "type": "string",
-                    "description": "ID of the cluster to place the database on\n"
+                    "description": "The ID of the cluster this database belongs to.\n"
                 },
                 "configVersion": {
                     "type": "string",
-                    "description": "Config version of the database\n"
+                    "description": "The configuration version of the database.\n"
                 },
                 "extensions": {
                     "$ref": "#/types/pgedge:index/DatabaseExtensions:DatabaseExtensions",
@@ -2105,7 +2128,7 @@
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name of the database\n"
+                    "description": "The name of the database.\n"
                 },
                 "nodes": {
                     "type": "array",
@@ -2119,7 +2142,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "Options for creating the database\n"
+                    "description": "A list of options for the database.\n"
                 },
                 "roles": {
                     "type": "array",
@@ -2141,7 +2164,7 @@
                     },
                     "clusterId": {
                         "type": "string",
-                        "description": "ID of the cluster to place the database on\n"
+                        "description": "The ID of the cluster this database belongs to.\n"
                     },
                     "components": {
                         "type": "array",
@@ -2152,15 +2175,15 @@
                     },
                     "configVersion": {
                         "type": "string",
-                        "description": "Config version of the database\n"
+                        "description": "The configuration version of the database.\n"
                     },
                     "createdAt": {
                         "type": "string",
-                        "description": "Created at of the database\n"
+                        "description": "The timestamp when the database was created.\n"
                     },
                     "domain": {
                         "type": "string",
-                        "description": "Domain of the database\n"
+                        "description": "The domain associated with the database.\n"
                     },
                     "extensions": {
                         "$ref": "#/types/pgedge:index/DatabaseExtensions:DatabaseExtensions",
@@ -2168,7 +2191,7 @@
                     },
                     "name": {
                         "type": "string",
-                        "description": "Name of the database\n"
+                        "description": "The name of the database.\n"
                     },
                     "nodes": {
                         "type": "array",
@@ -2182,11 +2205,11 @@
                         "items": {
                             "type": "string"
                         },
-                        "description": "Options for creating the database\n"
+                        "description": "A list of options for the database.\n"
                     },
                     "pgVersion": {
                         "type": "string",
-                        "description": "Postgres version of the database\n"
+                        "description": "The PostgreSQL version of the database.\n"
                     },
                     "roles": {
                         "type": "array",
@@ -2197,21 +2220,22 @@
                     },
                     "status": {
                         "type": "string",
-                        "description": "Status of the database\n"
+                        "description": "The current status of the database.\n"
                     },
                     "storageUsed": {
                         "type": "integer",
-                        "description": "Storage used of the database\n"
+                        "description": "The amount of storage used by the database in bytes.\n"
                     },
                     "updatedAt": {
                         "type": "string",
-                        "description": "Updated at of the database\n"
+                        "description": "The timestamp when the database was last updated.\n"
                     }
                 },
                 "type": "object"
             }
         },
         "pgedge:index/sSHKey:SSHKey": {
+            "description": "Manages a pgEdge SSH key.\n",
             "properties": {
                 "createdAt": {
                     "type": "string",
@@ -2311,7 +2335,7 @@
             }
         },
         "pgedge:index/getClusters:getClusters": {
-            "description": "Interface with the pgEdge service API for clusters.\n",
+            "description": "Data source for pgEdge clusters.\n",
             "outputs": {
                 "description": "A collection of values returned by getClusters.\n",
                 "properties": {
@@ -2334,7 +2358,7 @@
             }
         },
         "pgedge:index/getDatabases:getDatabases": {
-            "description": "Interface with the pgEdge service API.\n",
+            "description": "Data source for pgEdge databases\n",
             "outputs": {
                 "description": "A collection of values returned by getDatabases.\n",
                 "properties": {
@@ -2357,6 +2381,7 @@
             }
         },
         "pgedge:index/getSSHKeys:getSSHKeys": {
+            "description": "Data source for pgEdge SSH keys.\n",
             "outputs": {
                 "description": "A collection of values returned by getSSHKeys.\n",
                 "properties": {

@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// Data source for pgEdge SSH keys.
 func GetSSHKeys(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*GetSSHKeysResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetSSHKeysResult

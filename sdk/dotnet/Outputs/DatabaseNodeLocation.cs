@@ -20,9 +20,6 @@ namespace Pgedge.Pgedge.Outputs
         public readonly double? Latitude;
         public readonly double? Longitude;
         public readonly string? MetroCode;
-        /// <summary>
-        /// Name of the database
-        /// </summary>
         public readonly string? Name;
         public readonly string? PostalCode;
         public readonly string? Region;

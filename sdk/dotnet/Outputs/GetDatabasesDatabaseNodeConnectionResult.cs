@@ -14,37 +14,13 @@ namespace Pgedge.Pgedge.Outputs
     [OutputType]
     public sealed class GetDatabasesDatabaseNodeConnectionResult
     {
-        /// <summary>
-        /// Database of the node
-        /// </summary>
         public readonly string Database;
-        /// <summary>
-        /// External IP of the node
-        /// </summary>
         public readonly string ExternalIpAddress;
-        /// <summary>
-        /// Host of the node
-        /// </summary>
         public readonly string Host;
-        /// <summary>
-        /// Internal Host of the node
-        /// </summary>
         public readonly string InternalHost;
-        /// <summary>
-        /// Internal IP of the node
-        /// </summary>
         public readonly string InternalIpAddress;
-        /// <summary>
-        /// Password of the node
-        /// </summary>
         public readonly string Password;
-        /// <summary>
-        /// Port of the node
-        /// </summary>
         public readonly int Port;
-        /// <summary>
-        /// Username of the node
-        /// </summary>
         public readonly string Username;
 
         [OutputConstructor]
