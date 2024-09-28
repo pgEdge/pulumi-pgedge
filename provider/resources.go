@@ -36,7 +36,7 @@ func Provider() tfbridge.ProviderInfo {
 		Name:              "pgedge",
 		DisplayName:       "pgEdge",
 		Publisher:         "pgEdge",
-		LogoURL:           "https://www.pgedge.com/wp-content/uploads/2022/10/pgedge-logo-light.svg",
+		LogoURL:           "https://pgedge-public-assets.s3.amazonaws.com/product/images/pgedge_mark.svg",
 		PluginDownloadURL: "github://api.github.com/pgEdge/pulumi-pgedge",
 		Description:       "A Pulumi package for creating and managing pgedge cloud resources.",
 		Keywords:          []string{"pulumi", "pgedge", "category/cloud", "category/database"},
