@@ -1,152 +1,306 @@
 # pgEdge Pulumi Provider
 
-Welcome to the pgEdge pulumi provider repository. This repository contains the Pulumi resource provider for pgEdge.
+<img alt="pgEdge" src="https://pgedge-public-assets.s3.amazonaws.com/product/images/pgedge_mark.svg" width="100px">
 
-## Getting Started
+The official Pulumi provider for [pgEdge](https://www.pgedge.com/), designed to simplify the management of pgEdge resources using infrastructure as code.
 
-To get started with the pgEdge Pulumi provider, you'll need to install the Pulumi CLI and the pgEdge provider SDK for your language of choice. Below are the installation instructions and example usage in Go and TypeScript.
+- **Documentation:** [pgEdge Pulumi Docs](https://www.pulumi.com/registry/packages/pgedge/)
+- **Website:** [pgEdge](https://www.pgedge.com/)
+- **Discuss:** [GitHub Issues](https://github.com/pgEdge/pulumi-pgedge/issues)
 
-### Installation
+## Prerequisites
 
-#### Pulumi CLI
+Before you begin, ensure you have the following tools installed:
 
-Ensure you have the Pulumi CLI installed. You can install it using the following command:
+- [Pulumi CLI](https://www.pulumi.com/docs/get-started/install/)
+- [Go](https://golang.org/doc/install) (version 1.18 or later)
+- [pulumictl](https://github.com/pulumi/pulumictl)
+- [golangci-lint](https://golangci-lint.run/usage/install/)
+- [Node.js](https://nodejs.org/) (Active LTS or maintenance version, we recommend using [nvm](https://github.com/nvm-sh/nvm) to manage Node.js installations)
+- [Yarn](https://yarnpkg.com/getting-started/install)
+- [TypeScript](https://www.typescriptlang.org/download)
+- [Python](https://www.python.org/downloads/) (Python 3)
+- [.NET SDK](https://dotnet.microsoft.com/download)
+
+## Installation
+
+To use this provider, you need to have Pulumi installed. If you haven't already, you can [install Pulumi here](https://www.pulumi.com/docs/get-started/install/).
+
+### Go
+
 ```bash
-curl -fsSL https://get.pulumi.com | sh -s -- --version dev
+go get github.com/pgEdge/pulumi-pgedge/sdk/go/pgedge
 ```
 
-#### Go SDK
+### Node.js
 
-To install the pgEdge SDK for Go, use the following command in your application:
-```bash
-go get -u github.com/pgEdge/pulumi-pgedge/sdk/go/pgedge
-```
-
-#### TypeScript SDK
-
-To install the pgEdge SDK for TypeScript, use the following command in your application:
 ```bash
 npm install @pgEdge/pulumi-pgedge
 ```
 
-## Usage
+## Configuration
 
-### Go Example
+Before using the provider, you need to configure your pgEdge credentials. Set the following environment variables:
 
-Below is an example of how to use the pgEdge Pulumi provider in a Go program:
-
-```go
-package main
-
-import (
-    "github.com/pgEdge/pulumi-pgedge/sdk/go/pgedge"
-    "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-)
-
-func main() {
-    pulumi.Run(func(ctx *pulumi.Context) error {
-
-        cluster, err := pgedge.NewCluster(ctx, "cluster", &pgedge.ClusterArgs{
-            Name:           pulumi.String("n1"),
-            CloudAccountId: pulumi.String(""), // cloud account id
-            Regions: pulumi.StringArray{
-                pulumi.String("us-east-2"),
-            },
-            FirewallRules: pgedge.ClusterFirewallRuleArray{
-                &pgedge.ClusterFirewallRuleArgs{
-                    Port: pulumi.Int(5432),
-                    Sources: pulumi.ToStringArray([]string{
-                        "0.0.0.0/0",
-                    }),
-                },
-            },
-            Nodes: pgedge.ClusterNodeArray{
-                &pgedge.ClusterNodeArgs{
-                    InstanceType:     pulumi.String("t4g.small"),
-                    Name:             pulumi.String("n1"),
-                    VolumeSize:       pulumi.Int(30),
-                    Region:           pulumi.String("us-east-2"),
-                    AvailabilityZone: pulumi.String("us-east-2a"),
-                    VolumeType:       pulumi.String("gp2"),
-                },
-            },
-            Networks: pgedge.ClusterNetworkArray{
-                &pgedge.ClusterNetworkArgs{
-                    Region: pulumi.String("us-east-2"),
-                    Cidr:   pulumi.String("10.2.0.0/16"),
-                    PublicSubnets: pulumi.ToStringArray([]string{
-                        "10.2.1.0/24",
-                    }),
-                },
-            },
-        })
-
-        if err != nil {
-            return err
-        }
-
-        _, err = pgedge.NewDatabase(ctx, "database", &pgedge.DatabaseArgs{
-            ClusterId: cluster.ID(),
-            Name:      pulumi.String("defaultdb"),
-        })
-
-        if err != nil {
-            return err
-        }
-
-        return nil
-    })
-}
+```sh
+export PGEDGE_CLIENT_ID="your-client-id"
+export PGEDGE_CLIENT_SECRET="your-client-secret"
 ```
 
-### TypeScript Example
+These credentials authenticate the Pulumi provider with your pgEdge Cloud account.
 
-Below is an example of how to use the pgEdge Pulumi provider in a TypeScript program:
+## Getting Started
 
-```ts
+### Creating a New Pulumi Project
+
+1. Create a new directory for your project:
+
+```bash
+mkdir pgedge-pulumi-project && cd pgedge-pulumi-project
+```
+
+2. Initialize a new Pulumi project:
+
+```bash
+pulumi new typescript
+```
+
+Follow the prompts to set up your project.
+
+3. Install the pgEdge provider:
+
+```bash
+npm install @pgEdge/pulumi-pgedge
+```
+
+4. Update your `Pulumi.yaml` file to include the pgEdge provider:
+
+```yaml
+name: pgedge-pulumi-project
+runtime: nodejs
+description: A new Pulumi project using pgEdge
+plugins:
+  providers:
+    - name: pgedge
+      path: ./node_modules/@pgEdge/pulumi-pgedge
+```
+
+### Writing Your Pulumi Program
+
+Replace the contents of `index.ts` with the following:
+
+```typescript
+import * as pulumi from "@pulumi/pulumi";
 import * as pgedge from "@pgEdge/pulumi-pgedge";
 
-var cluster = new pgedge.Cluster("cluster", {
-  name: "n1",
-  cloudAccountId: "", // cloud account id
-  regions: ["us-east-2"],
-  firewallRules: [
-    {
-      port: 5432,
-      sources: ["0.0.0.0/0"],
-    }
-  ],
-  nodes: [
-    {
-      name: "n1",
-      instanceType: "t4g.medium",
-      volumeSize: 30,
-      region: "us-east-2",
-      availabilityZone: "us-east-2a",
-      volumeType: "gp2",
-    }
-  ],
-  networks: [
-    {
-      region: "us-east-2",
-      cidr: "10.2.0.0/16",
-      publicSubnets: ["10.2.1.0/24"],
-    }
-  ],
+// Create an SSH Key
+const sshKey = new pgedge.SSHKey("exampleSSHKey", {
+    name: "example",
+    publicKey: "ssh-ed25519 AAAAC3df23442ccAANTE5AAAAICXfT63i04t5fvvlGeoUoVG7DkyxvyXbYQNhKP/rSeLY user@example.com",
 });
 
-new pgedge.Database("databaseCreate", {
-  name: "defaultdb",
-  clusterId: cluster.id,
-  options: [""],
+// Create a Cloud Account
+const cloudAccount = new pgedge.CloudAccount("exampleCloudAccount", {
+    name: "my-aws-account",
+    type: "aws",
+    description: "My AWS Cloud Account",
+    credentials: {
+        role_arn: "arn:aws:iam::124568901:role/pgedge-13e32c",
+    },
+}, { dependsOn: sshKey });
+
+// Create a Backup Store
+const backupStore = new pgedge.BackupStore("exampleBackupStore", {
+    name: "example",
+    cloudAccountId: cloudAccount.id,
+    region: "us-west-2",
+}, { dependsOn: cloudAccount });
+
+// Create a Cluster
+const cluster = new pgedge.Cluster("exampleCluster", {
+    name: "example",
+    cloudAccountId: cloudAccount.id,
+    regions: ["us-west-2", "us-east-1", "eu-central-1"],
+    nodeLocation: "public",
+    sshKeyId: sshKey.id,
+    nodes: [
+        {
+            name: "n1",
+            region: "us-west-2",
+            instanceType: "r6g.medium",
+            volumeSize: 100,
+            volumeType: "gp2",
+        },
+        {
+            name: "n2",
+            region: "us-east-1",
+            instanceType: "r6g.medium",
+            volumeSize: 100,
+            volumeType: "gp2",
+        },
+        {
+            name: "n3",
+            region: "eu-central-1",
+            instanceType: "r6g.medium",
+            volumeSize: 100,
+            volumeType: "gp2",
+        },
+    ],
+    networks: [
+        {
+            region: "us-west-2",
+            cidr: "10.1.0.0/16",
+            publicSubnets: ["10.1.0.0/24"],
+            // privateSubnets: ["10.1.0.0/24"],
+        },
+        {
+            region: "us-east-1",
+            cidr: "10.2.0.0/16",
+            publicSubnets: ["10.2.0.0/24"],
+            // privateSubnets: ["10.2.0.0/24"],
+        },
+        {
+            region: "eu-central-1",
+            cidr: "10.3.0.0/16",
+            publicSubnets: ["10.3.0.0/24"],
+            // privateSubnets: ["10.3.0.0/24"],
+        },
+    ],
+    firewallRules: [
+        {
+            name: "postgres",
+            port: 5432,
+            sources: ["107.18.0.0/16", "89.0.142.86/16"],
+        },
+    ],
+}, { dependsOn: backupStore });
+
+// Create a Database
+const database = new pgedge.Database("exampleDatabase", {
+    name: "example",
+    clusterId: cluster.id,
+    options: [
+        "install:northwind",
+        "rest:enabled",
+        "autoddl:enabled",
+    ],
+    extensions: {
+        autoManage: true,
+        requesteds: [
+            "postgis"
+        ],
+    },
+    nodes: [
+        { name: "n1" },
+        { name: "n2" },
+        { name: "n3" },
+    ],
+    backups: {
+        provider: "pgdump",
+    },
+}, { dependsOn: cluster });
+
+// Export the resource IDs
+export const sshKeyId = sshKey.id;
+export const cloudAccountId = cloudAccount.id;
+export const backupStoreId = backupStore.id;
+export const clusterId = cluster.id;
+export const databaseId = database.id;
+```
+
+### Deploying Your Infrastructure
+
+To deploy your infrastructure:
+
+1. Set up your pgEdge credentials as environment variables.
+2. Run the following command:
+
+```bash
+pulumi up
+```
+
+Review the changes and confirm the deployment.
+
+## Updating Resources
+
+### Updating a Database
+
+To update a database, you can modify properties such as `options`, `extensions`, or `nodes`. Here's an example of adding a new extension and removing a node. (Make sure to update one property at a time):
+
+```typescript
+const database = new pgedge.Database("exampleDatabase", {
+    // ... other properties ...
+    options: [
+        "install:northwind",
+        "rest:enabled",
+        "autoddl:enabled",
+        "cloudwatch_metrics:enabled", // New option
+    ],
+    extensions: {
+        autoManage: true,
+        requesteds: [
+            "postgis",
+            "vector", // New extension
+        ],
+    },
+    nodes: [
+        { name: "n1" },
+        { name: "n3" },
+    ],
+    // ... other properties ...
 });
 ```
 
-### Additional Examples
-For more detailed examples, please refer to the examples directory in this repository:
-- [examples](examples)
+### Updating a Cluster
+
+To update an existing cluster, such as adding or removing nodes, you can modify the `nodes`, `regions`, and `networks` arrays in your Pulumi program. Here's an example of removing a node:
+
+```typescript
+const cluster = new pgedge.Cluster("exampleCluster", {
+    // ... other properties ...
+    nodes: [
+        {
+            name: "n1",
+            region: "us-west-2",
+            instanceType: "r6g.medium",
+            volumeSize: 100,
+            volumeType: "gp2",
+        },
+        {
+            name: "n3",
+            region: "eu-central-1",
+            instanceType: "r6g.medium",
+            volumeSize: 100,
+            volumeType: "gp2",
+        },
+    ],
+    regions: ["us-west-2", "eu-central-1"],
+    networks: [
+        {
+            region: "us-west-2",
+            cidr: "10.1.0.0/16",
+            publicSubnets: ["10.1.0.0/24"],
+            // privateSubnets: ["10.1.0.0/24"],
+        },
+        {
+            region: "eu-central-1",
+            cidr: "10.3.0.0/16",
+            publicSubnets: ["10.3.0.0/24"],
+            // privateSubnets: ["10.3.0.0/24"],
+        },
+    ],
+    // ... other properties ...
+});
+```
+
+After making these changes, run `pulumi up` to apply the updates to your infrastructure.
+
+You can find more examples in the [examples](examples/) directory.
+
+## Contributing
+
+We welcome contributions from the community. Please review our [contribution guidelines](CONTRIBUTING.md) for more information on how to get started.
 
 ## License
-This project is licensed under the terms of the Apache License. See the [LICENSE](LICENSE) file for details.
 
-Thank you for using the pgEdge Pulumi provider!
+This project is licensed under the Apache License. See the [LICENSE](LICENSE) file for details.

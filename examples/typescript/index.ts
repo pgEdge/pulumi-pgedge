@@ -5,8 +5,8 @@ const config = new pulumi.Config();
 const baseUrl = config.get("baseUrl") || "https://api.pgedge.com";
 
 const sshKey = new pgedge.SSHKey("exampleSSHKey", {
-  name: "examplessh72",
-  publicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICXfT63i04t5fvvlGeoUoVG71123mvbbwFDkyxvyXbYQNhKP/rSeLY your@your-MacBook-Pro.local",
+  name: "example",
+  publicKey: "ssh-ed25519 AAAAC3NzaC1lZsdw877237ICXfT63i04t5fvvlGesddwed21VG7DkyxvyXbYQNhKP/rSeLY user@example.com",
 });
 
 const cloudAccount = new pgedge.CloudAccount("exampleCloudAccount", {
@@ -14,60 +14,63 @@ const cloudAccount = new pgedge.CloudAccount("exampleCloudAccount", {
   type: "aws",
   description: "My AWS Cloud Account",
   credentials: {
-    role_arn: "arn:aws:iam::1123122:role/pgedge-123wvv",
+    role_arn: "arn:aws:iam::211125296439:role/pgedge-13e32c",
   },
 }, { dependsOn: sshKey });
 
-const backupStore = new pgedge.BackupStore("testBackupStore", {
-  name: "testst117ore",
+const backupStore = new pgedge.BackupStore("exampleBackupStore", {
+  name: "example",
   cloudAccountId: cloudAccount.id,
-  region: "ap-northeast-1",
+  region: "us-west-2",
 }, { dependsOn: cloudAccount });
 
 const cluster = new pgedge.Cluster("exampleCluster", {
-  name: "finalcluster4",
+  name: "example",
   cloudAccountId: cloudAccount.id,
-  regions: ["ap-northeast-1", "ap-northeast-3", "ap-northeast-2"],
+  regions: ["us-west-2", "us-east-1", "eu-central-1"],
   nodeLocation: "public",
   sshKeyId: sshKey.id,
   nodes: [
     {
       name: "n1",
-      region: "ap-northeast-1",
-      instanceType: "t4g.medium",
-      volumeSize: 20,
+      region: "us-west-2",
+      instanceType: "r6g.medium",
+      volumeSize: 100,
       volumeType: "gp2",
     },
     {
       name: "n2",
-      region: "ap-northeast-3",
-      instanceType: "t4g.medium",
-      volumeSize: 20,
+      region: "us-east-1",
+      instanceType: "r6g.medium",
+      volumeSize: 100,
       volumeType: "gp2",
     },
     {
       name: "n3",
-      region: "ap-northeast-2",
-      instanceType: "t4g.medium",
-      volumeSize: 20,
+      region: "eu-central-1",
+      instanceType: "r6g.medium",
+      volumeSize: 100,
       volumeType: "gp2",
     },
   ],
   networks: [
     {
-      region: "ap-northeast-1",
+      region: "us-west-2",
       cidr: "10.1.0.0/16",
       publicSubnets: ["10.1.0.0/24"],
+      // privateSubnets: ["10.1.0.0/24"],
     },
     {
-      region: "ap-northeast-3",
+      region: "us-east-1",
       cidr: "10.2.0.0/16",
       publicSubnets: ["10.2.0.0/24"],
+      // privateSubnets: ["10.2.0.0/24"],
     },
     {
-      region: "ap-northeast-2",
+      region: "eu-central-1",
       cidr: "10.3.0.0/16",
       publicSubnets: ["10.3.0.0/24"],
+      // privateSubnets: ["10.3.0.0/24"],
     },
   ],
   // backupStoreIds: [backupStore.id],
@@ -75,14 +78,15 @@ const cluster = new pgedge.Cluster("exampleCluster", {
     {
       name: "postgres",
       port: 5432,
-      sources: ["0.0.0.0/0"],
+      sources: ["123.456.789.0/32"],
     },
   ],
-}, { dependsOn: cloudAccount });
+}, { dependsOn: backupStore });
 
 const database = new pgedge.Database("exampleDatabase", {
-  name: "exampledb12",
+  name: "example",
   clusterId: cluster.id,
+  // configVersion: "12.8.3",
   options: [
     "install:northwind",
     "rest:enabled",
@@ -92,6 +96,7 @@ const database = new pgedge.Database("exampleDatabase", {
     autoManage: true,
     requesteds: [
       "postgis",
+      "vector"
     ],
   },
   nodes: [
@@ -101,6 +106,19 @@ const database = new pgedge.Database("exampleDatabase", {
   ],
   backups: {
     provider: "pgbackrest",
+    configs: [
+      {
+        id: "default",
+        nodeName: "n1",
+        schedules: [
+          {
+            id: "daily",
+            cronExpression: "15 * * * ",
+            type: "daily",
+          },
+        ]
+      }
+    ]
   },
 }, { dependsOn: cluster });
 
@@ -111,12 +129,7 @@ export const cloudAccountId = cloudAccount.id;
 export const clusterId = cluster.id;
 export const clusterStatus = cluster.status;
 export const clusterCreatedAt = cluster.createdAt;
-export const databaseStatus = database.status;
-
-// Helper function to resolve Output<string> to string
-function resolveOutput(output: pulumi.Output<string>): pulumi.Output<string> {
-  return output.apply(v => v);
-}
+export const databaseId = database.id;
 
 // Log outputs
 sshKeyId.apply(id => console.log(`SSH Key ID: ${id}`));
@@ -125,4 +138,4 @@ cloudAccountId.apply(id => console.log(`Cloud Account ID: ${id}`));
 clusterId.apply(id => console.log(`Cluster ID: ${id}`));
 clusterStatus.apply(status => console.log(`Cluster Status: ${status}`));
 clusterCreatedAt.apply(createdAt => console.log(`Cluster Created At: ${createdAt}`));
-databaseStatus.apply(status => console.log(`Database Status: ${status}`));
+databaseId.apply(id => console.log(`Database id: ${id}`));
