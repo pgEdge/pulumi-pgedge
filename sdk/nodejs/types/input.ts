@@ -170,15 +170,15 @@ export interface DatabaseExtensions {
     requesteds?: pulumi.Input<pulumi.Input<string>[]>;
 }
 
-export interface DatabaseNode {
-    connection?: pulumi.Input<inputs.DatabaseNodeConnection>;
-    extensions?: pulumi.Input<inputs.DatabaseNodeExtensions>;
-    location?: pulumi.Input<inputs.DatabaseNodeLocation>;
-    name?: pulumi.Input<string>;
-    region?: pulumi.Input<inputs.DatabaseNodeRegion>;
+export interface DatabaseNodes {
+    connection?: pulumi.Input<inputs.DatabaseNodesConnection>;
+    extensions?: pulumi.Input<inputs.DatabaseNodesExtensions>;
+    location?: pulumi.Input<inputs.DatabaseNodesLocation>;
+    name: pulumi.Input<string>;
+    region?: pulumi.Input<inputs.DatabaseNodesRegion>;
 }
 
-export interface DatabaseNodeConnection {
+export interface DatabaseNodesConnection {
     database?: pulumi.Input<string>;
     externalIpAddress?: pulumi.Input<string>;
     host?: pulumi.Input<string>;
@@ -189,12 +189,12 @@ export interface DatabaseNodeConnection {
     username?: pulumi.Input<string>;
 }
 
-export interface DatabaseNodeExtensions {
+export interface DatabaseNodesExtensions {
     errors?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     installeds?: pulumi.Input<pulumi.Input<string>[]>;
 }
 
-export interface DatabaseNodeLocation {
+export interface DatabaseNodesLocation {
     city?: pulumi.Input<string>;
     code?: pulumi.Input<string>;
     country?: pulumi.Input<string>;
@@ -208,7 +208,7 @@ export interface DatabaseNodeLocation {
     timezone?: pulumi.Input<string>;
 }
 
-export interface DatabaseNodeRegion {
+export interface DatabaseNodesRegion {
     active?: pulumi.Input<boolean>;
     availabilityZones?: pulumi.Input<pulumi.Input<string>[]>;
     cloud?: pulumi.Input<string>;

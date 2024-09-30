@@ -12,13 +12,13 @@ namespace Pgedge.Pgedge.Outputs
 {
 
     [OutputType]
-    public sealed class GetDatabasesDatabaseNodeExtensionsResult
+    public sealed class GetDatabasesDatabaseNodesExtensionsResult
     {
         public readonly ImmutableDictionary<string, string> Errors;
         public readonly ImmutableArray<string> Installeds;
 
         [OutputConstructor]
-        private GetDatabasesDatabaseNodeExtensionsResult(
+        private GetDatabasesDatabaseNodesExtensionsResult(
             ImmutableDictionary<string, string> errors,
 
             ImmutableArray<string> installeds)

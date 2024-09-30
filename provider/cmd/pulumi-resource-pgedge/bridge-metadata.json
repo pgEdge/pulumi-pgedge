@@ -83,7 +83,6 @@
                         }
                     },
                     "nodes": {
-                        "maxItemsOne": false,
                         "elem": {
                             "fields": {
                                 "extensions": {
@@ -228,7 +227,6 @@
                                     }
                                 },
                                 "nodes": {
-                                    "maxItemsOne": false,
                                     "elem": {
                                         "fields": {
                                             "extensions": {
@@ -329,20 +327,20 @@
                 "availables": "available",
                 "requesteds": "requested"
             },
-            "pgedge:index/DatabaseNodeConnection:DatabaseNodeConnection": {
+            "pgedge:index/DatabaseNodesConnection:DatabaseNodesConnection": {
                 "externalIpAddress": "external_ip_address",
                 "internalHost": "internal_host",
                 "internalIpAddress": "internal_ip_address"
             },
-            "pgedge:index/DatabaseNodeExtensions:DatabaseNodeExtensions": {
+            "pgedge:index/DatabaseNodesExtensions:DatabaseNodesExtensions": {
                 "installeds": "installed"
             },
-            "pgedge:index/DatabaseNodeLocation:DatabaseNodeLocation": {
+            "pgedge:index/DatabaseNodesLocation:DatabaseNodesLocation": {
                 "metroCode": "metro_code",
                 "postalCode": "postal_code",
                 "regionCode": "region_code"
             },
-            "pgedge:index/DatabaseNodeRegion:DatabaseNodeRegion": {
+            "pgedge:index/DatabaseNodesRegion:DatabaseNodesRegion": {
                 "availabilityZones": "availability_zones"
             },
             "pgedge:index/DatabaseRole:DatabaseRole": {
@@ -456,20 +454,20 @@
                 "availables": "available",
                 "requesteds": "requested"
             },
-            "pgedge:index/getDatabasesDatabaseNodeConnection:getDatabasesDatabaseNodeConnection": {
+            "pgedge:index/getDatabasesDatabaseNodesConnection:getDatabasesDatabaseNodesConnection": {
                 "externalIpAddress": "external_ip_address",
                 "internalHost": "internal_host",
                 "internalIpAddress": "internal_ip_address"
             },
-            "pgedge:index/getDatabasesDatabaseNodeExtensions:getDatabasesDatabaseNodeExtensions": {
+            "pgedge:index/getDatabasesDatabaseNodesExtensions:getDatabasesDatabaseNodesExtensions": {
                 "installeds": "installed"
             },
-            "pgedge:index/getDatabasesDatabaseNodeLocation:getDatabasesDatabaseNodeLocation": {
+            "pgedge:index/getDatabasesDatabaseNodesLocation:getDatabasesDatabaseNodesLocation": {
                 "metroCode": "metro_code",
                 "postalCode": "postal_code",
                 "regionCode": "region_code"
             },
-            "pgedge:index/getDatabasesDatabaseNodeRegion:getDatabasesDatabaseNodeRegion": {
+            "pgedge:index/getDatabasesDatabaseNodesRegion:getDatabasesDatabaseNodesRegion": {
                 "availabilityZones": "availability_zones"
             },
             "pgedge:index/getDatabasesDatabaseRole:getDatabasesDatabaseRole": {

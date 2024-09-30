@@ -420,25 +420,28 @@
                 }
             }
         },
-        "pgedge:index/DatabaseNode:DatabaseNode": {
+        "pgedge:index/DatabaseNodes:DatabaseNodes": {
             "properties": {
                 "connection": {
-                    "$ref": "#/types/pgedge:index/DatabaseNodeConnection:DatabaseNodeConnection"
+                    "$ref": "#/types/pgedge:index/DatabaseNodesConnection:DatabaseNodesConnection"
                 },
                 "extensions": {
-                    "$ref": "#/types/pgedge:index/DatabaseNodeExtensions:DatabaseNodeExtensions"
+                    "$ref": "#/types/pgedge:index/DatabaseNodesExtensions:DatabaseNodesExtensions"
                 },
                 "location": {
-                    "$ref": "#/types/pgedge:index/DatabaseNodeLocation:DatabaseNodeLocation"
+                    "$ref": "#/types/pgedge:index/DatabaseNodesLocation:DatabaseNodesLocation"
                 },
                 "name": {
                     "type": "string"
                 },
                 "region": {
-                    "$ref": "#/types/pgedge:index/DatabaseNodeRegion:DatabaseNodeRegion"
+                    "$ref": "#/types/pgedge:index/DatabaseNodesRegion:DatabaseNodesRegion"
                 }
             },
             "type": "object",
+            "required": [
+                "name"
+            ],
             "language": {
                 "nodejs": {
                     "requiredOutputs": [
@@ -451,7 +454,7 @@
                 }
             }
         },
-        "pgedge:index/DatabaseNodeConnection:DatabaseNodeConnection": {
+        "pgedge:index/DatabaseNodesConnection:DatabaseNodesConnection": {
             "properties": {
                 "database": {
                     "type": "string"
@@ -494,7 +497,7 @@
                 }
             }
         },
-        "pgedge:index/DatabaseNodeExtensions:DatabaseNodeExtensions": {
+        "pgedge:index/DatabaseNodesExtensions:DatabaseNodesExtensions": {
             "properties": {
                 "errors": {
                     "type": "object",
@@ -519,7 +522,7 @@
                 }
             }
         },
-        "pgedge:index/DatabaseNodeLocation:DatabaseNodeLocation": {
+        "pgedge:index/DatabaseNodesLocation:DatabaseNodesLocation": {
             "properties": {
                 "city": {
                     "type": "string"
@@ -574,7 +577,7 @@
                 }
             }
         },
-        "pgedge:index/DatabaseNodeRegion:DatabaseNodeRegion": {
+        "pgedge:index/DatabaseNodesRegion:DatabaseNodesRegion": {
             "properties": {
                 "active": {
                     "type": "boolean"
@@ -1036,9 +1039,9 @@
                     "description": "Name of the database\n"
                 },
                 "nodes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/getDatabasesDatabaseNode:getDatabasesDatabaseNode"
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodes:getDatabasesDatabaseNodes"
                     },
                     "description": "Nodes of the database\n"
                 },
@@ -1325,18 +1328,18 @@
                 }
             }
         },
-        "pgedge:index/getDatabasesDatabaseNode:getDatabasesDatabaseNode": {
+        "pgedge:index/getDatabasesDatabaseNodes:getDatabasesDatabaseNodes": {
             "properties": {
                 "connection": {
-                    "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodeConnection:getDatabasesDatabaseNodeConnection",
+                    "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodesConnection:getDatabasesDatabaseNodesConnection",
                     "description": "Node connection details\n"
                 },
                 "extensions": {
-                    "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodeExtensions:getDatabasesDatabaseNodeExtensions",
+                    "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodesExtensions:getDatabasesDatabaseNodesExtensions",
                     "description": "Extensions configuration for the database\n"
                 },
                 "location": {
-                    "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodeLocation:getDatabasesDatabaseNodeLocation",
+                    "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodesLocation:getDatabasesDatabaseNodesLocation",
                     "description": "Node location\n"
                 },
                 "name": {
@@ -1344,7 +1347,7 @@
                     "description": "Component name\n"
                 },
                 "region": {
-                    "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodeRegion:getDatabasesDatabaseNodeRegion",
+                    "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodesRegion:getDatabasesDatabaseNodesRegion",
                     "description": "Node region\n"
                 }
             },
@@ -1362,7 +1365,7 @@
                 }
             }
         },
-        "pgedge:index/getDatabasesDatabaseNodeConnection:getDatabasesDatabaseNodeConnection": {
+        "pgedge:index/getDatabasesDatabaseNodesConnection:getDatabasesDatabaseNodesConnection": {
             "properties": {
                 "database": {
                     "type": "string"
@@ -1406,7 +1409,7 @@
                 }
             }
         },
-        "pgedge:index/getDatabasesDatabaseNodeExtensions:getDatabasesDatabaseNodeExtensions": {
+        "pgedge:index/getDatabasesDatabaseNodesExtensions:getDatabasesDatabaseNodesExtensions": {
             "properties": {
                 "errors": {
                     "type": "object",
@@ -1432,7 +1435,7 @@
                 }
             }
         },
-        "pgedge:index/getDatabasesDatabaseNodeLocation:getDatabasesDatabaseNodeLocation": {
+        "pgedge:index/getDatabasesDatabaseNodesLocation:getDatabasesDatabaseNodesLocation": {
             "properties": {
                 "city": {
                     "type": "string"
@@ -1489,7 +1492,7 @@
                 }
             }
         },
-        "pgedge:index/getDatabasesDatabaseNodeRegion:getDatabasesDatabaseNodeRegion": {
+        "pgedge:index/getDatabasesDatabaseNodesRegion:getDatabasesDatabaseNodesRegion": {
             "properties": {
                 "active": {
                     "type": "boolean"
@@ -2056,9 +2059,9 @@
                     "description": "The name of the database.\n"
                 },
                 "nodes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/DatabaseNode:DatabaseNode"
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/types/pgedge:index/DatabaseNodes:DatabaseNodes"
                     },
                     "description": "List of nodes in the database.\n"
                 },
@@ -2131,9 +2134,9 @@
                     "description": "The name of the database.\n"
                 },
                 "nodes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/pgedge:index/DatabaseNode:DatabaseNode"
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/types/pgedge:index/DatabaseNodes:DatabaseNodes"
                     },
                     "description": "List of nodes in the database.\n"
                 },
@@ -2153,7 +2156,8 @@
                 }
             },
             "requiredInputs": [
-                "clusterId"
+                "clusterId",
+                "nodes"
             ],
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering Database resources.\n",
@@ -2194,9 +2198,9 @@
                         "description": "The name of the database.\n"
                     },
                     "nodes": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/types/pgedge:index/DatabaseNode:DatabaseNode"
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "#/types/pgedge:index/DatabaseNodes:DatabaseNodes"
                         },
                         "description": "List of nodes in the database.\n"
                     },

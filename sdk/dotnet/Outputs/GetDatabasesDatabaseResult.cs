@@ -53,7 +53,7 @@ namespace Pgedge.Pgedge.Outputs
         /// <summary>
         /// Nodes of the database
         /// </summary>
-        public readonly ImmutableArray<Outputs.GetDatabasesDatabaseNodeResult> Nodes;
+        public readonly ImmutableDictionary<string, Outputs.GetDatabasesDatabaseNodesResult> Nodes;
         /// <summary>
         /// Options for the database
         /// </summary>
@@ -99,7 +99,7 @@ namespace Pgedge.Pgedge.Outputs
 
             string name,
 
-            ImmutableArray<Outputs.GetDatabasesDatabaseNodeResult> nodes,
+            ImmutableDictionary<string, Outputs.GetDatabasesDatabaseNodesResult> nodes,
 
             ImmutableArray<string> options,
 

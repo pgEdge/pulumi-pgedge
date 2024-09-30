@@ -12,7 +12,7 @@ namespace Pgedge.Pgedge.Outputs
 {
 
     [OutputType]
-    public sealed class GetDatabasesDatabaseNodeRegionResult
+    public sealed class GetDatabasesDatabaseNodesRegionResult
     {
         public readonly bool Active;
         public readonly ImmutableArray<string> AvailabilityZones;
@@ -25,7 +25,7 @@ namespace Pgedge.Pgedge.Outputs
         public readonly string Parent;
 
         [OutputConstructor]
-        private GetDatabasesDatabaseNodeRegionResult(
+        private GetDatabasesDatabaseNodesRegionResult(
             bool active,
 
             ImmutableArray<string> availabilityZones,

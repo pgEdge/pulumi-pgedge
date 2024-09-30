@@ -19,11 +19,11 @@ __all__ = [
     'DatabaseBackupsConfigScheduleArgs',
     'DatabaseComponentArgs',
     'DatabaseExtensionsArgs',
-    'DatabaseNodeArgs',
-    'DatabaseNodeConnectionArgs',
-    'DatabaseNodeExtensionsArgs',
-    'DatabaseNodeLocationArgs',
-    'DatabaseNodeRegionArgs',
+    'DatabaseNodesArgs',
+    'DatabaseNodesConnectionArgs',
+    'DatabaseNodesExtensionsArgs',
+    'DatabaseNodesLocationArgs',
+    'DatabaseNodesRegionArgs',
     'DatabaseRoleArgs',
 ]
 
@@ -770,72 +770,71 @@ class DatabaseExtensionsArgs:
 
 
 @pulumi.input_type
-class DatabaseNodeArgs:
+class DatabaseNodesArgs:
     def __init__(__self__, *,
-                 connection: Optional[pulumi.Input['DatabaseNodeConnectionArgs']] = None,
-                 extensions: Optional[pulumi.Input['DatabaseNodeExtensionsArgs']] = None,
-                 location: Optional[pulumi.Input['DatabaseNodeLocationArgs']] = None,
-                 name: Optional[pulumi.Input[str]] = None,
-                 region: Optional[pulumi.Input['DatabaseNodeRegionArgs']] = None):
+                 name: pulumi.Input[str],
+                 connection: Optional[pulumi.Input['DatabaseNodesConnectionArgs']] = None,
+                 extensions: Optional[pulumi.Input['DatabaseNodesExtensionsArgs']] = None,
+                 location: Optional[pulumi.Input['DatabaseNodesLocationArgs']] = None,
+                 region: Optional[pulumi.Input['DatabaseNodesRegionArgs']] = None):
+        pulumi.set(__self__, "name", name)
         if connection is not None:
             pulumi.set(__self__, "connection", connection)
         if extensions is not None:
             pulumi.set(__self__, "extensions", extensions)
         if location is not None:
             pulumi.set(__self__, "location", location)
-        if name is not None:
-            pulumi.set(__self__, "name", name)
         if region is not None:
             pulumi.set(__self__, "region", region)
 
     @property
     @pulumi.getter
-    def connection(self) -> Optional[pulumi.Input['DatabaseNodeConnectionArgs']]:
-        return pulumi.get(self, "connection")
-
-    @connection.setter
-    def connection(self, value: Optional[pulumi.Input['DatabaseNodeConnectionArgs']]):
-        pulumi.set(self, "connection", value)
-
-    @property
-    @pulumi.getter
-    def extensions(self) -> Optional[pulumi.Input['DatabaseNodeExtensionsArgs']]:
-        return pulumi.get(self, "extensions")
-
-    @extensions.setter
-    def extensions(self, value: Optional[pulumi.Input['DatabaseNodeExtensionsArgs']]):
-        pulumi.set(self, "extensions", value)
-
-    @property
-    @pulumi.getter
-    def location(self) -> Optional[pulumi.Input['DatabaseNodeLocationArgs']]:
-        return pulumi.get(self, "location")
-
-    @location.setter
-    def location(self, value: Optional[pulumi.Input['DatabaseNodeLocationArgs']]):
-        pulumi.set(self, "location", value)
-
-    @property
-    @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[str]]:
+    def name(self) -> pulumi.Input[str]:
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[str]]):
+    def name(self, value: pulumi.Input[str]):
         pulumi.set(self, "name", value)
 
     @property
     @pulumi.getter
-    def region(self) -> Optional[pulumi.Input['DatabaseNodeRegionArgs']]:
+    def connection(self) -> Optional[pulumi.Input['DatabaseNodesConnectionArgs']]:
+        return pulumi.get(self, "connection")
+
+    @connection.setter
+    def connection(self, value: Optional[pulumi.Input['DatabaseNodesConnectionArgs']]):
+        pulumi.set(self, "connection", value)
+
+    @property
+    @pulumi.getter
+    def extensions(self) -> Optional[pulumi.Input['DatabaseNodesExtensionsArgs']]:
+        return pulumi.get(self, "extensions")
+
+    @extensions.setter
+    def extensions(self, value: Optional[pulumi.Input['DatabaseNodesExtensionsArgs']]):
+        pulumi.set(self, "extensions", value)
+
+    @property
+    @pulumi.getter
+    def location(self) -> Optional[pulumi.Input['DatabaseNodesLocationArgs']]:
+        return pulumi.get(self, "location")
+
+    @location.setter
+    def location(self, value: Optional[pulumi.Input['DatabaseNodesLocationArgs']]):
+        pulumi.set(self, "location", value)
+
+    @property
+    @pulumi.getter
+    def region(self) -> Optional[pulumi.Input['DatabaseNodesRegionArgs']]:
         return pulumi.get(self, "region")
 
     @region.setter
-    def region(self, value: Optional[pulumi.Input['DatabaseNodeRegionArgs']]):
+    def region(self, value: Optional[pulumi.Input['DatabaseNodesRegionArgs']]):
         pulumi.set(self, "region", value)
 
 
 @pulumi.input_type
-class DatabaseNodeConnectionArgs:
+class DatabaseNodesConnectionArgs:
     def __init__(__self__, *,
                  database: Optional[pulumi.Input[str]] = None,
                  external_ip_address: Optional[pulumi.Input[str]] = None,
@@ -936,7 +935,7 @@ class DatabaseNodeConnectionArgs:
 
 
 @pulumi.input_type
-class DatabaseNodeExtensionsArgs:
+class DatabaseNodesExtensionsArgs:
     def __init__(__self__, *,
                  errors: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  installeds: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
@@ -965,7 +964,7 @@ class DatabaseNodeExtensionsArgs:
 
 
 @pulumi.input_type
-class DatabaseNodeLocationArgs:
+class DatabaseNodesLocationArgs:
     def __init__(__self__, *,
                  city: Optional[pulumi.Input[str]] = None,
                  code: Optional[pulumi.Input[str]] = None,
@@ -1102,7 +1101,7 @@ class DatabaseNodeLocationArgs:
 
 
 @pulumi.input_type
-class DatabaseNodeRegionArgs:
+class DatabaseNodesRegionArgs:
     def __init__(__self__, *,
                  active: Optional[pulumi.Input[bool]] = None,
                  availability_zones: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,

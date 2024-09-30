@@ -17,25 +17,26 @@ __all__ = ['DatabaseArgs', 'Database']
 class DatabaseArgs:
     def __init__(__self__, *,
                  cluster_id: pulumi.Input[str],
+                 nodes: pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]],
                  backups: Optional[pulumi.Input['DatabaseBackupsArgs']] = None,
                  config_version: Optional[pulumi.Input[str]] = None,
                  extensions: Optional[pulumi.Input['DatabaseExtensionsArgs']] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 nodes: Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseNodeArgs']]]] = None,
                  options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  roles: Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseRoleArgs']]]] = None):
         """
         The set of arguments for constructing a Database resource.
         :param pulumi.Input[str] cluster_id: The ID of the cluster this database belongs to.
+        :param pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]] nodes: List of nodes in the database.
         :param pulumi.Input['DatabaseBackupsArgs'] backups: Backup configuration for the database.
         :param pulumi.Input[str] config_version: The configuration version of the database.
         :param pulumi.Input['DatabaseExtensionsArgs'] extensions: Extensions configuration for the database.
         :param pulumi.Input[str] name: The name of the database.
-        :param pulumi.Input[Sequence[pulumi.Input['DatabaseNodeArgs']]] nodes: List of nodes in the database.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] options: A list of options for the database.
         :param pulumi.Input[Sequence[pulumi.Input['DatabaseRoleArgs']]] roles: List of roles in the database.
         """
         pulumi.set(__self__, "cluster_id", cluster_id)
+        pulumi.set(__self__, "nodes", nodes)
         if backups is not None:
             pulumi.set(__self__, "backups", backups)
         if config_version is not None:
@@ -44,8 +45,6 @@ class DatabaseArgs:
             pulumi.set(__self__, "extensions", extensions)
         if name is not None:
             pulumi.set(__self__, "name", name)
-        if nodes is not None:
-            pulumi.set(__self__, "nodes", nodes)
         if options is not None:
             pulumi.set(__self__, "options", options)
         if roles is not None:
@@ -62,6 +61,18 @@ class DatabaseArgs:
     @cluster_id.setter
     def cluster_id(self, value: pulumi.Input[str]):
         pulumi.set(self, "cluster_id", value)
+
+    @property
+    @pulumi.getter
+    def nodes(self) -> pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]]:
+        """
+        List of nodes in the database.
+        """
+        return pulumi.get(self, "nodes")
+
+    @nodes.setter
+    def nodes(self, value: pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]]):
+        pulumi.set(self, "nodes", value)
 
     @property
     @pulumi.getter
@@ -113,18 +124,6 @@ class DatabaseArgs:
 
     @property
     @pulumi.getter
-    def nodes(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseNodeArgs']]]]:
-        """
-        List of nodes in the database.
-        """
-        return pulumi.get(self, "nodes")
-
-    @nodes.setter
-    def nodes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseNodeArgs']]]]):
-        pulumi.set(self, "nodes", value)
-
-    @property
-    @pulumi.getter
     def options(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         A list of options for the database.
@@ -159,7 +158,7 @@ class _DatabaseState:
                  domain: Optional[pulumi.Input[str]] = None,
                  extensions: Optional[pulumi.Input['DatabaseExtensionsArgs']] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 nodes: Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseNodeArgs']]]] = None,
+                 nodes: Optional[pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]]] = None,
                  options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  pg_version: Optional[pulumi.Input[str]] = None,
                  roles: Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseRoleArgs']]]] = None,
@@ -176,7 +175,7 @@ class _DatabaseState:
         :param pulumi.Input[str] domain: The domain associated with the database.
         :param pulumi.Input['DatabaseExtensionsArgs'] extensions: Extensions configuration for the database.
         :param pulumi.Input[str] name: The name of the database.
-        :param pulumi.Input[Sequence[pulumi.Input['DatabaseNodeArgs']]] nodes: List of nodes in the database.
+        :param pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]] nodes: List of nodes in the database.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] options: A list of options for the database.
         :param pulumi.Input[str] pg_version: The PostgreSQL version of the database.
         :param pulumi.Input[Sequence[pulumi.Input['DatabaseRoleArgs']]] roles: List of roles in the database.
@@ -313,14 +312,14 @@ class _DatabaseState:
 
     @property
     @pulumi.getter
-    def nodes(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseNodeArgs']]]]:
+    def nodes(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]]]:
         """
         List of nodes in the database.
         """
         return pulumi.get(self, "nodes")
 
     @nodes.setter
-    def nodes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseNodeArgs']]]]):
+    def nodes(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]]]):
         pulumi.set(self, "nodes", value)
 
     @property
@@ -406,7 +405,7 @@ class Database(pulumi.CustomResource):
                  config_version: Optional[pulumi.Input[str]] = None,
                  extensions: Optional[pulumi.Input[pulumi.InputType['DatabaseExtensionsArgs']]] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 nodes: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseNodeArgs']]]]] = None,
+                 nodes: Optional[pulumi.Input[Mapping[str, pulumi.Input[pulumi.InputType['DatabaseNodesArgs']]]]] = None,
                  options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  roles: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseRoleArgs']]]]] = None,
                  __props__=None):
@@ -420,7 +419,7 @@ class Database(pulumi.CustomResource):
         :param pulumi.Input[str] config_version: The configuration version of the database.
         :param pulumi.Input[pulumi.InputType['DatabaseExtensionsArgs']] extensions: Extensions configuration for the database.
         :param pulumi.Input[str] name: The name of the database.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseNodeArgs']]]] nodes: List of nodes in the database.
+        :param pulumi.Input[Mapping[str, pulumi.Input[pulumi.InputType['DatabaseNodesArgs']]]] nodes: List of nodes in the database.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] options: A list of options for the database.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseRoleArgs']]]] roles: List of roles in the database.
         """
@@ -453,7 +452,7 @@ class Database(pulumi.CustomResource):
                  config_version: Optional[pulumi.Input[str]] = None,
                  extensions: Optional[pulumi.Input[pulumi.InputType['DatabaseExtensionsArgs']]] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 nodes: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseNodeArgs']]]]] = None,
+                 nodes: Optional[pulumi.Input[Mapping[str, pulumi.Input[pulumi.InputType['DatabaseNodesArgs']]]]] = None,
                  options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  roles: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseRoleArgs']]]]] = None,
                  __props__=None):
@@ -472,6 +471,8 @@ class Database(pulumi.CustomResource):
             __props__.__dict__["config_version"] = config_version
             __props__.__dict__["extensions"] = extensions
             __props__.__dict__["name"] = name
+            if nodes is None and not opts.urn:
+                raise TypeError("Missing required property 'nodes'")
             __props__.__dict__["nodes"] = nodes
             __props__.__dict__["options"] = options
             __props__.__dict__["roles"] = roles
@@ -500,7 +501,7 @@ class Database(pulumi.CustomResource):
             domain: Optional[pulumi.Input[str]] = None,
             extensions: Optional[pulumi.Input[pulumi.InputType['DatabaseExtensionsArgs']]] = None,
             name: Optional[pulumi.Input[str]] = None,
-            nodes: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseNodeArgs']]]]] = None,
+            nodes: Optional[pulumi.Input[Mapping[str, pulumi.Input[pulumi.InputType['DatabaseNodesArgs']]]]] = None,
             options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             pg_version: Optional[pulumi.Input[str]] = None,
             roles: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseRoleArgs']]]]] = None,
@@ -522,7 +523,7 @@ class Database(pulumi.CustomResource):
         :param pulumi.Input[str] domain: The domain associated with the database.
         :param pulumi.Input[pulumi.InputType['DatabaseExtensionsArgs']] extensions: Extensions configuration for the database.
         :param pulumi.Input[str] name: The name of the database.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseNodeArgs']]]] nodes: List of nodes in the database.
+        :param pulumi.Input[Mapping[str, pulumi.Input[pulumi.InputType['DatabaseNodesArgs']]]] nodes: List of nodes in the database.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] options: A list of options for the database.
         :param pulumi.Input[str] pg_version: The PostgreSQL version of the database.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseRoleArgs']]]] roles: List of roles in the database.
@@ -617,7 +618,7 @@ class Database(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def nodes(self) -> pulumi.Output[Sequence['outputs.DatabaseNode']]:
+    def nodes(self) -> pulumi.Output[Mapping[str, 'outputs.DatabaseNodes']]:
         """
         List of nodes in the database.
         """

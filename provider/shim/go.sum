@@ -125,8 +125,8 @@ github.com/opentracing/opentracing-go v1.2.0 h1:uEJPy/1a5RIPAJ0Ov+OIO8OxWu77jEv+
 github.com/opentracing/opentracing-go v1.2.0/go.mod h1:GxEUsuufX4nBwe+T+Wl9TAgYrxe9dPLANfrWvHYVTgc=
 github.com/pgEdge/pulumi-pgedge/provider v0.0.0-20240213115242-7e064c5e16f5 h1:0hdS10dSr1d0i4ey5UC+B78DdqdHP0KYaPObQUps+bQ=
 github.com/pgEdge/pulumi-pgedge/provider v0.0.0-20240213115242-7e064c5e16f5/go.mod h1:tKZ5pS8mVdY+MxwlgFRa4jtOG1NYzLLcW+vfzmeGZ6M=
-github.com/pgEdge/terraform-provider-pgedge v0.0.8 h1:A4wVdSCNYXIlhhRylY89AJMJrmD2RMAjEqyeASNsqyI=
-github.com/pgEdge/terraform-provider-pgedge v0.0.8/go.mod h1:0qV0+ZDjsB+ULYqdCLsRawAlgr5KM4gRdUISpGP+Dvw=
+github.com/pgEdge/terraform-provider-pgedge v0.0.15 h1:N6Dp+aBvTY5UZFhHqHvCfFRSQYEJ7CmtAzj/7Oa25iY=
+github.com/pgEdge/terraform-provider-pgedge v0.0.15/go.mod h1:0qV0+ZDjsB+ULYqdCLsRawAlgr5KM4gRdUISpGP+Dvw=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/rogpeppe/go-internal v1.12.0 h1:exVL4IDcn6na9z1rAb56Vxr+CgyK3nn3O+epU5NdKM8=

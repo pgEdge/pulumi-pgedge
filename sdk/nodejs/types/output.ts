@@ -170,15 +170,15 @@ export interface DatabaseExtensions {
     requesteds: string[];
 }
 
-export interface DatabaseNode {
-    connection: outputs.DatabaseNodeConnection;
-    extensions: outputs.DatabaseNodeExtensions;
-    location: outputs.DatabaseNodeLocation;
+export interface DatabaseNodes {
+    connection: outputs.DatabaseNodesConnection;
+    extensions: outputs.DatabaseNodesExtensions;
+    location: outputs.DatabaseNodesLocation;
     name: string;
-    region: outputs.DatabaseNodeRegion;
+    region: outputs.DatabaseNodesRegion;
 }
 
-export interface DatabaseNodeConnection {
+export interface DatabaseNodesConnection {
     database: string;
     externalIpAddress: string;
     host: string;
@@ -189,12 +189,12 @@ export interface DatabaseNodeConnection {
     username: string;
 }
 
-export interface DatabaseNodeExtensions {
+export interface DatabaseNodesExtensions {
     errors: {[key: string]: string};
     installeds: string[];
 }
 
-export interface DatabaseNodeLocation {
+export interface DatabaseNodesLocation {
     city: string;
     code: string;
     country: string;
@@ -208,7 +208,7 @@ export interface DatabaseNodeLocation {
     timezone: string;
 }
 
-export interface DatabaseNodeRegion {
+export interface DatabaseNodesRegion {
     active: boolean;
     availabilityZones: string[];
     cloud: string;
@@ -431,7 +431,7 @@ export interface GetDatabasesDatabase {
     /**
      * Nodes of the database
      */
-    nodes: outputs.GetDatabasesDatabaseNode[];
+    nodes: {[key: string]: outputs.GetDatabasesDatabaseNodes};
     /**
      * Options for the database
      */
@@ -555,19 +555,19 @@ export interface GetDatabasesDatabaseExtensions {
     requesteds: string[];
 }
 
-export interface GetDatabasesDatabaseNode {
+export interface GetDatabasesDatabaseNodes {
     /**
      * Node connection details
      */
-    connection: outputs.GetDatabasesDatabaseNodeConnection;
+    connection: outputs.GetDatabasesDatabaseNodesConnection;
     /**
      * Extensions configuration for the database
      */
-    extensions: outputs.GetDatabasesDatabaseNodeExtensions;
+    extensions: outputs.GetDatabasesDatabaseNodesExtensions;
     /**
      * Node location
      */
-    location: outputs.GetDatabasesDatabaseNodeLocation;
+    location: outputs.GetDatabasesDatabaseNodesLocation;
     /**
      * Component name
      */
@@ -575,10 +575,10 @@ export interface GetDatabasesDatabaseNode {
     /**
      * Node region
      */
-    region: outputs.GetDatabasesDatabaseNodeRegion;
+    region: outputs.GetDatabasesDatabaseNodesRegion;
 }
 
-export interface GetDatabasesDatabaseNodeConnection {
+export interface GetDatabasesDatabaseNodesConnection {
     database: string;
     externalIpAddress: string;
     host: string;
@@ -589,12 +589,12 @@ export interface GetDatabasesDatabaseNodeConnection {
     username: string;
 }
 
-export interface GetDatabasesDatabaseNodeExtensions {
+export interface GetDatabasesDatabaseNodesExtensions {
     errors: {[key: string]: string};
     installeds: string[];
 }
 
-export interface GetDatabasesDatabaseNodeLocation {
+export interface GetDatabasesDatabaseNodesLocation {
     city: string;
     code: string;
     country: string;
@@ -611,7 +611,7 @@ export interface GetDatabasesDatabaseNodeLocation {
     timezone: string;
 }
 
-export interface GetDatabasesDatabaseNodeRegion {
+export interface GetDatabasesDatabaseNodesRegion {
     active: boolean;
     availabilityZones: string[];
     cloud: string;

@@ -11,7 +11,7 @@ using Pulumi;
 namespace Pgedge.Pgedge.Inputs
 {
 
-    public sealed class DatabaseNodeLocationGetArgs : global::Pulumi.ResourceArgs
+    public sealed class DatabaseNodesLocationGetArgs : global::Pulumi.ResourceArgs
     {
         [Input("city")]
         public Input<string>? City { get; set; }
@@ -46,9 +46,9 @@ namespace Pgedge.Pgedge.Inputs
         [Input("timezone")]
         public Input<string>? Timezone { get; set; }
 
-        public DatabaseNodeLocationGetArgs()
+        public DatabaseNodesLocationGetArgs()
         {
         }
-        public static new DatabaseNodeLocationGetArgs Empty => new DatabaseNodeLocationGetArgs();
+        public static new DatabaseNodesLocationGetArgs Empty => new DatabaseNodesLocationGetArgs();
     }
 }

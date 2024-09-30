@@ -20,11 +20,11 @@ __all__ = [
     'DatabaseBackupsConfigSchedule',
     'DatabaseComponent',
     'DatabaseExtensions',
-    'DatabaseNode',
-    'DatabaseNodeConnection',
-    'DatabaseNodeExtensions',
-    'DatabaseNodeLocation',
-    'DatabaseNodeRegion',
+    'DatabaseNodes',
+    'DatabaseNodesConnection',
+    'DatabaseNodesExtensions',
+    'DatabaseNodesLocation',
+    'DatabaseNodesRegion',
     'DatabaseRole',
     'GetBackupStoresBackupStoreResult',
     'GetCloudAccountsCloudAccountResult',
@@ -39,11 +39,11 @@ __all__ = [
     'GetDatabasesDatabaseBackupsConfigScheduleResult',
     'GetDatabasesDatabaseComponentResult',
     'GetDatabasesDatabaseExtensionsResult',
-    'GetDatabasesDatabaseNodeResult',
-    'GetDatabasesDatabaseNodeConnectionResult',
-    'GetDatabasesDatabaseNodeExtensionsResult',
-    'GetDatabasesDatabaseNodeLocationResult',
-    'GetDatabasesDatabaseNodeRegionResult',
+    'GetDatabasesDatabaseNodesResult',
+    'GetDatabasesDatabaseNodesConnectionResult',
+    'GetDatabasesDatabaseNodesExtensionsResult',
+    'GetDatabasesDatabaseNodesLocationResult',
+    'GetDatabasesDatabaseNodesRegionResult',
     'GetDatabasesDatabaseRoleResult',
     'GetSSHKeysSshKeyResult',
 ]
@@ -752,52 +752,51 @@ class DatabaseExtensions(dict):
 
 
 @pulumi.output_type
-class DatabaseNode(dict):
+class DatabaseNodes(dict):
     def __init__(__self__, *,
-                 connection: Optional['outputs.DatabaseNodeConnection'] = None,
-                 extensions: Optional['outputs.DatabaseNodeExtensions'] = None,
-                 location: Optional['outputs.DatabaseNodeLocation'] = None,
-                 name: Optional[str] = None,
-                 region: Optional['outputs.DatabaseNodeRegion'] = None):
+                 name: str,
+                 connection: Optional['outputs.DatabaseNodesConnection'] = None,
+                 extensions: Optional['outputs.DatabaseNodesExtensions'] = None,
+                 location: Optional['outputs.DatabaseNodesLocation'] = None,
+                 region: Optional['outputs.DatabaseNodesRegion'] = None):
+        pulumi.set(__self__, "name", name)
         if connection is not None:
             pulumi.set(__self__, "connection", connection)
         if extensions is not None:
             pulumi.set(__self__, "extensions", extensions)
         if location is not None:
             pulumi.set(__self__, "location", location)
-        if name is not None:
-            pulumi.set(__self__, "name", name)
         if region is not None:
             pulumi.set(__self__, "region", region)
 
     @property
     @pulumi.getter
-    def connection(self) -> Optional['outputs.DatabaseNodeConnection']:
-        return pulumi.get(self, "connection")
-
-    @property
-    @pulumi.getter
-    def extensions(self) -> Optional['outputs.DatabaseNodeExtensions']:
-        return pulumi.get(self, "extensions")
-
-    @property
-    @pulumi.getter
-    def location(self) -> Optional['outputs.DatabaseNodeLocation']:
-        return pulumi.get(self, "location")
-
-    @property
-    @pulumi.getter
-    def name(self) -> Optional[str]:
+    def name(self) -> str:
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
-    def region(self) -> Optional['outputs.DatabaseNodeRegion']:
+    def connection(self) -> Optional['outputs.DatabaseNodesConnection']:
+        return pulumi.get(self, "connection")
+
+    @property
+    @pulumi.getter
+    def extensions(self) -> Optional['outputs.DatabaseNodesExtensions']:
+        return pulumi.get(self, "extensions")
+
+    @property
+    @pulumi.getter
+    def location(self) -> Optional['outputs.DatabaseNodesLocation']:
+        return pulumi.get(self, "location")
+
+    @property
+    @pulumi.getter
+    def region(self) -> Optional['outputs.DatabaseNodesRegion']:
         return pulumi.get(self, "region")
 
 
 @pulumi.output_type
-class DatabaseNodeConnection(dict):
+class DatabaseNodesConnection(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
@@ -809,14 +808,14 @@ class DatabaseNodeConnection(dict):
             suggest = "internal_ip_address"
 
         if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in DatabaseNodeConnection. Access the value via the '{suggest}' property getter instead.")
+            pulumi.log.warn(f"Key '{key}' not found in DatabaseNodesConnection. Access the value via the '{suggest}' property getter instead.")
 
     def __getitem__(self, key: str) -> Any:
-        DatabaseNodeConnection.__key_warning(key)
+        DatabaseNodesConnection.__key_warning(key)
         return super().__getitem__(key)
 
     def get(self, key: str, default = None) -> Any:
-        DatabaseNodeConnection.__key_warning(key)
+        DatabaseNodesConnection.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
@@ -887,7 +886,7 @@ class DatabaseNodeConnection(dict):
 
 
 @pulumi.output_type
-class DatabaseNodeExtensions(dict):
+class DatabaseNodesExtensions(dict):
     def __init__(__self__, *,
                  errors: Optional[Mapping[str, str]] = None,
                  installeds: Optional[Sequence[str]] = None):
@@ -908,7 +907,7 @@ class DatabaseNodeExtensions(dict):
 
 
 @pulumi.output_type
-class DatabaseNodeLocation(dict):
+class DatabaseNodesLocation(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
@@ -920,14 +919,14 @@ class DatabaseNodeLocation(dict):
             suggest = "region_code"
 
         if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in DatabaseNodeLocation. Access the value via the '{suggest}' property getter instead.")
+            pulumi.log.warn(f"Key '{key}' not found in DatabaseNodesLocation. Access the value via the '{suggest}' property getter instead.")
 
     def __getitem__(self, key: str) -> Any:
-        DatabaseNodeLocation.__key_warning(key)
+        DatabaseNodesLocation.__key_warning(key)
         return super().__getitem__(key)
 
     def get(self, key: str, default = None) -> Any:
-        DatabaseNodeLocation.__key_warning(key)
+        DatabaseNodesLocation.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
@@ -1022,7 +1021,7 @@ class DatabaseNodeLocation(dict):
 
 
 @pulumi.output_type
-class DatabaseNodeRegion(dict):
+class DatabaseNodesRegion(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
@@ -1030,14 +1029,14 @@ class DatabaseNodeRegion(dict):
             suggest = "availability_zones"
 
         if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in DatabaseNodeRegion. Access the value via the '{suggest}' property getter instead.")
+            pulumi.log.warn(f"Key '{key}' not found in DatabaseNodesRegion. Access the value via the '{suggest}' property getter instead.")
 
     def __getitem__(self, key: str) -> Any:
-        DatabaseNodeRegion.__key_warning(key)
+        DatabaseNodesRegion.__key_warning(key)
         return super().__getitem__(key)
 
     def get(self, key: str, default = None) -> Any:
-        DatabaseNodeRegion.__key_warning(key)
+        DatabaseNodesRegion.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
@@ -1707,7 +1706,7 @@ class GetDatabasesDatabaseResult(dict):
                  extensions: 'outputs.GetDatabasesDatabaseExtensionsResult',
                  id: str,
                  name: str,
-                 nodes: Sequence['outputs.GetDatabasesDatabaseNodeResult'],
+                 nodes: Mapping[str, 'outputs.GetDatabasesDatabaseNodesResult'],
                  options: Sequence[str],
                  pg_version: str,
                  roles: Sequence['outputs.GetDatabasesDatabaseRoleResult'],
@@ -1724,7 +1723,7 @@ class GetDatabasesDatabaseResult(dict):
         :param 'GetDatabasesDatabaseExtensionsArgs' extensions: Extensions configuration for the database
         :param str id: ID of the database
         :param str name: Name of the database
-        :param Sequence['GetDatabasesDatabaseNodeArgs'] nodes: Nodes of the database
+        :param Mapping[str, 'GetDatabasesDatabaseNodesArgs'] nodes: Nodes of the database
         :param Sequence[str] options: Options for the database
         :param str pg_version: PostgreSQL version of the database
         :param Sequence['GetDatabasesDatabaseRoleArgs'] roles: Roles in the database
@@ -1823,7 +1822,7 @@ class GetDatabasesDatabaseResult(dict):
 
     @property
     @pulumi.getter
-    def nodes(self) -> Sequence['outputs.GetDatabasesDatabaseNodeResult']:
+    def nodes(self) -> Mapping[str, 'outputs.GetDatabasesDatabaseNodesResult']:
         """
         Nodes of the database
         """
@@ -2202,19 +2201,19 @@ class GetDatabasesDatabaseExtensionsResult(dict):
 
 
 @pulumi.output_type
-class GetDatabasesDatabaseNodeResult(dict):
+class GetDatabasesDatabaseNodesResult(dict):
     def __init__(__self__, *,
-                 connection: 'outputs.GetDatabasesDatabaseNodeConnectionResult',
-                 extensions: 'outputs.GetDatabasesDatabaseNodeExtensionsResult',
-                 location: 'outputs.GetDatabasesDatabaseNodeLocationResult',
+                 connection: 'outputs.GetDatabasesDatabaseNodesConnectionResult',
+                 extensions: 'outputs.GetDatabasesDatabaseNodesExtensionsResult',
+                 location: 'outputs.GetDatabasesDatabaseNodesLocationResult',
                  name: str,
-                 region: 'outputs.GetDatabasesDatabaseNodeRegionResult'):
+                 region: 'outputs.GetDatabasesDatabaseNodesRegionResult'):
         """
-        :param 'GetDatabasesDatabaseNodeConnectionArgs' connection: Node connection details
-        :param 'GetDatabasesDatabaseNodeExtensionsArgs' extensions: Extensions configuration for the database
-        :param 'GetDatabasesDatabaseNodeLocationArgs' location: Node location
+        :param 'GetDatabasesDatabaseNodesConnectionArgs' connection: Node connection details
+        :param 'GetDatabasesDatabaseNodesExtensionsArgs' extensions: Extensions configuration for the database
+        :param 'GetDatabasesDatabaseNodesLocationArgs' location: Node location
         :param str name: Component name
-        :param 'GetDatabasesDatabaseNodeRegionArgs' region: Node region
+        :param 'GetDatabasesDatabaseNodesRegionArgs' region: Node region
         """
         pulumi.set(__self__, "connection", connection)
         pulumi.set(__self__, "extensions", extensions)
@@ -2224,7 +2223,7 @@ class GetDatabasesDatabaseNodeResult(dict):
 
     @property
     @pulumi.getter
-    def connection(self) -> 'outputs.GetDatabasesDatabaseNodeConnectionResult':
+    def connection(self) -> 'outputs.GetDatabasesDatabaseNodesConnectionResult':
         """
         Node connection details
         """
@@ -2232,7 +2231,7 @@ class GetDatabasesDatabaseNodeResult(dict):
 
     @property
     @pulumi.getter
-    def extensions(self) -> 'outputs.GetDatabasesDatabaseNodeExtensionsResult':
+    def extensions(self) -> 'outputs.GetDatabasesDatabaseNodesExtensionsResult':
         """
         Extensions configuration for the database
         """
@@ -2240,7 +2239,7 @@ class GetDatabasesDatabaseNodeResult(dict):
 
     @property
     @pulumi.getter
-    def location(self) -> 'outputs.GetDatabasesDatabaseNodeLocationResult':
+    def location(self) -> 'outputs.GetDatabasesDatabaseNodesLocationResult':
         """
         Node location
         """
@@ -2256,7 +2255,7 @@ class GetDatabasesDatabaseNodeResult(dict):
 
     @property
     @pulumi.getter
-    def region(self) -> 'outputs.GetDatabasesDatabaseNodeRegionResult':
+    def region(self) -> 'outputs.GetDatabasesDatabaseNodesRegionResult':
         """
         Node region
         """
@@ -2264,7 +2263,7 @@ class GetDatabasesDatabaseNodeResult(dict):
 
 
 @pulumi.output_type
-class GetDatabasesDatabaseNodeConnectionResult(dict):
+class GetDatabasesDatabaseNodesConnectionResult(dict):
     def __init__(__self__, *,
                  database: str,
                  external_ip_address: str,
@@ -2325,7 +2324,7 @@ class GetDatabasesDatabaseNodeConnectionResult(dict):
 
 
 @pulumi.output_type
-class GetDatabasesDatabaseNodeExtensionsResult(dict):
+class GetDatabasesDatabaseNodesExtensionsResult(dict):
     def __init__(__self__, *,
                  errors: Mapping[str, str],
                  installeds: Sequence[str]):
@@ -2344,7 +2343,7 @@ class GetDatabasesDatabaseNodeExtensionsResult(dict):
 
 
 @pulumi.output_type
-class GetDatabasesDatabaseNodeLocationResult(dict):
+class GetDatabasesDatabaseNodesLocationResult(dict):
     def __init__(__self__, *,
                  city: str,
                  code: str,
@@ -2432,7 +2431,7 @@ class GetDatabasesDatabaseNodeLocationResult(dict):
 
 
 @pulumi.output_type
-class GetDatabasesDatabaseNodeRegionResult(dict):
+class GetDatabasesDatabaseNodesRegionResult(dict):
     def __init__(__self__, *,
                  active: bool,
                  availability_zones: Sequence[str],

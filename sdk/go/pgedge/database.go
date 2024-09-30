@@ -33,7 +33,7 @@ type Database struct {
 	// The name of the database.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// List of nodes in the database.
-	Nodes DatabaseNodeArrayOutput `pulumi:"nodes"`
+	Nodes DatabaseNodesMapOutput `pulumi:"nodes"`
 	// A list of options for the database.
 	Options pulumi.StringArrayOutput `pulumi:"options"`
 	// The PostgreSQL version of the database.
@@ -57,6 +57,9 @@ func NewDatabase(ctx *pulumi.Context,
 
 	if args.ClusterId == nil {
 		return nil, errors.New("invalid value for required argument 'ClusterId'")
+	}
+	if args.Nodes == nil {
+		return nil, errors.New("invalid value for required argument 'Nodes'")
 	}
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Database
@@ -98,7 +101,7 @@ type databaseState struct {
 	// The name of the database.
 	Name *string `pulumi:"name"`
 	// List of nodes in the database.
-	Nodes []DatabaseNode `pulumi:"nodes"`
+	Nodes map[string]DatabaseNodes `pulumi:"nodes"`
 	// A list of options for the database.
 	Options []string `pulumi:"options"`
 	// The PostgreSQL version of the database.
@@ -131,7 +134,7 @@ type DatabaseState struct {
 	// The name of the database.
 	Name pulumi.StringPtrInput
 	// List of nodes in the database.
-	Nodes DatabaseNodeArrayInput
+	Nodes DatabaseNodesMapInput
 	// A list of options for the database.
 	Options pulumi.StringArrayInput
 	// The PostgreSQL version of the database.
@@ -162,7 +165,7 @@ type databaseArgs struct {
 	// The name of the database.
 	Name *string `pulumi:"name"`
 	// List of nodes in the database.
-	Nodes []DatabaseNode `pulumi:"nodes"`
+	Nodes map[string]DatabaseNodes `pulumi:"nodes"`
 	// A list of options for the database.
 	Options []string `pulumi:"options"`
 	// List of roles in the database.
@@ -182,7 +185,7 @@ type DatabaseArgs struct {
 	// The name of the database.
 	Name pulumi.StringPtrInput
 	// List of nodes in the database.
-	Nodes DatabaseNodeArrayInput
+	Nodes DatabaseNodesMapInput
 	// A list of options for the database.
 	Options pulumi.StringArrayInput
 	// List of roles in the database.
@@ -317,8 +320,8 @@ func (o DatabaseOutput) Name() pulumi.StringOutput {
 }
 
 // List of nodes in the database.
-func (o DatabaseOutput) Nodes() DatabaseNodeArrayOutput {
-	return o.ApplyT(func(v *Database) DatabaseNodeArrayOutput { return v.Nodes }).(DatabaseNodeArrayOutput)
+func (o DatabaseOutput) Nodes() DatabaseNodesMapOutput {
+	return o.ApplyT(func(v *Database) DatabaseNodesMapOutput { return v.Nodes }).(DatabaseNodesMapOutput)
 }
 
 // A list of options for the database.

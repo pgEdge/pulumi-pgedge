@@ -68,7 +68,7 @@ namespace Pgedge.Pgedge
         /// List of nodes in the database.
         /// </summary>
         [Output("nodes")]
-        public Output<ImmutableArray<Outputs.DatabaseNode>> Nodes { get; private set; } = null!;
+        public Output<ImmutableDictionary<string, Outputs.DatabaseNodes>> Nodes { get; private set; } = null!;
 
         /// <summary>
         /// A list of options for the database.
@@ -183,15 +183,15 @@ namespace Pgedge.Pgedge
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        [Input("nodes")]
-        private InputList<Inputs.DatabaseNodeArgs>? _nodes;
+        [Input("nodes", required: true)]
+        private InputMap<Inputs.DatabaseNodesArgs>? _nodes;
 
         /// <summary>
         /// List of nodes in the database.
         /// </summary>
-        public InputList<Inputs.DatabaseNodeArgs> Nodes
+        public InputMap<Inputs.DatabaseNodesArgs> Nodes
         {
-            get => _nodes ?? (_nodes = new InputList<Inputs.DatabaseNodeArgs>());
+            get => _nodes ?? (_nodes = new InputMap<Inputs.DatabaseNodesArgs>());
             set => _nodes = value;
         }
 
@@ -282,14 +282,14 @@ namespace Pgedge.Pgedge
         public Input<string>? Name { get; set; }
 
         [Input("nodes")]
-        private InputList<Inputs.DatabaseNodeGetArgs>? _nodes;
+        private InputMap<Inputs.DatabaseNodesGetArgs>? _nodes;
 
         /// <summary>
         /// List of nodes in the database.
         /// </summary>
-        public InputList<Inputs.DatabaseNodeGetArgs> Nodes
+        public InputMap<Inputs.DatabaseNodesGetArgs> Nodes
         {
-            get => _nodes ?? (_nodes = new InputList<Inputs.DatabaseNodeGetArgs>());
+            get => _nodes ?? (_nodes = new InputMap<Inputs.DatabaseNodesGetArgs>());
             set => _nodes = value;
         }
 

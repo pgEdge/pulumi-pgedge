@@ -72,7 +72,7 @@ export class Database extends pulumi.CustomResource {
     /**
      * List of nodes in the database.
      */
-    public readonly nodes!: pulumi.Output<outputs.DatabaseNode[]>;
+    public readonly nodes!: pulumi.Output<{[key: string]: outputs.DatabaseNodes}>;
     /**
      * A list of options for the database.
      */
@@ -130,6 +130,9 @@ export class Database extends pulumi.CustomResource {
             const args = argsOrState as DatabaseArgs | undefined;
             if ((!args || args.clusterId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'clusterId'");
+            }
+            if ((!args || args.nodes === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'nodes'");
             }
             resourceInputs["backups"] = args ? args.backups : undefined;
             resourceInputs["clusterId"] = args ? args.clusterId : undefined;
@@ -191,7 +194,7 @@ export interface DatabaseState {
     /**
      * List of nodes in the database.
      */
-    nodes?: pulumi.Input<pulumi.Input<inputs.DatabaseNode>[]>;
+    nodes?: pulumi.Input<{[key: string]: pulumi.Input<inputs.DatabaseNodes>}>;
     /**
      * A list of options for the database.
      */
@@ -245,7 +248,7 @@ export interface DatabaseArgs {
     /**
      * List of nodes in the database.
      */
-    nodes?: pulumi.Input<pulumi.Input<inputs.DatabaseNode>[]>;
+    nodes: pulumi.Input<{[key: string]: pulumi.Input<inputs.DatabaseNodes>}>;
     /**
      * A list of options for the database.
      */

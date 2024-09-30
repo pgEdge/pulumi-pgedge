@@ -12,20 +12,20 @@ namespace Pgedge.Pgedge.Outputs
 {
 
     [OutputType]
-    public sealed class GetDatabasesDatabaseNodeResult
+    public sealed class GetDatabasesDatabaseNodesResult
     {
         /// <summary>
         /// Node connection details
         /// </summary>
-        public readonly Outputs.GetDatabasesDatabaseNodeConnectionResult Connection;
+        public readonly Outputs.GetDatabasesDatabaseNodesConnectionResult Connection;
         /// <summary>
         /// Extensions configuration for the database
         /// </summary>
-        public readonly Outputs.GetDatabasesDatabaseNodeExtensionsResult Extensions;
+        public readonly Outputs.GetDatabasesDatabaseNodesExtensionsResult Extensions;
         /// <summary>
         /// Node location
         /// </summary>
-        public readonly Outputs.GetDatabasesDatabaseNodeLocationResult Location;
+        public readonly Outputs.GetDatabasesDatabaseNodesLocationResult Location;
         /// <summary>
         /// Component name
         /// </summary>
@@ -33,19 +33,19 @@ namespace Pgedge.Pgedge.Outputs
         /// <summary>
         /// Node region
         /// </summary>
-        public readonly Outputs.GetDatabasesDatabaseNodeRegionResult Region;
+        public readonly Outputs.GetDatabasesDatabaseNodesRegionResult Region;
 
         [OutputConstructor]
-        private GetDatabasesDatabaseNodeResult(
-            Outputs.GetDatabasesDatabaseNodeConnectionResult connection,
+        private GetDatabasesDatabaseNodesResult(
+            Outputs.GetDatabasesDatabaseNodesConnectionResult connection,
 
-            Outputs.GetDatabasesDatabaseNodeExtensionsResult extensions,
+            Outputs.GetDatabasesDatabaseNodesExtensionsResult extensions,
 
-            Outputs.GetDatabasesDatabaseNodeLocationResult location,
+            Outputs.GetDatabasesDatabaseNodesLocationResult location,
 
             string name,
 
-            Outputs.GetDatabasesDatabaseNodeRegionResult region)
+            Outputs.GetDatabasesDatabaseNodesRegionResult region)
         {
             Connection = connection;
             Extensions = extensions;

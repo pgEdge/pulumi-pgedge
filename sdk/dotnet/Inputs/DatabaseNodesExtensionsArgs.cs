@@ -11,7 +11,7 @@ using Pulumi;
 namespace Pgedge.Pgedge.Inputs
 {
 
-    public sealed class DatabaseNodeExtensionsArgs : global::Pulumi.ResourceArgs
+    public sealed class DatabaseNodesExtensionsArgs : global::Pulumi.ResourceArgs
     {
         [Input("errors")]
         private InputMap<string>? _errors;
@@ -29,9 +29,9 @@ namespace Pgedge.Pgedge.Inputs
             set => _installeds = value;
         }
 
-        public DatabaseNodeExtensionsArgs()
+        public DatabaseNodesExtensionsArgs()
         {
         }
-        public static new DatabaseNodeExtensionsArgs Empty => new DatabaseNodeExtensionsArgs();
+        public static new DatabaseNodesExtensionsArgs Empty => new DatabaseNodesExtensionsArgs();
     }
 }

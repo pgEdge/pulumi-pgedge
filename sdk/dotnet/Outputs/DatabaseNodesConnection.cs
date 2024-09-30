@@ -12,34 +12,34 @@ namespace Pgedge.Pgedge.Outputs
 {
 
     [OutputType]
-    public sealed class GetDatabasesDatabaseNodeConnectionResult
+    public sealed class DatabaseNodesConnection
     {
-        public readonly string Database;
-        public readonly string ExternalIpAddress;
-        public readonly string Host;
-        public readonly string InternalHost;
-        public readonly string InternalIpAddress;
-        public readonly string Password;
-        public readonly int Port;
-        public readonly string Username;
+        public readonly string? Database;
+        public readonly string? ExternalIpAddress;
+        public readonly string? Host;
+        public readonly string? InternalHost;
+        public readonly string? InternalIpAddress;
+        public readonly string? Password;
+        public readonly int? Port;
+        public readonly string? Username;
 
         [OutputConstructor]
-        private GetDatabasesDatabaseNodeConnectionResult(
-            string database,
+        private DatabaseNodesConnection(
+            string? database,
 
-            string externalIpAddress,
+            string? externalIpAddress,
 
-            string host,
+            string? host,
 
-            string internalHost,
+            string? internalHost,
 
-            string internalIpAddress,
+            string? internalIpAddress,
 
-            string password,
+            string? password,
 
-            int port,
+            int? port,
 
-            string username)
+            string? username)
         {
             Database = database;
             ExternalIpAddress = externalIpAddress;

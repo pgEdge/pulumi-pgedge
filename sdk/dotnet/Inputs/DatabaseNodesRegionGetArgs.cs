@@ -11,7 +11,7 @@ using Pulumi;
 namespace Pgedge.Pgedge.Inputs
 {
 
-    public sealed class DatabaseNodeRegionGetArgs : global::Pulumi.ResourceArgs
+    public sealed class DatabaseNodesRegionGetArgs : global::Pulumi.ResourceArgs
     {
         [Input("active")]
         public Input<bool>? Active { get; set; }
@@ -36,9 +36,9 @@ namespace Pgedge.Pgedge.Inputs
         [Input("parent")]
         public Input<string>? Parent { get; set; }
 
-        public DatabaseNodeRegionGetArgs()
+        public DatabaseNodesRegionGetArgs()
         {
         }
-        public static new DatabaseNodeRegionGetArgs Empty => new DatabaseNodeRegionGetArgs();
+        public static new DatabaseNodesRegionGetArgs Empty => new DatabaseNodesRegionGetArgs();
     }
 }

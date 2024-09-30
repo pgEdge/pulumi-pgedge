@@ -1290,125 +1290,125 @@ func (o DatabaseExtensionsPtrOutput) Requesteds() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-type DatabaseNode struct {
-	Connection *DatabaseNodeConnection `pulumi:"connection"`
-	Extensions *DatabaseNodeExtensions `pulumi:"extensions"`
-	Location   *DatabaseNodeLocation   `pulumi:"location"`
-	Name       *string                 `pulumi:"name"`
-	Region     *DatabaseNodeRegion     `pulumi:"region"`
+type DatabaseNodes struct {
+	Connection *DatabaseNodesConnection `pulumi:"connection"`
+	Extensions *DatabaseNodesExtensions `pulumi:"extensions"`
+	Location   *DatabaseNodesLocation   `pulumi:"location"`
+	Name       string                   `pulumi:"name"`
+	Region     *DatabaseNodesRegion     `pulumi:"region"`
 }
 
-// DatabaseNodeInput is an input type that accepts DatabaseNodeArgs and DatabaseNodeOutput values.
-// You can construct a concrete instance of `DatabaseNodeInput` via:
+// DatabaseNodesInput is an input type that accepts DatabaseNodesArgs and DatabaseNodesOutput values.
+// You can construct a concrete instance of `DatabaseNodesInput` via:
 //
-//	DatabaseNodeArgs{...}
-type DatabaseNodeInput interface {
+//	DatabaseNodesArgs{...}
+type DatabaseNodesInput interface {
 	pulumi.Input
 
-	ToDatabaseNodeOutput() DatabaseNodeOutput
-	ToDatabaseNodeOutputWithContext(context.Context) DatabaseNodeOutput
+	ToDatabaseNodesOutput() DatabaseNodesOutput
+	ToDatabaseNodesOutputWithContext(context.Context) DatabaseNodesOutput
 }
 
-type DatabaseNodeArgs struct {
-	Connection DatabaseNodeConnectionPtrInput `pulumi:"connection"`
-	Extensions DatabaseNodeExtensionsPtrInput `pulumi:"extensions"`
-	Location   DatabaseNodeLocationPtrInput   `pulumi:"location"`
-	Name       pulumi.StringPtrInput          `pulumi:"name"`
-	Region     DatabaseNodeRegionPtrInput     `pulumi:"region"`
+type DatabaseNodesArgs struct {
+	Connection DatabaseNodesConnectionPtrInput `pulumi:"connection"`
+	Extensions DatabaseNodesExtensionsPtrInput `pulumi:"extensions"`
+	Location   DatabaseNodesLocationPtrInput   `pulumi:"location"`
+	Name       pulumi.StringInput              `pulumi:"name"`
+	Region     DatabaseNodesRegionPtrInput     `pulumi:"region"`
 }
 
-func (DatabaseNodeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNode)(nil)).Elem()
+func (DatabaseNodesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DatabaseNodes)(nil)).Elem()
 }
 
-func (i DatabaseNodeArgs) ToDatabaseNodeOutput() DatabaseNodeOutput {
-	return i.ToDatabaseNodeOutputWithContext(context.Background())
+func (i DatabaseNodesArgs) ToDatabaseNodesOutput() DatabaseNodesOutput {
+	return i.ToDatabaseNodesOutputWithContext(context.Background())
 }
 
-func (i DatabaseNodeArgs) ToDatabaseNodeOutputWithContext(ctx context.Context) DatabaseNodeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeOutput)
+func (i DatabaseNodesArgs) ToDatabaseNodesOutputWithContext(ctx context.Context) DatabaseNodesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodesOutput)
 }
 
-// DatabaseNodeArrayInput is an input type that accepts DatabaseNodeArray and DatabaseNodeArrayOutput values.
-// You can construct a concrete instance of `DatabaseNodeArrayInput` via:
+// DatabaseNodesMapInput is an input type that accepts DatabaseNodesMap and DatabaseNodesMapOutput values.
+// You can construct a concrete instance of `DatabaseNodesMapInput` via:
 //
-//	DatabaseNodeArray{ DatabaseNodeArgs{...} }
-type DatabaseNodeArrayInput interface {
+//	DatabaseNodesMap{ "key": DatabaseNodesArgs{...} }
+type DatabaseNodesMapInput interface {
 	pulumi.Input
 
-	ToDatabaseNodeArrayOutput() DatabaseNodeArrayOutput
-	ToDatabaseNodeArrayOutputWithContext(context.Context) DatabaseNodeArrayOutput
+	ToDatabaseNodesMapOutput() DatabaseNodesMapOutput
+	ToDatabaseNodesMapOutputWithContext(context.Context) DatabaseNodesMapOutput
 }
 
-type DatabaseNodeArray []DatabaseNodeInput
+type DatabaseNodesMap map[string]DatabaseNodesInput
 
-func (DatabaseNodeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]DatabaseNode)(nil)).Elem()
+func (DatabaseNodesMap) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]DatabaseNodes)(nil)).Elem()
 }
 
-func (i DatabaseNodeArray) ToDatabaseNodeArrayOutput() DatabaseNodeArrayOutput {
-	return i.ToDatabaseNodeArrayOutputWithContext(context.Background())
+func (i DatabaseNodesMap) ToDatabaseNodesMapOutput() DatabaseNodesMapOutput {
+	return i.ToDatabaseNodesMapOutputWithContext(context.Background())
 }
 
-func (i DatabaseNodeArray) ToDatabaseNodeArrayOutputWithContext(ctx context.Context) DatabaseNodeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeArrayOutput)
+func (i DatabaseNodesMap) ToDatabaseNodesMapOutputWithContext(ctx context.Context) DatabaseNodesMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodesMapOutput)
 }
 
-type DatabaseNodeOutput struct{ *pulumi.OutputState }
+type DatabaseNodesOutput struct{ *pulumi.OutputState }
 
-func (DatabaseNodeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNode)(nil)).Elem()
+func (DatabaseNodesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DatabaseNodes)(nil)).Elem()
 }
 
-func (o DatabaseNodeOutput) ToDatabaseNodeOutput() DatabaseNodeOutput {
+func (o DatabaseNodesOutput) ToDatabaseNodesOutput() DatabaseNodesOutput {
 	return o
 }
 
-func (o DatabaseNodeOutput) ToDatabaseNodeOutputWithContext(ctx context.Context) DatabaseNodeOutput {
+func (o DatabaseNodesOutput) ToDatabaseNodesOutputWithContext(ctx context.Context) DatabaseNodesOutput {
 	return o
 }
 
-func (o DatabaseNodeOutput) Connection() DatabaseNodeConnectionPtrOutput {
-	return o.ApplyT(func(v DatabaseNode) *DatabaseNodeConnection { return v.Connection }).(DatabaseNodeConnectionPtrOutput)
+func (o DatabaseNodesOutput) Connection() DatabaseNodesConnectionPtrOutput {
+	return o.ApplyT(func(v DatabaseNodes) *DatabaseNodesConnection { return v.Connection }).(DatabaseNodesConnectionPtrOutput)
 }
 
-func (o DatabaseNodeOutput) Extensions() DatabaseNodeExtensionsPtrOutput {
-	return o.ApplyT(func(v DatabaseNode) *DatabaseNodeExtensions { return v.Extensions }).(DatabaseNodeExtensionsPtrOutput)
+func (o DatabaseNodesOutput) Extensions() DatabaseNodesExtensionsPtrOutput {
+	return o.ApplyT(func(v DatabaseNodes) *DatabaseNodesExtensions { return v.Extensions }).(DatabaseNodesExtensionsPtrOutput)
 }
 
-func (o DatabaseNodeOutput) Location() DatabaseNodeLocationPtrOutput {
-	return o.ApplyT(func(v DatabaseNode) *DatabaseNodeLocation { return v.Location }).(DatabaseNodeLocationPtrOutput)
+func (o DatabaseNodesOutput) Location() DatabaseNodesLocationPtrOutput {
+	return o.ApplyT(func(v DatabaseNodes) *DatabaseNodesLocation { return v.Location }).(DatabaseNodesLocationPtrOutput)
 }
 
-func (o DatabaseNodeOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNode) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v DatabaseNodes) string { return v.Name }).(pulumi.StringOutput)
 }
 
-func (o DatabaseNodeOutput) Region() DatabaseNodeRegionPtrOutput {
-	return o.ApplyT(func(v DatabaseNode) *DatabaseNodeRegion { return v.Region }).(DatabaseNodeRegionPtrOutput)
+func (o DatabaseNodesOutput) Region() DatabaseNodesRegionPtrOutput {
+	return o.ApplyT(func(v DatabaseNodes) *DatabaseNodesRegion { return v.Region }).(DatabaseNodesRegionPtrOutput)
 }
 
-type DatabaseNodeArrayOutput struct{ *pulumi.OutputState }
+type DatabaseNodesMapOutput struct{ *pulumi.OutputState }
 
-func (DatabaseNodeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]DatabaseNode)(nil)).Elem()
+func (DatabaseNodesMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]DatabaseNodes)(nil)).Elem()
 }
 
-func (o DatabaseNodeArrayOutput) ToDatabaseNodeArrayOutput() DatabaseNodeArrayOutput {
+func (o DatabaseNodesMapOutput) ToDatabaseNodesMapOutput() DatabaseNodesMapOutput {
 	return o
 }
 
-func (o DatabaseNodeArrayOutput) ToDatabaseNodeArrayOutputWithContext(ctx context.Context) DatabaseNodeArrayOutput {
+func (o DatabaseNodesMapOutput) ToDatabaseNodesMapOutputWithContext(ctx context.Context) DatabaseNodesMapOutput {
 	return o
 }
 
-func (o DatabaseNodeArrayOutput) Index(i pulumi.IntInput) DatabaseNodeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DatabaseNode {
-		return vs[0].([]DatabaseNode)[vs[1].(int)]
-	}).(DatabaseNodeOutput)
+func (o DatabaseNodesMapOutput) MapIndex(k pulumi.StringInput) DatabaseNodesOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) DatabaseNodes {
+		return vs[0].(map[string]DatabaseNodes)[vs[1].(string)]
+	}).(DatabaseNodesOutput)
 }
 
-type DatabaseNodeConnection struct {
+type DatabaseNodesConnection struct {
 	Database          *string `pulumi:"database"`
 	ExternalIpAddress *string `pulumi:"externalIpAddress"`
 	Host              *string `pulumi:"host"`
@@ -1419,18 +1419,18 @@ type DatabaseNodeConnection struct {
 	Username          *string `pulumi:"username"`
 }
 
-// DatabaseNodeConnectionInput is an input type that accepts DatabaseNodeConnectionArgs and DatabaseNodeConnectionOutput values.
-// You can construct a concrete instance of `DatabaseNodeConnectionInput` via:
+// DatabaseNodesConnectionInput is an input type that accepts DatabaseNodesConnectionArgs and DatabaseNodesConnectionOutput values.
+// You can construct a concrete instance of `DatabaseNodesConnectionInput` via:
 //
-//	DatabaseNodeConnectionArgs{...}
-type DatabaseNodeConnectionInput interface {
+//	DatabaseNodesConnectionArgs{...}
+type DatabaseNodesConnectionInput interface {
 	pulumi.Input
 
-	ToDatabaseNodeConnectionOutput() DatabaseNodeConnectionOutput
-	ToDatabaseNodeConnectionOutputWithContext(context.Context) DatabaseNodeConnectionOutput
+	ToDatabaseNodesConnectionOutput() DatabaseNodesConnectionOutput
+	ToDatabaseNodesConnectionOutputWithContext(context.Context) DatabaseNodesConnectionOutput
 }
 
-type DatabaseNodeConnectionArgs struct {
+type DatabaseNodesConnectionArgs struct {
 	Database          pulumi.StringPtrInput `pulumi:"database"`
 	ExternalIpAddress pulumi.StringPtrInput `pulumi:"externalIpAddress"`
 	Host              pulumi.StringPtrInput `pulumi:"host"`
@@ -1441,141 +1441,141 @@ type DatabaseNodeConnectionArgs struct {
 	Username          pulumi.StringPtrInput `pulumi:"username"`
 }
 
-func (DatabaseNodeConnectionArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNodeConnection)(nil)).Elem()
+func (DatabaseNodesConnectionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DatabaseNodesConnection)(nil)).Elem()
 }
 
-func (i DatabaseNodeConnectionArgs) ToDatabaseNodeConnectionOutput() DatabaseNodeConnectionOutput {
-	return i.ToDatabaseNodeConnectionOutputWithContext(context.Background())
+func (i DatabaseNodesConnectionArgs) ToDatabaseNodesConnectionOutput() DatabaseNodesConnectionOutput {
+	return i.ToDatabaseNodesConnectionOutputWithContext(context.Background())
 }
 
-func (i DatabaseNodeConnectionArgs) ToDatabaseNodeConnectionOutputWithContext(ctx context.Context) DatabaseNodeConnectionOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeConnectionOutput)
+func (i DatabaseNodesConnectionArgs) ToDatabaseNodesConnectionOutputWithContext(ctx context.Context) DatabaseNodesConnectionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodesConnectionOutput)
 }
 
-func (i DatabaseNodeConnectionArgs) ToDatabaseNodeConnectionPtrOutput() DatabaseNodeConnectionPtrOutput {
-	return i.ToDatabaseNodeConnectionPtrOutputWithContext(context.Background())
+func (i DatabaseNodesConnectionArgs) ToDatabaseNodesConnectionPtrOutput() DatabaseNodesConnectionPtrOutput {
+	return i.ToDatabaseNodesConnectionPtrOutputWithContext(context.Background())
 }
 
-func (i DatabaseNodeConnectionArgs) ToDatabaseNodeConnectionPtrOutputWithContext(ctx context.Context) DatabaseNodeConnectionPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeConnectionOutput).ToDatabaseNodeConnectionPtrOutputWithContext(ctx)
+func (i DatabaseNodesConnectionArgs) ToDatabaseNodesConnectionPtrOutputWithContext(ctx context.Context) DatabaseNodesConnectionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodesConnectionOutput).ToDatabaseNodesConnectionPtrOutputWithContext(ctx)
 }
 
-// DatabaseNodeConnectionPtrInput is an input type that accepts DatabaseNodeConnectionArgs, DatabaseNodeConnectionPtr and DatabaseNodeConnectionPtrOutput values.
-// You can construct a concrete instance of `DatabaseNodeConnectionPtrInput` via:
+// DatabaseNodesConnectionPtrInput is an input type that accepts DatabaseNodesConnectionArgs, DatabaseNodesConnectionPtr and DatabaseNodesConnectionPtrOutput values.
+// You can construct a concrete instance of `DatabaseNodesConnectionPtrInput` via:
 //
-//	        DatabaseNodeConnectionArgs{...}
+//	        DatabaseNodesConnectionArgs{...}
 //
 //	or:
 //
 //	        nil
-type DatabaseNodeConnectionPtrInput interface {
+type DatabaseNodesConnectionPtrInput interface {
 	pulumi.Input
 
-	ToDatabaseNodeConnectionPtrOutput() DatabaseNodeConnectionPtrOutput
-	ToDatabaseNodeConnectionPtrOutputWithContext(context.Context) DatabaseNodeConnectionPtrOutput
+	ToDatabaseNodesConnectionPtrOutput() DatabaseNodesConnectionPtrOutput
+	ToDatabaseNodesConnectionPtrOutputWithContext(context.Context) DatabaseNodesConnectionPtrOutput
 }
 
-type databaseNodeConnectionPtrType DatabaseNodeConnectionArgs
+type databaseNodesConnectionPtrType DatabaseNodesConnectionArgs
 
-func DatabaseNodeConnectionPtr(v *DatabaseNodeConnectionArgs) DatabaseNodeConnectionPtrInput {
-	return (*databaseNodeConnectionPtrType)(v)
+func DatabaseNodesConnectionPtr(v *DatabaseNodesConnectionArgs) DatabaseNodesConnectionPtrInput {
+	return (*databaseNodesConnectionPtrType)(v)
 }
 
-func (*databaseNodeConnectionPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**DatabaseNodeConnection)(nil)).Elem()
+func (*databaseNodesConnectionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DatabaseNodesConnection)(nil)).Elem()
 }
 
-func (i *databaseNodeConnectionPtrType) ToDatabaseNodeConnectionPtrOutput() DatabaseNodeConnectionPtrOutput {
-	return i.ToDatabaseNodeConnectionPtrOutputWithContext(context.Background())
+func (i *databaseNodesConnectionPtrType) ToDatabaseNodesConnectionPtrOutput() DatabaseNodesConnectionPtrOutput {
+	return i.ToDatabaseNodesConnectionPtrOutputWithContext(context.Background())
 }
 
-func (i *databaseNodeConnectionPtrType) ToDatabaseNodeConnectionPtrOutputWithContext(ctx context.Context) DatabaseNodeConnectionPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeConnectionPtrOutput)
+func (i *databaseNodesConnectionPtrType) ToDatabaseNodesConnectionPtrOutputWithContext(ctx context.Context) DatabaseNodesConnectionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodesConnectionPtrOutput)
 }
 
-type DatabaseNodeConnectionOutput struct{ *pulumi.OutputState }
+type DatabaseNodesConnectionOutput struct{ *pulumi.OutputState }
 
-func (DatabaseNodeConnectionOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNodeConnection)(nil)).Elem()
+func (DatabaseNodesConnectionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DatabaseNodesConnection)(nil)).Elem()
 }
 
-func (o DatabaseNodeConnectionOutput) ToDatabaseNodeConnectionOutput() DatabaseNodeConnectionOutput {
+func (o DatabaseNodesConnectionOutput) ToDatabaseNodesConnectionOutput() DatabaseNodesConnectionOutput {
 	return o
 }
 
-func (o DatabaseNodeConnectionOutput) ToDatabaseNodeConnectionOutputWithContext(ctx context.Context) DatabaseNodeConnectionOutput {
+func (o DatabaseNodesConnectionOutput) ToDatabaseNodesConnectionOutputWithContext(ctx context.Context) DatabaseNodesConnectionOutput {
 	return o
 }
 
-func (o DatabaseNodeConnectionOutput) ToDatabaseNodeConnectionPtrOutput() DatabaseNodeConnectionPtrOutput {
-	return o.ToDatabaseNodeConnectionPtrOutputWithContext(context.Background())
+func (o DatabaseNodesConnectionOutput) ToDatabaseNodesConnectionPtrOutput() DatabaseNodesConnectionPtrOutput {
+	return o.ToDatabaseNodesConnectionPtrOutputWithContext(context.Background())
 }
 
-func (o DatabaseNodeConnectionOutput) ToDatabaseNodeConnectionPtrOutputWithContext(ctx context.Context) DatabaseNodeConnectionPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v DatabaseNodeConnection) *DatabaseNodeConnection {
+func (o DatabaseNodesConnectionOutput) ToDatabaseNodesConnectionPtrOutputWithContext(ctx context.Context) DatabaseNodesConnectionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DatabaseNodesConnection) *DatabaseNodesConnection {
 		return &v
-	}).(DatabaseNodeConnectionPtrOutput)
+	}).(DatabaseNodesConnectionPtrOutput)
 }
 
-func (o DatabaseNodeConnectionOutput) Database() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeConnection) *string { return v.Database }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesConnectionOutput) Database() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesConnection) *string { return v.Database }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeConnectionOutput) ExternalIpAddress() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeConnection) *string { return v.ExternalIpAddress }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesConnectionOutput) ExternalIpAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesConnection) *string { return v.ExternalIpAddress }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeConnectionOutput) Host() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeConnection) *string { return v.Host }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesConnectionOutput) Host() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesConnection) *string { return v.Host }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeConnectionOutput) InternalHost() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeConnection) *string { return v.InternalHost }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesConnectionOutput) InternalHost() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesConnection) *string { return v.InternalHost }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeConnectionOutput) InternalIpAddress() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeConnection) *string { return v.InternalIpAddress }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesConnectionOutput) InternalIpAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesConnection) *string { return v.InternalIpAddress }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeConnectionOutput) Password() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeConnection) *string { return v.Password }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesConnectionOutput) Password() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesConnection) *string { return v.Password }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeConnectionOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeConnection) *int { return v.Port }).(pulumi.IntPtrOutput)
+func (o DatabaseNodesConnectionOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesConnection) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
-func (o DatabaseNodeConnectionOutput) Username() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeConnection) *string { return v.Username }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesConnectionOutput) Username() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesConnection) *string { return v.Username }).(pulumi.StringPtrOutput)
 }
 
-type DatabaseNodeConnectionPtrOutput struct{ *pulumi.OutputState }
+type DatabaseNodesConnectionPtrOutput struct{ *pulumi.OutputState }
 
-func (DatabaseNodeConnectionPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**DatabaseNodeConnection)(nil)).Elem()
+func (DatabaseNodesConnectionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DatabaseNodesConnection)(nil)).Elem()
 }
 
-func (o DatabaseNodeConnectionPtrOutput) ToDatabaseNodeConnectionPtrOutput() DatabaseNodeConnectionPtrOutput {
+func (o DatabaseNodesConnectionPtrOutput) ToDatabaseNodesConnectionPtrOutput() DatabaseNodesConnectionPtrOutput {
 	return o
 }
 
-func (o DatabaseNodeConnectionPtrOutput) ToDatabaseNodeConnectionPtrOutputWithContext(ctx context.Context) DatabaseNodeConnectionPtrOutput {
+func (o DatabaseNodesConnectionPtrOutput) ToDatabaseNodesConnectionPtrOutputWithContext(ctx context.Context) DatabaseNodesConnectionPtrOutput {
 	return o
 }
 
-func (o DatabaseNodeConnectionPtrOutput) Elem() DatabaseNodeConnectionOutput {
-	return o.ApplyT(func(v *DatabaseNodeConnection) DatabaseNodeConnection {
+func (o DatabaseNodesConnectionPtrOutput) Elem() DatabaseNodesConnectionOutput {
+	return o.ApplyT(func(v *DatabaseNodesConnection) DatabaseNodesConnection {
 		if v != nil {
 			return *v
 		}
-		var ret DatabaseNodeConnection
+		var ret DatabaseNodesConnection
 		return ret
-	}).(DatabaseNodeConnectionOutput)
+	}).(DatabaseNodesConnectionOutput)
 }
 
-func (o DatabaseNodeConnectionPtrOutput) Database() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeConnection) *string {
+func (o DatabaseNodesConnectionPtrOutput) Database() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesConnection) *string {
 		if v == nil {
 			return nil
 		}
@@ -1583,8 +1583,8 @@ func (o DatabaseNodeConnectionPtrOutput) Database() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeConnectionPtrOutput) ExternalIpAddress() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeConnection) *string {
+func (o DatabaseNodesConnectionPtrOutput) ExternalIpAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesConnection) *string {
 		if v == nil {
 			return nil
 		}
@@ -1592,8 +1592,8 @@ func (o DatabaseNodeConnectionPtrOutput) ExternalIpAddress() pulumi.StringPtrOut
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeConnectionPtrOutput) Host() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeConnection) *string {
+func (o DatabaseNodesConnectionPtrOutput) Host() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesConnection) *string {
 		if v == nil {
 			return nil
 		}
@@ -1601,8 +1601,8 @@ func (o DatabaseNodeConnectionPtrOutput) Host() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeConnectionPtrOutput) InternalHost() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeConnection) *string {
+func (o DatabaseNodesConnectionPtrOutput) InternalHost() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesConnection) *string {
 		if v == nil {
 			return nil
 		}
@@ -1610,8 +1610,8 @@ func (o DatabaseNodeConnectionPtrOutput) InternalHost() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeConnectionPtrOutput) InternalIpAddress() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeConnection) *string {
+func (o DatabaseNodesConnectionPtrOutput) InternalIpAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesConnection) *string {
 		if v == nil {
 			return nil
 		}
@@ -1619,8 +1619,8 @@ func (o DatabaseNodeConnectionPtrOutput) InternalIpAddress() pulumi.StringPtrOut
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeConnectionPtrOutput) Password() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeConnection) *string {
+func (o DatabaseNodesConnectionPtrOutput) Password() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesConnection) *string {
 		if v == nil {
 			return nil
 		}
@@ -1628,8 +1628,8 @@ func (o DatabaseNodeConnectionPtrOutput) Password() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeConnectionPtrOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeConnection) *int {
+func (o DatabaseNodesConnectionPtrOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesConnection) *int {
 		if v == nil {
 			return nil
 		}
@@ -1637,8 +1637,8 @@ func (o DatabaseNodeConnectionPtrOutput) Port() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-func (o DatabaseNodeConnectionPtrOutput) Username() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeConnection) *string {
+func (o DatabaseNodesConnectionPtrOutput) Username() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesConnection) *string {
 		if v == nil {
 			return nil
 		}
@@ -1646,138 +1646,138 @@ func (o DatabaseNodeConnectionPtrOutput) Username() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-type DatabaseNodeExtensions struct {
+type DatabaseNodesExtensions struct {
 	Errors     map[string]string `pulumi:"errors"`
 	Installeds []string          `pulumi:"installeds"`
 }
 
-// DatabaseNodeExtensionsInput is an input type that accepts DatabaseNodeExtensionsArgs and DatabaseNodeExtensionsOutput values.
-// You can construct a concrete instance of `DatabaseNodeExtensionsInput` via:
+// DatabaseNodesExtensionsInput is an input type that accepts DatabaseNodesExtensionsArgs and DatabaseNodesExtensionsOutput values.
+// You can construct a concrete instance of `DatabaseNodesExtensionsInput` via:
 //
-//	DatabaseNodeExtensionsArgs{...}
-type DatabaseNodeExtensionsInput interface {
+//	DatabaseNodesExtensionsArgs{...}
+type DatabaseNodesExtensionsInput interface {
 	pulumi.Input
 
-	ToDatabaseNodeExtensionsOutput() DatabaseNodeExtensionsOutput
-	ToDatabaseNodeExtensionsOutputWithContext(context.Context) DatabaseNodeExtensionsOutput
+	ToDatabaseNodesExtensionsOutput() DatabaseNodesExtensionsOutput
+	ToDatabaseNodesExtensionsOutputWithContext(context.Context) DatabaseNodesExtensionsOutput
 }
 
-type DatabaseNodeExtensionsArgs struct {
+type DatabaseNodesExtensionsArgs struct {
 	Errors     pulumi.StringMapInput   `pulumi:"errors"`
 	Installeds pulumi.StringArrayInput `pulumi:"installeds"`
 }
 
-func (DatabaseNodeExtensionsArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNodeExtensions)(nil)).Elem()
+func (DatabaseNodesExtensionsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DatabaseNodesExtensions)(nil)).Elem()
 }
 
-func (i DatabaseNodeExtensionsArgs) ToDatabaseNodeExtensionsOutput() DatabaseNodeExtensionsOutput {
-	return i.ToDatabaseNodeExtensionsOutputWithContext(context.Background())
+func (i DatabaseNodesExtensionsArgs) ToDatabaseNodesExtensionsOutput() DatabaseNodesExtensionsOutput {
+	return i.ToDatabaseNodesExtensionsOutputWithContext(context.Background())
 }
 
-func (i DatabaseNodeExtensionsArgs) ToDatabaseNodeExtensionsOutputWithContext(ctx context.Context) DatabaseNodeExtensionsOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeExtensionsOutput)
+func (i DatabaseNodesExtensionsArgs) ToDatabaseNodesExtensionsOutputWithContext(ctx context.Context) DatabaseNodesExtensionsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodesExtensionsOutput)
 }
 
-func (i DatabaseNodeExtensionsArgs) ToDatabaseNodeExtensionsPtrOutput() DatabaseNodeExtensionsPtrOutput {
-	return i.ToDatabaseNodeExtensionsPtrOutputWithContext(context.Background())
+func (i DatabaseNodesExtensionsArgs) ToDatabaseNodesExtensionsPtrOutput() DatabaseNodesExtensionsPtrOutput {
+	return i.ToDatabaseNodesExtensionsPtrOutputWithContext(context.Background())
 }
 
-func (i DatabaseNodeExtensionsArgs) ToDatabaseNodeExtensionsPtrOutputWithContext(ctx context.Context) DatabaseNodeExtensionsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeExtensionsOutput).ToDatabaseNodeExtensionsPtrOutputWithContext(ctx)
+func (i DatabaseNodesExtensionsArgs) ToDatabaseNodesExtensionsPtrOutputWithContext(ctx context.Context) DatabaseNodesExtensionsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodesExtensionsOutput).ToDatabaseNodesExtensionsPtrOutputWithContext(ctx)
 }
 
-// DatabaseNodeExtensionsPtrInput is an input type that accepts DatabaseNodeExtensionsArgs, DatabaseNodeExtensionsPtr and DatabaseNodeExtensionsPtrOutput values.
-// You can construct a concrete instance of `DatabaseNodeExtensionsPtrInput` via:
+// DatabaseNodesExtensionsPtrInput is an input type that accepts DatabaseNodesExtensionsArgs, DatabaseNodesExtensionsPtr and DatabaseNodesExtensionsPtrOutput values.
+// You can construct a concrete instance of `DatabaseNodesExtensionsPtrInput` via:
 //
-//	        DatabaseNodeExtensionsArgs{...}
+//	        DatabaseNodesExtensionsArgs{...}
 //
 //	or:
 //
 //	        nil
-type DatabaseNodeExtensionsPtrInput interface {
+type DatabaseNodesExtensionsPtrInput interface {
 	pulumi.Input
 
-	ToDatabaseNodeExtensionsPtrOutput() DatabaseNodeExtensionsPtrOutput
-	ToDatabaseNodeExtensionsPtrOutputWithContext(context.Context) DatabaseNodeExtensionsPtrOutput
+	ToDatabaseNodesExtensionsPtrOutput() DatabaseNodesExtensionsPtrOutput
+	ToDatabaseNodesExtensionsPtrOutputWithContext(context.Context) DatabaseNodesExtensionsPtrOutput
 }
 
-type databaseNodeExtensionsPtrType DatabaseNodeExtensionsArgs
+type databaseNodesExtensionsPtrType DatabaseNodesExtensionsArgs
 
-func DatabaseNodeExtensionsPtr(v *DatabaseNodeExtensionsArgs) DatabaseNodeExtensionsPtrInput {
-	return (*databaseNodeExtensionsPtrType)(v)
+func DatabaseNodesExtensionsPtr(v *DatabaseNodesExtensionsArgs) DatabaseNodesExtensionsPtrInput {
+	return (*databaseNodesExtensionsPtrType)(v)
 }
 
-func (*databaseNodeExtensionsPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**DatabaseNodeExtensions)(nil)).Elem()
+func (*databaseNodesExtensionsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DatabaseNodesExtensions)(nil)).Elem()
 }
 
-func (i *databaseNodeExtensionsPtrType) ToDatabaseNodeExtensionsPtrOutput() DatabaseNodeExtensionsPtrOutput {
-	return i.ToDatabaseNodeExtensionsPtrOutputWithContext(context.Background())
+func (i *databaseNodesExtensionsPtrType) ToDatabaseNodesExtensionsPtrOutput() DatabaseNodesExtensionsPtrOutput {
+	return i.ToDatabaseNodesExtensionsPtrOutputWithContext(context.Background())
 }
 
-func (i *databaseNodeExtensionsPtrType) ToDatabaseNodeExtensionsPtrOutputWithContext(ctx context.Context) DatabaseNodeExtensionsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeExtensionsPtrOutput)
+func (i *databaseNodesExtensionsPtrType) ToDatabaseNodesExtensionsPtrOutputWithContext(ctx context.Context) DatabaseNodesExtensionsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodesExtensionsPtrOutput)
 }
 
-type DatabaseNodeExtensionsOutput struct{ *pulumi.OutputState }
+type DatabaseNodesExtensionsOutput struct{ *pulumi.OutputState }
 
-func (DatabaseNodeExtensionsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNodeExtensions)(nil)).Elem()
+func (DatabaseNodesExtensionsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DatabaseNodesExtensions)(nil)).Elem()
 }
 
-func (o DatabaseNodeExtensionsOutput) ToDatabaseNodeExtensionsOutput() DatabaseNodeExtensionsOutput {
+func (o DatabaseNodesExtensionsOutput) ToDatabaseNodesExtensionsOutput() DatabaseNodesExtensionsOutput {
 	return o
 }
 
-func (o DatabaseNodeExtensionsOutput) ToDatabaseNodeExtensionsOutputWithContext(ctx context.Context) DatabaseNodeExtensionsOutput {
+func (o DatabaseNodesExtensionsOutput) ToDatabaseNodesExtensionsOutputWithContext(ctx context.Context) DatabaseNodesExtensionsOutput {
 	return o
 }
 
-func (o DatabaseNodeExtensionsOutput) ToDatabaseNodeExtensionsPtrOutput() DatabaseNodeExtensionsPtrOutput {
-	return o.ToDatabaseNodeExtensionsPtrOutputWithContext(context.Background())
+func (o DatabaseNodesExtensionsOutput) ToDatabaseNodesExtensionsPtrOutput() DatabaseNodesExtensionsPtrOutput {
+	return o.ToDatabaseNodesExtensionsPtrOutputWithContext(context.Background())
 }
 
-func (o DatabaseNodeExtensionsOutput) ToDatabaseNodeExtensionsPtrOutputWithContext(ctx context.Context) DatabaseNodeExtensionsPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v DatabaseNodeExtensions) *DatabaseNodeExtensions {
+func (o DatabaseNodesExtensionsOutput) ToDatabaseNodesExtensionsPtrOutputWithContext(ctx context.Context) DatabaseNodesExtensionsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DatabaseNodesExtensions) *DatabaseNodesExtensions {
 		return &v
-	}).(DatabaseNodeExtensionsPtrOutput)
+	}).(DatabaseNodesExtensionsPtrOutput)
 }
 
-func (o DatabaseNodeExtensionsOutput) Errors() pulumi.StringMapOutput {
-	return o.ApplyT(func(v DatabaseNodeExtensions) map[string]string { return v.Errors }).(pulumi.StringMapOutput)
+func (o DatabaseNodesExtensionsOutput) Errors() pulumi.StringMapOutput {
+	return o.ApplyT(func(v DatabaseNodesExtensions) map[string]string { return v.Errors }).(pulumi.StringMapOutput)
 }
 
-func (o DatabaseNodeExtensionsOutput) Installeds() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v DatabaseNodeExtensions) []string { return v.Installeds }).(pulumi.StringArrayOutput)
+func (o DatabaseNodesExtensionsOutput) Installeds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DatabaseNodesExtensions) []string { return v.Installeds }).(pulumi.StringArrayOutput)
 }
 
-type DatabaseNodeExtensionsPtrOutput struct{ *pulumi.OutputState }
+type DatabaseNodesExtensionsPtrOutput struct{ *pulumi.OutputState }
 
-func (DatabaseNodeExtensionsPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**DatabaseNodeExtensions)(nil)).Elem()
+func (DatabaseNodesExtensionsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DatabaseNodesExtensions)(nil)).Elem()
 }
 
-func (o DatabaseNodeExtensionsPtrOutput) ToDatabaseNodeExtensionsPtrOutput() DatabaseNodeExtensionsPtrOutput {
+func (o DatabaseNodesExtensionsPtrOutput) ToDatabaseNodesExtensionsPtrOutput() DatabaseNodesExtensionsPtrOutput {
 	return o
 }
 
-func (o DatabaseNodeExtensionsPtrOutput) ToDatabaseNodeExtensionsPtrOutputWithContext(ctx context.Context) DatabaseNodeExtensionsPtrOutput {
+func (o DatabaseNodesExtensionsPtrOutput) ToDatabaseNodesExtensionsPtrOutputWithContext(ctx context.Context) DatabaseNodesExtensionsPtrOutput {
 	return o
 }
 
-func (o DatabaseNodeExtensionsPtrOutput) Elem() DatabaseNodeExtensionsOutput {
-	return o.ApplyT(func(v *DatabaseNodeExtensions) DatabaseNodeExtensions {
+func (o DatabaseNodesExtensionsPtrOutput) Elem() DatabaseNodesExtensionsOutput {
+	return o.ApplyT(func(v *DatabaseNodesExtensions) DatabaseNodesExtensions {
 		if v != nil {
 			return *v
 		}
-		var ret DatabaseNodeExtensions
+		var ret DatabaseNodesExtensions
 		return ret
-	}).(DatabaseNodeExtensionsOutput)
+	}).(DatabaseNodesExtensionsOutput)
 }
 
-func (o DatabaseNodeExtensionsPtrOutput) Errors() pulumi.StringMapOutput {
-	return o.ApplyT(func(v *DatabaseNodeExtensions) map[string]string {
+func (o DatabaseNodesExtensionsPtrOutput) Errors() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *DatabaseNodesExtensions) map[string]string {
 		if v == nil {
 			return nil
 		}
@@ -1785,8 +1785,8 @@ func (o DatabaseNodeExtensionsPtrOutput) Errors() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-func (o DatabaseNodeExtensionsPtrOutput) Installeds() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *DatabaseNodeExtensions) []string {
+func (o DatabaseNodesExtensionsPtrOutput) Installeds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *DatabaseNodesExtensions) []string {
 		if v == nil {
 			return nil
 		}
@@ -1794,7 +1794,7 @@ func (o DatabaseNodeExtensionsPtrOutput) Installeds() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-type DatabaseNodeLocation struct {
+type DatabaseNodesLocation struct {
 	City       *string  `pulumi:"city"`
 	Code       *string  `pulumi:"code"`
 	Country    *string  `pulumi:"country"`
@@ -1808,18 +1808,18 @@ type DatabaseNodeLocation struct {
 	Timezone   *string  `pulumi:"timezone"`
 }
 
-// DatabaseNodeLocationInput is an input type that accepts DatabaseNodeLocationArgs and DatabaseNodeLocationOutput values.
-// You can construct a concrete instance of `DatabaseNodeLocationInput` via:
+// DatabaseNodesLocationInput is an input type that accepts DatabaseNodesLocationArgs and DatabaseNodesLocationOutput values.
+// You can construct a concrete instance of `DatabaseNodesLocationInput` via:
 //
-//	DatabaseNodeLocationArgs{...}
-type DatabaseNodeLocationInput interface {
+//	DatabaseNodesLocationArgs{...}
+type DatabaseNodesLocationInput interface {
 	pulumi.Input
 
-	ToDatabaseNodeLocationOutput() DatabaseNodeLocationOutput
-	ToDatabaseNodeLocationOutputWithContext(context.Context) DatabaseNodeLocationOutput
+	ToDatabaseNodesLocationOutput() DatabaseNodesLocationOutput
+	ToDatabaseNodesLocationOutputWithContext(context.Context) DatabaseNodesLocationOutput
 }
 
-type DatabaseNodeLocationArgs struct {
+type DatabaseNodesLocationArgs struct {
 	City       pulumi.StringPtrInput  `pulumi:"city"`
 	Code       pulumi.StringPtrInput  `pulumi:"code"`
 	Country    pulumi.StringPtrInput  `pulumi:"country"`
@@ -1833,153 +1833,153 @@ type DatabaseNodeLocationArgs struct {
 	Timezone   pulumi.StringPtrInput  `pulumi:"timezone"`
 }
 
-func (DatabaseNodeLocationArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNodeLocation)(nil)).Elem()
+func (DatabaseNodesLocationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DatabaseNodesLocation)(nil)).Elem()
 }
 
-func (i DatabaseNodeLocationArgs) ToDatabaseNodeLocationOutput() DatabaseNodeLocationOutput {
-	return i.ToDatabaseNodeLocationOutputWithContext(context.Background())
+func (i DatabaseNodesLocationArgs) ToDatabaseNodesLocationOutput() DatabaseNodesLocationOutput {
+	return i.ToDatabaseNodesLocationOutputWithContext(context.Background())
 }
 
-func (i DatabaseNodeLocationArgs) ToDatabaseNodeLocationOutputWithContext(ctx context.Context) DatabaseNodeLocationOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeLocationOutput)
+func (i DatabaseNodesLocationArgs) ToDatabaseNodesLocationOutputWithContext(ctx context.Context) DatabaseNodesLocationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodesLocationOutput)
 }
 
-func (i DatabaseNodeLocationArgs) ToDatabaseNodeLocationPtrOutput() DatabaseNodeLocationPtrOutput {
-	return i.ToDatabaseNodeLocationPtrOutputWithContext(context.Background())
+func (i DatabaseNodesLocationArgs) ToDatabaseNodesLocationPtrOutput() DatabaseNodesLocationPtrOutput {
+	return i.ToDatabaseNodesLocationPtrOutputWithContext(context.Background())
 }
 
-func (i DatabaseNodeLocationArgs) ToDatabaseNodeLocationPtrOutputWithContext(ctx context.Context) DatabaseNodeLocationPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeLocationOutput).ToDatabaseNodeLocationPtrOutputWithContext(ctx)
+func (i DatabaseNodesLocationArgs) ToDatabaseNodesLocationPtrOutputWithContext(ctx context.Context) DatabaseNodesLocationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodesLocationOutput).ToDatabaseNodesLocationPtrOutputWithContext(ctx)
 }
 
-// DatabaseNodeLocationPtrInput is an input type that accepts DatabaseNodeLocationArgs, DatabaseNodeLocationPtr and DatabaseNodeLocationPtrOutput values.
-// You can construct a concrete instance of `DatabaseNodeLocationPtrInput` via:
+// DatabaseNodesLocationPtrInput is an input type that accepts DatabaseNodesLocationArgs, DatabaseNodesLocationPtr and DatabaseNodesLocationPtrOutput values.
+// You can construct a concrete instance of `DatabaseNodesLocationPtrInput` via:
 //
-//	        DatabaseNodeLocationArgs{...}
+//	        DatabaseNodesLocationArgs{...}
 //
 //	or:
 //
 //	        nil
-type DatabaseNodeLocationPtrInput interface {
+type DatabaseNodesLocationPtrInput interface {
 	pulumi.Input
 
-	ToDatabaseNodeLocationPtrOutput() DatabaseNodeLocationPtrOutput
-	ToDatabaseNodeLocationPtrOutputWithContext(context.Context) DatabaseNodeLocationPtrOutput
+	ToDatabaseNodesLocationPtrOutput() DatabaseNodesLocationPtrOutput
+	ToDatabaseNodesLocationPtrOutputWithContext(context.Context) DatabaseNodesLocationPtrOutput
 }
 
-type databaseNodeLocationPtrType DatabaseNodeLocationArgs
+type databaseNodesLocationPtrType DatabaseNodesLocationArgs
 
-func DatabaseNodeLocationPtr(v *DatabaseNodeLocationArgs) DatabaseNodeLocationPtrInput {
-	return (*databaseNodeLocationPtrType)(v)
+func DatabaseNodesLocationPtr(v *DatabaseNodesLocationArgs) DatabaseNodesLocationPtrInput {
+	return (*databaseNodesLocationPtrType)(v)
 }
 
-func (*databaseNodeLocationPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**DatabaseNodeLocation)(nil)).Elem()
+func (*databaseNodesLocationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DatabaseNodesLocation)(nil)).Elem()
 }
 
-func (i *databaseNodeLocationPtrType) ToDatabaseNodeLocationPtrOutput() DatabaseNodeLocationPtrOutput {
-	return i.ToDatabaseNodeLocationPtrOutputWithContext(context.Background())
+func (i *databaseNodesLocationPtrType) ToDatabaseNodesLocationPtrOutput() DatabaseNodesLocationPtrOutput {
+	return i.ToDatabaseNodesLocationPtrOutputWithContext(context.Background())
 }
 
-func (i *databaseNodeLocationPtrType) ToDatabaseNodeLocationPtrOutputWithContext(ctx context.Context) DatabaseNodeLocationPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeLocationPtrOutput)
+func (i *databaseNodesLocationPtrType) ToDatabaseNodesLocationPtrOutputWithContext(ctx context.Context) DatabaseNodesLocationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodesLocationPtrOutput)
 }
 
-type DatabaseNodeLocationOutput struct{ *pulumi.OutputState }
+type DatabaseNodesLocationOutput struct{ *pulumi.OutputState }
 
-func (DatabaseNodeLocationOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNodeLocation)(nil)).Elem()
+func (DatabaseNodesLocationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DatabaseNodesLocation)(nil)).Elem()
 }
 
-func (o DatabaseNodeLocationOutput) ToDatabaseNodeLocationOutput() DatabaseNodeLocationOutput {
+func (o DatabaseNodesLocationOutput) ToDatabaseNodesLocationOutput() DatabaseNodesLocationOutput {
 	return o
 }
 
-func (o DatabaseNodeLocationOutput) ToDatabaseNodeLocationOutputWithContext(ctx context.Context) DatabaseNodeLocationOutput {
+func (o DatabaseNodesLocationOutput) ToDatabaseNodesLocationOutputWithContext(ctx context.Context) DatabaseNodesLocationOutput {
 	return o
 }
 
-func (o DatabaseNodeLocationOutput) ToDatabaseNodeLocationPtrOutput() DatabaseNodeLocationPtrOutput {
-	return o.ToDatabaseNodeLocationPtrOutputWithContext(context.Background())
+func (o DatabaseNodesLocationOutput) ToDatabaseNodesLocationPtrOutput() DatabaseNodesLocationPtrOutput {
+	return o.ToDatabaseNodesLocationPtrOutputWithContext(context.Background())
 }
 
-func (o DatabaseNodeLocationOutput) ToDatabaseNodeLocationPtrOutputWithContext(ctx context.Context) DatabaseNodeLocationPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v DatabaseNodeLocation) *DatabaseNodeLocation {
+func (o DatabaseNodesLocationOutput) ToDatabaseNodesLocationPtrOutputWithContext(ctx context.Context) DatabaseNodesLocationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DatabaseNodesLocation) *DatabaseNodesLocation {
 		return &v
-	}).(DatabaseNodeLocationPtrOutput)
+	}).(DatabaseNodesLocationPtrOutput)
 }
 
-func (o DatabaseNodeLocationOutput) City() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *string { return v.City }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesLocationOutput) City() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesLocation) *string { return v.City }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationOutput) Code() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *string { return v.Code }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesLocationOutput) Code() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesLocation) *string { return v.Code }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationOutput) Country() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *string { return v.Country }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesLocationOutput) Country() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesLocation) *string { return v.Country }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationOutput) Latitude() pulumi.Float64PtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *float64 { return v.Latitude }).(pulumi.Float64PtrOutput)
+func (o DatabaseNodesLocationOutput) Latitude() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v DatabaseNodesLocation) *float64 { return v.Latitude }).(pulumi.Float64PtrOutput)
 }
 
-func (o DatabaseNodeLocationOutput) Longitude() pulumi.Float64PtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *float64 { return v.Longitude }).(pulumi.Float64PtrOutput)
+func (o DatabaseNodesLocationOutput) Longitude() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v DatabaseNodesLocation) *float64 { return v.Longitude }).(pulumi.Float64PtrOutput)
 }
 
-func (o DatabaseNodeLocationOutput) MetroCode() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *string { return v.MetroCode }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesLocationOutput) MetroCode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesLocation) *string { return v.MetroCode }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesLocationOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesLocation) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationOutput) PostalCode() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *string { return v.PostalCode }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesLocationOutput) PostalCode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesLocation) *string { return v.PostalCode }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationOutput) Region() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *string { return v.Region }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesLocationOutput) Region() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesLocation) *string { return v.Region }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationOutput) RegionCode() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *string { return v.RegionCode }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesLocationOutput) RegionCode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesLocation) *string { return v.RegionCode }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationOutput) Timezone() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeLocation) *string { return v.Timezone }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesLocationOutput) Timezone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesLocation) *string { return v.Timezone }).(pulumi.StringPtrOutput)
 }
 
-type DatabaseNodeLocationPtrOutput struct{ *pulumi.OutputState }
+type DatabaseNodesLocationPtrOutput struct{ *pulumi.OutputState }
 
-func (DatabaseNodeLocationPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**DatabaseNodeLocation)(nil)).Elem()
+func (DatabaseNodesLocationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DatabaseNodesLocation)(nil)).Elem()
 }
 
-func (o DatabaseNodeLocationPtrOutput) ToDatabaseNodeLocationPtrOutput() DatabaseNodeLocationPtrOutput {
+func (o DatabaseNodesLocationPtrOutput) ToDatabaseNodesLocationPtrOutput() DatabaseNodesLocationPtrOutput {
 	return o
 }
 
-func (o DatabaseNodeLocationPtrOutput) ToDatabaseNodeLocationPtrOutputWithContext(ctx context.Context) DatabaseNodeLocationPtrOutput {
+func (o DatabaseNodesLocationPtrOutput) ToDatabaseNodesLocationPtrOutputWithContext(ctx context.Context) DatabaseNodesLocationPtrOutput {
 	return o
 }
 
-func (o DatabaseNodeLocationPtrOutput) Elem() DatabaseNodeLocationOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) DatabaseNodeLocation {
+func (o DatabaseNodesLocationPtrOutput) Elem() DatabaseNodesLocationOutput {
+	return o.ApplyT(func(v *DatabaseNodesLocation) DatabaseNodesLocation {
 		if v != nil {
 			return *v
 		}
-		var ret DatabaseNodeLocation
+		var ret DatabaseNodesLocation
 		return ret
-	}).(DatabaseNodeLocationOutput)
+	}).(DatabaseNodesLocationOutput)
 }
 
-func (o DatabaseNodeLocationPtrOutput) City() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *string {
+func (o DatabaseNodesLocationPtrOutput) City() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesLocation) *string {
 		if v == nil {
 			return nil
 		}
@@ -1987,8 +1987,8 @@ func (o DatabaseNodeLocationPtrOutput) City() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationPtrOutput) Code() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *string {
+func (o DatabaseNodesLocationPtrOutput) Code() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesLocation) *string {
 		if v == nil {
 			return nil
 		}
@@ -1996,8 +1996,8 @@ func (o DatabaseNodeLocationPtrOutput) Code() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationPtrOutput) Country() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *string {
+func (o DatabaseNodesLocationPtrOutput) Country() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesLocation) *string {
 		if v == nil {
 			return nil
 		}
@@ -2005,8 +2005,8 @@ func (o DatabaseNodeLocationPtrOutput) Country() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationPtrOutput) Latitude() pulumi.Float64PtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *float64 {
+func (o DatabaseNodesLocationPtrOutput) Latitude() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesLocation) *float64 {
 		if v == nil {
 			return nil
 		}
@@ -2014,8 +2014,8 @@ func (o DatabaseNodeLocationPtrOutput) Latitude() pulumi.Float64PtrOutput {
 	}).(pulumi.Float64PtrOutput)
 }
 
-func (o DatabaseNodeLocationPtrOutput) Longitude() pulumi.Float64PtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *float64 {
+func (o DatabaseNodesLocationPtrOutput) Longitude() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesLocation) *float64 {
 		if v == nil {
 			return nil
 		}
@@ -2023,8 +2023,8 @@ func (o DatabaseNodeLocationPtrOutput) Longitude() pulumi.Float64PtrOutput {
 	}).(pulumi.Float64PtrOutput)
 }
 
-func (o DatabaseNodeLocationPtrOutput) MetroCode() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *string {
+func (o DatabaseNodesLocationPtrOutput) MetroCode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesLocation) *string {
 		if v == nil {
 			return nil
 		}
@@ -2032,8 +2032,8 @@ func (o DatabaseNodeLocationPtrOutput) MetroCode() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *string {
+func (o DatabaseNodesLocationPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesLocation) *string {
 		if v == nil {
 			return nil
 		}
@@ -2041,8 +2041,8 @@ func (o DatabaseNodeLocationPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationPtrOutput) PostalCode() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *string {
+func (o DatabaseNodesLocationPtrOutput) PostalCode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesLocation) *string {
 		if v == nil {
 			return nil
 		}
@@ -2050,8 +2050,8 @@ func (o DatabaseNodeLocationPtrOutput) PostalCode() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationPtrOutput) Region() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *string {
+func (o DatabaseNodesLocationPtrOutput) Region() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesLocation) *string {
 		if v == nil {
 			return nil
 		}
@@ -2059,8 +2059,8 @@ func (o DatabaseNodeLocationPtrOutput) Region() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationPtrOutput) RegionCode() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *string {
+func (o DatabaseNodesLocationPtrOutput) RegionCode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesLocation) *string {
 		if v == nil {
 			return nil
 		}
@@ -2068,8 +2068,8 @@ func (o DatabaseNodeLocationPtrOutput) RegionCode() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeLocationPtrOutput) Timezone() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeLocation) *string {
+func (o DatabaseNodesLocationPtrOutput) Timezone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesLocation) *string {
 		if v == nil {
 			return nil
 		}
@@ -2077,7 +2077,7 @@ func (o DatabaseNodeLocationPtrOutput) Timezone() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-type DatabaseNodeRegion struct {
+type DatabaseNodesRegion struct {
 	Active            *bool    `pulumi:"active"`
 	AvailabilityZones []string `pulumi:"availabilityZones"`
 	Cloud             *string  `pulumi:"cloud"`
@@ -2086,18 +2086,18 @@ type DatabaseNodeRegion struct {
 	Parent            *string  `pulumi:"parent"`
 }
 
-// DatabaseNodeRegionInput is an input type that accepts DatabaseNodeRegionArgs and DatabaseNodeRegionOutput values.
-// You can construct a concrete instance of `DatabaseNodeRegionInput` via:
+// DatabaseNodesRegionInput is an input type that accepts DatabaseNodesRegionArgs and DatabaseNodesRegionOutput values.
+// You can construct a concrete instance of `DatabaseNodesRegionInput` via:
 //
-//	DatabaseNodeRegionArgs{...}
-type DatabaseNodeRegionInput interface {
+//	DatabaseNodesRegionArgs{...}
+type DatabaseNodesRegionInput interface {
 	pulumi.Input
 
-	ToDatabaseNodeRegionOutput() DatabaseNodeRegionOutput
-	ToDatabaseNodeRegionOutputWithContext(context.Context) DatabaseNodeRegionOutput
+	ToDatabaseNodesRegionOutput() DatabaseNodesRegionOutput
+	ToDatabaseNodesRegionOutputWithContext(context.Context) DatabaseNodesRegionOutput
 }
 
-type DatabaseNodeRegionArgs struct {
+type DatabaseNodesRegionArgs struct {
 	Active            pulumi.BoolPtrInput     `pulumi:"active"`
 	AvailabilityZones pulumi.StringArrayInput `pulumi:"availabilityZones"`
 	Cloud             pulumi.StringPtrInput   `pulumi:"cloud"`
@@ -2106,133 +2106,133 @@ type DatabaseNodeRegionArgs struct {
 	Parent            pulumi.StringPtrInput   `pulumi:"parent"`
 }
 
-func (DatabaseNodeRegionArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNodeRegion)(nil)).Elem()
+func (DatabaseNodesRegionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DatabaseNodesRegion)(nil)).Elem()
 }
 
-func (i DatabaseNodeRegionArgs) ToDatabaseNodeRegionOutput() DatabaseNodeRegionOutput {
-	return i.ToDatabaseNodeRegionOutputWithContext(context.Background())
+func (i DatabaseNodesRegionArgs) ToDatabaseNodesRegionOutput() DatabaseNodesRegionOutput {
+	return i.ToDatabaseNodesRegionOutputWithContext(context.Background())
 }
 
-func (i DatabaseNodeRegionArgs) ToDatabaseNodeRegionOutputWithContext(ctx context.Context) DatabaseNodeRegionOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeRegionOutput)
+func (i DatabaseNodesRegionArgs) ToDatabaseNodesRegionOutputWithContext(ctx context.Context) DatabaseNodesRegionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodesRegionOutput)
 }
 
-func (i DatabaseNodeRegionArgs) ToDatabaseNodeRegionPtrOutput() DatabaseNodeRegionPtrOutput {
-	return i.ToDatabaseNodeRegionPtrOutputWithContext(context.Background())
+func (i DatabaseNodesRegionArgs) ToDatabaseNodesRegionPtrOutput() DatabaseNodesRegionPtrOutput {
+	return i.ToDatabaseNodesRegionPtrOutputWithContext(context.Background())
 }
 
-func (i DatabaseNodeRegionArgs) ToDatabaseNodeRegionPtrOutputWithContext(ctx context.Context) DatabaseNodeRegionPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeRegionOutput).ToDatabaseNodeRegionPtrOutputWithContext(ctx)
+func (i DatabaseNodesRegionArgs) ToDatabaseNodesRegionPtrOutputWithContext(ctx context.Context) DatabaseNodesRegionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodesRegionOutput).ToDatabaseNodesRegionPtrOutputWithContext(ctx)
 }
 
-// DatabaseNodeRegionPtrInput is an input type that accepts DatabaseNodeRegionArgs, DatabaseNodeRegionPtr and DatabaseNodeRegionPtrOutput values.
-// You can construct a concrete instance of `DatabaseNodeRegionPtrInput` via:
+// DatabaseNodesRegionPtrInput is an input type that accepts DatabaseNodesRegionArgs, DatabaseNodesRegionPtr and DatabaseNodesRegionPtrOutput values.
+// You can construct a concrete instance of `DatabaseNodesRegionPtrInput` via:
 //
-//	        DatabaseNodeRegionArgs{...}
+//	        DatabaseNodesRegionArgs{...}
 //
 //	or:
 //
 //	        nil
-type DatabaseNodeRegionPtrInput interface {
+type DatabaseNodesRegionPtrInput interface {
 	pulumi.Input
 
-	ToDatabaseNodeRegionPtrOutput() DatabaseNodeRegionPtrOutput
-	ToDatabaseNodeRegionPtrOutputWithContext(context.Context) DatabaseNodeRegionPtrOutput
+	ToDatabaseNodesRegionPtrOutput() DatabaseNodesRegionPtrOutput
+	ToDatabaseNodesRegionPtrOutputWithContext(context.Context) DatabaseNodesRegionPtrOutput
 }
 
-type databaseNodeRegionPtrType DatabaseNodeRegionArgs
+type databaseNodesRegionPtrType DatabaseNodesRegionArgs
 
-func DatabaseNodeRegionPtr(v *DatabaseNodeRegionArgs) DatabaseNodeRegionPtrInput {
-	return (*databaseNodeRegionPtrType)(v)
+func DatabaseNodesRegionPtr(v *DatabaseNodesRegionArgs) DatabaseNodesRegionPtrInput {
+	return (*databaseNodesRegionPtrType)(v)
 }
 
-func (*databaseNodeRegionPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**DatabaseNodeRegion)(nil)).Elem()
+func (*databaseNodesRegionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DatabaseNodesRegion)(nil)).Elem()
 }
 
-func (i *databaseNodeRegionPtrType) ToDatabaseNodeRegionPtrOutput() DatabaseNodeRegionPtrOutput {
-	return i.ToDatabaseNodeRegionPtrOutputWithContext(context.Background())
+func (i *databaseNodesRegionPtrType) ToDatabaseNodesRegionPtrOutput() DatabaseNodesRegionPtrOutput {
+	return i.ToDatabaseNodesRegionPtrOutputWithContext(context.Background())
 }
 
-func (i *databaseNodeRegionPtrType) ToDatabaseNodeRegionPtrOutputWithContext(ctx context.Context) DatabaseNodeRegionPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodeRegionPtrOutput)
+func (i *databaseNodesRegionPtrType) ToDatabaseNodesRegionPtrOutputWithContext(ctx context.Context) DatabaseNodesRegionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DatabaseNodesRegionPtrOutput)
 }
 
-type DatabaseNodeRegionOutput struct{ *pulumi.OutputState }
+type DatabaseNodesRegionOutput struct{ *pulumi.OutputState }
 
-func (DatabaseNodeRegionOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*DatabaseNodeRegion)(nil)).Elem()
+func (DatabaseNodesRegionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DatabaseNodesRegion)(nil)).Elem()
 }
 
-func (o DatabaseNodeRegionOutput) ToDatabaseNodeRegionOutput() DatabaseNodeRegionOutput {
+func (o DatabaseNodesRegionOutput) ToDatabaseNodesRegionOutput() DatabaseNodesRegionOutput {
 	return o
 }
 
-func (o DatabaseNodeRegionOutput) ToDatabaseNodeRegionOutputWithContext(ctx context.Context) DatabaseNodeRegionOutput {
+func (o DatabaseNodesRegionOutput) ToDatabaseNodesRegionOutputWithContext(ctx context.Context) DatabaseNodesRegionOutput {
 	return o
 }
 
-func (o DatabaseNodeRegionOutput) ToDatabaseNodeRegionPtrOutput() DatabaseNodeRegionPtrOutput {
-	return o.ToDatabaseNodeRegionPtrOutputWithContext(context.Background())
+func (o DatabaseNodesRegionOutput) ToDatabaseNodesRegionPtrOutput() DatabaseNodesRegionPtrOutput {
+	return o.ToDatabaseNodesRegionPtrOutputWithContext(context.Background())
 }
 
-func (o DatabaseNodeRegionOutput) ToDatabaseNodeRegionPtrOutputWithContext(ctx context.Context) DatabaseNodeRegionPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v DatabaseNodeRegion) *DatabaseNodeRegion {
+func (o DatabaseNodesRegionOutput) ToDatabaseNodesRegionPtrOutputWithContext(ctx context.Context) DatabaseNodesRegionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DatabaseNodesRegion) *DatabaseNodesRegion {
 		return &v
-	}).(DatabaseNodeRegionPtrOutput)
+	}).(DatabaseNodesRegionPtrOutput)
 }
 
-func (o DatabaseNodeRegionOutput) Active() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeRegion) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+func (o DatabaseNodesRegionOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesRegion) *bool { return v.Active }).(pulumi.BoolPtrOutput)
 }
 
-func (o DatabaseNodeRegionOutput) AvailabilityZones() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v DatabaseNodeRegion) []string { return v.AvailabilityZones }).(pulumi.StringArrayOutput)
+func (o DatabaseNodesRegionOutput) AvailabilityZones() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DatabaseNodesRegion) []string { return v.AvailabilityZones }).(pulumi.StringArrayOutput)
 }
 
-func (o DatabaseNodeRegionOutput) Cloud() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeRegion) *string { return v.Cloud }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesRegionOutput) Cloud() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesRegion) *string { return v.Cloud }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeRegionOutput) Code() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeRegion) *string { return v.Code }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesRegionOutput) Code() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesRegion) *string { return v.Code }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeRegionOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeRegion) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesRegionOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesRegion) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeRegionOutput) Parent() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseNodeRegion) *string { return v.Parent }).(pulumi.StringPtrOutput)
+func (o DatabaseNodesRegionOutput) Parent() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DatabaseNodesRegion) *string { return v.Parent }).(pulumi.StringPtrOutput)
 }
 
-type DatabaseNodeRegionPtrOutput struct{ *pulumi.OutputState }
+type DatabaseNodesRegionPtrOutput struct{ *pulumi.OutputState }
 
-func (DatabaseNodeRegionPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**DatabaseNodeRegion)(nil)).Elem()
+func (DatabaseNodesRegionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DatabaseNodesRegion)(nil)).Elem()
 }
 
-func (o DatabaseNodeRegionPtrOutput) ToDatabaseNodeRegionPtrOutput() DatabaseNodeRegionPtrOutput {
+func (o DatabaseNodesRegionPtrOutput) ToDatabaseNodesRegionPtrOutput() DatabaseNodesRegionPtrOutput {
 	return o
 }
 
-func (o DatabaseNodeRegionPtrOutput) ToDatabaseNodeRegionPtrOutputWithContext(ctx context.Context) DatabaseNodeRegionPtrOutput {
+func (o DatabaseNodesRegionPtrOutput) ToDatabaseNodesRegionPtrOutputWithContext(ctx context.Context) DatabaseNodesRegionPtrOutput {
 	return o
 }
 
-func (o DatabaseNodeRegionPtrOutput) Elem() DatabaseNodeRegionOutput {
-	return o.ApplyT(func(v *DatabaseNodeRegion) DatabaseNodeRegion {
+func (o DatabaseNodesRegionPtrOutput) Elem() DatabaseNodesRegionOutput {
+	return o.ApplyT(func(v *DatabaseNodesRegion) DatabaseNodesRegion {
 		if v != nil {
 			return *v
 		}
-		var ret DatabaseNodeRegion
+		var ret DatabaseNodesRegion
 		return ret
-	}).(DatabaseNodeRegionOutput)
+	}).(DatabaseNodesRegionOutput)
 }
 
-func (o DatabaseNodeRegionPtrOutput) Active() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeRegion) *bool {
+func (o DatabaseNodesRegionPtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesRegion) *bool {
 		if v == nil {
 			return nil
 		}
@@ -2240,8 +2240,8 @@ func (o DatabaseNodeRegionPtrOutput) Active() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-func (o DatabaseNodeRegionPtrOutput) AvailabilityZones() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *DatabaseNodeRegion) []string {
+func (o DatabaseNodesRegionPtrOutput) AvailabilityZones() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *DatabaseNodesRegion) []string {
 		if v == nil {
 			return nil
 		}
@@ -2249,8 +2249,8 @@ func (o DatabaseNodeRegionPtrOutput) AvailabilityZones() pulumi.StringArrayOutpu
 	}).(pulumi.StringArrayOutput)
 }
 
-func (o DatabaseNodeRegionPtrOutput) Cloud() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeRegion) *string {
+func (o DatabaseNodesRegionPtrOutput) Cloud() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesRegion) *string {
 		if v == nil {
 			return nil
 		}
@@ -2258,8 +2258,8 @@ func (o DatabaseNodeRegionPtrOutput) Cloud() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeRegionPtrOutput) Code() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeRegion) *string {
+func (o DatabaseNodesRegionPtrOutput) Code() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesRegion) *string {
 		if v == nil {
 			return nil
 		}
@@ -2267,8 +2267,8 @@ func (o DatabaseNodeRegionPtrOutput) Code() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeRegionPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeRegion) *string {
+func (o DatabaseNodesRegionPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesRegion) *string {
 		if v == nil {
 			return nil
 		}
@@ -2276,8 +2276,8 @@ func (o DatabaseNodeRegionPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o DatabaseNodeRegionPtrOutput) Parent() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DatabaseNodeRegion) *string {
+func (o DatabaseNodesRegionPtrOutput) Parent() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatabaseNodesRegion) *string {
 		if v == nil {
 			return nil
 		}
@@ -3359,7 +3359,7 @@ type GetDatabasesDatabase struct {
 	// Name of the database
 	Name string `pulumi:"name"`
 	// Nodes of the database
-	Nodes []GetDatabasesDatabaseNode `pulumi:"nodes"`
+	Nodes map[string]GetDatabasesDatabaseNodes `pulumi:"nodes"`
 	// Options for the database
 	Options []string `pulumi:"options"`
 	// PostgreSQL version of the database
@@ -3405,7 +3405,7 @@ type GetDatabasesDatabaseArgs struct {
 	// Name of the database
 	Name pulumi.StringInput `pulumi:"name"`
 	// Nodes of the database
-	Nodes GetDatabasesDatabaseNodeArrayInput `pulumi:"nodes"`
+	Nodes GetDatabasesDatabaseNodesMapInput `pulumi:"nodes"`
 	// Options for the database
 	Options pulumi.StringArrayInput `pulumi:"options"`
 	// PostgreSQL version of the database
@@ -3517,8 +3517,8 @@ func (o GetDatabasesDatabaseOutput) Name() pulumi.StringOutput {
 }
 
 // Nodes of the database
-func (o GetDatabasesDatabaseOutput) Nodes() GetDatabasesDatabaseNodeArrayOutput {
-	return o.ApplyT(func(v GetDatabasesDatabase) []GetDatabasesDatabaseNode { return v.Nodes }).(GetDatabasesDatabaseNodeArrayOutput)
+func (o GetDatabasesDatabaseOutput) Nodes() GetDatabasesDatabaseNodesMapOutput {
+	return o.ApplyT(func(v GetDatabasesDatabase) map[string]GetDatabasesDatabaseNodes { return v.Nodes }).(GetDatabasesDatabaseNodesMapOutput)
 }
 
 // Options for the database
@@ -4247,140 +4247,140 @@ func (o GetDatabasesDatabaseExtensionsOutput) Requesteds() pulumi.StringArrayOut
 	return o.ApplyT(func(v GetDatabasesDatabaseExtensions) []string { return v.Requesteds }).(pulumi.StringArrayOutput)
 }
 
-type GetDatabasesDatabaseNode struct {
+type GetDatabasesDatabaseNodes struct {
 	// Node connection details
-	Connection GetDatabasesDatabaseNodeConnection `pulumi:"connection"`
+	Connection GetDatabasesDatabaseNodesConnection `pulumi:"connection"`
 	// Extensions configuration for the database
-	Extensions GetDatabasesDatabaseNodeExtensions `pulumi:"extensions"`
+	Extensions GetDatabasesDatabaseNodesExtensions `pulumi:"extensions"`
 	// Node location
-	Location GetDatabasesDatabaseNodeLocation `pulumi:"location"`
+	Location GetDatabasesDatabaseNodesLocation `pulumi:"location"`
 	// Component name
 	Name string `pulumi:"name"`
 	// Node region
-	Region GetDatabasesDatabaseNodeRegion `pulumi:"region"`
+	Region GetDatabasesDatabaseNodesRegion `pulumi:"region"`
 }
 
-// GetDatabasesDatabaseNodeInput is an input type that accepts GetDatabasesDatabaseNodeArgs and GetDatabasesDatabaseNodeOutput values.
-// You can construct a concrete instance of `GetDatabasesDatabaseNodeInput` via:
+// GetDatabasesDatabaseNodesInput is an input type that accepts GetDatabasesDatabaseNodesArgs and GetDatabasesDatabaseNodesOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseNodesInput` via:
 //
-//	GetDatabasesDatabaseNodeArgs{...}
-type GetDatabasesDatabaseNodeInput interface {
+//	GetDatabasesDatabaseNodesArgs{...}
+type GetDatabasesDatabaseNodesInput interface {
 	pulumi.Input
 
-	ToGetDatabasesDatabaseNodeOutput() GetDatabasesDatabaseNodeOutput
-	ToGetDatabasesDatabaseNodeOutputWithContext(context.Context) GetDatabasesDatabaseNodeOutput
+	ToGetDatabasesDatabaseNodesOutput() GetDatabasesDatabaseNodesOutput
+	ToGetDatabasesDatabaseNodesOutputWithContext(context.Context) GetDatabasesDatabaseNodesOutput
 }
 
-type GetDatabasesDatabaseNodeArgs struct {
+type GetDatabasesDatabaseNodesArgs struct {
 	// Node connection details
-	Connection GetDatabasesDatabaseNodeConnectionInput `pulumi:"connection"`
+	Connection GetDatabasesDatabaseNodesConnectionInput `pulumi:"connection"`
 	// Extensions configuration for the database
-	Extensions GetDatabasesDatabaseNodeExtensionsInput `pulumi:"extensions"`
+	Extensions GetDatabasesDatabaseNodesExtensionsInput `pulumi:"extensions"`
 	// Node location
-	Location GetDatabasesDatabaseNodeLocationInput `pulumi:"location"`
+	Location GetDatabasesDatabaseNodesLocationInput `pulumi:"location"`
 	// Component name
 	Name pulumi.StringInput `pulumi:"name"`
 	// Node region
-	Region GetDatabasesDatabaseNodeRegionInput `pulumi:"region"`
+	Region GetDatabasesDatabaseNodesRegionInput `pulumi:"region"`
 }
 
-func (GetDatabasesDatabaseNodeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetDatabasesDatabaseNode)(nil)).Elem()
+func (GetDatabasesDatabaseNodesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodes)(nil)).Elem()
 }
 
-func (i GetDatabasesDatabaseNodeArgs) ToGetDatabasesDatabaseNodeOutput() GetDatabasesDatabaseNodeOutput {
-	return i.ToGetDatabasesDatabaseNodeOutputWithContext(context.Background())
+func (i GetDatabasesDatabaseNodesArgs) ToGetDatabasesDatabaseNodesOutput() GetDatabasesDatabaseNodesOutput {
+	return i.ToGetDatabasesDatabaseNodesOutputWithContext(context.Background())
 }
 
-func (i GetDatabasesDatabaseNodeArgs) ToGetDatabasesDatabaseNodeOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodeOutput)
+func (i GetDatabasesDatabaseNodesArgs) ToGetDatabasesDatabaseNodesOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodesOutput)
 }
 
-// GetDatabasesDatabaseNodeArrayInput is an input type that accepts GetDatabasesDatabaseNodeArray and GetDatabasesDatabaseNodeArrayOutput values.
-// You can construct a concrete instance of `GetDatabasesDatabaseNodeArrayInput` via:
+// GetDatabasesDatabaseNodesMapInput is an input type that accepts GetDatabasesDatabaseNodesMap and GetDatabasesDatabaseNodesMapOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseNodesMapInput` via:
 //
-//	GetDatabasesDatabaseNodeArray{ GetDatabasesDatabaseNodeArgs{...} }
-type GetDatabasesDatabaseNodeArrayInput interface {
+//	GetDatabasesDatabaseNodesMap{ "key": GetDatabasesDatabaseNodesArgs{...} }
+type GetDatabasesDatabaseNodesMapInput interface {
 	pulumi.Input
 
-	ToGetDatabasesDatabaseNodeArrayOutput() GetDatabasesDatabaseNodeArrayOutput
-	ToGetDatabasesDatabaseNodeArrayOutputWithContext(context.Context) GetDatabasesDatabaseNodeArrayOutput
+	ToGetDatabasesDatabaseNodesMapOutput() GetDatabasesDatabaseNodesMapOutput
+	ToGetDatabasesDatabaseNodesMapOutputWithContext(context.Context) GetDatabasesDatabaseNodesMapOutput
 }
 
-type GetDatabasesDatabaseNodeArray []GetDatabasesDatabaseNodeInput
+type GetDatabasesDatabaseNodesMap map[string]GetDatabasesDatabaseNodesInput
 
-func (GetDatabasesDatabaseNodeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetDatabasesDatabaseNode)(nil)).Elem()
+func (GetDatabasesDatabaseNodesMap) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]GetDatabasesDatabaseNodes)(nil)).Elem()
 }
 
-func (i GetDatabasesDatabaseNodeArray) ToGetDatabasesDatabaseNodeArrayOutput() GetDatabasesDatabaseNodeArrayOutput {
-	return i.ToGetDatabasesDatabaseNodeArrayOutputWithContext(context.Background())
+func (i GetDatabasesDatabaseNodesMap) ToGetDatabasesDatabaseNodesMapOutput() GetDatabasesDatabaseNodesMapOutput {
+	return i.ToGetDatabasesDatabaseNodesMapOutputWithContext(context.Background())
 }
 
-func (i GetDatabasesDatabaseNodeArray) ToGetDatabasesDatabaseNodeArrayOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodeArrayOutput)
+func (i GetDatabasesDatabaseNodesMap) ToGetDatabasesDatabaseNodesMapOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodesMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodesMapOutput)
 }
 
-type GetDatabasesDatabaseNodeOutput struct{ *pulumi.OutputState }
+type GetDatabasesDatabaseNodesOutput struct{ *pulumi.OutputState }
 
-func (GetDatabasesDatabaseNodeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetDatabasesDatabaseNode)(nil)).Elem()
+func (GetDatabasesDatabaseNodesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodes)(nil)).Elem()
 }
 
-func (o GetDatabasesDatabaseNodeOutput) ToGetDatabasesDatabaseNodeOutput() GetDatabasesDatabaseNodeOutput {
+func (o GetDatabasesDatabaseNodesOutput) ToGetDatabasesDatabaseNodesOutput() GetDatabasesDatabaseNodesOutput {
 	return o
 }
 
-func (o GetDatabasesDatabaseNodeOutput) ToGetDatabasesDatabaseNodeOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeOutput {
+func (o GetDatabasesDatabaseNodesOutput) ToGetDatabasesDatabaseNodesOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodesOutput {
 	return o
 }
 
 // Node connection details
-func (o GetDatabasesDatabaseNodeOutput) Connection() GetDatabasesDatabaseNodeConnectionOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNode) GetDatabasesDatabaseNodeConnection { return v.Connection }).(GetDatabasesDatabaseNodeConnectionOutput)
+func (o GetDatabasesDatabaseNodesOutput) Connection() GetDatabasesDatabaseNodesConnectionOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodes) GetDatabasesDatabaseNodesConnection { return v.Connection }).(GetDatabasesDatabaseNodesConnectionOutput)
 }
 
 // Extensions configuration for the database
-func (o GetDatabasesDatabaseNodeOutput) Extensions() GetDatabasesDatabaseNodeExtensionsOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNode) GetDatabasesDatabaseNodeExtensions { return v.Extensions }).(GetDatabasesDatabaseNodeExtensionsOutput)
+func (o GetDatabasesDatabaseNodesOutput) Extensions() GetDatabasesDatabaseNodesExtensionsOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodes) GetDatabasesDatabaseNodesExtensions { return v.Extensions }).(GetDatabasesDatabaseNodesExtensionsOutput)
 }
 
 // Node location
-func (o GetDatabasesDatabaseNodeOutput) Location() GetDatabasesDatabaseNodeLocationOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNode) GetDatabasesDatabaseNodeLocation { return v.Location }).(GetDatabasesDatabaseNodeLocationOutput)
+func (o GetDatabasesDatabaseNodesOutput) Location() GetDatabasesDatabaseNodesLocationOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodes) GetDatabasesDatabaseNodesLocation { return v.Location }).(GetDatabasesDatabaseNodesLocationOutput)
 }
 
 // Component name
-func (o GetDatabasesDatabaseNodeOutput) Name() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNode) string { return v.Name }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodes) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // Node region
-func (o GetDatabasesDatabaseNodeOutput) Region() GetDatabasesDatabaseNodeRegionOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNode) GetDatabasesDatabaseNodeRegion { return v.Region }).(GetDatabasesDatabaseNodeRegionOutput)
+func (o GetDatabasesDatabaseNodesOutput) Region() GetDatabasesDatabaseNodesRegionOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodes) GetDatabasesDatabaseNodesRegion { return v.Region }).(GetDatabasesDatabaseNodesRegionOutput)
 }
 
-type GetDatabasesDatabaseNodeArrayOutput struct{ *pulumi.OutputState }
+type GetDatabasesDatabaseNodesMapOutput struct{ *pulumi.OutputState }
 
-func (GetDatabasesDatabaseNodeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetDatabasesDatabaseNode)(nil)).Elem()
+func (GetDatabasesDatabaseNodesMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]GetDatabasesDatabaseNodes)(nil)).Elem()
 }
 
-func (o GetDatabasesDatabaseNodeArrayOutput) ToGetDatabasesDatabaseNodeArrayOutput() GetDatabasesDatabaseNodeArrayOutput {
+func (o GetDatabasesDatabaseNodesMapOutput) ToGetDatabasesDatabaseNodesMapOutput() GetDatabasesDatabaseNodesMapOutput {
 	return o
 }
 
-func (o GetDatabasesDatabaseNodeArrayOutput) ToGetDatabasesDatabaseNodeArrayOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeArrayOutput {
+func (o GetDatabasesDatabaseNodesMapOutput) ToGetDatabasesDatabaseNodesMapOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodesMapOutput {
 	return o
 }
 
-func (o GetDatabasesDatabaseNodeArrayOutput) Index(i pulumi.IntInput) GetDatabasesDatabaseNodeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetDatabasesDatabaseNode {
-		return vs[0].([]GetDatabasesDatabaseNode)[vs[1].(int)]
-	}).(GetDatabasesDatabaseNodeOutput)
+func (o GetDatabasesDatabaseNodesMapOutput) MapIndex(k pulumi.StringInput) GetDatabasesDatabaseNodesOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) GetDatabasesDatabaseNodes {
+		return vs[0].(map[string]GetDatabasesDatabaseNodes)[vs[1].(string)]
+	}).(GetDatabasesDatabaseNodesOutput)
 }
 
-type GetDatabasesDatabaseNodeConnection struct {
+type GetDatabasesDatabaseNodesConnection struct {
 	Database          string `pulumi:"database"`
 	ExternalIpAddress string `pulumi:"externalIpAddress"`
 	Host              string `pulumi:"host"`
@@ -4391,18 +4391,18 @@ type GetDatabasesDatabaseNodeConnection struct {
 	Username          string `pulumi:"username"`
 }
 
-// GetDatabasesDatabaseNodeConnectionInput is an input type that accepts GetDatabasesDatabaseNodeConnectionArgs and GetDatabasesDatabaseNodeConnectionOutput values.
-// You can construct a concrete instance of `GetDatabasesDatabaseNodeConnectionInput` via:
+// GetDatabasesDatabaseNodesConnectionInput is an input type that accepts GetDatabasesDatabaseNodesConnectionArgs and GetDatabasesDatabaseNodesConnectionOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseNodesConnectionInput` via:
 //
-//	GetDatabasesDatabaseNodeConnectionArgs{...}
-type GetDatabasesDatabaseNodeConnectionInput interface {
+//	GetDatabasesDatabaseNodesConnectionArgs{...}
+type GetDatabasesDatabaseNodesConnectionInput interface {
 	pulumi.Input
 
-	ToGetDatabasesDatabaseNodeConnectionOutput() GetDatabasesDatabaseNodeConnectionOutput
-	ToGetDatabasesDatabaseNodeConnectionOutputWithContext(context.Context) GetDatabasesDatabaseNodeConnectionOutput
+	ToGetDatabasesDatabaseNodesConnectionOutput() GetDatabasesDatabaseNodesConnectionOutput
+	ToGetDatabasesDatabaseNodesConnectionOutputWithContext(context.Context) GetDatabasesDatabaseNodesConnectionOutput
 }
 
-type GetDatabasesDatabaseNodeConnectionArgs struct {
+type GetDatabasesDatabaseNodesConnectionArgs struct {
 	Database          pulumi.StringInput `pulumi:"database"`
 	ExternalIpAddress pulumi.StringInput `pulumi:"externalIpAddress"`
 	Host              pulumi.StringInput `pulumi:"host"`
@@ -4413,120 +4413,120 @@ type GetDatabasesDatabaseNodeConnectionArgs struct {
 	Username          pulumi.StringInput `pulumi:"username"`
 }
 
-func (GetDatabasesDatabaseNodeConnectionArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetDatabasesDatabaseNodeConnection)(nil)).Elem()
+func (GetDatabasesDatabaseNodesConnectionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodesConnection)(nil)).Elem()
 }
 
-func (i GetDatabasesDatabaseNodeConnectionArgs) ToGetDatabasesDatabaseNodeConnectionOutput() GetDatabasesDatabaseNodeConnectionOutput {
-	return i.ToGetDatabasesDatabaseNodeConnectionOutputWithContext(context.Background())
+func (i GetDatabasesDatabaseNodesConnectionArgs) ToGetDatabasesDatabaseNodesConnectionOutput() GetDatabasesDatabaseNodesConnectionOutput {
+	return i.ToGetDatabasesDatabaseNodesConnectionOutputWithContext(context.Background())
 }
 
-func (i GetDatabasesDatabaseNodeConnectionArgs) ToGetDatabasesDatabaseNodeConnectionOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeConnectionOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodeConnectionOutput)
+func (i GetDatabasesDatabaseNodesConnectionArgs) ToGetDatabasesDatabaseNodesConnectionOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodesConnectionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodesConnectionOutput)
 }
 
-type GetDatabasesDatabaseNodeConnectionOutput struct{ *pulumi.OutputState }
+type GetDatabasesDatabaseNodesConnectionOutput struct{ *pulumi.OutputState }
 
-func (GetDatabasesDatabaseNodeConnectionOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetDatabasesDatabaseNodeConnection)(nil)).Elem()
+func (GetDatabasesDatabaseNodesConnectionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodesConnection)(nil)).Elem()
 }
 
-func (o GetDatabasesDatabaseNodeConnectionOutput) ToGetDatabasesDatabaseNodeConnectionOutput() GetDatabasesDatabaseNodeConnectionOutput {
+func (o GetDatabasesDatabaseNodesConnectionOutput) ToGetDatabasesDatabaseNodesConnectionOutput() GetDatabasesDatabaseNodesConnectionOutput {
 	return o
 }
 
-func (o GetDatabasesDatabaseNodeConnectionOutput) ToGetDatabasesDatabaseNodeConnectionOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeConnectionOutput {
+func (o GetDatabasesDatabaseNodesConnectionOutput) ToGetDatabasesDatabaseNodesConnectionOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodesConnectionOutput {
 	return o
 }
 
-func (o GetDatabasesDatabaseNodeConnectionOutput) Database() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeConnection) string { return v.Database }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesConnectionOutput) Database() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesConnection) string { return v.Database }).(pulumi.StringOutput)
 }
 
-func (o GetDatabasesDatabaseNodeConnectionOutput) ExternalIpAddress() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeConnection) string { return v.ExternalIpAddress }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesConnectionOutput) ExternalIpAddress() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesConnection) string { return v.ExternalIpAddress }).(pulumi.StringOutput)
 }
 
-func (o GetDatabasesDatabaseNodeConnectionOutput) Host() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeConnection) string { return v.Host }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesConnectionOutput) Host() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesConnection) string { return v.Host }).(pulumi.StringOutput)
 }
 
-func (o GetDatabasesDatabaseNodeConnectionOutput) InternalHost() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeConnection) string { return v.InternalHost }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesConnectionOutput) InternalHost() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesConnection) string { return v.InternalHost }).(pulumi.StringOutput)
 }
 
-func (o GetDatabasesDatabaseNodeConnectionOutput) InternalIpAddress() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeConnection) string { return v.InternalIpAddress }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesConnectionOutput) InternalIpAddress() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesConnection) string { return v.InternalIpAddress }).(pulumi.StringOutput)
 }
 
-func (o GetDatabasesDatabaseNodeConnectionOutput) Password() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeConnection) string { return v.Password }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesConnectionOutput) Password() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesConnection) string { return v.Password }).(pulumi.StringOutput)
 }
 
-func (o GetDatabasesDatabaseNodeConnectionOutput) Port() pulumi.IntOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeConnection) int { return v.Port }).(pulumi.IntOutput)
+func (o GetDatabasesDatabaseNodesConnectionOutput) Port() pulumi.IntOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesConnection) int { return v.Port }).(pulumi.IntOutput)
 }
 
-func (o GetDatabasesDatabaseNodeConnectionOutput) Username() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeConnection) string { return v.Username }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesConnectionOutput) Username() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesConnection) string { return v.Username }).(pulumi.StringOutput)
 }
 
-type GetDatabasesDatabaseNodeExtensions struct {
+type GetDatabasesDatabaseNodesExtensions struct {
 	Errors     map[string]string `pulumi:"errors"`
 	Installeds []string          `pulumi:"installeds"`
 }
 
-// GetDatabasesDatabaseNodeExtensionsInput is an input type that accepts GetDatabasesDatabaseNodeExtensionsArgs and GetDatabasesDatabaseNodeExtensionsOutput values.
-// You can construct a concrete instance of `GetDatabasesDatabaseNodeExtensionsInput` via:
+// GetDatabasesDatabaseNodesExtensionsInput is an input type that accepts GetDatabasesDatabaseNodesExtensionsArgs and GetDatabasesDatabaseNodesExtensionsOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseNodesExtensionsInput` via:
 //
-//	GetDatabasesDatabaseNodeExtensionsArgs{...}
-type GetDatabasesDatabaseNodeExtensionsInput interface {
+//	GetDatabasesDatabaseNodesExtensionsArgs{...}
+type GetDatabasesDatabaseNodesExtensionsInput interface {
 	pulumi.Input
 
-	ToGetDatabasesDatabaseNodeExtensionsOutput() GetDatabasesDatabaseNodeExtensionsOutput
-	ToGetDatabasesDatabaseNodeExtensionsOutputWithContext(context.Context) GetDatabasesDatabaseNodeExtensionsOutput
+	ToGetDatabasesDatabaseNodesExtensionsOutput() GetDatabasesDatabaseNodesExtensionsOutput
+	ToGetDatabasesDatabaseNodesExtensionsOutputWithContext(context.Context) GetDatabasesDatabaseNodesExtensionsOutput
 }
 
-type GetDatabasesDatabaseNodeExtensionsArgs struct {
+type GetDatabasesDatabaseNodesExtensionsArgs struct {
 	Errors     pulumi.StringMapInput   `pulumi:"errors"`
 	Installeds pulumi.StringArrayInput `pulumi:"installeds"`
 }
 
-func (GetDatabasesDatabaseNodeExtensionsArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetDatabasesDatabaseNodeExtensions)(nil)).Elem()
+func (GetDatabasesDatabaseNodesExtensionsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodesExtensions)(nil)).Elem()
 }
 
-func (i GetDatabasesDatabaseNodeExtensionsArgs) ToGetDatabasesDatabaseNodeExtensionsOutput() GetDatabasesDatabaseNodeExtensionsOutput {
-	return i.ToGetDatabasesDatabaseNodeExtensionsOutputWithContext(context.Background())
+func (i GetDatabasesDatabaseNodesExtensionsArgs) ToGetDatabasesDatabaseNodesExtensionsOutput() GetDatabasesDatabaseNodesExtensionsOutput {
+	return i.ToGetDatabasesDatabaseNodesExtensionsOutputWithContext(context.Background())
 }
 
-func (i GetDatabasesDatabaseNodeExtensionsArgs) ToGetDatabasesDatabaseNodeExtensionsOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeExtensionsOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodeExtensionsOutput)
+func (i GetDatabasesDatabaseNodesExtensionsArgs) ToGetDatabasesDatabaseNodesExtensionsOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodesExtensionsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodesExtensionsOutput)
 }
 
-type GetDatabasesDatabaseNodeExtensionsOutput struct{ *pulumi.OutputState }
+type GetDatabasesDatabaseNodesExtensionsOutput struct{ *pulumi.OutputState }
 
-func (GetDatabasesDatabaseNodeExtensionsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetDatabasesDatabaseNodeExtensions)(nil)).Elem()
+func (GetDatabasesDatabaseNodesExtensionsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodesExtensions)(nil)).Elem()
 }
 
-func (o GetDatabasesDatabaseNodeExtensionsOutput) ToGetDatabasesDatabaseNodeExtensionsOutput() GetDatabasesDatabaseNodeExtensionsOutput {
+func (o GetDatabasesDatabaseNodesExtensionsOutput) ToGetDatabasesDatabaseNodesExtensionsOutput() GetDatabasesDatabaseNodesExtensionsOutput {
 	return o
 }
 
-func (o GetDatabasesDatabaseNodeExtensionsOutput) ToGetDatabasesDatabaseNodeExtensionsOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeExtensionsOutput {
+func (o GetDatabasesDatabaseNodesExtensionsOutput) ToGetDatabasesDatabaseNodesExtensionsOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodesExtensionsOutput {
 	return o
 }
 
-func (o GetDatabasesDatabaseNodeExtensionsOutput) Errors() pulumi.StringMapOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeExtensions) map[string]string { return v.Errors }).(pulumi.StringMapOutput)
+func (o GetDatabasesDatabaseNodesExtensionsOutput) Errors() pulumi.StringMapOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesExtensions) map[string]string { return v.Errors }).(pulumi.StringMapOutput)
 }
 
-func (o GetDatabasesDatabaseNodeExtensionsOutput) Installeds() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeExtensions) []string { return v.Installeds }).(pulumi.StringArrayOutput)
+func (o GetDatabasesDatabaseNodesExtensionsOutput) Installeds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesExtensions) []string { return v.Installeds }).(pulumi.StringArrayOutput)
 }
 
-type GetDatabasesDatabaseNodeLocation struct {
+type GetDatabasesDatabaseNodesLocation struct {
 	City      string  `pulumi:"city"`
 	Code      string  `pulumi:"code"`
 	Country   string  `pulumi:"country"`
@@ -4541,18 +4541,18 @@ type GetDatabasesDatabaseNodeLocation struct {
 	Timezone   string `pulumi:"timezone"`
 }
 
-// GetDatabasesDatabaseNodeLocationInput is an input type that accepts GetDatabasesDatabaseNodeLocationArgs and GetDatabasesDatabaseNodeLocationOutput values.
-// You can construct a concrete instance of `GetDatabasesDatabaseNodeLocationInput` via:
+// GetDatabasesDatabaseNodesLocationInput is an input type that accepts GetDatabasesDatabaseNodesLocationArgs and GetDatabasesDatabaseNodesLocationOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseNodesLocationInput` via:
 //
-//	GetDatabasesDatabaseNodeLocationArgs{...}
-type GetDatabasesDatabaseNodeLocationInput interface {
+//	GetDatabasesDatabaseNodesLocationArgs{...}
+type GetDatabasesDatabaseNodesLocationInput interface {
 	pulumi.Input
 
-	ToGetDatabasesDatabaseNodeLocationOutput() GetDatabasesDatabaseNodeLocationOutput
-	ToGetDatabasesDatabaseNodeLocationOutputWithContext(context.Context) GetDatabasesDatabaseNodeLocationOutput
+	ToGetDatabasesDatabaseNodesLocationOutput() GetDatabasesDatabaseNodesLocationOutput
+	ToGetDatabasesDatabaseNodesLocationOutputWithContext(context.Context) GetDatabasesDatabaseNodesLocationOutput
 }
 
-type GetDatabasesDatabaseNodeLocationArgs struct {
+type GetDatabasesDatabaseNodesLocationArgs struct {
 	City      pulumi.StringInput  `pulumi:"city"`
 	Code      pulumi.StringInput  `pulumi:"code"`
 	Country   pulumi.StringInput  `pulumi:"country"`
@@ -4567,78 +4567,78 @@ type GetDatabasesDatabaseNodeLocationArgs struct {
 	Timezone   pulumi.StringInput `pulumi:"timezone"`
 }
 
-func (GetDatabasesDatabaseNodeLocationArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetDatabasesDatabaseNodeLocation)(nil)).Elem()
+func (GetDatabasesDatabaseNodesLocationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodesLocation)(nil)).Elem()
 }
 
-func (i GetDatabasesDatabaseNodeLocationArgs) ToGetDatabasesDatabaseNodeLocationOutput() GetDatabasesDatabaseNodeLocationOutput {
-	return i.ToGetDatabasesDatabaseNodeLocationOutputWithContext(context.Background())
+func (i GetDatabasesDatabaseNodesLocationArgs) ToGetDatabasesDatabaseNodesLocationOutput() GetDatabasesDatabaseNodesLocationOutput {
+	return i.ToGetDatabasesDatabaseNodesLocationOutputWithContext(context.Background())
 }
 
-func (i GetDatabasesDatabaseNodeLocationArgs) ToGetDatabasesDatabaseNodeLocationOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeLocationOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodeLocationOutput)
+func (i GetDatabasesDatabaseNodesLocationArgs) ToGetDatabasesDatabaseNodesLocationOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodesLocationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodesLocationOutput)
 }
 
-type GetDatabasesDatabaseNodeLocationOutput struct{ *pulumi.OutputState }
+type GetDatabasesDatabaseNodesLocationOutput struct{ *pulumi.OutputState }
 
-func (GetDatabasesDatabaseNodeLocationOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetDatabasesDatabaseNodeLocation)(nil)).Elem()
+func (GetDatabasesDatabaseNodesLocationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodesLocation)(nil)).Elem()
 }
 
-func (o GetDatabasesDatabaseNodeLocationOutput) ToGetDatabasesDatabaseNodeLocationOutput() GetDatabasesDatabaseNodeLocationOutput {
+func (o GetDatabasesDatabaseNodesLocationOutput) ToGetDatabasesDatabaseNodesLocationOutput() GetDatabasesDatabaseNodesLocationOutput {
 	return o
 }
 
-func (o GetDatabasesDatabaseNodeLocationOutput) ToGetDatabasesDatabaseNodeLocationOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeLocationOutput {
+func (o GetDatabasesDatabaseNodesLocationOutput) ToGetDatabasesDatabaseNodesLocationOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodesLocationOutput {
 	return o
 }
 
-func (o GetDatabasesDatabaseNodeLocationOutput) City() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.City }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesLocationOutput) City() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesLocation) string { return v.City }).(pulumi.StringOutput)
 }
 
-func (o GetDatabasesDatabaseNodeLocationOutput) Code() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.Code }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesLocationOutput) Code() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesLocation) string { return v.Code }).(pulumi.StringOutput)
 }
 
-func (o GetDatabasesDatabaseNodeLocationOutput) Country() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.Country }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesLocationOutput) Country() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesLocation) string { return v.Country }).(pulumi.StringOutput)
 }
 
-func (o GetDatabasesDatabaseNodeLocationOutput) Latitude() pulumi.Float64Output {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) float64 { return v.Latitude }).(pulumi.Float64Output)
+func (o GetDatabasesDatabaseNodesLocationOutput) Latitude() pulumi.Float64Output {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesLocation) float64 { return v.Latitude }).(pulumi.Float64Output)
 }
 
-func (o GetDatabasesDatabaseNodeLocationOutput) Longitude() pulumi.Float64Output {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) float64 { return v.Longitude }).(pulumi.Float64Output)
+func (o GetDatabasesDatabaseNodesLocationOutput) Longitude() pulumi.Float64Output {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesLocation) float64 { return v.Longitude }).(pulumi.Float64Output)
 }
 
-func (o GetDatabasesDatabaseNodeLocationOutput) MetroCode() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.MetroCode }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesLocationOutput) MetroCode() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesLocation) string { return v.MetroCode }).(pulumi.StringOutput)
 }
 
 // Component name
-func (o GetDatabasesDatabaseNodeLocationOutput) Name() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.Name }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesLocationOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesLocation) string { return v.Name }).(pulumi.StringOutput)
 }
 
-func (o GetDatabasesDatabaseNodeLocationOutput) PostalCode() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.PostalCode }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesLocationOutput) PostalCode() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesLocation) string { return v.PostalCode }).(pulumi.StringOutput)
 }
 
-func (o GetDatabasesDatabaseNodeLocationOutput) Region() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.Region }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesLocationOutput) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesLocation) string { return v.Region }).(pulumi.StringOutput)
 }
 
-func (o GetDatabasesDatabaseNodeLocationOutput) RegionCode() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.RegionCode }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesLocationOutput) RegionCode() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesLocation) string { return v.RegionCode }).(pulumi.StringOutput)
 }
 
-func (o GetDatabasesDatabaseNodeLocationOutput) Timezone() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeLocation) string { return v.Timezone }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesLocationOutput) Timezone() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesLocation) string { return v.Timezone }).(pulumi.StringOutput)
 }
 
-type GetDatabasesDatabaseNodeRegion struct {
+type GetDatabasesDatabaseNodesRegion struct {
 	Active            bool     `pulumi:"active"`
 	AvailabilityZones []string `pulumi:"availabilityZones"`
 	Cloud             string   `pulumi:"cloud"`
@@ -4648,18 +4648,18 @@ type GetDatabasesDatabaseNodeRegion struct {
 	Parent string `pulumi:"parent"`
 }
 
-// GetDatabasesDatabaseNodeRegionInput is an input type that accepts GetDatabasesDatabaseNodeRegionArgs and GetDatabasesDatabaseNodeRegionOutput values.
-// You can construct a concrete instance of `GetDatabasesDatabaseNodeRegionInput` via:
+// GetDatabasesDatabaseNodesRegionInput is an input type that accepts GetDatabasesDatabaseNodesRegionArgs and GetDatabasesDatabaseNodesRegionOutput values.
+// You can construct a concrete instance of `GetDatabasesDatabaseNodesRegionInput` via:
 //
-//	GetDatabasesDatabaseNodeRegionArgs{...}
-type GetDatabasesDatabaseNodeRegionInput interface {
+//	GetDatabasesDatabaseNodesRegionArgs{...}
+type GetDatabasesDatabaseNodesRegionInput interface {
 	pulumi.Input
 
-	ToGetDatabasesDatabaseNodeRegionOutput() GetDatabasesDatabaseNodeRegionOutput
-	ToGetDatabasesDatabaseNodeRegionOutputWithContext(context.Context) GetDatabasesDatabaseNodeRegionOutput
+	ToGetDatabasesDatabaseNodesRegionOutput() GetDatabasesDatabaseNodesRegionOutput
+	ToGetDatabasesDatabaseNodesRegionOutputWithContext(context.Context) GetDatabasesDatabaseNodesRegionOutput
 }
 
-type GetDatabasesDatabaseNodeRegionArgs struct {
+type GetDatabasesDatabaseNodesRegionArgs struct {
 	Active            pulumi.BoolInput        `pulumi:"active"`
 	AvailabilityZones pulumi.StringArrayInput `pulumi:"availabilityZones"`
 	Cloud             pulumi.StringInput      `pulumi:"cloud"`
@@ -4669,55 +4669,55 @@ type GetDatabasesDatabaseNodeRegionArgs struct {
 	Parent pulumi.StringInput `pulumi:"parent"`
 }
 
-func (GetDatabasesDatabaseNodeRegionArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetDatabasesDatabaseNodeRegion)(nil)).Elem()
+func (GetDatabasesDatabaseNodesRegionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodesRegion)(nil)).Elem()
 }
 
-func (i GetDatabasesDatabaseNodeRegionArgs) ToGetDatabasesDatabaseNodeRegionOutput() GetDatabasesDatabaseNodeRegionOutput {
-	return i.ToGetDatabasesDatabaseNodeRegionOutputWithContext(context.Background())
+func (i GetDatabasesDatabaseNodesRegionArgs) ToGetDatabasesDatabaseNodesRegionOutput() GetDatabasesDatabaseNodesRegionOutput {
+	return i.ToGetDatabasesDatabaseNodesRegionOutputWithContext(context.Background())
 }
 
-func (i GetDatabasesDatabaseNodeRegionArgs) ToGetDatabasesDatabaseNodeRegionOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeRegionOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodeRegionOutput)
+func (i GetDatabasesDatabaseNodesRegionArgs) ToGetDatabasesDatabaseNodesRegionOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodesRegionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseNodesRegionOutput)
 }
 
-type GetDatabasesDatabaseNodeRegionOutput struct{ *pulumi.OutputState }
+type GetDatabasesDatabaseNodesRegionOutput struct{ *pulumi.OutputState }
 
-func (GetDatabasesDatabaseNodeRegionOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetDatabasesDatabaseNodeRegion)(nil)).Elem()
+func (GetDatabasesDatabaseNodesRegionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDatabasesDatabaseNodesRegion)(nil)).Elem()
 }
 
-func (o GetDatabasesDatabaseNodeRegionOutput) ToGetDatabasesDatabaseNodeRegionOutput() GetDatabasesDatabaseNodeRegionOutput {
+func (o GetDatabasesDatabaseNodesRegionOutput) ToGetDatabasesDatabaseNodesRegionOutput() GetDatabasesDatabaseNodesRegionOutput {
 	return o
 }
 
-func (o GetDatabasesDatabaseNodeRegionOutput) ToGetDatabasesDatabaseNodeRegionOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodeRegionOutput {
+func (o GetDatabasesDatabaseNodesRegionOutput) ToGetDatabasesDatabaseNodesRegionOutputWithContext(ctx context.Context) GetDatabasesDatabaseNodesRegionOutput {
 	return o
 }
 
-func (o GetDatabasesDatabaseNodeRegionOutput) Active() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeRegion) bool { return v.Active }).(pulumi.BoolOutput)
+func (o GetDatabasesDatabaseNodesRegionOutput) Active() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesRegion) bool { return v.Active }).(pulumi.BoolOutput)
 }
 
-func (o GetDatabasesDatabaseNodeRegionOutput) AvailabilityZones() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeRegion) []string { return v.AvailabilityZones }).(pulumi.StringArrayOutput)
+func (o GetDatabasesDatabaseNodesRegionOutput) AvailabilityZones() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesRegion) []string { return v.AvailabilityZones }).(pulumi.StringArrayOutput)
 }
 
-func (o GetDatabasesDatabaseNodeRegionOutput) Cloud() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeRegion) string { return v.Cloud }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesRegionOutput) Cloud() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesRegion) string { return v.Cloud }).(pulumi.StringOutput)
 }
 
-func (o GetDatabasesDatabaseNodeRegionOutput) Code() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeRegion) string { return v.Code }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesRegionOutput) Code() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesRegion) string { return v.Code }).(pulumi.StringOutput)
 }
 
 // Component name
-func (o GetDatabasesDatabaseNodeRegionOutput) Name() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeRegion) string { return v.Name }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesRegionOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesRegion) string { return v.Name }).(pulumi.StringOutput)
 }
 
-func (o GetDatabasesDatabaseNodeRegionOutput) Parent() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabaseNodeRegion) string { return v.Parent }).(pulumi.StringOutput)
+func (o GetDatabasesDatabaseNodesRegionOutput) Parent() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabaseNodesRegion) string { return v.Parent }).(pulumi.StringOutput)
 }
 
 type GetDatabasesDatabaseRole struct {
@@ -5008,16 +5008,16 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseComponentArrayInput)(nil)).Elem(), DatabaseComponentArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseExtensionsInput)(nil)).Elem(), DatabaseExtensionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseExtensionsPtrInput)(nil)).Elem(), DatabaseExtensionsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeInput)(nil)).Elem(), DatabaseNodeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeArrayInput)(nil)).Elem(), DatabaseNodeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeConnectionInput)(nil)).Elem(), DatabaseNodeConnectionArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeConnectionPtrInput)(nil)).Elem(), DatabaseNodeConnectionArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeExtensionsInput)(nil)).Elem(), DatabaseNodeExtensionsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeExtensionsPtrInput)(nil)).Elem(), DatabaseNodeExtensionsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeLocationInput)(nil)).Elem(), DatabaseNodeLocationArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeLocationPtrInput)(nil)).Elem(), DatabaseNodeLocationArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeRegionInput)(nil)).Elem(), DatabaseNodeRegionArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodeRegionPtrInput)(nil)).Elem(), DatabaseNodeRegionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodesInput)(nil)).Elem(), DatabaseNodesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodesMapInput)(nil)).Elem(), DatabaseNodesMap{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodesConnectionInput)(nil)).Elem(), DatabaseNodesConnectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodesConnectionPtrInput)(nil)).Elem(), DatabaseNodesConnectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodesExtensionsInput)(nil)).Elem(), DatabaseNodesExtensionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodesExtensionsPtrInput)(nil)).Elem(), DatabaseNodesExtensionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodesLocationInput)(nil)).Elem(), DatabaseNodesLocationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodesLocationPtrInput)(nil)).Elem(), DatabaseNodesLocationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodesRegionInput)(nil)).Elem(), DatabaseNodesRegionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseNodesRegionPtrInput)(nil)).Elem(), DatabaseNodesRegionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseRoleInput)(nil)).Elem(), DatabaseRoleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DatabaseRoleArrayInput)(nil)).Elem(), DatabaseRoleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetBackupStoresBackupStoreInput)(nil)).Elem(), GetBackupStoresBackupStoreArgs{})
@@ -5044,12 +5044,12 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseComponentInput)(nil)).Elem(), GetDatabasesDatabaseComponentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseComponentArrayInput)(nil)).Elem(), GetDatabasesDatabaseComponentArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseExtensionsInput)(nil)).Elem(), GetDatabasesDatabaseExtensionsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodeInput)(nil)).Elem(), GetDatabasesDatabaseNodeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodeArrayInput)(nil)).Elem(), GetDatabasesDatabaseNodeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodeConnectionInput)(nil)).Elem(), GetDatabasesDatabaseNodeConnectionArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodeExtensionsInput)(nil)).Elem(), GetDatabasesDatabaseNodeExtensionsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodeLocationInput)(nil)).Elem(), GetDatabasesDatabaseNodeLocationArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodeRegionInput)(nil)).Elem(), GetDatabasesDatabaseNodeRegionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodesInput)(nil)).Elem(), GetDatabasesDatabaseNodesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodesMapInput)(nil)).Elem(), GetDatabasesDatabaseNodesMap{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodesConnectionInput)(nil)).Elem(), GetDatabasesDatabaseNodesConnectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodesExtensionsInput)(nil)).Elem(), GetDatabasesDatabaseNodesExtensionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodesLocationInput)(nil)).Elem(), GetDatabasesDatabaseNodesLocationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseNodesRegionInput)(nil)).Elem(), GetDatabasesDatabaseNodesRegionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseRoleInput)(nil)).Elem(), GetDatabasesDatabaseRoleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDatabasesDatabaseRoleArrayInput)(nil)).Elem(), GetDatabasesDatabaseRoleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetSSHKeysSshKeyInput)(nil)).Elem(), GetSSHKeysSshKeyArgs{})
@@ -5072,16 +5072,16 @@ func init() {
 	pulumi.RegisterOutputType(DatabaseComponentArrayOutput{})
 	pulumi.RegisterOutputType(DatabaseExtensionsOutput{})
 	pulumi.RegisterOutputType(DatabaseExtensionsPtrOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeArrayOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeConnectionOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeConnectionPtrOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeExtensionsOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeExtensionsPtrOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeLocationOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeLocationPtrOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeRegionOutput{})
-	pulumi.RegisterOutputType(DatabaseNodeRegionPtrOutput{})
+	pulumi.RegisterOutputType(DatabaseNodesOutput{})
+	pulumi.RegisterOutputType(DatabaseNodesMapOutput{})
+	pulumi.RegisterOutputType(DatabaseNodesConnectionOutput{})
+	pulumi.RegisterOutputType(DatabaseNodesConnectionPtrOutput{})
+	pulumi.RegisterOutputType(DatabaseNodesExtensionsOutput{})
+	pulumi.RegisterOutputType(DatabaseNodesExtensionsPtrOutput{})
+	pulumi.RegisterOutputType(DatabaseNodesLocationOutput{})
+	pulumi.RegisterOutputType(DatabaseNodesLocationPtrOutput{})
+	pulumi.RegisterOutputType(DatabaseNodesRegionOutput{})
+	pulumi.RegisterOutputType(DatabaseNodesRegionPtrOutput{})
 	pulumi.RegisterOutputType(DatabaseRoleOutput{})
 	pulumi.RegisterOutputType(DatabaseRoleArrayOutput{})
 	pulumi.RegisterOutputType(GetBackupStoresBackupStoreOutput{})
@@ -5108,12 +5108,12 @@ func init() {
 	pulumi.RegisterOutputType(GetDatabasesDatabaseComponentOutput{})
 	pulumi.RegisterOutputType(GetDatabasesDatabaseComponentArrayOutput{})
 	pulumi.RegisterOutputType(GetDatabasesDatabaseExtensionsOutput{})
-	pulumi.RegisterOutputType(GetDatabasesDatabaseNodeOutput{})
-	pulumi.RegisterOutputType(GetDatabasesDatabaseNodeArrayOutput{})
-	pulumi.RegisterOutputType(GetDatabasesDatabaseNodeConnectionOutput{})
-	pulumi.RegisterOutputType(GetDatabasesDatabaseNodeExtensionsOutput{})
-	pulumi.RegisterOutputType(GetDatabasesDatabaseNodeLocationOutput{})
-	pulumi.RegisterOutputType(GetDatabasesDatabaseNodeRegionOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseNodesOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseNodesMapOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseNodesConnectionOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseNodesExtensionsOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseNodesLocationOutput{})
+	pulumi.RegisterOutputType(GetDatabasesDatabaseNodesRegionOutput{})
 	pulumi.RegisterOutputType(GetDatabasesDatabaseRoleOutput{})
 	pulumi.RegisterOutputType(GetDatabasesDatabaseRoleArrayOutput{})
 	pulumi.RegisterOutputType(GetSSHKeysSshKeyOutput{})

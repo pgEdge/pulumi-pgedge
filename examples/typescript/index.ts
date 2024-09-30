@@ -99,11 +99,17 @@ const database = new pgedge.Database("exampleDatabase", {
       "vector"
     ],
   },
-  nodes: [
-    { name: "n1" },
-    { name: "n2" },
-    { name: "n3" },
-  ],
+  nodes:{
+    n1: {
+      name: "n1",
+    },
+    n2: {
+      name: "n2",
+    },
+    n3: {
+      name: "n3",
+    },
+  },
   backups: {
     provider: "pgbackrest",
     configs: [

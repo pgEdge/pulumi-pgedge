@@ -11,7 +11,7 @@ using Pulumi;
 namespace Pgedge.Pgedge.Inputs
 {
 
-    public sealed class DatabaseNodeConnectionArgs : global::Pulumi.ResourceArgs
+    public sealed class DatabaseNodesConnectionArgs : global::Pulumi.ResourceArgs
     {
         [Input("database")]
         public Input<string>? Database { get; set; }
@@ -37,9 +37,9 @@ namespace Pgedge.Pgedge.Inputs
         [Input("username")]
         public Input<string>? Username { get; set; }
 
-        public DatabaseNodeConnectionArgs()
+        public DatabaseNodesConnectionArgs()
         {
         }
-        public static new DatabaseNodeConnectionArgs Empty => new DatabaseNodeConnectionArgs();
+        public static new DatabaseNodesConnectionArgs Empty => new DatabaseNodesConnectionArgs();
     }
 }

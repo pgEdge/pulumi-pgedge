@@ -12,7 +12,7 @@ namespace Pgedge.Pgedge.Outputs
 {
 
     [OutputType]
-    public sealed class GetDatabasesDatabaseNodeLocationResult
+    public sealed class GetDatabasesDatabaseNodesLocationResult
     {
         public readonly string City;
         public readonly string Code;
@@ -30,7 +30,7 @@ namespace Pgedge.Pgedge.Outputs
         public readonly string Timezone;
 
         [OutputConstructor]
-        private GetDatabasesDatabaseNodeLocationResult(
+        private GetDatabasesDatabaseNodesLocationResult(
             string city,
 
             string code,

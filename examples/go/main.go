@@ -122,10 +122,16 @@ func main() {
 				AutoManage: pulumi.Bool(true),
 				Requesteds: pulumi.ToStringArray([]string{"postgis"}),
 			},
-			Nodes: pgedge.DatabaseNodeArray{
-				&pgedge.DatabaseNodeArgs{Name: pulumi.String("n1")},
-				&pgedge.DatabaseNodeArgs{Name: pulumi.String("n2")},
-				&pgedge.DatabaseNodeArgs{Name: pulumi.String("n3")},
+			Nodes: pgedge.DatabaseNodesMap{
+				"n1": &pgedge.DatabaseNodesArgs{
+					Name:       pulumi.String("n1"),
+				},
+				"n2": &pgedge.DatabaseNodesArgs{
+					Name:       pulumi.String("n1"),
+				},
+				"n3": &pgedge.DatabaseNodesArgs{
+					Name:       pulumi.String("n3"),
+				},
 			},
 			Backups: &pgedge.DatabaseBackupsArgs{
 				Provider: pulumi.String("pgbackrest"),
