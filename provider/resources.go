@@ -23,7 +23,7 @@ const (
 	mainMod = "index"
 )
 
-func preConfigureCallback(res resource.PropertyMap, config shim.ResourceConfig) error {
+func preConfigureCallback(_ resource.PropertyMap, _ shim.ResourceConfig) error {
 	return nil
 }
 

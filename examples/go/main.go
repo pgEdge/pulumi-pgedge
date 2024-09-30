@@ -139,9 +139,9 @@ func main() {
 					Id: pulumi.String("default"),
 					NodeName: pulumi.String("n1"),
 					Schedules: pgedge.DatabaseBackupsConfigScheduleArray{&pgedge.DatabaseBackupsConfigScheduleArgs{
-						Id: pulumi.String("full"),
+						Id: pulumi.String("daily-full-backup"),
 						CronExpression: pulumi.String("15 * * * *"),
-						Type: pulumi.String("daily"),
+						Type: pulumi.String("full"),
 					}},
 				}},
 			},

@@ -118,9 +118,9 @@ const database = new pgedge.Database("exampleDatabase", {
         nodeName: "n1",
         schedules: [
           {
-            id: "daily",
+            id: "daily-full-backup",
             cronExpression: "15 * * * ",
-            type: "daily",
+            type: "full",
           },
         ]
       }
