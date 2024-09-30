@@ -37,6 +37,9 @@ namespace Pgedge.Pgedge
         [Output("networks")]
         public Output<ImmutableArray<Outputs.ClusterNetwork>> Networks { get; private set; } = null!;
 
+        /// <summary>
+        /// Node location of the cluster. Must be either 'public' or 'private'.
+        /// </summary>
         [Output("nodeLocation")]
         public Output<string> NodeLocation { get; private set; } = null!;
 
@@ -142,6 +145,9 @@ namespace Pgedge.Pgedge
             set => _networks = value;
         }
 
+        /// <summary>
+        /// Node location of the cluster. Must be either 'public' or 'private'.
+        /// </summary>
         [Input("nodeLocation", required: true)]
         public Input<string> NodeLocation { get; set; } = null!;
 
@@ -224,6 +230,9 @@ namespace Pgedge.Pgedge
             set => _networks = value;
         }
 
+        /// <summary>
+        /// Node location of the cluster. Must be either 'public' or 'private'.
+        /// </summary>
         [Input("nodeLocation")]
         public Input<string>? NodeLocation { get; set; }
 

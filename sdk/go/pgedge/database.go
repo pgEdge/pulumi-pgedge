@@ -32,7 +32,7 @@ type Database struct {
 	Extensions DatabaseExtensionsOutput `pulumi:"extensions"`
 	// The name of the database.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// List of nodes in the database.
+	// Map of nodes in the database.
 	Nodes DatabaseNodesMapOutput `pulumi:"nodes"`
 	// A list of options for the database.
 	Options pulumi.StringArrayOutput `pulumi:"options"`
@@ -42,10 +42,6 @@ type Database struct {
 	Roles DatabaseRoleArrayOutput `pulumi:"roles"`
 	// The current status of the database.
 	Status pulumi.StringOutput `pulumi:"status"`
-	// The amount of storage used by the database in bytes.
-	StorageUsed pulumi.IntOutput `pulumi:"storageUsed"`
-	// The timestamp when the database was last updated.
-	UpdatedAt pulumi.StringOutput `pulumi:"updatedAt"`
 }
 
 // NewDatabase registers a new resource with the given unique name, arguments, and options.
@@ -100,7 +96,7 @@ type databaseState struct {
 	Extensions *DatabaseExtensions `pulumi:"extensions"`
 	// The name of the database.
 	Name *string `pulumi:"name"`
-	// List of nodes in the database.
+	// Map of nodes in the database.
 	Nodes map[string]DatabaseNodes `pulumi:"nodes"`
 	// A list of options for the database.
 	Options []string `pulumi:"options"`
@@ -110,10 +106,6 @@ type databaseState struct {
 	Roles []DatabaseRole `pulumi:"roles"`
 	// The current status of the database.
 	Status *string `pulumi:"status"`
-	// The amount of storage used by the database in bytes.
-	StorageUsed *int `pulumi:"storageUsed"`
-	// The timestamp when the database was last updated.
-	UpdatedAt *string `pulumi:"updatedAt"`
 }
 
 type DatabaseState struct {
@@ -133,7 +125,7 @@ type DatabaseState struct {
 	Extensions DatabaseExtensionsPtrInput
 	// The name of the database.
 	Name pulumi.StringPtrInput
-	// List of nodes in the database.
+	// Map of nodes in the database.
 	Nodes DatabaseNodesMapInput
 	// A list of options for the database.
 	Options pulumi.StringArrayInput
@@ -143,10 +135,6 @@ type DatabaseState struct {
 	Roles DatabaseRoleArrayInput
 	// The current status of the database.
 	Status pulumi.StringPtrInput
-	// The amount of storage used by the database in bytes.
-	StorageUsed pulumi.IntPtrInput
-	// The timestamp when the database was last updated.
-	UpdatedAt pulumi.StringPtrInput
 }
 
 func (DatabaseState) ElementType() reflect.Type {
@@ -164,7 +152,7 @@ type databaseArgs struct {
 	Extensions *DatabaseExtensions `pulumi:"extensions"`
 	// The name of the database.
 	Name *string `pulumi:"name"`
-	// List of nodes in the database.
+	// Map of nodes in the database.
 	Nodes map[string]DatabaseNodes `pulumi:"nodes"`
 	// A list of options for the database.
 	Options []string `pulumi:"options"`
@@ -184,7 +172,7 @@ type DatabaseArgs struct {
 	Extensions DatabaseExtensionsPtrInput
 	// The name of the database.
 	Name pulumi.StringPtrInput
-	// List of nodes in the database.
+	// Map of nodes in the database.
 	Nodes DatabaseNodesMapInput
 	// A list of options for the database.
 	Options pulumi.StringArrayInput
@@ -319,7 +307,7 @@ func (o DatabaseOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// List of nodes in the database.
+// Map of nodes in the database.
 func (o DatabaseOutput) Nodes() DatabaseNodesMapOutput {
 	return o.ApplyT(func(v *Database) DatabaseNodesMapOutput { return v.Nodes }).(DatabaseNodesMapOutput)
 }
@@ -342,16 +330,6 @@ func (o DatabaseOutput) Roles() DatabaseRoleArrayOutput {
 // The current status of the database.
 func (o DatabaseOutput) Status() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.Status }).(pulumi.StringOutput)
-}
-
-// The amount of storage used by the database in bytes.
-func (o DatabaseOutput) StorageUsed() pulumi.IntOutput {
-	return o.ApplyT(func(v *Database) pulumi.IntOutput { return v.StorageUsed }).(pulumi.IntOutput)
-}
-
-// The timestamp when the database was last updated.
-func (o DatabaseOutput) UpdatedAt() pulumi.StringOutput {
-	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.UpdatedAt }).(pulumi.StringOutput)
 }
 
 type DatabaseArrayOutput struct{ *pulumi.OutputState }

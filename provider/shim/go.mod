@@ -7,7 +7,7 @@ toolchain go1.22.2
 require (
 	github.com/hashicorp/terraform-plugin-framework v1.12.0
 	github.com/pgEdge/pulumi-pgedge/provider v0.0.0-20240213115242-7e064c5e16f5
-	github.com/pgEdge/terraform-provider-pgedge v0.0.15
+	github.com/pgEdge/terraform-provider-pgedge v0.0.24
 )
 
 require (
@@ -27,6 +27,7 @@ require (
 	github.com/go-openapi/validate v0.24.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/hashicorp/go-hclog v1.6.3 // indirect
+	github.com/hashicorp/terraform-plugin-framework-validators v0.13.0 // indirect
 	github.com/hashicorp/terraform-plugin-go v0.24.0 // indirect
 	github.com/hashicorp/terraform-plugin-log v0.9.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect

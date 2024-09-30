@@ -300,7 +300,7 @@ export interface GetClustersCluster {
     name: string;
     networks: outputs.GetClustersClusterNetwork[];
     /**
-     * Node location of the cluster
+     * Node location of the cluster. Must be either 'public' or 'private'.
      */
     nodeLocation: string;
     nodes: outputs.GetClustersClusterNode[];
@@ -429,7 +429,7 @@ export interface GetDatabasesDatabase {
      */
     name: string;
     /**
-     * Nodes of the database
+     * Map of nodes in the database
      */
     nodes: {[key: string]: outputs.GetDatabasesDatabaseNodes};
     /**
@@ -448,10 +448,6 @@ export interface GetDatabasesDatabase {
      * Status of the database
      */
     status: string;
-    /**
-     * Storage used by the database in bytes
-     */
-    storageUsed: number;
     /**
      * Last update timestamp of the database
      */

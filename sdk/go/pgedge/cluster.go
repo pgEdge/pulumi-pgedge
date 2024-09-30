@@ -23,9 +23,10 @@ type Cluster struct {
 	FirewallRules  ClusterFirewallRuleArrayOutput `pulumi:"firewallRules"`
 	Name           pulumi.StringOutput            `pulumi:"name"`
 	Networks       ClusterNetworkArrayOutput      `pulumi:"networks"`
-	NodeLocation   pulumi.StringOutput            `pulumi:"nodeLocation"`
-	Nodes          ClusterNodeArrayOutput         `pulumi:"nodes"`
-	Regions        pulumi.StringArrayOutput       `pulumi:"regions"`
+	// Node location of the cluster. Must be either 'public' or 'private'.
+	NodeLocation pulumi.StringOutput      `pulumi:"nodeLocation"`
+	Nodes        ClusterNodeArrayOutput   `pulumi:"nodes"`
+	Regions      pulumi.StringArrayOutput `pulumi:"regions"`
 	// A map of tags to assign to the cluster
 	ResourceTags pulumi.StringMapOutput `pulumi:"resourceTags"`
 	SshKeyId     pulumi.StringPtrOutput `pulumi:"sshKeyId"`
@@ -85,9 +86,10 @@ type clusterState struct {
 	FirewallRules  []ClusterFirewallRule `pulumi:"firewallRules"`
 	Name           *string               `pulumi:"name"`
 	Networks       []ClusterNetwork      `pulumi:"networks"`
-	NodeLocation   *string               `pulumi:"nodeLocation"`
-	Nodes          []ClusterNode         `pulumi:"nodes"`
-	Regions        []string              `pulumi:"regions"`
+	// Node location of the cluster. Must be either 'public' or 'private'.
+	NodeLocation *string       `pulumi:"nodeLocation"`
+	Nodes        []ClusterNode `pulumi:"nodes"`
+	Regions      []string      `pulumi:"regions"`
 	// A map of tags to assign to the cluster
 	ResourceTags map[string]string `pulumi:"resourceTags"`
 	SshKeyId     *string           `pulumi:"sshKeyId"`
@@ -103,9 +105,10 @@ type ClusterState struct {
 	FirewallRules  ClusterFirewallRuleArrayInput
 	Name           pulumi.StringPtrInput
 	Networks       ClusterNetworkArrayInput
-	NodeLocation   pulumi.StringPtrInput
-	Nodes          ClusterNodeArrayInput
-	Regions        pulumi.StringArrayInput
+	// Node location of the cluster. Must be either 'public' or 'private'.
+	NodeLocation pulumi.StringPtrInput
+	Nodes        ClusterNodeArrayInput
+	Regions      pulumi.StringArrayInput
 	// A map of tags to assign to the cluster
 	ResourceTags pulumi.StringMapInput
 	SshKeyId     pulumi.StringPtrInput
@@ -124,9 +127,10 @@ type clusterArgs struct {
 	FirewallRules  []ClusterFirewallRule `pulumi:"firewallRules"`
 	Name           *string               `pulumi:"name"`
 	Networks       []ClusterNetwork      `pulumi:"networks"`
-	NodeLocation   string                `pulumi:"nodeLocation"`
-	Nodes          []ClusterNode         `pulumi:"nodes"`
-	Regions        []string              `pulumi:"regions"`
+	// Node location of the cluster. Must be either 'public' or 'private'.
+	NodeLocation string        `pulumi:"nodeLocation"`
+	Nodes        []ClusterNode `pulumi:"nodes"`
+	Regions      []string      `pulumi:"regions"`
 	// A map of tags to assign to the cluster
 	ResourceTags map[string]string `pulumi:"resourceTags"`
 	SshKeyId     *string           `pulumi:"sshKeyId"`
@@ -141,9 +145,10 @@ type ClusterArgs struct {
 	FirewallRules  ClusterFirewallRuleArrayInput
 	Name           pulumi.StringPtrInput
 	Networks       ClusterNetworkArrayInput
-	NodeLocation   pulumi.StringInput
-	Nodes          ClusterNodeArrayInput
-	Regions        pulumi.StringArrayInput
+	// Node location of the cluster. Must be either 'public' or 'private'.
+	NodeLocation pulumi.StringInput
+	Nodes        ClusterNodeArrayInput
+	Regions      pulumi.StringArrayInput
 	// A map of tags to assign to the cluster
 	ResourceTags pulumi.StringMapInput
 	SshKeyId     pulumi.StringPtrInput
@@ -265,6 +270,7 @@ func (o ClusterOutput) Networks() ClusterNetworkArrayOutput {
 	return o.ApplyT(func(v *Cluster) ClusterNetworkArrayOutput { return v.Networks }).(ClusterNetworkArrayOutput)
 }
 
+// Node location of the cluster. Must be either 'public' or 'private'.
 func (o ClusterOutput) NodeLocation() pulumi.StringOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.StringOutput { return v.NodeLocation }).(pulumi.StringOutput)
 }

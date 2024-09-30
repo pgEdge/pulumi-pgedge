@@ -2735,7 +2735,7 @@ type GetClustersCluster struct {
 	// Name of the cluster
 	Name     string                      `pulumi:"name"`
 	Networks []GetClustersClusterNetwork `pulumi:"networks"`
-	// Node location of the cluster
+	// Node location of the cluster. Must be either 'public' or 'private'.
 	NodeLocation string                   `pulumi:"nodeLocation"`
 	Nodes        []GetClustersClusterNode `pulumi:"nodes"`
 	Regions      []string                 `pulumi:"regions"`
@@ -2773,7 +2773,7 @@ type GetClustersClusterArgs struct {
 	// Name of the cluster
 	Name     pulumi.StringInput                  `pulumi:"name"`
 	Networks GetClustersClusterNetworkArrayInput `pulumi:"networks"`
-	// Node location of the cluster
+	// Node location of the cluster. Must be either 'public' or 'private'.
 	NodeLocation pulumi.StringInput               `pulumi:"nodeLocation"`
 	Nodes        GetClustersClusterNodeArrayInput `pulumi:"nodes"`
 	Regions      pulumi.StringArrayInput          `pulumi:"regions"`
@@ -2874,7 +2874,7 @@ func (o GetClustersClusterOutput) Networks() GetClustersClusterNetworkArrayOutpu
 	return o.ApplyT(func(v GetClustersCluster) []GetClustersClusterNetwork { return v.Networks }).(GetClustersClusterNetworkArrayOutput)
 }
 
-// Node location of the cluster
+// Node location of the cluster. Must be either 'public' or 'private'.
 func (o GetClustersClusterOutput) NodeLocation() pulumi.StringOutput {
 	return o.ApplyT(func(v GetClustersCluster) string { return v.NodeLocation }).(pulumi.StringOutput)
 }
@@ -3358,7 +3358,7 @@ type GetDatabasesDatabase struct {
 	Id string `pulumi:"id"`
 	// Name of the database
 	Name string `pulumi:"name"`
-	// Nodes of the database
+	// Map of nodes in the database
 	Nodes map[string]GetDatabasesDatabaseNodes `pulumi:"nodes"`
 	// Options for the database
 	Options []string `pulumi:"options"`
@@ -3368,8 +3368,6 @@ type GetDatabasesDatabase struct {
 	Roles []GetDatabasesDatabaseRole `pulumi:"roles"`
 	// Status of the database
 	Status string `pulumi:"status"`
-	// Storage used by the database in bytes
-	StorageUsed int `pulumi:"storageUsed"`
 	// Last update timestamp of the database
 	UpdatedAt string `pulumi:"updatedAt"`
 }
@@ -3404,7 +3402,7 @@ type GetDatabasesDatabaseArgs struct {
 	Id pulumi.StringInput `pulumi:"id"`
 	// Name of the database
 	Name pulumi.StringInput `pulumi:"name"`
-	// Nodes of the database
+	// Map of nodes in the database
 	Nodes GetDatabasesDatabaseNodesMapInput `pulumi:"nodes"`
 	// Options for the database
 	Options pulumi.StringArrayInput `pulumi:"options"`
@@ -3414,8 +3412,6 @@ type GetDatabasesDatabaseArgs struct {
 	Roles GetDatabasesDatabaseRoleArrayInput `pulumi:"roles"`
 	// Status of the database
 	Status pulumi.StringInput `pulumi:"status"`
-	// Storage used by the database in bytes
-	StorageUsed pulumi.IntInput `pulumi:"storageUsed"`
 	// Last update timestamp of the database
 	UpdatedAt pulumi.StringInput `pulumi:"updatedAt"`
 }
@@ -3516,7 +3512,7 @@ func (o GetDatabasesDatabaseOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDatabasesDatabase) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// Nodes of the database
+// Map of nodes in the database
 func (o GetDatabasesDatabaseOutput) Nodes() GetDatabasesDatabaseNodesMapOutput {
 	return o.ApplyT(func(v GetDatabasesDatabase) map[string]GetDatabasesDatabaseNodes { return v.Nodes }).(GetDatabasesDatabaseNodesMapOutput)
 }
@@ -3539,11 +3535,6 @@ func (o GetDatabasesDatabaseOutput) Roles() GetDatabasesDatabaseRoleArrayOutput 
 // Status of the database
 func (o GetDatabasesDatabaseOutput) Status() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDatabasesDatabase) string { return v.Status }).(pulumi.StringOutput)
-}
-
-// Storage used by the database in bytes
-func (o GetDatabasesDatabaseOutput) StorageUsed() pulumi.IntOutput {
-	return o.ApplyT(func(v GetDatabasesDatabase) int { return v.StorageUsed }).(pulumi.IntOutput)
 }
 
 // Last update timestamp of the database

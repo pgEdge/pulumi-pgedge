@@ -44,6 +44,9 @@ export class Cluster extends pulumi.CustomResource {
     public readonly firewallRules!: pulumi.Output<outputs.ClusterFirewallRule[] | undefined>;
     public readonly name!: pulumi.Output<string>;
     public readonly networks!: pulumi.Output<outputs.ClusterNetwork[]>;
+    /**
+     * Node location of the cluster. Must be either 'public' or 'private'.
+     */
     public readonly nodeLocation!: pulumi.Output<string>;
     public readonly nodes!: pulumi.Output<outputs.ClusterNode[]>;
     public readonly regions!: pulumi.Output<string[]>;
@@ -130,6 +133,9 @@ export interface ClusterState {
     firewallRules?: pulumi.Input<pulumi.Input<inputs.ClusterFirewallRule>[]>;
     name?: pulumi.Input<string>;
     networks?: pulumi.Input<pulumi.Input<inputs.ClusterNetwork>[]>;
+    /**
+     * Node location of the cluster. Must be either 'public' or 'private'.
+     */
     nodeLocation?: pulumi.Input<string>;
     nodes?: pulumi.Input<pulumi.Input<inputs.ClusterNode>[]>;
     regions?: pulumi.Input<pulumi.Input<string>[]>;
@@ -154,6 +160,9 @@ export interface ClusterArgs {
     firewallRules?: pulumi.Input<pulumi.Input<inputs.ClusterFirewallRule>[]>;
     name?: pulumi.Input<string>;
     networks: pulumi.Input<pulumi.Input<inputs.ClusterNetwork>[]>;
+    /**
+     * Node location of the cluster. Must be either 'public' or 'private'.
+     */
     nodeLocation: pulumi.Input<string>;
     nodes: pulumi.Input<pulumi.Input<inputs.ClusterNode>[]>;
     regions: pulumi.Input<pulumi.Input<string>[]>;

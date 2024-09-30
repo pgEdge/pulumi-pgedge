@@ -41,7 +41,7 @@ namespace Pgedge.Pgedge.Outputs
         public readonly string Name;
         public readonly ImmutableArray<Outputs.GetClustersClusterNetworkResult> Networks;
         /// <summary>
-        /// Node location of the cluster
+        /// Node location of the cluster. Must be either 'public' or 'private'.
         /// </summary>
         public readonly string NodeLocation;
         public readonly ImmutableArray<Outputs.GetClustersClusterNodeResult> Nodes;

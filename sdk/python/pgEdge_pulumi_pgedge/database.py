@@ -27,7 +27,7 @@ class DatabaseArgs:
         """
         The set of arguments for constructing a Database resource.
         :param pulumi.Input[str] cluster_id: The ID of the cluster this database belongs to.
-        :param pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]] nodes: List of nodes in the database.
+        :param pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]] nodes: Map of nodes in the database.
         :param pulumi.Input['DatabaseBackupsArgs'] backups: Backup configuration for the database.
         :param pulumi.Input[str] config_version: The configuration version of the database.
         :param pulumi.Input['DatabaseExtensionsArgs'] extensions: Extensions configuration for the database.
@@ -66,7 +66,7 @@ class DatabaseArgs:
     @pulumi.getter
     def nodes(self) -> pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]]:
         """
-        List of nodes in the database.
+        Map of nodes in the database.
         """
         return pulumi.get(self, "nodes")
 
@@ -162,9 +162,7 @@ class _DatabaseState:
                  options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  pg_version: Optional[pulumi.Input[str]] = None,
                  roles: Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseRoleArgs']]]] = None,
-                 status: Optional[pulumi.Input[str]] = None,
-                 storage_used: Optional[pulumi.Input[int]] = None,
-                 updated_at: Optional[pulumi.Input[str]] = None):
+                 status: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Database resources.
         :param pulumi.Input['DatabaseBackupsArgs'] backups: Backup configuration for the database.
@@ -175,13 +173,11 @@ class _DatabaseState:
         :param pulumi.Input[str] domain: The domain associated with the database.
         :param pulumi.Input['DatabaseExtensionsArgs'] extensions: Extensions configuration for the database.
         :param pulumi.Input[str] name: The name of the database.
-        :param pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]] nodes: List of nodes in the database.
+        :param pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]] nodes: Map of nodes in the database.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] options: A list of options for the database.
         :param pulumi.Input[str] pg_version: The PostgreSQL version of the database.
         :param pulumi.Input[Sequence[pulumi.Input['DatabaseRoleArgs']]] roles: List of roles in the database.
         :param pulumi.Input[str] status: The current status of the database.
-        :param pulumi.Input[int] storage_used: The amount of storage used by the database in bytes.
-        :param pulumi.Input[str] updated_at: The timestamp when the database was last updated.
         """
         if backups is not None:
             pulumi.set(__self__, "backups", backups)
@@ -209,10 +205,6 @@ class _DatabaseState:
             pulumi.set(__self__, "roles", roles)
         if status is not None:
             pulumi.set(__self__, "status", status)
-        if storage_used is not None:
-            pulumi.set(__self__, "storage_used", storage_used)
-        if updated_at is not None:
-            pulumi.set(__self__, "updated_at", updated_at)
 
     @property
     @pulumi.getter
@@ -314,7 +306,7 @@ class _DatabaseState:
     @pulumi.getter
     def nodes(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]]]:
         """
-        List of nodes in the database.
+        Map of nodes in the database.
         """
         return pulumi.get(self, "nodes")
 
@@ -370,30 +362,6 @@ class _DatabaseState:
     def status(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "status", value)
 
-    @property
-    @pulumi.getter(name="storageUsed")
-    def storage_used(self) -> Optional[pulumi.Input[int]]:
-        """
-        The amount of storage used by the database in bytes.
-        """
-        return pulumi.get(self, "storage_used")
-
-    @storage_used.setter
-    def storage_used(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "storage_used", value)
-
-    @property
-    @pulumi.getter(name="updatedAt")
-    def updated_at(self) -> Optional[pulumi.Input[str]]:
-        """
-        The timestamp when the database was last updated.
-        """
-        return pulumi.get(self, "updated_at")
-
-    @updated_at.setter
-    def updated_at(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "updated_at", value)
-
 
 class Database(pulumi.CustomResource):
     @overload
@@ -419,7 +387,7 @@ class Database(pulumi.CustomResource):
         :param pulumi.Input[str] config_version: The configuration version of the database.
         :param pulumi.Input[pulumi.InputType['DatabaseExtensionsArgs']] extensions: Extensions configuration for the database.
         :param pulumi.Input[str] name: The name of the database.
-        :param pulumi.Input[Mapping[str, pulumi.Input[pulumi.InputType['DatabaseNodesArgs']]]] nodes: List of nodes in the database.
+        :param pulumi.Input[Mapping[str, pulumi.Input[pulumi.InputType['DatabaseNodesArgs']]]] nodes: Map of nodes in the database.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] options: A list of options for the database.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseRoleArgs']]]] roles: List of roles in the database.
         """
@@ -481,8 +449,6 @@ class Database(pulumi.CustomResource):
             __props__.__dict__["domain"] = None
             __props__.__dict__["pg_version"] = None
             __props__.__dict__["status"] = None
-            __props__.__dict__["storage_used"] = None
-            __props__.__dict__["updated_at"] = None
         super(Database, __self__).__init__(
             'pgedge:index/database:Database',
             resource_name,
@@ -505,9 +471,7 @@ class Database(pulumi.CustomResource):
             options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             pg_version: Optional[pulumi.Input[str]] = None,
             roles: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseRoleArgs']]]]] = None,
-            status: Optional[pulumi.Input[str]] = None,
-            storage_used: Optional[pulumi.Input[int]] = None,
-            updated_at: Optional[pulumi.Input[str]] = None) -> 'Database':
+            status: Optional[pulumi.Input[str]] = None) -> 'Database':
         """
         Get an existing Database resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -523,13 +487,11 @@ class Database(pulumi.CustomResource):
         :param pulumi.Input[str] domain: The domain associated with the database.
         :param pulumi.Input[pulumi.InputType['DatabaseExtensionsArgs']] extensions: Extensions configuration for the database.
         :param pulumi.Input[str] name: The name of the database.
-        :param pulumi.Input[Mapping[str, pulumi.Input[pulumi.InputType['DatabaseNodesArgs']]]] nodes: List of nodes in the database.
+        :param pulumi.Input[Mapping[str, pulumi.Input[pulumi.InputType['DatabaseNodesArgs']]]] nodes: Map of nodes in the database.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] options: A list of options for the database.
         :param pulumi.Input[str] pg_version: The PostgreSQL version of the database.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseRoleArgs']]]] roles: List of roles in the database.
         :param pulumi.Input[str] status: The current status of the database.
-        :param pulumi.Input[int] storage_used: The amount of storage used by the database in bytes.
-        :param pulumi.Input[str] updated_at: The timestamp when the database was last updated.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -548,8 +510,6 @@ class Database(pulumi.CustomResource):
         __props__.__dict__["pg_version"] = pg_version
         __props__.__dict__["roles"] = roles
         __props__.__dict__["status"] = status
-        __props__.__dict__["storage_used"] = storage_used
-        __props__.__dict__["updated_at"] = updated_at
         return Database(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -620,7 +580,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter
     def nodes(self) -> pulumi.Output[Mapping[str, 'outputs.DatabaseNodes']]:
         """
-        List of nodes in the database.
+        Map of nodes in the database.
         """
         return pulumi.get(self, "nodes")
 
@@ -655,20 +615,4 @@ class Database(pulumi.CustomResource):
         The current status of the database.
         """
         return pulumi.get(self, "status")
-
-    @property
-    @pulumi.getter(name="storageUsed")
-    def storage_used(self) -> pulumi.Output[int]:
-        """
-        The amount of storage used by the database in bytes.
-        """
-        return pulumi.get(self, "storage_used")
-
-    @property
-    @pulumi.getter(name="updatedAt")
-    def updated_at(self) -> pulumi.Output[str]:
-        """
-        The timestamp when the database was last updated.
-        """
-        return pulumi.get(self, "updated_at")
 

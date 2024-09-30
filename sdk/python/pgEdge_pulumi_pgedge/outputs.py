@@ -1366,7 +1366,7 @@ class GetClustersClusterResult(dict):
         :param str created_at: Created at of the cluster
         :param str id: ID of the cluster
         :param str name: Name of the cluster
-        :param str node_location: Node location of the cluster
+        :param str node_location: Node location of the cluster. Must be either 'public' or 'private'.
         :param Mapping[str, str] resource_tags: Resource tags of the cluster
         :param str ssh_key_id: SSH key ID of the cluster
         :param str status: Status of the cluster
@@ -1448,7 +1448,7 @@ class GetClustersClusterResult(dict):
     @pulumi.getter(name="nodeLocation")
     def node_location(self) -> str:
         """
-        Node location of the cluster
+        Node location of the cluster. Must be either 'public' or 'private'.
         """
         return pulumi.get(self, "node_location")
 
@@ -1711,7 +1711,6 @@ class GetDatabasesDatabaseResult(dict):
                  pg_version: str,
                  roles: Sequence['outputs.GetDatabasesDatabaseRoleResult'],
                  status: str,
-                 storage_used: int,
                  updated_at: str):
         """
         :param 'GetDatabasesDatabaseBackupsArgs' backups: Backup configuration for the database
@@ -1723,12 +1722,11 @@ class GetDatabasesDatabaseResult(dict):
         :param 'GetDatabasesDatabaseExtensionsArgs' extensions: Extensions configuration for the database
         :param str id: ID of the database
         :param str name: Name of the database
-        :param Mapping[str, 'GetDatabasesDatabaseNodesArgs'] nodes: Nodes of the database
+        :param Mapping[str, 'GetDatabasesDatabaseNodesArgs'] nodes: Map of nodes in the database
         :param Sequence[str] options: Options for the database
         :param str pg_version: PostgreSQL version of the database
         :param Sequence['GetDatabasesDatabaseRoleArgs'] roles: Roles in the database
         :param str status: Status of the database
-        :param int storage_used: Storage used by the database in bytes
         :param str updated_at: Last update timestamp of the database
         """
         pulumi.set(__self__, "backups", backups)
@@ -1745,7 +1743,6 @@ class GetDatabasesDatabaseResult(dict):
         pulumi.set(__self__, "pg_version", pg_version)
         pulumi.set(__self__, "roles", roles)
         pulumi.set(__self__, "status", status)
-        pulumi.set(__self__, "storage_used", storage_used)
         pulumi.set(__self__, "updated_at", updated_at)
 
     @property
@@ -1824,7 +1821,7 @@ class GetDatabasesDatabaseResult(dict):
     @pulumi.getter
     def nodes(self) -> Mapping[str, 'outputs.GetDatabasesDatabaseNodesResult']:
         """
-        Nodes of the database
+        Map of nodes in the database
         """
         return pulumi.get(self, "nodes")
 
@@ -1859,14 +1856,6 @@ class GetDatabasesDatabaseResult(dict):
         Status of the database
         """
         return pulumi.get(self, "status")
-
-    @property
-    @pulumi.getter(name="storageUsed")
-    def storage_used(self) -> int:
-        """
-        Storage used by the database in bytes
-        """
-        return pulumi.get(self, "storage_used")
 
     @property
     @pulumi.getter(name="updatedAt")

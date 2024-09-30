@@ -373,9 +373,7 @@
                 "clusterId": "cluster_id",
                 "configVersion": "config_version",
                 "createdAt": "created_at",
-                "pgVersion": "pg_version",
-                "storageUsed": "storage_used",
-                "updatedAt": "updated_at"
+                "pgVersion": "pg_version"
             },
             "pgedge:index/getBackupStores:getBackupStores": {
                 "backupStores": "backup_stores"
@@ -420,7 +418,6 @@
                 "configVersion": "config_version",
                 "createdAt": "created_at",
                 "pgVersion": "pg_version",
-                "storageUsed": "storage_used",
                 "updatedAt": "updated_at"
             },
             "pgedge:index/getDatabasesDatabaseBackups:getDatabasesDatabaseBackups": {

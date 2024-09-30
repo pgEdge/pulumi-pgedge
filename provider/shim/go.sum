@@ -76,6 +76,8 @@ github.com/hashicorp/terraform-json v0.22.1 h1:xft84GZR0QzjPVWs4lRUwvTcPnegqlyS7
 github.com/hashicorp/terraform-json v0.22.1/go.mod h1:JbWSQCLFSXFFhg42T7l9iJwdGXBYV8fmmD6o/ML4p3A=
 github.com/hashicorp/terraform-plugin-framework v1.12.0 h1:7HKaueHPaikX5/7cbC1r9d1m12iYHY+FlNZEGxQ42CQ=
 github.com/hashicorp/terraform-plugin-framework v1.12.0/go.mod h1:N/IOQ2uYjW60Jp39Cp3mw7I/OpC/GfZ0385R0YibmkE=
+github.com/hashicorp/terraform-plugin-framework-validators v0.13.0 h1:bxZfGo9DIUoLLtHMElsu+zwqI4IsMZQBRRy4iLzZJ8E=
+github.com/hashicorp/terraform-plugin-framework-validators v0.13.0/go.mod h1:wGeI02gEhj9nPANU62F2jCaHjXulejm/X+af4PdZaNo=
 github.com/hashicorp/terraform-plugin-go v0.24.0 h1:2WpHhginCdVhFIrWHxDEg6RBn3YaWzR2o6qUeIEat2U=
 github.com/hashicorp/terraform-plugin-go v0.24.0/go.mod h1:tUQ53lAsOyYSckFGEefGC5C8BAaO0ENqzFd3bQeuYQg=
 github.com/hashicorp/terraform-plugin-log v0.9.0 h1:i7hOA+vdAItN1/7UrfBqBwvYPQ9TFvymaRGZED3FCV0=
@@ -125,8 +127,8 @@ github.com/opentracing/opentracing-go v1.2.0 h1:uEJPy/1a5RIPAJ0Ov+OIO8OxWu77jEv+
 github.com/opentracing/opentracing-go v1.2.0/go.mod h1:GxEUsuufX4nBwe+T+Wl9TAgYrxe9dPLANfrWvHYVTgc=
 github.com/pgEdge/pulumi-pgedge/provider v0.0.0-20240213115242-7e064c5e16f5 h1:0hdS10dSr1d0i4ey5UC+B78DdqdHP0KYaPObQUps+bQ=
 github.com/pgEdge/pulumi-pgedge/provider v0.0.0-20240213115242-7e064c5e16f5/go.mod h1:tKZ5pS8mVdY+MxwlgFRa4jtOG1NYzLLcW+vfzmeGZ6M=
-github.com/pgEdge/terraform-provider-pgedge v0.0.15 h1:N6Dp+aBvTY5UZFhHqHvCfFRSQYEJ7CmtAzj/7Oa25iY=
-github.com/pgEdge/terraform-provider-pgedge v0.0.15/go.mod h1:0qV0+ZDjsB+ULYqdCLsRawAlgr5KM4gRdUISpGP+Dvw=
+github.com/pgEdge/terraform-provider-pgedge v0.0.24 h1:imHF2DH0a9viUQr8yTO92ITS2ixNd9j9L5w+BHFu7q4=
+github.com/pgEdge/terraform-provider-pgedge v0.0.24/go.mod h1:j/GaxCTLouUPD38CCjWzCwjBns5+tanE1L4S9Riddig=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/rogpeppe/go-internal v1.12.0 h1:exVL4IDcn6na9z1rAb56Vxr+CgyK3nn3O+epU5NdKM8=

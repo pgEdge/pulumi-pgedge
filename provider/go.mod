@@ -134,7 +134,7 @@ require (
 	github.com/hashicorp/hcl/v2 v2.19.1 // indirect
 	github.com/hashicorp/hil v0.0.0-20190212132231-97b3a9cdfa93 // indirect
 	github.com/hashicorp/terraform-plugin-framework v1.12.0 // indirect
-	github.com/hashicorp/terraform-plugin-framework-validators v0.12.0 // indirect
+	github.com/hashicorp/terraform-plugin-framework-validators v0.13.0 // indirect
 	github.com/hashicorp/terraform-plugin-go v0.24.0 // indirect
 	github.com/hashicorp/terraform-plugin-log v0.9.0 // indirect
 	github.com/hashicorp/terraform-registry-address v0.2.3 // indirect
@@ -179,7 +179,7 @@ require (
 	github.com/oklog/ulid v1.3.1 // indirect
 	github.com/opentracing/basictracer-go v1.1.0 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
-	github.com/pgEdge/terraform-provider-pgedge v0.0.15 // indirect
+	github.com/pgEdge/terraform-provider-pgedge v0.0.24 // indirect
 	github.com/pgavlin/fx v0.1.6 // indirect
 	github.com/pgavlin/goldmark v1.1.33-0.20200616210433-b5eb04559386 // indirect
 	github.com/pierrec/lz4 v2.6.1+incompatible // indirect

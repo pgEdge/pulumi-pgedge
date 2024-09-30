@@ -29,6 +29,7 @@ class ClusterArgs:
                  ssh_key_id: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Cluster resource.
+        :param pulumi.Input[str] node_location: Node location of the cluster. Must be either 'public' or 'private'.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] backup_store_ids: List of backup store IDs to associate with the cluster
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] resource_tags: A map of tags to assign to the cluster
         """
@@ -71,6 +72,9 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="nodeLocation")
     def node_location(self) -> pulumi.Input[str]:
+        """
+        Node location of the cluster. Must be either 'public' or 'private'.
+        """
         return pulumi.get(self, "node_location")
 
     @node_location.setter
@@ -175,6 +179,7 @@ class _ClusterState:
         """
         Input properties used for looking up and filtering Cluster resources.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] backup_store_ids: List of backup store IDs to associate with the cluster
+        :param pulumi.Input[str] node_location: Node location of the cluster. Must be either 'public' or 'private'.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] resource_tags: A map of tags to assign to the cluster
         """
         if backup_store_ids is not None:
@@ -273,6 +278,9 @@ class _ClusterState:
     @property
     @pulumi.getter(name="nodeLocation")
     def node_location(self) -> Optional[pulumi.Input[str]]:
+        """
+        Node location of the cluster. Must be either 'public' or 'private'.
+        """
         return pulumi.get(self, "node_location")
 
     @node_location.setter
@@ -350,6 +358,7 @@ class Cluster(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] backup_store_ids: List of backup store IDs to associate with the cluster
+        :param pulumi.Input[str] node_location: Node location of the cluster. Must be either 'public' or 'private'.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] resource_tags: A map of tags to assign to the cluster
         """
         ...
@@ -449,6 +458,7 @@ class Cluster(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] backup_store_ids: List of backup store IDs to associate with the cluster
+        :param pulumi.Input[str] node_location: Node location of the cluster. Must be either 'public' or 'private'.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] resource_tags: A map of tags to assign to the cluster
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -511,6 +521,9 @@ class Cluster(pulumi.CustomResource):
     @property
     @pulumi.getter(name="nodeLocation")
     def node_location(self) -> pulumi.Output[str]:
+        """
+        Node location of the cluster. Must be either 'public' or 'private'.
+        """
         return pulumi.get(self, "node_location")
 
     @property

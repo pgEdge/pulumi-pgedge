@@ -65,7 +65,7 @@ namespace Pgedge.Pgedge
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// List of nodes in the database.
+        /// Map of nodes in the database.
         /// </summary>
         [Output("nodes")]
         public Output<ImmutableDictionary<string, Outputs.DatabaseNodes>> Nodes { get; private set; } = null!;
@@ -93,18 +93,6 @@ namespace Pgedge.Pgedge
         /// </summary>
         [Output("status")]
         public Output<string> Status { get; private set; } = null!;
-
-        /// <summary>
-        /// The amount of storage used by the database in bytes.
-        /// </summary>
-        [Output("storageUsed")]
-        public Output<int> StorageUsed { get; private set; } = null!;
-
-        /// <summary>
-        /// The timestamp when the database was last updated.
-        /// </summary>
-        [Output("updatedAt")]
-        public Output<string> UpdatedAt { get; private set; } = null!;
 
 
         /// <summary>
@@ -187,7 +175,7 @@ namespace Pgedge.Pgedge
         private InputMap<Inputs.DatabaseNodesArgs>? _nodes;
 
         /// <summary>
-        /// List of nodes in the database.
+        /// Map of nodes in the database.
         /// </summary>
         public InputMap<Inputs.DatabaseNodesArgs> Nodes
         {
@@ -285,7 +273,7 @@ namespace Pgedge.Pgedge
         private InputMap<Inputs.DatabaseNodesGetArgs>? _nodes;
 
         /// <summary>
-        /// List of nodes in the database.
+        /// Map of nodes in the database.
         /// </summary>
         public InputMap<Inputs.DatabaseNodesGetArgs> Nodes
         {
@@ -328,18 +316,6 @@ namespace Pgedge.Pgedge
         /// </summary>
         [Input("status")]
         public Input<string>? Status { get; set; }
-
-        /// <summary>
-        /// The amount of storage used by the database in bytes.
-        /// </summary>
-        [Input("storageUsed")]
-        public Input<int>? StorageUsed { get; set; }
-
-        /// <summary>
-        /// The timestamp when the database was last updated.
-        /// </summary>
-        [Input("updatedAt")]
-        public Input<string>? UpdatedAt { get; set; }
 
         public DatabaseState()
         {

@@ -809,7 +809,7 @@
                 },
                 "nodeLocation": {
                     "type": "string",
-                    "description": "Node location of the cluster\n"
+                    "description": "Node location of the cluster. Must be either 'public' or 'private'.\n"
                 },
                 "nodes": {
                     "type": "array",
@@ -1043,7 +1043,7 @@
                     "additionalProperties": {
                         "$ref": "#/types/pgedge:index/getDatabasesDatabaseNodes:getDatabasesDatabaseNodes"
                     },
-                    "description": "Nodes of the database\n"
+                    "description": "Map of nodes in the database\n"
                 },
                 "options": {
                     "type": "array",
@@ -1067,10 +1067,6 @@
                     "type": "string",
                     "description": "Status of the database\n"
                 },
-                "storageUsed": {
-                    "type": "integer",
-                    "description": "Storage used by the database in bytes\n"
-                },
                 "updatedAt": {
                     "type": "string",
                     "description": "Last update timestamp of the database\n"
@@ -1092,7 +1088,6 @@
                 "pgVersion",
                 "roles",
                 "status",
-                "storageUsed",
                 "updatedAt"
             ],
             "language": {
@@ -1851,7 +1846,8 @@
                     }
                 },
                 "nodeLocation": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Node location of the cluster. Must be either 'public' or 'private'.\n"
                 },
                 "nodes": {
                     "type": "array",
@@ -1922,7 +1918,8 @@
                     }
                 },
                 "nodeLocation": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Node location of the cluster. Must be either 'public' or 'private'.\n"
                 },
                 "nodes": {
                     "type": "array",
@@ -1989,7 +1986,8 @@
                         }
                     },
                     "nodeLocation": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Node location of the cluster. Must be either 'public' or 'private'.\n"
                     },
                     "nodes": {
                         "type": "array",
@@ -2063,7 +2061,7 @@
                     "additionalProperties": {
                         "$ref": "#/types/pgedge:index/DatabaseNodes:DatabaseNodes"
                     },
-                    "description": "List of nodes in the database.\n"
+                    "description": "Map of nodes in the database.\n"
                 },
                 "options": {
                     "type": "array",
@@ -2086,14 +2084,6 @@
                 "status": {
                     "type": "string",
                     "description": "The current status of the database.\n"
-                },
-                "storageUsed": {
-                    "type": "integer",
-                    "description": "The amount of storage used by the database in bytes.\n"
-                },
-                "updatedAt": {
-                    "type": "string",
-                    "description": "The timestamp when the database was last updated.\n"
                 }
             },
             "required": [
@@ -2108,9 +2098,7 @@
                 "nodes",
                 "pgVersion",
                 "roles",
-                "status",
-                "storageUsed",
-                "updatedAt"
+                "status"
             ],
             "inputProperties": {
                 "backups": {
@@ -2138,7 +2126,7 @@
                     "additionalProperties": {
                         "$ref": "#/types/pgedge:index/DatabaseNodes:DatabaseNodes"
                     },
-                    "description": "List of nodes in the database.\n"
+                    "description": "Map of nodes in the database.\n"
                 },
                 "options": {
                     "type": "array",
@@ -2202,7 +2190,7 @@
                         "additionalProperties": {
                             "$ref": "#/types/pgedge:index/DatabaseNodes:DatabaseNodes"
                         },
-                        "description": "List of nodes in the database.\n"
+                        "description": "Map of nodes in the database.\n"
                     },
                     "options": {
                         "type": "array",
@@ -2225,14 +2213,6 @@
                     "status": {
                         "type": "string",
                         "description": "The current status of the database.\n"
-                    },
-                    "storageUsed": {
-                        "type": "integer",
-                        "description": "The amount of storage used by the database in bytes.\n"
-                    },
-                    "updatedAt": {
-                        "type": "string",
-                        "description": "The timestamp when the database was last updated.\n"
                     }
                 },
                 "type": "object"

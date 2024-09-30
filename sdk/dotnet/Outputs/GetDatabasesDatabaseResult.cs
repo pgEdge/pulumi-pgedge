@@ -51,7 +51,7 @@ namespace Pgedge.Pgedge.Outputs
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// Nodes of the database
+        /// Map of nodes in the database
         /// </summary>
         public readonly ImmutableDictionary<string, Outputs.GetDatabasesDatabaseNodesResult> Nodes;
         /// <summary>
@@ -70,10 +70,6 @@ namespace Pgedge.Pgedge.Outputs
         /// Status of the database
         /// </summary>
         public readonly string Status;
-        /// <summary>
-        /// Storage used by the database in bytes
-        /// </summary>
-        public readonly int StorageUsed;
         /// <summary>
         /// Last update timestamp of the database
         /// </summary>
@@ -109,8 +105,6 @@ namespace Pgedge.Pgedge.Outputs
 
             string status,
 
-            int storageUsed,
-
             string updatedAt)
         {
             Backups = backups;
@@ -127,7 +121,6 @@ namespace Pgedge.Pgedge.Outputs
             PgVersion = pgVersion;
             Roles = roles;
             Status = status;
-            StorageUsed = storageUsed;
             UpdatedAt = updatedAt;
         }
     }

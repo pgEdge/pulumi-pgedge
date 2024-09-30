@@ -70,7 +70,7 @@ export class Database extends pulumi.CustomResource {
      */
     public readonly name!: pulumi.Output<string>;
     /**
-     * List of nodes in the database.
+     * Map of nodes in the database.
      */
     public readonly nodes!: pulumi.Output<{[key: string]: outputs.DatabaseNodes}>;
     /**
@@ -89,14 +89,6 @@ export class Database extends pulumi.CustomResource {
      * The current status of the database.
      */
     public /*out*/ readonly status!: pulumi.Output<string>;
-    /**
-     * The amount of storage used by the database in bytes.
-     */
-    public /*out*/ readonly storageUsed!: pulumi.Output<number>;
-    /**
-     * The timestamp when the database was last updated.
-     */
-    public /*out*/ readonly updatedAt!: pulumi.Output<string>;
 
     /**
      * Create a Database resource with the given unique name, arguments, and options.
@@ -124,8 +116,6 @@ export class Database extends pulumi.CustomResource {
             resourceInputs["pgVersion"] = state ? state.pgVersion : undefined;
             resourceInputs["roles"] = state ? state.roles : undefined;
             resourceInputs["status"] = state ? state.status : undefined;
-            resourceInputs["storageUsed"] = state ? state.storageUsed : undefined;
-            resourceInputs["updatedAt"] = state ? state.updatedAt : undefined;
         } else {
             const args = argsOrState as DatabaseArgs | undefined;
             if ((!args || args.clusterId === undefined) && !opts.urn) {
@@ -147,8 +137,6 @@ export class Database extends pulumi.CustomResource {
             resourceInputs["domain"] = undefined /*out*/;
             resourceInputs["pgVersion"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
-            resourceInputs["storageUsed"] = undefined /*out*/;
-            resourceInputs["updatedAt"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Database.__pulumiType, name, resourceInputs, opts);
@@ -192,7 +180,7 @@ export interface DatabaseState {
      */
     name?: pulumi.Input<string>;
     /**
-     * List of nodes in the database.
+     * Map of nodes in the database.
      */
     nodes?: pulumi.Input<{[key: string]: pulumi.Input<inputs.DatabaseNodes>}>;
     /**
@@ -211,14 +199,6 @@ export interface DatabaseState {
      * The current status of the database.
      */
     status?: pulumi.Input<string>;
-    /**
-     * The amount of storage used by the database in bytes.
-     */
-    storageUsed?: pulumi.Input<number>;
-    /**
-     * The timestamp when the database was last updated.
-     */
-    updatedAt?: pulumi.Input<string>;
 }
 
 /**
@@ -246,7 +226,7 @@ export interface DatabaseArgs {
      */
     name?: pulumi.Input<string>;
     /**
-     * List of nodes in the database.
+     * Map of nodes in the database.
      */
     nodes: pulumi.Input<{[key: string]: pulumi.Input<inputs.DatabaseNodes>}>;
     /**

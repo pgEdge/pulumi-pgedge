@@ -1215,8 +1215,8 @@ github.com/hashicorp/terraform-json v0.22.1 h1:xft84GZR0QzjPVWs4lRUwvTcPnegqlyS7
 github.com/hashicorp/terraform-json v0.22.1/go.mod h1:JbWSQCLFSXFFhg42T7l9iJwdGXBYV8fmmD6o/ML4p3A=
 github.com/hashicorp/terraform-plugin-framework v1.12.0 h1:7HKaueHPaikX5/7cbC1r9d1m12iYHY+FlNZEGxQ42CQ=
 github.com/hashicorp/terraform-plugin-framework v1.12.0/go.mod h1:N/IOQ2uYjW60Jp39Cp3mw7I/OpC/GfZ0385R0YibmkE=
-github.com/hashicorp/terraform-plugin-framework-validators v0.12.0 h1:HOjBuMbOEzl7snOdOoUfE2Jgeto6JOjLVQ39Ls2nksc=
-github.com/hashicorp/terraform-plugin-framework-validators v0.12.0/go.mod h1:jfHGE/gzjxYz6XoUwi/aYiiKrJDeutQNUtGQXkaHklg=
+github.com/hashicorp/terraform-plugin-framework-validators v0.13.0 h1:bxZfGo9DIUoLLtHMElsu+zwqI4IsMZQBRRy4iLzZJ8E=
+github.com/hashicorp/terraform-plugin-framework-validators v0.13.0/go.mod h1:wGeI02gEhj9nPANU62F2jCaHjXulejm/X+af4PdZaNo=
 github.com/hashicorp/terraform-plugin-go v0.24.0 h1:2WpHhginCdVhFIrWHxDEg6RBn3YaWzR2o6qUeIEat2U=
 github.com/hashicorp/terraform-plugin-go v0.24.0/go.mod h1:tUQ53lAsOyYSckFGEefGC5C8BAaO0ENqzFd3bQeuYQg=
 github.com/hashicorp/terraform-plugin-log v0.9.0 h1:i7hOA+vdAItN1/7UrfBqBwvYPQ9TFvymaRGZED3FCV0=
@@ -1622,8 +1622,8 @@ github.com/pelletier/go-toml v1.8.1/go.mod h1:T2/BmBdy8dvIRq1a/8aqjN41wvWlN4lrap
 github.com/pelletier/go-toml v1.9.3/go.mod h1:u1nR/EPcESfeI/szUZKdtJ0xRNbUoANCkoOuaOx1Y+c=
 github.com/performancecopilot/speed v3.0.0+incompatible/go.mod h1:/CLtqpZ5gBg1M9iaPbIdPPGyKcA8hKdoy6hAWba7Yac=
 github.com/peterbourgon/diskv v2.0.1+incompatible/go.mod h1:uqqh8zWWbv1HBMNONnaR/tNboyR3/BZd58JJSHlUSCU=
-github.com/pgEdge/terraform-provider-pgedge v0.0.15 h1:N6Dp+aBvTY5UZFhHqHvCfFRSQYEJ7CmtAzj/7Oa25iY=
-github.com/pgEdge/terraform-provider-pgedge v0.0.15/go.mod h1:0qV0+ZDjsB+ULYqdCLsRawAlgr5KM4gRdUISpGP+Dvw=
+github.com/pgEdge/terraform-provider-pgedge v0.0.24 h1:imHF2DH0a9viUQr8yTO92ITS2ixNd9j9L5w+BHFu7q4=
+github.com/pgEdge/terraform-provider-pgedge v0.0.24/go.mod h1:j/GaxCTLouUPD38CCjWzCwjBns5+tanE1L4S9Riddig=
 github.com/pgavlin/fx v0.1.6 h1:r9jEg69DhNoCd3Xh0+5mIbdbS3PqWrVWujkY76MFRTU=
 github.com/pgavlin/fx v0.1.6/go.mod h1:KWZJ6fqBBSh8GxHYqwYCf3rYE7Gp2p0N8tJp8xv9u9M=
 github.com/pgavlin/goldmark v1.1.33-0.20200616210433-b5eb04559386 h1:LoCV5cscNVWyK5ChN/uCoIFJz8jZD63VQiGJIRgr6uo=
