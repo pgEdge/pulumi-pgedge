@@ -70,7 +70,7 @@ Follow the prompts to set up your project.
 3. Install the pgEdge provider:
 
 ```bash
-npm install @pgEdge/pulumi-pgedge
+npm install @pgedge/pulumi-pgedge
 ```
 
 4. Update your `Pulumi.yaml` file to include the pgEdge provider:
