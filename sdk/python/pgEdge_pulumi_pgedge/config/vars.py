@@ -20,5 +20,5 @@ class _ExportableConfig(types.ModuleType):
         """
         Base Url to use when connecting to the PgEdge service.
         """
-        return __config__.get('baseUrl')
+        return __config__.get('baseUrl') or _utilities.get_env('PGEDGE_BASE_URL')
 

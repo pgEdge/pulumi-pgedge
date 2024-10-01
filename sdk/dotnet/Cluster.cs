@@ -10,30 +10,27 @@ using Pulumi;
 
 namespace Pgedge.Pgedge
 {
-    /// <summary>
-    /// Interface with the pgEdge service API for clusters.
-    /// </summary>
     [PgedgeResourceType("pgedge:index/cluster:Cluster")]
     public partial class Cluster : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// ID of the target cloud account
+        /// List of backup store IDs to associate with the cluster
         /// </summary>
+        [Output("backupStoreIds")]
+        public Output<ImmutableArray<string>> BackupStoreIds { get; private set; } = null!;
+
+        [Output("capacity")]
+        public Output<int> Capacity { get; private set; } = null!;
+
         [Output("cloudAccountId")]
         public Output<string> CloudAccountId { get; private set; } = null!;
 
-        /// <summary>
-        /// Creation time of the cluster
-        /// </summary>
         [Output("createdAt")]
         public Output<string> CreatedAt { get; private set; } = null!;
 
         [Output("firewallRules")]
         public Output<ImmutableArray<Outputs.ClusterFirewallRule>> FirewallRules { get; private set; } = null!;
 
-        /// <summary>
-        /// Name of the network
-        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
@@ -41,7 +38,7 @@ namespace Pgedge.Pgedge
         public Output<ImmutableArray<Outputs.ClusterNetwork>> Networks { get; private set; } = null!;
 
         /// <summary>
-        /// Network location for nodes (public or private)
+        /// Node location of the cluster. Must be either 'public' or 'private'.
         /// </summary>
         [Output("nodeLocation")]
         public Output<string> NodeLocation { get; private set; } = null!;
@@ -53,14 +50,14 @@ namespace Pgedge.Pgedge
         public Output<ImmutableArray<string>> Regions { get; private set; } = null!;
 
         /// <summary>
-        /// ID of the SSH key to add to the cluster nodes
+        /// A map of tags to assign to the cluster
         /// </summary>
-        [Output("sshKeyId")]
-        public Output<string> SshKeyId { get; private set; } = null!;
+        [Output("resourceTags")]
+        public Output<ImmutableDictionary<string, string>> ResourceTags { get; private set; } = null!;
 
-        /// <summary>
-        /// Status of the cluster
-        /// </summary>
+        [Output("sshKeyId")]
+        public Output<string?> SshKeyId { get; private set; } = null!;
+
         [Output("status")]
         public Output<string> Status { get; private set; } = null!;
 
@@ -87,6 +84,7 @@ namespace Pgedge.Pgedge
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                PluginDownloadURL = "github://api.github.com/pgEdge/pulumi-pgedge",
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -110,9 +108,21 @@ namespace Pgedge.Pgedge
 
     public sealed class ClusterArgs : global::Pulumi.ResourceArgs
     {
+        [Input("backupStoreIds")]
+        private InputList<string>? _backupStoreIds;
+
         /// <summary>
-        /// ID of the target cloud account
+        /// List of backup store IDs to associate with the cluster
         /// </summary>
+        public InputList<string> BackupStoreIds
+        {
+            get => _backupStoreIds ?? (_backupStoreIds = new InputList<string>());
+            set => _backupStoreIds = value;
+        }
+
+        [Input("capacity")]
+        public Input<int>? Capacity { get; set; }
+
         [Input("cloudAccountId", required: true)]
         public Input<string> CloudAccountId { get; set; } = null!;
 
@@ -124,13 +134,10 @@ namespace Pgedge.Pgedge
             set => _firewallRules = value;
         }
 
-        /// <summary>
-        /// Name of the network
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        [Input("networks")]
+        [Input("networks", required: true)]
         private InputList<Inputs.ClusterNetworkArgs>? _networks;
         public InputList<Inputs.ClusterNetworkArgs> Networks
         {
@@ -139,12 +146,12 @@ namespace Pgedge.Pgedge
         }
 
         /// <summary>
-        /// Network location for nodes (public or private)
+        /// Node location of the cluster. Must be either 'public' or 'private'.
         /// </summary>
-        [Input("nodeLocation")]
-        public Input<string>? NodeLocation { get; set; }
+        [Input("nodeLocation", required: true)]
+        public Input<string> NodeLocation { get; set; } = null!;
 
-        [Input("nodes")]
+        [Input("nodes", required: true)]
         private InputList<Inputs.ClusterNodeArgs>? _nodes;
         public InputList<Inputs.ClusterNodeArgs> Nodes
         {
@@ -160,9 +167,18 @@ namespace Pgedge.Pgedge
             set => _regions = value;
         }
 
+        [Input("resourceTags")]
+        private InputMap<string>? _resourceTags;
+
         /// <summary>
-        /// ID of the SSH key to add to the cluster nodes
+        /// A map of tags to assign to the cluster
         /// </summary>
+        public InputMap<string> ResourceTags
+        {
+            get => _resourceTags ?? (_resourceTags = new InputMap<string>());
+            set => _resourceTags = value;
+        }
+
         [Input("sshKeyId")]
         public Input<string>? SshKeyId { get; set; }
 
@@ -174,15 +190,24 @@ namespace Pgedge.Pgedge
 
     public sealed class ClusterState : global::Pulumi.ResourceArgs
     {
+        [Input("backupStoreIds")]
+        private InputList<string>? _backupStoreIds;
+
         /// <summary>
-        /// ID of the target cloud account
+        /// List of backup store IDs to associate with the cluster
         /// </summary>
+        public InputList<string> BackupStoreIds
+        {
+            get => _backupStoreIds ?? (_backupStoreIds = new InputList<string>());
+            set => _backupStoreIds = value;
+        }
+
+        [Input("capacity")]
+        public Input<int>? Capacity { get; set; }
+
         [Input("cloudAccountId")]
         public Input<string>? CloudAccountId { get; set; }
 
-        /// <summary>
-        /// Creation time of the cluster
-        /// </summary>
         [Input("createdAt")]
         public Input<string>? CreatedAt { get; set; }
 
@@ -194,9 +219,6 @@ namespace Pgedge.Pgedge
             set => _firewallRules = value;
         }
 
-        /// <summary>
-        /// Name of the network
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
@@ -209,7 +231,7 @@ namespace Pgedge.Pgedge
         }
 
         /// <summary>
-        /// Network location for nodes (public or private)
+        /// Node location of the cluster. Must be either 'public' or 'private'.
         /// </summary>
         [Input("nodeLocation")]
         public Input<string>? NodeLocation { get; set; }
@@ -230,15 +252,21 @@ namespace Pgedge.Pgedge
             set => _regions = value;
         }
 
+        [Input("resourceTags")]
+        private InputMap<string>? _resourceTags;
+
         /// <summary>
-        /// ID of the SSH key to add to the cluster nodes
+        /// A map of tags to assign to the cluster
         /// </summary>
+        public InputMap<string> ResourceTags
+        {
+            get => _resourceTags ?? (_resourceTags = new InputMap<string>());
+            set => _resourceTags = value;
+        }
+
         [Input("sshKeyId")]
         public Input<string>? SshKeyId { get; set; }
 
-        /// <summary>
-        /// Status of the cluster
-        /// </summary>
         [Input("status")]
         public Input<string>? Status { get; set; }
 

@@ -11,7 +11,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Interface with the pgEdge service API.
+// Data source for pgEdge databases
 func GetDatabases(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*GetDatabasesResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetDatabasesResult

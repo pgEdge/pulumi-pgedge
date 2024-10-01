@@ -56,7 +56,7 @@ class AwaitableGetDatabasesResult(GetDatabasesResult):
 
 def get_databases(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetDatabasesResult:
     """
-    Interface with the pgEdge service API.
+    Data source for pgEdge databases
     """
     __args__ = dict()
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
@@ -70,6 +70,6 @@ def get_databases(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetDa
 @_utilities.lift_output_func(get_databases)
 def get_databases_output(opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetDatabasesResult]:
     """
-    Interface with the pgEdge service API.
+    Data source for pgEdge databases
     """
     ...

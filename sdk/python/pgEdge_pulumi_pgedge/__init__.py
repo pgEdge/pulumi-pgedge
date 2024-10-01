@@ -5,11 +5,17 @@
 from . import _utilities
 import typing
 # Export this package's modules as members:
+from .backup_store import *
+from .cloud_account import *
 from .cluster import *
 from .database import *
+from .get_backup_stores import *
+from .get_cloud_accounts import *
 from .get_clusters import *
 from .get_databases import *
+from .get_ssh_keys import *
 from .provider import *
+from .ssh_key import *
 from ._inputs import *
 from . import outputs
 
@@ -25,6 +31,22 @@ _utilities.register(
 [
  {
   "pkg": "pgedge",
+  "mod": "index/backupStore",
+  "fqn": "pgEdge_pulumi_pgedge",
+  "classes": {
+   "pgedge:index/backupStore:BackupStore": "BackupStore"
+  }
+ },
+ {
+  "pkg": "pgedge",
+  "mod": "index/cloudAccount",
+  "fqn": "pgEdge_pulumi_pgedge",
+  "classes": {
+   "pgedge:index/cloudAccount:CloudAccount": "CloudAccount"
+  }
+ },
+ {
+  "pkg": "pgedge",
   "mod": "index/cluster",
   "fqn": "pgEdge_pulumi_pgedge",
   "classes": {
@@ -37,6 +59,14 @@ _utilities.register(
   "fqn": "pgEdge_pulumi_pgedge",
   "classes": {
    "pgedge:index/database:Database": "Database"
+  }
+ },
+ {
+  "pkg": "pgedge",
+  "mod": "index/sSHKey",
+  "fqn": "pgEdge_pulumi_pgedge",
+  "classes": {
+   "pgedge:index/sSHKey:SSHKey": "SSHKey"
   }
  }
 ]

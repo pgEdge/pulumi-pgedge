@@ -13,7 +13,7 @@ const __config = new pulumi.Config("pgedge");
 export declare const baseUrl: string | undefined;
 Object.defineProperty(exports, "baseUrl", {
     get() {
-        return __config.get("baseUrl");
+        return __config.get("baseUrl") ?? utilities.getEnv("PGEDGE_BASE_URL");
     },
     enumerable: true,
 });

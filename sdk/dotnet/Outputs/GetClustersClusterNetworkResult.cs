@@ -15,7 +15,7 @@ namespace Pgedge.Pgedge.Outputs
     public sealed class GetClustersClusterNetworkResult
     {
         /// <summary>
-        /// CIDR of the AWS node group
+        /// CIDR of the network
         /// </summary>
         public readonly string Cidr;
         /// <summary>
@@ -27,7 +27,7 @@ namespace Pgedge.Pgedge.Outputs
         /// </summary>
         public readonly string ExternalId;
         /// <summary>
-        /// IP address of the node
+        /// Name of the firewall rule
         /// </summary>
         public readonly string Name;
         public readonly ImmutableArray<string> PrivateSubnets;

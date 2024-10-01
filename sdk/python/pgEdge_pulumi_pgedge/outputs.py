@@ -14,53 +14,63 @@ __all__ = [
     'ClusterFirewallRule',
     'ClusterNetwork',
     'ClusterNode',
+    'DatabaseBackups',
+    'DatabaseBackupsConfig',
+    'DatabaseBackupsConfigRepository',
+    'DatabaseBackupsConfigSchedule',
+    'DatabaseComponent',
+    'DatabaseExtensions',
+    'DatabaseNodes',
+    'DatabaseNodesConnection',
+    'DatabaseNodesExtensions',
+    'DatabaseNodesLocation',
+    'DatabaseNodesRegion',
+    'DatabaseRole',
+    'GetBackupStoresBackupStoreResult',
+    'GetCloudAccountsCloudAccountResult',
     'GetClustersClusterResult',
-    'GetClustersClusterCloudAccountResult',
     'GetClustersClusterFirewallRuleResult',
     'GetClustersClusterNetworkResult',
     'GetClustersClusterNodeResult',
     'GetDatabasesDatabaseResult',
+    'GetDatabasesDatabaseBackupsResult',
+    'GetDatabasesDatabaseBackupsConfigResult',
+    'GetDatabasesDatabaseBackupsConfigRepositoryResult',
+    'GetDatabasesDatabaseBackupsConfigScheduleResult',
     'GetDatabasesDatabaseComponentResult',
     'GetDatabasesDatabaseExtensionsResult',
-    'GetDatabasesDatabaseNodeResult',
-    'GetDatabasesDatabaseNodeConnectionResult',
-    'GetDatabasesDatabaseNodeDistanceMeasurementResult',
-    'GetDatabasesDatabaseNodeExtensionsResult',
-    'GetDatabasesDatabaseNodeExtensionsErrorsResult',
-    'GetDatabasesDatabaseNodeLocationResult',
-    'GetDatabasesDatabaseNodeRegionResult',
+    'GetDatabasesDatabaseNodesResult',
+    'GetDatabasesDatabaseNodesConnectionResult',
+    'GetDatabasesDatabaseNodesExtensionsResult',
+    'GetDatabasesDatabaseNodesLocationResult',
+    'GetDatabasesDatabaseNodesRegionResult',
     'GetDatabasesDatabaseRoleResult',
-    'GetDatabasesDatabaseTableResult',
-    'GetDatabasesDatabaseTableColumnResult',
-    'GetDatabasesDatabaseTableStatusResult',
+    'GetSSHKeysSshKeyResult',
 ]
 
 @pulumi.output_type
 class ClusterFirewallRule(dict):
     def __init__(__self__, *,
+                 name: str,
                  port: int,
                  sources: Sequence[str]):
-        """
-        :param int port: Port whose traffic is allowed
-        :param Sequence[str] sources: CIDRs and/or IP addresses allowed
-        """
+        pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "port", port)
         pulumi.set(__self__, "sources", sources)
 
     @property
     @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
     def port(self) -> int:
-        """
-        Port whose traffic is allowed
-        """
         return pulumi.get(self, "port")
 
     @property
     @pulumi.getter
     def sources(self) -> Sequence[str]:
-        """
-        CIDRs and/or IP addresses allowed
-        """
         return pulumi.get(self, "sources")
 
 
@@ -69,12 +79,12 @@ class ClusterNetwork(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "externalId":
+        if key == "publicSubnets":
+            suggest = "public_subnets"
+        elif key == "externalId":
             suggest = "external_id"
         elif key == "privateSubnets":
             suggest = "private_subnets"
-        elif key == "publicSubnets":
-            suggest = "public_subnets"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ClusterNetwork. Access the value via the '{suggest}' property getter instead.")
@@ -88,23 +98,25 @@ class ClusterNetwork(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 cidr: str,
+                 public_subnets: Sequence[str],
                  region: str,
-                 cidr: Optional[str] = None,
                  external: Optional[bool] = None,
                  external_id: Optional[str] = None,
                  name: Optional[str] = None,
-                 private_subnets: Optional[Sequence[str]] = None,
-                 public_subnets: Optional[Sequence[str]] = None):
+                 private_subnets: Optional[Sequence[str]] = None):
         """
+        :param str cidr: CIDR of the network
+        :param Sequence[str] public_subnets: List of public subnets
         :param str region: Region of the network
-        :param str cidr: CIDR range for the network
-        :param bool external: Is the network externally defined
-        :param str external_id: ID of the network, if externally defined
+        :param bool external: Whether the network is external
+        :param str external_id: External ID of the network
         :param str name: Name of the network
+        :param Sequence[str] private_subnets: List of private subnets
         """
+        pulumi.set(__self__, "cidr", cidr)
+        pulumi.set(__self__, "public_subnets", public_subnets)
         pulumi.set(__self__, "region", region)
-        if cidr is not None:
-            pulumi.set(__self__, "cidr", cidr)
         if external is not None:
             pulumi.set(__self__, "external", external)
         if external_id is not None:
@@ -113,8 +125,22 @@ class ClusterNetwork(dict):
             pulumi.set(__self__, "name", name)
         if private_subnets is not None:
             pulumi.set(__self__, "private_subnets", private_subnets)
-        if public_subnets is not None:
-            pulumi.set(__self__, "public_subnets", public_subnets)
+
+    @property
+    @pulumi.getter
+    def cidr(self) -> str:
+        """
+        CIDR of the network
+        """
+        return pulumi.get(self, "cidr")
+
+    @property
+    @pulumi.getter(name="publicSubnets")
+    def public_subnets(self) -> Sequence[str]:
+        """
+        List of public subnets
+        """
+        return pulumi.get(self, "public_subnets")
 
     @property
     @pulumi.getter
@@ -126,17 +152,9 @@ class ClusterNetwork(dict):
 
     @property
     @pulumi.getter
-    def cidr(self) -> Optional[str]:
-        """
-        CIDR range for the network
-        """
-        return pulumi.get(self, "cidr")
-
-    @property
-    @pulumi.getter
     def external(self) -> Optional[bool]:
         """
-        Is the network externally defined
+        Whether the network is external
         """
         return pulumi.get(self, "external")
 
@@ -144,7 +162,7 @@ class ClusterNetwork(dict):
     @pulumi.getter(name="externalId")
     def external_id(self) -> Optional[str]:
         """
-        ID of the network, if externally defined
+        External ID of the network
         """
         return pulumi.get(self, "external_id")
 
@@ -159,12 +177,10 @@ class ClusterNetwork(dict):
     @property
     @pulumi.getter(name="privateSubnets")
     def private_subnets(self) -> Optional[Sequence[str]]:
+        """
+        List of private subnets
+        """
         return pulumi.get(self, "private_subnets")
-
-    @property
-    @pulumi.getter(name="publicSubnets")
-    def public_subnets(self) -> Optional[Sequence[str]]:
-        return pulumi.get(self, "public_subnets")
 
 
 @pulumi.output_type
@@ -172,10 +188,10 @@ class ClusterNode(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "availabilityZone":
-            suggest = "availability_zone"
-        elif key == "instanceType":
+        if key == "instanceType":
             suggest = "instance_type"
+        elif key == "availabilityZone":
+            suggest = "availability_zone"
         elif key == "volumeIops":
             suggest = "volume_iops"
         elif key == "volumeSize":
@@ -195,32 +211,18 @@ class ClusterNode(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 instance_type: str,
+                 name: str,
                  region: str,
                  availability_zone: Optional[str] = None,
-                 instance_type: Optional[str] = None,
-                 name: Optional[str] = None,
-                 options: Optional[Sequence[str]] = None,
                  volume_iops: Optional[int] = None,
                  volume_size: Optional[int] = None,
                  volume_type: Optional[str] = None):
-        """
-        :param str region: Cloud provider region
-        :param str availability_zone: Cloud provider availability zone name
-        :param str instance_type: Instance type used for the node
-        :param str name: Node name
-        :param int volume_iops: Volume IOPS of the node data volume
-        :param int volume_size: Volume size of the node data volume
-        :param str volume_type: Volume type of the node data volume
-        """
+        pulumi.set(__self__, "instance_type", instance_type)
+        pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "region", region)
         if availability_zone is not None:
             pulumi.set(__self__, "availability_zone", availability_zone)
-        if instance_type is not None:
-            pulumi.set(__self__, "instance_type", instance_type)
-        if name is not None:
-            pulumi.set(__self__, "name", name)
-        if options is not None:
-            pulumi.set(__self__, "options", options)
         if volume_iops is not None:
             pulumi.set(__self__, "volume_iops", volume_iops)
         if volume_size is not None:
@@ -229,71 +231,1122 @@ class ClusterNode(dict):
             pulumi.set(__self__, "volume_type", volume_type)
 
     @property
+    @pulumi.getter(name="instanceType")
+    def instance_type(self) -> str:
+        return pulumi.get(self, "instance_type")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+    @property
     @pulumi.getter
     def region(self) -> str:
-        """
-        Cloud provider region
-        """
         return pulumi.get(self, "region")
 
     @property
     @pulumi.getter(name="availabilityZone")
     def availability_zone(self) -> Optional[str]:
-        """
-        Cloud provider availability zone name
-        """
         return pulumi.get(self, "availability_zone")
-
-    @property
-    @pulumi.getter(name="instanceType")
-    def instance_type(self) -> Optional[str]:
-        """
-        Instance type used for the node
-        """
-        return pulumi.get(self, "instance_type")
-
-    @property
-    @pulumi.getter
-    def name(self) -> Optional[str]:
-        """
-        Node name
-        """
-        return pulumi.get(self, "name")
-
-    @property
-    @pulumi.getter
-    def options(self) -> Optional[Sequence[str]]:
-        return pulumi.get(self, "options")
 
     @property
     @pulumi.getter(name="volumeIops")
     def volume_iops(self) -> Optional[int]:
-        """
-        Volume IOPS of the node data volume
-        """
         return pulumi.get(self, "volume_iops")
 
     @property
     @pulumi.getter(name="volumeSize")
     def volume_size(self) -> Optional[int]:
-        """
-        Volume size of the node data volume
-        """
         return pulumi.get(self, "volume_size")
 
     @property
     @pulumi.getter(name="volumeType")
     def volume_type(self) -> Optional[str]:
-        """
-        Volume type of the node data volume
-        """
         return pulumi.get(self, "volume_type")
+
+
+@pulumi.output_type
+class DatabaseBackups(dict):
+    def __init__(__self__, *,
+                 configs: Optional[Sequence['outputs.DatabaseBackupsConfig']] = None,
+                 provider: Optional[str] = None):
+        """
+        :param Sequence['DatabaseBackupsConfigArgs'] configs: List of backup configurations.
+        :param str provider: The backup provider.
+        """
+        if configs is not None:
+            pulumi.set(__self__, "configs", configs)
+        if provider is not None:
+            pulumi.set(__self__, "provider", provider)
+
+    @property
+    @pulumi.getter
+    def configs(self) -> Optional[Sequence['outputs.DatabaseBackupsConfig']]:
+        """
+        List of backup configurations.
+        """
+        return pulumi.get(self, "configs")
+
+    @property
+    @pulumi.getter
+    def provider(self) -> Optional[str]:
+        """
+        The backup provider.
+        """
+        return pulumi.get(self, "provider")
+
+
+@pulumi.output_type
+class DatabaseBackupsConfig(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeName":
+            suggest = "node_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DatabaseBackupsConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DatabaseBackupsConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DatabaseBackupsConfig.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 id: Optional[str] = None,
+                 node_name: Optional[str] = None,
+                 repositories: Optional[Sequence['outputs.DatabaseBackupsConfigRepository']] = None,
+                 schedules: Optional[Sequence['outputs.DatabaseBackupsConfigSchedule']] = None):
+        """
+        :param str id: Unique identifier for the backup config.
+        :param str node_name: Name of the node.
+        :param Sequence['DatabaseBackupsConfigRepositoryArgs'] repositories: List of backup repositories.
+        :param Sequence['DatabaseBackupsConfigScheduleArgs'] schedules: List of backup schedules.
+        """
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+        if repositories is not None:
+            pulumi.set(__self__, "repositories", repositories)
+        if schedules is not None:
+            pulumi.set(__self__, "schedules", schedules)
+
+    @property
+    @pulumi.getter
+    def id(self) -> Optional[str]:
+        """
+        Unique identifier for the backup config.
+        """
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[str]:
+        """
+        Name of the node.
+        """
+        return pulumi.get(self, "node_name")
+
+    @property
+    @pulumi.getter
+    def repositories(self) -> Optional[Sequence['outputs.DatabaseBackupsConfigRepository']]:
+        """
+        List of backup repositories.
+        """
+        return pulumi.get(self, "repositories")
+
+    @property
+    @pulumi.getter
+    def schedules(self) -> Optional[Sequence['outputs.DatabaseBackupsConfigSchedule']]:
+        """
+        List of backup schedules.
+        """
+        return pulumi.get(self, "schedules")
+
+
+@pulumi.output_type
+class DatabaseBackupsConfigRepository(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "azureAccount":
+            suggest = "azure_account"
+        elif key == "azureContainer":
+            suggest = "azure_container"
+        elif key == "azureEndpoint":
+            suggest = "azure_endpoint"
+        elif key == "backupStoreId":
+            suggest = "backup_store_id"
+        elif key == "basePath":
+            suggest = "base_path"
+        elif key == "gcsBucket":
+            suggest = "gcs_bucket"
+        elif key == "gcsEndpoint":
+            suggest = "gcs_endpoint"
+        elif key == "retentionFull":
+            suggest = "retention_full"
+        elif key == "retentionFullType":
+            suggest = "retention_full_type"
+        elif key == "s3Bucket":
+            suggest = "s3_bucket"
+        elif key == "s3Endpoint":
+            suggest = "s3_endpoint"
+        elif key == "s3Region":
+            suggest = "s3_region"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DatabaseBackupsConfigRepository. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DatabaseBackupsConfigRepository.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DatabaseBackupsConfigRepository.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 azure_account: Optional[str] = None,
+                 azure_container: Optional[str] = None,
+                 azure_endpoint: Optional[str] = None,
+                 backup_store_id: Optional[str] = None,
+                 base_path: Optional[str] = None,
+                 gcs_bucket: Optional[str] = None,
+                 gcs_endpoint: Optional[str] = None,
+                 id: Optional[str] = None,
+                 retention_full: Optional[int] = None,
+                 retention_full_type: Optional[str] = None,
+                 s3_bucket: Optional[str] = None,
+                 s3_endpoint: Optional[str] = None,
+                 s3_region: Optional[str] = None,
+                 type: Optional[str] = None):
+        """
+        :param str azure_account: Azure account.
+        :param str azure_container: Azure container.
+        :param str azure_endpoint: Azure endpoint.
+        :param str backup_store_id: ID of the backup store.
+        :param str base_path: Base path for the repository.
+        :param str gcs_bucket: GCS bucket name.
+        :param str gcs_endpoint: GCS endpoint.
+        :param str id: Unique identifier for the backup config.
+        :param int retention_full: Retention period for full backups.
+        :param str retention_full_type: Type of retention for full backups.
+        :param str s3_bucket: S3 bucket name.
+        :param str s3_endpoint: S3 endpoint.
+        :param str s3_region: S3 region.
+        :param str type: Type of the repository.
+        """
+        if azure_account is not None:
+            pulumi.set(__self__, "azure_account", azure_account)
+        if azure_container is not None:
+            pulumi.set(__self__, "azure_container", azure_container)
+        if azure_endpoint is not None:
+            pulumi.set(__self__, "azure_endpoint", azure_endpoint)
+        if backup_store_id is not None:
+            pulumi.set(__self__, "backup_store_id", backup_store_id)
+        if base_path is not None:
+            pulumi.set(__self__, "base_path", base_path)
+        if gcs_bucket is not None:
+            pulumi.set(__self__, "gcs_bucket", gcs_bucket)
+        if gcs_endpoint is not None:
+            pulumi.set(__self__, "gcs_endpoint", gcs_endpoint)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if retention_full is not None:
+            pulumi.set(__self__, "retention_full", retention_full)
+        if retention_full_type is not None:
+            pulumi.set(__self__, "retention_full_type", retention_full_type)
+        if s3_bucket is not None:
+            pulumi.set(__self__, "s3_bucket", s3_bucket)
+        if s3_endpoint is not None:
+            pulumi.set(__self__, "s3_endpoint", s3_endpoint)
+        if s3_region is not None:
+            pulumi.set(__self__, "s3_region", s3_region)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="azureAccount")
+    def azure_account(self) -> Optional[str]:
+        """
+        Azure account.
+        """
+        return pulumi.get(self, "azure_account")
+
+    @property
+    @pulumi.getter(name="azureContainer")
+    def azure_container(self) -> Optional[str]:
+        """
+        Azure container.
+        """
+        return pulumi.get(self, "azure_container")
+
+    @property
+    @pulumi.getter(name="azureEndpoint")
+    def azure_endpoint(self) -> Optional[str]:
+        """
+        Azure endpoint.
+        """
+        return pulumi.get(self, "azure_endpoint")
+
+    @property
+    @pulumi.getter(name="backupStoreId")
+    def backup_store_id(self) -> Optional[str]:
+        """
+        ID of the backup store.
+        """
+        return pulumi.get(self, "backup_store_id")
+
+    @property
+    @pulumi.getter(name="basePath")
+    def base_path(self) -> Optional[str]:
+        """
+        Base path for the repository.
+        """
+        return pulumi.get(self, "base_path")
+
+    @property
+    @pulumi.getter(name="gcsBucket")
+    def gcs_bucket(self) -> Optional[str]:
+        """
+        GCS bucket name.
+        """
+        return pulumi.get(self, "gcs_bucket")
+
+    @property
+    @pulumi.getter(name="gcsEndpoint")
+    def gcs_endpoint(self) -> Optional[str]:
+        """
+        GCS endpoint.
+        """
+        return pulumi.get(self, "gcs_endpoint")
+
+    @property
+    @pulumi.getter
+    def id(self) -> Optional[str]:
+        """
+        Unique identifier for the backup config.
+        """
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter(name="retentionFull")
+    def retention_full(self) -> Optional[int]:
+        """
+        Retention period for full backups.
+        """
+        return pulumi.get(self, "retention_full")
+
+    @property
+    @pulumi.getter(name="retentionFullType")
+    def retention_full_type(self) -> Optional[str]:
+        """
+        Type of retention for full backups.
+        """
+        return pulumi.get(self, "retention_full_type")
+
+    @property
+    @pulumi.getter(name="s3Bucket")
+    def s3_bucket(self) -> Optional[str]:
+        """
+        S3 bucket name.
+        """
+        return pulumi.get(self, "s3_bucket")
+
+    @property
+    @pulumi.getter(name="s3Endpoint")
+    def s3_endpoint(self) -> Optional[str]:
+        """
+        S3 endpoint.
+        """
+        return pulumi.get(self, "s3_endpoint")
+
+    @property
+    @pulumi.getter(name="s3Region")
+    def s3_region(self) -> Optional[str]:
+        """
+        S3 region.
+        """
+        return pulumi.get(self, "s3_region")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Type of the repository.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class DatabaseBackupsConfigSchedule(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "cronExpression":
+            suggest = "cron_expression"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DatabaseBackupsConfigSchedule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DatabaseBackupsConfigSchedule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DatabaseBackupsConfigSchedule.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 cron_expression: Optional[str] = None,
+                 id: Optional[str] = None,
+                 type: Optional[str] = None):
+        """
+        :param str cron_expression: Cron expression for the schedule.
+        :param str id: Unique identifier for the backup config.
+        :param str type: Type of the repository.
+        """
+        if cron_expression is not None:
+            pulumi.set(__self__, "cron_expression", cron_expression)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="cronExpression")
+    def cron_expression(self) -> Optional[str]:
+        """
+        Cron expression for the schedule.
+        """
+        return pulumi.get(self, "cron_expression")
+
+    @property
+    @pulumi.getter
+    def id(self) -> Optional[str]:
+        """
+        Unique identifier for the backup config.
+        """
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Type of the repository.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class DatabaseComponent(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "releaseDate":
+            suggest = "release_date"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DatabaseComponent. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DatabaseComponent.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DatabaseComponent.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 id: Optional[str] = None,
+                 name: Optional[str] = None,
+                 release_date: Optional[str] = None,
+                 status: Optional[str] = None,
+                 version: Optional[str] = None):
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if release_date is not None:
+            pulumi.set(__self__, "release_date", release_date)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if version is not None:
+            pulumi.set(__self__, "version", version)
+
+    @property
+    @pulumi.getter
+    def id(self) -> Optional[str]:
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="releaseDate")
+    def release_date(self) -> Optional[str]:
+        return pulumi.get(self, "release_date")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[str]:
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter
+    def version(self) -> Optional[str]:
+        return pulumi.get(self, "version")
+
+
+@pulumi.output_type
+class DatabaseExtensions(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "autoManage":
+            suggest = "auto_manage"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DatabaseExtensions. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DatabaseExtensions.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DatabaseExtensions.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 auto_manage: Optional[bool] = None,
+                 availables: Optional[Sequence[str]] = None,
+                 requesteds: Optional[Sequence[str]] = None):
+        if auto_manage is not None:
+            pulumi.set(__self__, "auto_manage", auto_manage)
+        if availables is not None:
+            pulumi.set(__self__, "availables", availables)
+        if requesteds is not None:
+            pulumi.set(__self__, "requesteds", requesteds)
+
+    @property
+    @pulumi.getter(name="autoManage")
+    def auto_manage(self) -> Optional[bool]:
+        return pulumi.get(self, "auto_manage")
+
+    @property
+    @pulumi.getter
+    def availables(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "availables")
+
+    @property
+    @pulumi.getter
+    def requesteds(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "requesteds")
+
+
+@pulumi.output_type
+class DatabaseNodes(dict):
+    def __init__(__self__, *,
+                 name: str,
+                 connection: Optional['outputs.DatabaseNodesConnection'] = None,
+                 extensions: Optional['outputs.DatabaseNodesExtensions'] = None,
+                 location: Optional['outputs.DatabaseNodesLocation'] = None,
+                 region: Optional['outputs.DatabaseNodesRegion'] = None):
+        pulumi.set(__self__, "name", name)
+        if connection is not None:
+            pulumi.set(__self__, "connection", connection)
+        if extensions is not None:
+            pulumi.set(__self__, "extensions", extensions)
+        if location is not None:
+            pulumi.set(__self__, "location", location)
+        if region is not None:
+            pulumi.set(__self__, "region", region)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def connection(self) -> Optional['outputs.DatabaseNodesConnection']:
+        return pulumi.get(self, "connection")
+
+    @property
+    @pulumi.getter
+    def extensions(self) -> Optional['outputs.DatabaseNodesExtensions']:
+        return pulumi.get(self, "extensions")
+
+    @property
+    @pulumi.getter
+    def location(self) -> Optional['outputs.DatabaseNodesLocation']:
+        return pulumi.get(self, "location")
+
+    @property
+    @pulumi.getter
+    def region(self) -> Optional['outputs.DatabaseNodesRegion']:
+        return pulumi.get(self, "region")
+
+
+@pulumi.output_type
+class DatabaseNodesConnection(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "externalIpAddress":
+            suggest = "external_ip_address"
+        elif key == "internalHost":
+            suggest = "internal_host"
+        elif key == "internalIpAddress":
+            suggest = "internal_ip_address"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DatabaseNodesConnection. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DatabaseNodesConnection.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DatabaseNodesConnection.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 database: Optional[str] = None,
+                 external_ip_address: Optional[str] = None,
+                 host: Optional[str] = None,
+                 internal_host: Optional[str] = None,
+                 internal_ip_address: Optional[str] = None,
+                 password: Optional[str] = None,
+                 port: Optional[int] = None,
+                 username: Optional[str] = None):
+        if database is not None:
+            pulumi.set(__self__, "database", database)
+        if external_ip_address is not None:
+            pulumi.set(__self__, "external_ip_address", external_ip_address)
+        if host is not None:
+            pulumi.set(__self__, "host", host)
+        if internal_host is not None:
+            pulumi.set(__self__, "internal_host", internal_host)
+        if internal_ip_address is not None:
+            pulumi.set(__self__, "internal_ip_address", internal_ip_address)
+        if password is not None:
+            pulumi.set(__self__, "password", password)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+        if username is not None:
+            pulumi.set(__self__, "username", username)
+
+    @property
+    @pulumi.getter
+    def database(self) -> Optional[str]:
+        return pulumi.get(self, "database")
+
+    @property
+    @pulumi.getter(name="externalIpAddress")
+    def external_ip_address(self) -> Optional[str]:
+        return pulumi.get(self, "external_ip_address")
+
+    @property
+    @pulumi.getter
+    def host(self) -> Optional[str]:
+        return pulumi.get(self, "host")
+
+    @property
+    @pulumi.getter(name="internalHost")
+    def internal_host(self) -> Optional[str]:
+        return pulumi.get(self, "internal_host")
+
+    @property
+    @pulumi.getter(name="internalIpAddress")
+    def internal_ip_address(self) -> Optional[str]:
+        return pulumi.get(self, "internal_ip_address")
+
+    @property
+    @pulumi.getter
+    def password(self) -> Optional[str]:
+        return pulumi.get(self, "password")
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[int]:
+        return pulumi.get(self, "port")
+
+    @property
+    @pulumi.getter
+    def username(self) -> Optional[str]:
+        return pulumi.get(self, "username")
+
+
+@pulumi.output_type
+class DatabaseNodesExtensions(dict):
+    def __init__(__self__, *,
+                 errors: Optional[Mapping[str, str]] = None,
+                 installeds: Optional[Sequence[str]] = None):
+        if errors is not None:
+            pulumi.set(__self__, "errors", errors)
+        if installeds is not None:
+            pulumi.set(__self__, "installeds", installeds)
+
+    @property
+    @pulumi.getter
+    def errors(self) -> Optional[Mapping[str, str]]:
+        return pulumi.get(self, "errors")
+
+    @property
+    @pulumi.getter
+    def installeds(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "installeds")
+
+
+@pulumi.output_type
+class DatabaseNodesLocation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "metroCode":
+            suggest = "metro_code"
+        elif key == "postalCode":
+            suggest = "postal_code"
+        elif key == "regionCode":
+            suggest = "region_code"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DatabaseNodesLocation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DatabaseNodesLocation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DatabaseNodesLocation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 city: Optional[str] = None,
+                 code: Optional[str] = None,
+                 country: Optional[str] = None,
+                 latitude: Optional[float] = None,
+                 longitude: Optional[float] = None,
+                 metro_code: Optional[str] = None,
+                 name: Optional[str] = None,
+                 postal_code: Optional[str] = None,
+                 region: Optional[str] = None,
+                 region_code: Optional[str] = None,
+                 timezone: Optional[str] = None):
+        if city is not None:
+            pulumi.set(__self__, "city", city)
+        if code is not None:
+            pulumi.set(__self__, "code", code)
+        if country is not None:
+            pulumi.set(__self__, "country", country)
+        if latitude is not None:
+            pulumi.set(__self__, "latitude", latitude)
+        if longitude is not None:
+            pulumi.set(__self__, "longitude", longitude)
+        if metro_code is not None:
+            pulumi.set(__self__, "metro_code", metro_code)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if postal_code is not None:
+            pulumi.set(__self__, "postal_code", postal_code)
+        if region is not None:
+            pulumi.set(__self__, "region", region)
+        if region_code is not None:
+            pulumi.set(__self__, "region_code", region_code)
+        if timezone is not None:
+            pulumi.set(__self__, "timezone", timezone)
+
+    @property
+    @pulumi.getter
+    def city(self) -> Optional[str]:
+        return pulumi.get(self, "city")
+
+    @property
+    @pulumi.getter
+    def code(self) -> Optional[str]:
+        return pulumi.get(self, "code")
+
+    @property
+    @pulumi.getter
+    def country(self) -> Optional[str]:
+        return pulumi.get(self, "country")
+
+    @property
+    @pulumi.getter
+    def latitude(self) -> Optional[float]:
+        return pulumi.get(self, "latitude")
+
+    @property
+    @pulumi.getter
+    def longitude(self) -> Optional[float]:
+        return pulumi.get(self, "longitude")
+
+    @property
+    @pulumi.getter(name="metroCode")
+    def metro_code(self) -> Optional[str]:
+        return pulumi.get(self, "metro_code")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="postalCode")
+    def postal_code(self) -> Optional[str]:
+        return pulumi.get(self, "postal_code")
+
+    @property
+    @pulumi.getter
+    def region(self) -> Optional[str]:
+        return pulumi.get(self, "region")
+
+    @property
+    @pulumi.getter(name="regionCode")
+    def region_code(self) -> Optional[str]:
+        return pulumi.get(self, "region_code")
+
+    @property
+    @pulumi.getter
+    def timezone(self) -> Optional[str]:
+        return pulumi.get(self, "timezone")
+
+
+@pulumi.output_type
+class DatabaseNodesRegion(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "availabilityZones":
+            suggest = "availability_zones"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DatabaseNodesRegion. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DatabaseNodesRegion.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DatabaseNodesRegion.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 active: Optional[bool] = None,
+                 availability_zones: Optional[Sequence[str]] = None,
+                 cloud: Optional[str] = None,
+                 code: Optional[str] = None,
+                 name: Optional[str] = None,
+                 parent: Optional[str] = None):
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+        if availability_zones is not None:
+            pulumi.set(__self__, "availability_zones", availability_zones)
+        if cloud is not None:
+            pulumi.set(__self__, "cloud", cloud)
+        if code is not None:
+            pulumi.set(__self__, "code", code)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if parent is not None:
+            pulumi.set(__self__, "parent", parent)
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[bool]:
+        return pulumi.get(self, "active")
+
+    @property
+    @pulumi.getter(name="availabilityZones")
+    def availability_zones(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "availability_zones")
+
+    @property
+    @pulumi.getter
+    def cloud(self) -> Optional[str]:
+        return pulumi.get(self, "cloud")
+
+    @property
+    @pulumi.getter
+    def code(self) -> Optional[str]:
+        return pulumi.get(self, "code")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def parent(self) -> Optional[str]:
+        return pulumi.get(self, "parent")
+
+
+@pulumi.output_type
+class DatabaseRole(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "bypassRls":
+            suggest = "bypass_rls"
+        elif key == "connectionLimit":
+            suggest = "connection_limit"
+        elif key == "createDb":
+            suggest = "create_db"
+        elif key == "createRole":
+            suggest = "create_role"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DatabaseRole. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DatabaseRole.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DatabaseRole.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 bypass_rls: Optional[bool] = None,
+                 connection_limit: Optional[int] = None,
+                 create_db: Optional[bool] = None,
+                 create_role: Optional[bool] = None,
+                 inherit: Optional[bool] = None,
+                 login: Optional[bool] = None,
+                 name: Optional[str] = None,
+                 replication: Optional[bool] = None,
+                 superuser: Optional[bool] = None):
+        if bypass_rls is not None:
+            pulumi.set(__self__, "bypass_rls", bypass_rls)
+        if connection_limit is not None:
+            pulumi.set(__self__, "connection_limit", connection_limit)
+        if create_db is not None:
+            pulumi.set(__self__, "create_db", create_db)
+        if create_role is not None:
+            pulumi.set(__self__, "create_role", create_role)
+        if inherit is not None:
+            pulumi.set(__self__, "inherit", inherit)
+        if login is not None:
+            pulumi.set(__self__, "login", login)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if replication is not None:
+            pulumi.set(__self__, "replication", replication)
+        if superuser is not None:
+            pulumi.set(__self__, "superuser", superuser)
+
+    @property
+    @pulumi.getter(name="bypassRls")
+    def bypass_rls(self) -> Optional[bool]:
+        return pulumi.get(self, "bypass_rls")
+
+    @property
+    @pulumi.getter(name="connectionLimit")
+    def connection_limit(self) -> Optional[int]:
+        return pulumi.get(self, "connection_limit")
+
+    @property
+    @pulumi.getter(name="createDb")
+    def create_db(self) -> Optional[bool]:
+        return pulumi.get(self, "create_db")
+
+    @property
+    @pulumi.getter(name="createRole")
+    def create_role(self) -> Optional[bool]:
+        return pulumi.get(self, "create_role")
+
+    @property
+    @pulumi.getter
+    def inherit(self) -> Optional[bool]:
+        return pulumi.get(self, "inherit")
+
+    @property
+    @pulumi.getter
+    def login(self) -> Optional[bool]:
+        return pulumi.get(self, "login")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def replication(self) -> Optional[bool]:
+        return pulumi.get(self, "replication")
+
+    @property
+    @pulumi.getter
+    def superuser(self) -> Optional[bool]:
+        return pulumi.get(self, "superuser")
+
+
+@pulumi.output_type
+class GetBackupStoresBackupStoreResult(dict):
+    def __init__(__self__, *,
+                 cloud_account_id: str,
+                 cloud_account_type: str,
+                 cluster_ids: Sequence[str],
+                 created_at: str,
+                 id: str,
+                 name: str,
+                 properties: Mapping[str, str],
+                 status: str,
+                 updated_at: str):
+        pulumi.set(__self__, "cloud_account_id", cloud_account_id)
+        pulumi.set(__self__, "cloud_account_type", cloud_account_type)
+        pulumi.set(__self__, "cluster_ids", cluster_ids)
+        pulumi.set(__self__, "created_at", created_at)
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "properties", properties)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "updated_at", updated_at)
+
+    @property
+    @pulumi.getter(name="cloudAccountId")
+    def cloud_account_id(self) -> str:
+        return pulumi.get(self, "cloud_account_id")
+
+    @property
+    @pulumi.getter(name="cloudAccountType")
+    def cloud_account_type(self) -> str:
+        return pulumi.get(self, "cloud_account_type")
+
+    @property
+    @pulumi.getter(name="clusterIds")
+    def cluster_ids(self) -> Sequence[str]:
+        return pulumi.get(self, "cluster_ids")
+
+    @property
+    @pulumi.getter(name="createdAt")
+    def created_at(self) -> str:
+        return pulumi.get(self, "created_at")
+
+    @property
+    @pulumi.getter
+    def id(self) -> str:
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def properties(self) -> Mapping[str, str]:
+        return pulumi.get(self, "properties")
+
+    @property
+    @pulumi.getter
+    def status(self) -> str:
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter(name="updatedAt")
+    def updated_at(self) -> str:
+        return pulumi.get(self, "updated_at")
+
+
+@pulumi.output_type
+class GetCloudAccountsCloudAccountResult(dict):
+    def __init__(__self__, *,
+                 created_at: str,
+                 description: str,
+                 id: str,
+                 name: str,
+                 properties: Mapping[str, str],
+                 type: str,
+                 updated_at: str):
+        """
+        :param str created_at: Creation time of the cloud account
+        :param str description: Description of the cloud account
+        :param str id: ID of the cloud account
+        :param str name: Name of the cloud account
+        :param Mapping[str, str] properties: Additional properties of the cloud account
+        :param str type: Type of the cloud account (e.g., AWS, Azure, GCP)
+        :param str updated_at: Last update time of the cloud account
+        """
+        pulumi.set(__self__, "created_at", created_at)
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "properties", properties)
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "updated_at", updated_at)
+
+    @property
+    @pulumi.getter(name="createdAt")
+    def created_at(self) -> str:
+        """
+        Creation time of the cloud account
+        """
+        return pulumi.get(self, "created_at")
+
+    @property
+    @pulumi.getter
+    def description(self) -> str:
+        """
+        Description of the cloud account
+        """
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter
+    def id(self) -> str:
+        """
+        ID of the cloud account
+        """
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        Name of the cloud account
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def properties(self) -> Mapping[str, str]:
+        """
+        Additional properties of the cloud account
+        """
+        return pulumi.get(self, "properties")
+
+    @property
+    @pulumi.getter
+    def type(self) -> str:
+        """
+        Type of the cloud account (e.g., AWS, Azure, GCP)
+        """
+        return pulumi.get(self, "type")
+
+    @property
+    @pulumi.getter(name="updatedAt")
+    def updated_at(self) -> str:
+        """
+        Last update time of the cloud account
+        """
+        return pulumi.get(self, "updated_at")
 
 
 @pulumi.output_type
 class GetClustersClusterResult(dict):
     def __init__(__self__, *,
-                 cloud_account: 'outputs.GetClustersClusterCloudAccountResult',
+                 backup_store_ids: Sequence[str],
+                 capacity: int,
                  cloud_account_id: str,
                  created_at: str,
                  firewall_rules: Sequence['outputs.GetClustersClusterFirewallRuleResult'],
@@ -303,18 +1356,23 @@ class GetClustersClusterResult(dict):
                  node_location: str,
                  nodes: Sequence['outputs.GetClustersClusterNodeResult'],
                  regions: Sequence[str],
+                 resource_tags: Mapping[str, str],
                  ssh_key_id: str,
                  status: str):
         """
+        :param Sequence[str] backup_store_ids: Backup store IDs of the cluster
+        :param int capacity: Capacity of the cluster
         :param str cloud_account_id: Cloud account ID of the cluster
         :param str created_at: Created at of the cluster
         :param str id: ID of the cluster
         :param str name: Name of the cluster
-        :param str node_location: Node location of the cluster
+        :param str node_location: Node location of the cluster. Must be either 'public' or 'private'.
+        :param Mapping[str, str] resource_tags: Resource tags of the cluster
         :param str ssh_key_id: SSH key ID of the cluster
         :param str status: Status of the cluster
         """
-        pulumi.set(__self__, "cloud_account", cloud_account)
+        pulumi.set(__self__, "backup_store_ids", backup_store_ids)
+        pulumi.set(__self__, "capacity", capacity)
         pulumi.set(__self__, "cloud_account_id", cloud_account_id)
         pulumi.set(__self__, "created_at", created_at)
         pulumi.set(__self__, "firewall_rules", firewall_rules)
@@ -324,13 +1382,25 @@ class GetClustersClusterResult(dict):
         pulumi.set(__self__, "node_location", node_location)
         pulumi.set(__self__, "nodes", nodes)
         pulumi.set(__self__, "regions", regions)
+        pulumi.set(__self__, "resource_tags", resource_tags)
         pulumi.set(__self__, "ssh_key_id", ssh_key_id)
         pulumi.set(__self__, "status", status)
 
     @property
-    @pulumi.getter(name="cloudAccount")
-    def cloud_account(self) -> 'outputs.GetClustersClusterCloudAccountResult':
-        return pulumi.get(self, "cloud_account")
+    @pulumi.getter(name="backupStoreIds")
+    def backup_store_ids(self) -> Sequence[str]:
+        """
+        Backup store IDs of the cluster
+        """
+        return pulumi.get(self, "backup_store_ids")
+
+    @property
+    @pulumi.getter
+    def capacity(self) -> int:
+        """
+        Capacity of the cluster
+        """
+        return pulumi.get(self, "capacity")
 
     @property
     @pulumi.getter(name="cloudAccountId")
@@ -378,7 +1448,7 @@ class GetClustersClusterResult(dict):
     @pulumi.getter(name="nodeLocation")
     def node_location(self) -> str:
         """
-        Node location of the cluster
+        Node location of the cluster. Must be either 'public' or 'private'.
         """
         return pulumi.get(self, "node_location")
 
@@ -391,6 +1461,14 @@ class GetClustersClusterResult(dict):
     @pulumi.getter
     def regions(self) -> Sequence[str]:
         return pulumi.get(self, "regions")
+
+    @property
+    @pulumi.getter(name="resourceTags")
+    def resource_tags(self) -> Mapping[str, str]:
+        """
+        Resource tags of the cluster
+        """
+        return pulumi.get(self, "resource_tags")
 
     @property
     @pulumi.getter(name="sshKeyId")
@@ -410,53 +1488,13 @@ class GetClustersClusterResult(dict):
 
 
 @pulumi.output_type
-class GetClustersClusterCloudAccountResult(dict):
-    def __init__(__self__, *,
-                 id: str,
-                 name: str,
-                 type: str):
-        """
-        :param str id: Display name of the node
-        :param str name: IP address of the node
-        :param str type: Type of the node
-        """
-        pulumi.set(__self__, "id", id)
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "type", type)
-
-    @property
-    @pulumi.getter
-    def id(self) -> str:
-        """
-        Display name of the node
-        """
-        return pulumi.get(self, "id")
-
-    @property
-    @pulumi.getter
-    def name(self) -> str:
-        """
-        IP address of the node
-        """
-        return pulumi.get(self, "name")
-
-    @property
-    @pulumi.getter
-    def type(self) -> str:
-        """
-        Type of the node
-        """
-        return pulumi.get(self, "type")
-
-
-@pulumi.output_type
 class GetClustersClusterFirewallRuleResult(dict):
     def __init__(__self__, *,
                  name: str,
                  port: int,
                  sources: Sequence[str]):
         """
-        :param str name: IP address of the node
+        :param str name: Name of the firewall rule
         :param int port: Port for the firewall rule
         :param Sequence[str] sources: Sources for the firewall rule
         """
@@ -468,7 +1506,7 @@ class GetClustersClusterFirewallRuleResult(dict):
     @pulumi.getter
     def name(self) -> str:
         """
-        IP address of the node
+        Name of the firewall rule
         """
         return pulumi.get(self, "name")
 
@@ -500,10 +1538,10 @@ class GetClustersClusterNetworkResult(dict):
                  public_subnets: Sequence[str],
                  region: str):
         """
-        :param str cidr: CIDR of the AWS node group
+        :param str cidr: CIDR of the network
         :param bool external: Is the network external
         :param str external_id: External ID of the network
-        :param str name: IP address of the node
+        :param str name: Name of the firewall rule
         :param str region: Region of the network
         """
         pulumi.set(__self__, "cidr", cidr)
@@ -518,7 +1556,7 @@ class GetClustersClusterNetworkResult(dict):
     @pulumi.getter
     def cidr(self) -> str:
         """
-        CIDR of the AWS node group
+        CIDR of the network
         """
         return pulumi.get(self, "cidr")
 
@@ -542,7 +1580,7 @@ class GetClustersClusterNetworkResult(dict):
     @pulumi.getter
     def name(self) -> str:
         """
-        IP address of the node
+        Name of the firewall rule
         """
         return pulumi.get(self, "name")
 
@@ -579,7 +1617,7 @@ class GetClustersClusterNodeResult(dict):
         """
         :param str availability_zone: Cloud provider availability zone name
         :param str instance_type: Instance type used for the node
-        :param str name: IP address of the node
+        :param str name: Name of the firewall rule
         :param str region: Region of the network
         :param int volume_iops: Volume IOPS of the node data volume
         :param int volume_size: Volume size of the node data volume
@@ -614,7 +1652,7 @@ class GetClustersClusterNodeResult(dict):
     @pulumi.getter
     def name(self) -> str:
         """
-        IP address of the node
+        Name of the firewall rule
         """
         return pulumi.get(self, "name")
 
@@ -659,72 +1697,91 @@ class GetClustersClusterNodeResult(dict):
 @pulumi.output_type
 class GetDatabasesDatabaseResult(dict):
     def __init__(__self__, *,
+                 backups: 'outputs.GetDatabasesDatabaseBackupsResult',
                  cluster_id: str,
                  components: Sequence['outputs.GetDatabasesDatabaseComponentResult'],
+                 config_version: str,
                  created_at: str,
                  domain: str,
                  extensions: 'outputs.GetDatabasesDatabaseExtensionsResult',
                  id: str,
                  name: str,
+                 nodes: Mapping[str, 'outputs.GetDatabasesDatabaseNodesResult'],
                  options: Sequence[str],
                  pg_version: str,
                  roles: Sequence['outputs.GetDatabasesDatabaseRoleResult'],
                  status: str,
-                 storage_used: int,
-                 tables: Sequence['outputs.GetDatabasesDatabaseTableResult'],
-                 updated_at: str,
-                 config_version: Optional[str] = None,
-                 nodes: Optional[Sequence['outputs.GetDatabasesDatabaseNodeResult']] = None):
+                 updated_at: str):
         """
-        :param str cluster_id: Updated at of the database
-        :param str created_at: Created at of the database
+        :param 'GetDatabasesDatabaseBackupsArgs' backups: Backup configuration for the database
+        :param str cluster_id: ID of the cluster this database belongs to
+        :param Sequence['GetDatabasesDatabaseComponentArgs'] components: Components of the database
+        :param str config_version: Configuration version of the database
+        :param str created_at: Creation timestamp of the database
         :param str domain: Domain of the database
+        :param 'GetDatabasesDatabaseExtensionsArgs' extensions: Extensions configuration for the database
         :param str id: ID of the database
         :param str name: Name of the database
-        :param Sequence[str] options: Options for creating the database
-        :param str pg_version: Postgres version of the database
+        :param Mapping[str, 'GetDatabasesDatabaseNodesArgs'] nodes: Map of nodes in the database
+        :param Sequence[str] options: Options for the database
+        :param str pg_version: PostgreSQL version of the database
+        :param Sequence['GetDatabasesDatabaseRoleArgs'] roles: Roles in the database
         :param str status: Status of the database
-        :param int storage_used: Storage used of the database
-        :param str updated_at: Updated at of the database
-        :param str config_version: Config version of the database
+        :param str updated_at: Last update timestamp of the database
         """
+        pulumi.set(__self__, "backups", backups)
         pulumi.set(__self__, "cluster_id", cluster_id)
         pulumi.set(__self__, "components", components)
+        pulumi.set(__self__, "config_version", config_version)
         pulumi.set(__self__, "created_at", created_at)
         pulumi.set(__self__, "domain", domain)
         pulumi.set(__self__, "extensions", extensions)
         pulumi.set(__self__, "id", id)
         pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "nodes", nodes)
         pulumi.set(__self__, "options", options)
         pulumi.set(__self__, "pg_version", pg_version)
         pulumi.set(__self__, "roles", roles)
         pulumi.set(__self__, "status", status)
-        pulumi.set(__self__, "storage_used", storage_used)
-        pulumi.set(__self__, "tables", tables)
         pulumi.set(__self__, "updated_at", updated_at)
-        if config_version is not None:
-            pulumi.set(__self__, "config_version", config_version)
-        if nodes is not None:
-            pulumi.set(__self__, "nodes", nodes)
+
+    @property
+    @pulumi.getter
+    def backups(self) -> 'outputs.GetDatabasesDatabaseBackupsResult':
+        """
+        Backup configuration for the database
+        """
+        return pulumi.get(self, "backups")
 
     @property
     @pulumi.getter(name="clusterId")
     def cluster_id(self) -> str:
         """
-        Updated at of the database
+        ID of the cluster this database belongs to
         """
         return pulumi.get(self, "cluster_id")
 
     @property
     @pulumi.getter
     def components(self) -> Sequence['outputs.GetDatabasesDatabaseComponentResult']:
+        """
+        Components of the database
+        """
         return pulumi.get(self, "components")
+
+    @property
+    @pulumi.getter(name="configVersion")
+    def config_version(self) -> str:
+        """
+        Configuration version of the database
+        """
+        return pulumi.get(self, "config_version")
 
     @property
     @pulumi.getter(name="createdAt")
     def created_at(self) -> str:
         """
-        Created at of the database
+        Creation timestamp of the database
         """
         return pulumi.get(self, "created_at")
 
@@ -739,6 +1796,9 @@ class GetDatabasesDatabaseResult(dict):
     @property
     @pulumi.getter
     def extensions(self) -> 'outputs.GetDatabasesDatabaseExtensionsResult':
+        """
+        Extensions configuration for the database
+        """
         return pulumi.get(self, "extensions")
 
     @property
@@ -759,9 +1819,17 @@ class GetDatabasesDatabaseResult(dict):
 
     @property
     @pulumi.getter
+    def nodes(self) -> Mapping[str, 'outputs.GetDatabasesDatabaseNodesResult']:
+        """
+        Map of nodes in the database
+        """
+        return pulumi.get(self, "nodes")
+
+    @property
+    @pulumi.getter
     def options(self) -> Sequence[str]:
         """
-        Options for creating the database
+        Options for the database
         """
         return pulumi.get(self, "options")
 
@@ -769,13 +1837,16 @@ class GetDatabasesDatabaseResult(dict):
     @pulumi.getter(name="pgVersion")
     def pg_version(self) -> str:
         """
-        Postgres version of the database
+        PostgreSQL version of the database
         """
         return pulumi.get(self, "pg_version")
 
     @property
     @pulumi.getter
     def roles(self) -> Sequence['outputs.GetDatabasesDatabaseRoleResult']:
+        """
+        Roles in the database
+        """
         return pulumi.get(self, "roles")
 
     @property
@@ -787,38 +1858,233 @@ class GetDatabasesDatabaseResult(dict):
         return pulumi.get(self, "status")
 
     @property
-    @pulumi.getter(name="storageUsed")
-    def storage_used(self) -> int:
-        """
-        Storage used of the database
-        """
-        return pulumi.get(self, "storage_used")
-
-    @property
-    @pulumi.getter
-    def tables(self) -> Sequence['outputs.GetDatabasesDatabaseTableResult']:
-        return pulumi.get(self, "tables")
-
-    @property
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> str:
         """
-        Updated at of the database
+        Last update timestamp of the database
         """
         return pulumi.get(self, "updated_at")
 
-    @property
-    @pulumi.getter(name="configVersion")
-    def config_version(self) -> Optional[str]:
+
+@pulumi.output_type
+class GetDatabasesDatabaseBackupsResult(dict):
+    def __init__(__self__, *,
+                 configs: Sequence['outputs.GetDatabasesDatabaseBackupsConfigResult'],
+                 provider: str):
         """
-        Config version of the database
+        :param Sequence['GetDatabasesDatabaseBackupsConfigArgs'] configs: Backup configurations
+        :param str provider: Backup provider
         """
-        return pulumi.get(self, "config_version")
+        pulumi.set(__self__, "configs", configs)
+        pulumi.set(__self__, "provider", provider)
 
     @property
     @pulumi.getter
-    def nodes(self) -> Optional[Sequence['outputs.GetDatabasesDatabaseNodeResult']]:
-        return pulumi.get(self, "nodes")
+    def configs(self) -> Sequence['outputs.GetDatabasesDatabaseBackupsConfigResult']:
+        """
+        Backup configurations
+        """
+        return pulumi.get(self, "configs")
+
+    @property
+    @pulumi.getter
+    def provider(self) -> str:
+        """
+        Backup provider
+        """
+        return pulumi.get(self, "provider")
+
+
+@pulumi.output_type
+class GetDatabasesDatabaseBackupsConfigResult(dict):
+    def __init__(__self__, *,
+                 id: str,
+                 node_name: str,
+                 repositories: Sequence['outputs.GetDatabasesDatabaseBackupsConfigRepositoryResult'],
+                 schedules: Sequence['outputs.GetDatabasesDatabaseBackupsConfigScheduleResult']):
+        """
+        :param str id: Backup configuration ID
+        :param str node_name: Node name
+        :param Sequence['GetDatabasesDatabaseBackupsConfigRepositoryArgs'] repositories: Backup repositories
+        :param Sequence['GetDatabasesDatabaseBackupsConfigScheduleArgs'] schedules: Backup schedules
+        """
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "node_name", node_name)
+        pulumi.set(__self__, "repositories", repositories)
+        pulumi.set(__self__, "schedules", schedules)
+
+    @property
+    @pulumi.getter
+    def id(self) -> str:
+        """
+        Backup configuration ID
+        """
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> str:
+        """
+        Node name
+        """
+        return pulumi.get(self, "node_name")
+
+    @property
+    @pulumi.getter
+    def repositories(self) -> Sequence['outputs.GetDatabasesDatabaseBackupsConfigRepositoryResult']:
+        """
+        Backup repositories
+        """
+        return pulumi.get(self, "repositories")
+
+    @property
+    @pulumi.getter
+    def schedules(self) -> Sequence['outputs.GetDatabasesDatabaseBackupsConfigScheduleResult']:
+        """
+        Backup schedules
+        """
+        return pulumi.get(self, "schedules")
+
+
+@pulumi.output_type
+class GetDatabasesDatabaseBackupsConfigRepositoryResult(dict):
+    def __init__(__self__, *,
+                 azure_account: str,
+                 azure_container: str,
+                 azure_endpoint: str,
+                 backup_store_id: str,
+                 base_path: str,
+                 gcs_bucket: str,
+                 gcs_endpoint: str,
+                 id: str,
+                 retention_full: int,
+                 retention_full_type: str,
+                 s3_bucket: str,
+                 s3_endpoint: str,
+                 s3_region: str,
+                 type: str):
+        """
+        :param str id: Backup configuration ID
+        """
+        pulumi.set(__self__, "azure_account", azure_account)
+        pulumi.set(__self__, "azure_container", azure_container)
+        pulumi.set(__self__, "azure_endpoint", azure_endpoint)
+        pulumi.set(__self__, "backup_store_id", backup_store_id)
+        pulumi.set(__self__, "base_path", base_path)
+        pulumi.set(__self__, "gcs_bucket", gcs_bucket)
+        pulumi.set(__self__, "gcs_endpoint", gcs_endpoint)
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "retention_full", retention_full)
+        pulumi.set(__self__, "retention_full_type", retention_full_type)
+        pulumi.set(__self__, "s3_bucket", s3_bucket)
+        pulumi.set(__self__, "s3_endpoint", s3_endpoint)
+        pulumi.set(__self__, "s3_region", s3_region)
+        pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="azureAccount")
+    def azure_account(self) -> str:
+        return pulumi.get(self, "azure_account")
+
+    @property
+    @pulumi.getter(name="azureContainer")
+    def azure_container(self) -> str:
+        return pulumi.get(self, "azure_container")
+
+    @property
+    @pulumi.getter(name="azureEndpoint")
+    def azure_endpoint(self) -> str:
+        return pulumi.get(self, "azure_endpoint")
+
+    @property
+    @pulumi.getter(name="backupStoreId")
+    def backup_store_id(self) -> str:
+        return pulumi.get(self, "backup_store_id")
+
+    @property
+    @pulumi.getter(name="basePath")
+    def base_path(self) -> str:
+        return pulumi.get(self, "base_path")
+
+    @property
+    @pulumi.getter(name="gcsBucket")
+    def gcs_bucket(self) -> str:
+        return pulumi.get(self, "gcs_bucket")
+
+    @property
+    @pulumi.getter(name="gcsEndpoint")
+    def gcs_endpoint(self) -> str:
+        return pulumi.get(self, "gcs_endpoint")
+
+    @property
+    @pulumi.getter
+    def id(self) -> str:
+        """
+        Backup configuration ID
+        """
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter(name="retentionFull")
+    def retention_full(self) -> int:
+        return pulumi.get(self, "retention_full")
+
+    @property
+    @pulumi.getter(name="retentionFullType")
+    def retention_full_type(self) -> str:
+        return pulumi.get(self, "retention_full_type")
+
+    @property
+    @pulumi.getter(name="s3Bucket")
+    def s3_bucket(self) -> str:
+        return pulumi.get(self, "s3_bucket")
+
+    @property
+    @pulumi.getter(name="s3Endpoint")
+    def s3_endpoint(self) -> str:
+        return pulumi.get(self, "s3_endpoint")
+
+    @property
+    @pulumi.getter(name="s3Region")
+    def s3_region(self) -> str:
+        return pulumi.get(self, "s3_region")
+
+    @property
+    @pulumi.getter
+    def type(self) -> str:
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class GetDatabasesDatabaseBackupsConfigScheduleResult(dict):
+    def __init__(__self__, *,
+                 cron_expression: str,
+                 id: str,
+                 type: str):
+        """
+        :param str id: Backup configuration ID
+        """
+        pulumi.set(__self__, "cron_expression", cron_expression)
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="cronExpression")
+    def cron_expression(self) -> str:
+        return pulumi.get(self, "cron_expression")
+
+    @property
+    @pulumi.getter
+    def id(self) -> str:
+        """
+        Backup configuration ID
+        """
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def type(self) -> str:
+        return pulumi.get(self, "type")
 
 
 @pulumi.output_type
@@ -830,11 +2096,11 @@ class GetDatabasesDatabaseComponentResult(dict):
                  status: str,
                  version: str):
         """
-        :param str id: Id of the component
-        :param str name: Name of the component
-        :param str release_date: Release date of the component
-        :param str status: Status of the component
-        :param str version: Version of the component
+        :param str id: Backup configuration ID
+        :param str name: Component name
+        :param str release_date: Component release date
+        :param str status: Component status
+        :param str version: Component version
         """
         pulumi.set(__self__, "id", id)
         pulumi.set(__self__, "name", name)
@@ -846,7 +2112,7 @@ class GetDatabasesDatabaseComponentResult(dict):
     @pulumi.getter
     def id(self) -> str:
         """
-        Id of the component
+        Backup configuration ID
         """
         return pulumi.get(self, "id")
 
@@ -854,7 +2120,7 @@ class GetDatabasesDatabaseComponentResult(dict):
     @pulumi.getter
     def name(self) -> str:
         """
-        Name of the component
+        Component name
         """
         return pulumi.get(self, "name")
 
@@ -862,7 +2128,7 @@ class GetDatabasesDatabaseComponentResult(dict):
     @pulumi.getter(name="releaseDate")
     def release_date(self) -> str:
         """
-        Release date of the component
+        Component release date
         """
         return pulumi.get(self, "release_date")
 
@@ -870,7 +2136,7 @@ class GetDatabasesDatabaseComponentResult(dict):
     @pulumi.getter
     def status(self) -> str:
         """
-        Status of the component
+        Component status
         """
         return pulumi.get(self, "status")
 
@@ -878,7 +2144,7 @@ class GetDatabasesDatabaseComponentResult(dict):
     @pulumi.getter
     def version(self) -> str:
         """
-        Version of the component
+        Component version
         """
         return pulumi.get(self, "version")
 
@@ -890,9 +2156,9 @@ class GetDatabasesDatabaseExtensionsResult(dict):
                  availables: Sequence[str],
                  requesteds: Sequence[str]):
         """
-        :param bool auto_manage: Auto manage of the extension
-        :param Sequence[str] availables: Available of the extension
-        :param Sequence[str] requesteds: Requested of the extension
+        :param bool auto_manage: Auto-manage extensions
+        :param Sequence[str] availables: Available extensions
+        :param Sequence[str] requesteds: Requested extensions
         """
         pulumi.set(__self__, "auto_manage", auto_manage)
         pulumi.set(__self__, "availables", availables)
@@ -902,7 +2168,7 @@ class GetDatabasesDatabaseExtensionsResult(dict):
     @pulumi.getter(name="autoManage")
     def auto_manage(self) -> bool:
         """
-        Auto manage of the extension
+        Auto-manage extensions
         """
         return pulumi.get(self, "auto_manage")
 
@@ -910,7 +2176,7 @@ class GetDatabasesDatabaseExtensionsResult(dict):
     @pulumi.getter
     def availables(self) -> Sequence[str]:
         """
-        Available of the extension
+        Available extensions
         """
         return pulumi.get(self, "availables")
 
@@ -918,26 +2184,27 @@ class GetDatabasesDatabaseExtensionsResult(dict):
     @pulumi.getter
     def requesteds(self) -> Sequence[str]:
         """
-        Requested of the extension
+        Requested extensions
         """
         return pulumi.get(self, "requesteds")
 
 
 @pulumi.output_type
-class GetDatabasesDatabaseNodeResult(dict):
+class GetDatabasesDatabaseNodesResult(dict):
     def __init__(__self__, *,
-                 connection: 'outputs.GetDatabasesDatabaseNodeConnectionResult',
-                 distance_measurement: 'outputs.GetDatabasesDatabaseNodeDistanceMeasurementResult',
-                 extensions: 'outputs.GetDatabasesDatabaseNodeExtensionsResult',
-                 location: 'outputs.GetDatabasesDatabaseNodeLocationResult',
+                 connection: 'outputs.GetDatabasesDatabaseNodesConnectionResult',
+                 extensions: 'outputs.GetDatabasesDatabaseNodesExtensionsResult',
+                 location: 'outputs.GetDatabasesDatabaseNodesLocationResult',
                  name: str,
-                 region: 'outputs.GetDatabasesDatabaseNodeRegionResult'):
+                 region: 'outputs.GetDatabasesDatabaseNodesRegionResult'):
         """
-        :param str name: Name of the component
-        :param 'GetDatabasesDatabaseNodeRegionArgs' region: Region of the location
+        :param 'GetDatabasesDatabaseNodesConnectionArgs' connection: Node connection details
+        :param 'GetDatabasesDatabaseNodesExtensionsArgs' extensions: Extensions configuration for the database
+        :param 'GetDatabasesDatabaseNodesLocationArgs' location: Node location
+        :param str name: Component name
+        :param 'GetDatabasesDatabaseNodesRegionArgs' region: Node region
         """
         pulumi.set(__self__, "connection", connection)
-        pulumi.set(__self__, "distance_measurement", distance_measurement)
         pulumi.set(__self__, "extensions", extensions)
         pulumi.set(__self__, "location", location)
         pulumi.set(__self__, "name", name)
@@ -945,43 +2212,47 @@ class GetDatabasesDatabaseNodeResult(dict):
 
     @property
     @pulumi.getter
-    def connection(self) -> 'outputs.GetDatabasesDatabaseNodeConnectionResult':
+    def connection(self) -> 'outputs.GetDatabasesDatabaseNodesConnectionResult':
+        """
+        Node connection details
+        """
         return pulumi.get(self, "connection")
 
     @property
-    @pulumi.getter(name="distanceMeasurement")
-    def distance_measurement(self) -> 'outputs.GetDatabasesDatabaseNodeDistanceMeasurementResult':
-        return pulumi.get(self, "distance_measurement")
-
-    @property
     @pulumi.getter
-    def extensions(self) -> 'outputs.GetDatabasesDatabaseNodeExtensionsResult':
+    def extensions(self) -> 'outputs.GetDatabasesDatabaseNodesExtensionsResult':
+        """
+        Extensions configuration for the database
+        """
         return pulumi.get(self, "extensions")
 
     @property
     @pulumi.getter
-    def location(self) -> 'outputs.GetDatabasesDatabaseNodeLocationResult':
+    def location(self) -> 'outputs.GetDatabasesDatabaseNodesLocationResult':
+        """
+        Node location
+        """
         return pulumi.get(self, "location")
 
     @property
     @pulumi.getter
     def name(self) -> str:
         """
-        Name of the component
+        Component name
         """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
-    def region(self) -> 'outputs.GetDatabasesDatabaseNodeRegionResult':
+    def region(self) -> 'outputs.GetDatabasesDatabaseNodesRegionResult':
         """
-        Region of the location
+        Node region
         """
         return pulumi.get(self, "region")
 
 
 @pulumi.output_type
-class GetDatabasesDatabaseNodeConnectionResult(dict):
+class GetDatabasesDatabaseNodesConnectionResult(dict):
     def __init__(__self__, *,
                  database: str,
                  external_ip_address: str,
@@ -991,16 +2262,6 @@ class GetDatabasesDatabaseNodeConnectionResult(dict):
                  password: str,
                  port: int,
                  username: str):
-        """
-        :param str database: Database of the node
-        :param str external_ip_address: External IP of the node
-        :param str host: Host of the node
-        :param str internal_host: Internal Host of the node
-        :param str internal_ip_address: Internal IP of the node
-        :param str password: Password of the node
-        :param int port: Port of the node
-        :param str username: Username of the node
-        """
         pulumi.set(__self__, "database", database)
         pulumi.set(__self__, "external_ip_address", external_ip_address)
         pulumi.set(__self__, "host", host)
@@ -1013,197 +2274,65 @@ class GetDatabasesDatabaseNodeConnectionResult(dict):
     @property
     @pulumi.getter
     def database(self) -> str:
-        """
-        Database of the node
-        """
         return pulumi.get(self, "database")
 
     @property
     @pulumi.getter(name="externalIpAddress")
     def external_ip_address(self) -> str:
-        """
-        External IP of the node
-        """
         return pulumi.get(self, "external_ip_address")
 
     @property
     @pulumi.getter
     def host(self) -> str:
-        """
-        Host of the node
-        """
         return pulumi.get(self, "host")
 
     @property
     @pulumi.getter(name="internalHost")
     def internal_host(self) -> str:
-        """
-        Internal Host of the node
-        """
         return pulumi.get(self, "internal_host")
 
     @property
     @pulumi.getter(name="internalIpAddress")
     def internal_ip_address(self) -> str:
-        """
-        Internal IP of the node
-        """
         return pulumi.get(self, "internal_ip_address")
 
     @property
     @pulumi.getter
     def password(self) -> str:
-        """
-        Password of the node
-        """
         return pulumi.get(self, "password")
 
     @property
     @pulumi.getter
     def port(self) -> int:
-        """
-        Port of the node
-        """
         return pulumi.get(self, "port")
 
     @property
     @pulumi.getter
     def username(self) -> str:
-        """
-        Username of the node
-        """
         return pulumi.get(self, "username")
 
 
 @pulumi.output_type
-class GetDatabasesDatabaseNodeDistanceMeasurementResult(dict):
+class GetDatabasesDatabaseNodesExtensionsResult(dict):
     def __init__(__self__, *,
-                 distance: float,
-                 from_latitude: float,
-                 from_longitude: float,
-                 unit: str):
-        """
-        :param float distance: Distance from a reference point
-        :param float from_latitude: Latitude of the reference point
-        :param float from_longitude: Longitude of the reference point
-        :param str unit: Unit of distance measurement
-        """
-        pulumi.set(__self__, "distance", distance)
-        pulumi.set(__self__, "from_latitude", from_latitude)
-        pulumi.set(__self__, "from_longitude", from_longitude)
-        pulumi.set(__self__, "unit", unit)
-
-    @property
-    @pulumi.getter
-    def distance(self) -> float:
-        """
-        Distance from a reference point
-        """
-        return pulumi.get(self, "distance")
-
-    @property
-    @pulumi.getter(name="fromLatitude")
-    def from_latitude(self) -> float:
-        """
-        Latitude of the reference point
-        """
-        return pulumi.get(self, "from_latitude")
-
-    @property
-    @pulumi.getter(name="fromLongitude")
-    def from_longitude(self) -> float:
-        """
-        Longitude of the reference point
-        """
-        return pulumi.get(self, "from_longitude")
-
-    @property
-    @pulumi.getter
-    def unit(self) -> str:
-        """
-        Unit of distance measurement
-        """
-        return pulumi.get(self, "unit")
-
-
-@pulumi.output_type
-class GetDatabasesDatabaseNodeExtensionsResult(dict):
-    def __init__(__self__, *,
-                 errors: 'outputs.GetDatabasesDatabaseNodeExtensionsErrorsResult',
+                 errors: Mapping[str, str],
                  installeds: Sequence[str]):
-        """
-        :param Sequence[str] installeds: List of installed extensions
-        """
         pulumi.set(__self__, "errors", errors)
         pulumi.set(__self__, "installeds", installeds)
 
     @property
     @pulumi.getter
-    def errors(self) -> 'outputs.GetDatabasesDatabaseNodeExtensionsErrorsResult':
+    def errors(self) -> Mapping[str, str]:
         return pulumi.get(self, "errors")
 
     @property
     @pulumi.getter
     def installeds(self) -> Sequence[str]:
-        """
-        List of installed extensions
-        """
         return pulumi.get(self, "installeds")
 
 
 @pulumi.output_type
-class GetDatabasesDatabaseNodeExtensionsErrorsResult(dict):
-    def __init__(__self__, *,
-                 anim9ef: str,
-                 enim3b: str,
-                 laborumd: str,
-                 mollit267: str):
-        """
-        :param str anim9ef: Error code anim9ef
-        :param str enim3b: Error code enim3b
-        :param str laborumd: Error code laborumd
-        :param str mollit267: Error code mollit267
-        """
-        pulumi.set(__self__, "anim9ef", anim9ef)
-        pulumi.set(__self__, "enim3b", enim3b)
-        pulumi.set(__self__, "laborumd", laborumd)
-        pulumi.set(__self__, "mollit267", mollit267)
-
-    @property
-    @pulumi.getter
-    def anim9ef(self) -> str:
-        """
-        Error code anim9ef
-        """
-        return pulumi.get(self, "anim9ef")
-
-    @property
-    @pulumi.getter
-    def enim3b(self) -> str:
-        """
-        Error code enim3b
-        """
-        return pulumi.get(self, "enim3b")
-
-    @property
-    @pulumi.getter
-    def laborumd(self) -> str:
-        """
-        Error code laborumd
-        """
-        return pulumi.get(self, "laborumd")
-
-    @property
-    @pulumi.getter
-    def mollit267(self) -> str:
-        """
-        Error code mollit267
-        """
-        return pulumi.get(self, "mollit267")
-
-
-@pulumi.output_type
-class GetDatabasesDatabaseNodeLocationResult(dict):
+class GetDatabasesDatabaseNodesLocationResult(dict):
     def __init__(__self__, *,
                  city: str,
                  code: str,
@@ -1217,17 +2346,7 @@ class GetDatabasesDatabaseNodeLocationResult(dict):
                  region_code: str,
                  timezone: str):
         """
-        :param str city: City of the location
-        :param str code: Code of the location
-        :param str country: Country of the location
-        :param float latitude: Latitude of the location
-        :param float longitude: Longitude of the location
-        :param str metro_code: Metro code of the location
-        :param str name: Name of the component
-        :param str postal_code: Postal code of the location
-        :param str region: Region of the location
-        :param str region_code: Region code of the location
-        :param str timezone: Timezone of the location
+        :param str name: Component name
         """
         pulumi.set(__self__, "city", city)
         pulumi.set(__self__, "code", code)
@@ -1244,94 +2363,64 @@ class GetDatabasesDatabaseNodeLocationResult(dict):
     @property
     @pulumi.getter
     def city(self) -> str:
-        """
-        City of the location
-        """
         return pulumi.get(self, "city")
 
     @property
     @pulumi.getter
     def code(self) -> str:
-        """
-        Code of the location
-        """
         return pulumi.get(self, "code")
 
     @property
     @pulumi.getter
     def country(self) -> str:
-        """
-        Country of the location
-        """
         return pulumi.get(self, "country")
 
     @property
     @pulumi.getter
     def latitude(self) -> float:
-        """
-        Latitude of the location
-        """
         return pulumi.get(self, "latitude")
 
     @property
     @pulumi.getter
     def longitude(self) -> float:
-        """
-        Longitude of the location
-        """
         return pulumi.get(self, "longitude")
 
     @property
     @pulumi.getter(name="metroCode")
     def metro_code(self) -> str:
-        """
-        Metro code of the location
-        """
         return pulumi.get(self, "metro_code")
 
     @property
     @pulumi.getter
     def name(self) -> str:
         """
-        Name of the component
+        Component name
         """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter(name="postalCode")
     def postal_code(self) -> str:
-        """
-        Postal code of the location
-        """
         return pulumi.get(self, "postal_code")
 
     @property
     @pulumi.getter
     def region(self) -> str:
-        """
-        Region of the location
-        """
         return pulumi.get(self, "region")
 
     @property
     @pulumi.getter(name="regionCode")
     def region_code(self) -> str:
-        """
-        Region code of the location
-        """
         return pulumi.get(self, "region_code")
 
     @property
     @pulumi.getter
     def timezone(self) -> str:
-        """
-        Timezone of the location
-        """
         return pulumi.get(self, "timezone")
 
 
 @pulumi.output_type
-class GetDatabasesDatabaseNodeRegionResult(dict):
+class GetDatabasesDatabaseNodesRegionResult(dict):
     def __init__(__self__, *,
                  active: bool,
                  availability_zones: Sequence[str],
@@ -1340,12 +2429,7 @@ class GetDatabasesDatabaseNodeRegionResult(dict):
                  name: str,
                  parent: str):
         """
-        :param bool active: Active status of the region
-        :param Sequence[str] availability_zones: Availability zones of the region
-        :param str cloud: Cloud provider of the region
-        :param str code: Code of the location
-        :param str name: Name of the component
-        :param str parent: Parent region
+        :param str name: Component name
         """
         pulumi.set(__self__, "active", active)
         pulumi.set(__self__, "availability_zones", availability_zones)
@@ -1357,49 +2441,34 @@ class GetDatabasesDatabaseNodeRegionResult(dict):
     @property
     @pulumi.getter
     def active(self) -> bool:
-        """
-        Active status of the region
-        """
         return pulumi.get(self, "active")
 
     @property
     @pulumi.getter(name="availabilityZones")
     def availability_zones(self) -> Sequence[str]:
-        """
-        Availability zones of the region
-        """
         return pulumi.get(self, "availability_zones")
 
     @property
     @pulumi.getter
     def cloud(self) -> str:
-        """
-        Cloud provider of the region
-        """
         return pulumi.get(self, "cloud")
 
     @property
     @pulumi.getter
     def code(self) -> str:
-        """
-        Code of the location
-        """
         return pulumi.get(self, "code")
 
     @property
     @pulumi.getter
     def name(self) -> str:
         """
-        Name of the component
+        Component name
         """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def parent(self) -> str:
-        """
-        Parent region
-        """
         return pulumi.get(self, "parent")
 
 
@@ -1416,15 +2485,7 @@ class GetDatabasesDatabaseRoleResult(dict):
                  replication: bool,
                  superuser: bool):
         """
-        :param bool bypass_rls: Bypass RLS
-        :param int connection_limit: Connection limit
-        :param bool create_db: Create database
-        :param bool create_role: Create role
-        :param bool inherit: Inherit
-        :param bool login: Login
-        :param str name: Name of the component
-        :param bool replication: Replication
-        :param bool superuser: Superuser
+        :param str name: Component name
         """
         pulumi.set(__self__, "bypass_rls", bypass_rls)
         pulumi.set(__self__, "connection_limit", connection_limit)
@@ -1439,266 +2500,100 @@ class GetDatabasesDatabaseRoleResult(dict):
     @property
     @pulumi.getter(name="bypassRls")
     def bypass_rls(self) -> bool:
-        """
-        Bypass RLS
-        """
         return pulumi.get(self, "bypass_rls")
 
     @property
     @pulumi.getter(name="connectionLimit")
     def connection_limit(self) -> int:
-        """
-        Connection limit
-        """
         return pulumi.get(self, "connection_limit")
 
     @property
     @pulumi.getter(name="createDb")
     def create_db(self) -> bool:
-        """
-        Create database
-        """
         return pulumi.get(self, "create_db")
 
     @property
     @pulumi.getter(name="createRole")
     def create_role(self) -> bool:
-        """
-        Create role
-        """
         return pulumi.get(self, "create_role")
 
     @property
     @pulumi.getter
     def inherit(self) -> bool:
-        """
-        Inherit
-        """
         return pulumi.get(self, "inherit")
 
     @property
     @pulumi.getter
     def login(self) -> bool:
-        """
-        Login
-        """
         return pulumi.get(self, "login")
 
     @property
     @pulumi.getter
     def name(self) -> str:
         """
-        Name of the component
+        Component name
         """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def replication(self) -> bool:
-        """
-        Replication
-        """
         return pulumi.get(self, "replication")
 
     @property
     @pulumi.getter
     def superuser(self) -> bool:
-        """
-        Superuser
-        """
         return pulumi.get(self, "superuser")
 
 
 @pulumi.output_type
-class GetDatabasesDatabaseTableResult(dict):
+class GetSSHKeysSshKeyResult(dict):
     def __init__(__self__, *,
-                 columns: Sequence['outputs.GetDatabasesDatabaseTableColumnResult'],
+                 created_at: str,
+                 id: str,
                  name: str,
-                 primary_keys: Sequence[str],
-                 replication_sets: Sequence[str],
-                 schema: str,
-                 statuses: Sequence['outputs.GetDatabasesDatabaseTableStatusResult']):
+                 public_key: str):
         """
-        :param str name: Name of the component
-        :param Sequence[str] primary_keys: Primary key of the table
-        :param Sequence[str] replication_sets: Replication sets of the table
-        :param str schema: Schema of the table
-        :param Sequence['GetDatabasesDatabaseTableStatusArgs'] statuses: Status of the component
+        :param str created_at: Creation time of the SSH key
+        :param str id: ID of the SSH key
+        :param str name: Name of the SSH key
+        :param str public_key: Public key
         """
-        pulumi.set(__self__, "columns", columns)
+        pulumi.set(__self__, "created_at", created_at)
+        pulumi.set(__self__, "id", id)
         pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "primary_keys", primary_keys)
-        pulumi.set(__self__, "replication_sets", replication_sets)
-        pulumi.set(__self__, "schema", schema)
-        pulumi.set(__self__, "statuses", statuses)
+        pulumi.set(__self__, "public_key", public_key)
+
+    @property
+    @pulumi.getter(name="createdAt")
+    def created_at(self) -> str:
+        """
+        Creation time of the SSH key
+        """
+        return pulumi.get(self, "created_at")
 
     @property
     @pulumi.getter
-    def columns(self) -> Sequence['outputs.GetDatabasesDatabaseTableColumnResult']:
-        return pulumi.get(self, "columns")
+    def id(self) -> str:
+        """
+        ID of the SSH key
+        """
+        return pulumi.get(self, "id")
 
     @property
     @pulumi.getter
     def name(self) -> str:
         """
-        Name of the component
+        Name of the SSH key
         """
         return pulumi.get(self, "name")
 
     @property
-    @pulumi.getter(name="primaryKeys")
-    def primary_keys(self) -> Sequence[str]:
+    @pulumi.getter(name="publicKey")
+    def public_key(self) -> str:
         """
-        Primary key of the table
+        Public key
         """
-        return pulumi.get(self, "primary_keys")
-
-    @property
-    @pulumi.getter(name="replicationSets")
-    def replication_sets(self) -> Sequence[str]:
-        """
-        Replication sets of the table
-        """
-        return pulumi.get(self, "replication_sets")
-
-    @property
-    @pulumi.getter
-    def schema(self) -> str:
-        """
-        Schema of the table
-        """
-        return pulumi.get(self, "schema")
-
-    @property
-    @pulumi.getter
-    def statuses(self) -> Sequence['outputs.GetDatabasesDatabaseTableStatusResult']:
-        """
-        Status of the component
-        """
-        return pulumi.get(self, "statuses")
-
-
-@pulumi.output_type
-class GetDatabasesDatabaseTableColumnResult(dict):
-    def __init__(__self__, *,
-                 data_type: str,
-                 default: str,
-                 is_nullable: bool,
-                 is_primary_key: bool,
-                 name: str,
-                 ordinal_position: int):
-        """
-        :param str data_type: Data type of the column
-        :param str default: Default of the column
-        :param bool is_nullable: Is nullable of the column
-        :param bool is_primary_key: Is primary key of the column
-        :param str name: Name of the component
-        :param int ordinal_position: Ordinal position of the column
-        """
-        pulumi.set(__self__, "data_type", data_type)
-        pulumi.set(__self__, "default", default)
-        pulumi.set(__self__, "is_nullable", is_nullable)
-        pulumi.set(__self__, "is_primary_key", is_primary_key)
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "ordinal_position", ordinal_position)
-
-    @property
-    @pulumi.getter(name="dataType")
-    def data_type(self) -> str:
-        """
-        Data type of the column
-        """
-        return pulumi.get(self, "data_type")
-
-    @property
-    @pulumi.getter
-    def default(self) -> str:
-        """
-        Default of the column
-        """
-        return pulumi.get(self, "default")
-
-    @property
-    @pulumi.getter(name="isNullable")
-    def is_nullable(self) -> bool:
-        """
-        Is nullable of the column
-        """
-        return pulumi.get(self, "is_nullable")
-
-    @property
-    @pulumi.getter(name="isPrimaryKey")
-    def is_primary_key(self) -> bool:
-        """
-        Is primary key of the column
-        """
-        return pulumi.get(self, "is_primary_key")
-
-    @property
-    @pulumi.getter
-    def name(self) -> str:
-        """
-        Name of the component
-        """
-        return pulumi.get(self, "name")
-
-    @property
-    @pulumi.getter(name="ordinalPosition")
-    def ordinal_position(self) -> int:
-        """
-        Ordinal position of the column
-        """
-        return pulumi.get(self, "ordinal_position")
-
-
-@pulumi.output_type
-class GetDatabasesDatabaseTableStatusResult(dict):
-    def __init__(__self__, *,
-                 aligned: bool,
-                 node_name: str,
-                 present: bool,
-                 replicating: bool):
-        """
-        :param bool aligned: Aligned of the table
-        :param str node_name: Node name of the table
-        :param bool present: Present of the table
-        :param bool replicating: Replicating of the table
-        """
-        pulumi.set(__self__, "aligned", aligned)
-        pulumi.set(__self__, "node_name", node_name)
-        pulumi.set(__self__, "present", present)
-        pulumi.set(__self__, "replicating", replicating)
-
-    @property
-    @pulumi.getter
-    def aligned(self) -> bool:
-        """
-        Aligned of the table
-        """
-        return pulumi.get(self, "aligned")
-
-    @property
-    @pulumi.getter(name="nodeName")
-    def node_name(self) -> str:
-        """
-        Node name of the table
-        """
-        return pulumi.get(self, "node_name")
-
-    @property
-    @pulumi.getter
-    def present(self) -> bool:
-        """
-        Present of the table
-        """
-        return pulumi.get(self, "present")
-
-    @property
-    @pulumi.getter
-    def replicating(self) -> bool:
-        """
-        Replicating of the table
-        """
-        return pulumi.get(self, "replicating")
+        return pulumi.get(self, "public_key")
 
 

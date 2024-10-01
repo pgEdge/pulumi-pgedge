@@ -23,7 +23,7 @@ namespace Pgedge.Pgedge.Outputs
         /// </summary>
         public readonly string InstanceType;
         /// <summary>
-        /// IP address of the node
+        /// Name of the firewall rule
         /// </summary>
         public readonly string Name;
         public readonly ImmutableArray<string> Options;

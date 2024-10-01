@@ -14,21 +14,19 @@ namespace Pgedge.Pgedge.Outputs
     [OutputType]
     public sealed class ClusterFirewallRule
     {
-        /// <summary>
-        /// Port whose traffic is allowed
-        /// </summary>
+        public readonly string Name;
         public readonly int Port;
-        /// <summary>
-        /// CIDRs and/or IP addresses allowed
-        /// </summary>
         public readonly ImmutableArray<string> Sources;
 
         [OutputConstructor]
         private ClusterFirewallRule(
+            string name,
+
             int port,
 
             ImmutableArray<string> sources)
         {
+            Name = name;
             Port = port;
             Sources = sources;
         }

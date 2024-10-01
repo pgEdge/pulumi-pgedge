@@ -14,41 +14,17 @@ namespace Pgedge.Pgedge.Outputs
     [OutputType]
     public sealed class GetDatabasesDatabaseRoleResult
     {
-        /// <summary>
-        /// Bypass RLS
-        /// </summary>
         public readonly bool BypassRls;
-        /// <summary>
-        /// Connection limit
-        /// </summary>
         public readonly int ConnectionLimit;
-        /// <summary>
-        /// Create database
-        /// </summary>
         public readonly bool CreateDb;
-        /// <summary>
-        /// Create role
-        /// </summary>
         public readonly bool CreateRole;
-        /// <summary>
-        /// Inherit
-        /// </summary>
         public readonly bool Inherit;
-        /// <summary>
-        /// Login
-        /// </summary>
         public readonly bool Login;
         /// <summary>
-        /// Name of the component
+        /// Component name
         /// </summary>
         public readonly string Name;
-        /// <summary>
-        /// Replication
-        /// </summary>
         public readonly bool Replication;
-        /// <summary>
-        /// Superuser
-        /// </summary>
         public readonly bool Superuser;
 
         [OutputConstructor]

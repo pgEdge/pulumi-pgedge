@@ -11,7 +11,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Interface with the pgEdge service API for clusters.
+// Data source for pgEdge clusters.
 func GetClusters(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*GetClustersResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetClustersResult

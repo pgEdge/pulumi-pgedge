@@ -10,11 +10,11 @@ import (
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
 
-	// shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
-	// "github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 
 	"github.com/pgEdge/pulumi-pgedge/provider/pkg/version"
-	shim "github.com/pgEdge/pulumi-pgedge/provider/shim"
+	providerShim "github.com/pgEdge/pulumi-pgedge/provider/shim"
 )
 
 // all of the token components used below.
@@ -23,46 +23,52 @@ const (
 	mainMod = "index"
 )
 
-// func preConfigureCallback(resource.PropertyMap, shim.ResourceConfig) error {
-// 	return nil
-// }
+func preConfigureCallback(_ resource.PropertyMap, _ shim.ResourceConfig) error {
+	return nil
+}
 
 //go:embed cmd/pulumi-resource-pgedge/bridge-metadata.json
 var metadata []byte
 
 func Provider() tfbridge.ProviderInfo {
 	prov := tfbridge.ProviderInfo{
-		P:                 pf.ShimProvider(shim.NewProvider()),
+		P:                 pf.ShimProvider(providerShim.NewProvider()),
 		Name:              "pgedge",
 		DisplayName:       "pgEdge",
 		Publisher:         "pgEdge",
-		LogoURL:           "",
-		PluginDownloadURL: "",
+		LogoURL:           "https://pgedge-public-assets.s3.amazonaws.com/product/images/pgedge_mark.svg",
+		PluginDownloadURL: "github://api.github.com/pgEdge/pulumi-pgedge",
 		Description:       "A Pulumi package for creating and managing pgedge cloud resources.",
-		Keywords:          []string{"pulumi", "pgedge", "category/cloud"},
+		Keywords:          []string{"pulumi", "pgedge", "category/cloud", "category/database"},
 		License:           "Apache-2.0",
 		Homepage:          "https://www.pgedge.com",
 		Repository:        "https://github.com/pgEdge/pulumi-pgedge",
 		Version:           version.Version,
 		GitHubOrg:         "pgEdge",
 		MetadataInfo:      tfbridge.NewProviderMetadata(metadata),
-		Config:            map[string]*tfbridge.SchemaInfo{},
-		// PreConfigureCallback: preConfigureCallback,
+		Config: map[string]*tfbridge.SchemaInfo{
+			"base_url": {
+				Default: &tfbridge.DefaultInfo{
+					EnvVars: []string{"PGEDGE_BASE_URL"},
+				},
+			},
+		},
+		PreConfigureCallback: preConfigureCallback,
 		Resources: map[string]*tfbridge.ResourceInfo{
 			"pgedge_database": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Database"),
-				// Fields: map[string]*tfbridge.SchemaInfo{
-				// 	"database_name": {
-				// 		Name:           "",
-				// 		Secret:         tfbridge.True(),
-				// 		CSharpName:     "",
-				// 		MarkAsOptional: false,
-				// 	},
-				// },
-				// Docs: &tfbridge.DocInfo{},
 			},
 			"pgedge_cluster": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Cluster"),
+			},
+			"pgedge_cloud_account": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "CloudAccount"),
+			},
+			"pgedge_ssh_key": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "SSHKey"),
+			},
+			"pgedge_backup_store": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "BackupStore"),
 			},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
@@ -71,6 +77,15 @@ func Provider() tfbridge.ProviderInfo {
 			},
 			"pgedge_clusters": {
 				Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getClusters"),
+			},
+			"pgedge_cloud_accounts": {
+				Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getCloudAccounts"),
+			},
+			"pgedge_ssh_keys": {
+				Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getSSHKeys"),
+			},
+			"pgedge_backup_stores": {
+				Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getBackupStores"),
 			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{

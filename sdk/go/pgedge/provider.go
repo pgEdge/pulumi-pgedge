@@ -29,6 +29,11 @@ func NewProvider(ctx *pulumi.Context,
 		args = &ProviderArgs{}
 	}
 
+	if args.BaseUrl == nil {
+		if d := internal.GetEnvOrDefault(nil, nil, "PGEDGE_BASE_URL"); d != nil {
+			args.BaseUrl = pulumi.StringPtr(d.(string))
+		}
+	}
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Provider
 	err := ctx.RegisterResource("pulumi:providers:pgedge", name, args, &resource, opts...)

@@ -6,34 +6,35 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
 export interface ClusterFirewallRule {
-    /**
-     * Port whose traffic is allowed
-     */
+    name: string;
     port: number;
-    /**
-     * CIDRs and/or IP addresses allowed
-     */
     sources: string[];
 }
 
 export interface ClusterNetwork {
     /**
-     * CIDR range for the network
+     * CIDR of the network
      */
     cidr: string;
     /**
-     * Is the network externally defined
+     * Whether the network is external
      */
     external: boolean;
     /**
-     * ID of the network, if externally defined
+     * External ID of the network
      */
     externalId: string;
     /**
      * Name of the network
      */
     name: string;
+    /**
+     * List of private subnets
+     */
     privateSubnets: string[];
+    /**
+     * List of public subnets
+     */
     publicSubnets: string[];
     /**
      * Region of the network
@@ -42,39 +43,244 @@ export interface ClusterNetwork {
 }
 
 export interface ClusterNode {
-    /**
-     * Cloud provider availability zone name
-     */
     availabilityZone: string;
-    /**
-     * Instance type used for the node
-     */
     instanceType: string;
-    /**
-     * Node name
-     */
     name: string;
-    options: string[];
-    /**
-     * Cloud provider region
-     */
     region: string;
-    /**
-     * Volume IOPS of the node data volume
-     */
     volumeIops: number;
-    /**
-     * Volume size of the node data volume
-     */
     volumeSize: number;
-    /**
-     * Volume type of the node data volume
-     */
     volumeType: string;
 }
 
+export interface DatabaseBackups {
+    /**
+     * List of backup configurations.
+     */
+    configs: outputs.DatabaseBackupsConfig[];
+    /**
+     * The backup provider.
+     */
+    provider: string;
+}
+
+export interface DatabaseBackupsConfig {
+    /**
+     * Unique identifier for the backup config.
+     */
+    id: string;
+    /**
+     * Name of the node.
+     */
+    nodeName: string;
+    /**
+     * List of backup repositories.
+     */
+    repositories: outputs.DatabaseBackupsConfigRepository[];
+    /**
+     * List of backup schedules.
+     */
+    schedules: outputs.DatabaseBackupsConfigSchedule[];
+}
+
+export interface DatabaseBackupsConfigRepository {
+    /**
+     * Azure account.
+     */
+    azureAccount: string;
+    /**
+     * Azure container.
+     */
+    azureContainer: string;
+    /**
+     * Azure endpoint.
+     */
+    azureEndpoint: string;
+    /**
+     * ID of the backup store.
+     */
+    backupStoreId: string;
+    /**
+     * Base path for the repository.
+     */
+    basePath: string;
+    /**
+     * GCS bucket name.
+     */
+    gcsBucket: string;
+    /**
+     * GCS endpoint.
+     */
+    gcsEndpoint: string;
+    /**
+     * Unique identifier for the backup config.
+     */
+    id: string;
+    /**
+     * Retention period for full backups.
+     */
+    retentionFull: number;
+    /**
+     * Type of retention for full backups.
+     */
+    retentionFullType: string;
+    /**
+     * S3 bucket name.
+     */
+    s3Bucket: string;
+    /**
+     * S3 endpoint.
+     */
+    s3Endpoint: string;
+    /**
+     * S3 region.
+     */
+    s3Region: string;
+    /**
+     * Type of the repository.
+     */
+    type: string;
+}
+
+export interface DatabaseBackupsConfigSchedule {
+    /**
+     * Cron expression for the schedule.
+     */
+    cronExpression: string;
+    /**
+     * Unique identifier for the backup config.
+     */
+    id: string;
+    /**
+     * Type of the repository.
+     */
+    type: string;
+}
+
+export interface DatabaseComponent {
+    id: string;
+    name: string;
+    releaseDate: string;
+    status: string;
+    version: string;
+}
+
+export interface DatabaseExtensions {
+    autoManage: boolean;
+    availables: string[];
+    requesteds: string[];
+}
+
+export interface DatabaseNodes {
+    connection: outputs.DatabaseNodesConnection;
+    extensions: outputs.DatabaseNodesExtensions;
+    location: outputs.DatabaseNodesLocation;
+    name: string;
+    region: outputs.DatabaseNodesRegion;
+}
+
+export interface DatabaseNodesConnection {
+    database: string;
+    externalIpAddress: string;
+    host: string;
+    internalHost: string;
+    internalIpAddress: string;
+    password: string;
+    port: number;
+    username: string;
+}
+
+export interface DatabaseNodesExtensions {
+    errors: {[key: string]: string};
+    installeds: string[];
+}
+
+export interface DatabaseNodesLocation {
+    city: string;
+    code: string;
+    country: string;
+    latitude: number;
+    longitude: number;
+    metroCode: string;
+    name: string;
+    postalCode: string;
+    region: string;
+    regionCode: string;
+    timezone: string;
+}
+
+export interface DatabaseNodesRegion {
+    active: boolean;
+    availabilityZones: string[];
+    cloud: string;
+    code: string;
+    name: string;
+    parent: string;
+}
+
+export interface DatabaseRole {
+    bypassRls: boolean;
+    connectionLimit: number;
+    createDb: boolean;
+    createRole: boolean;
+    inherit: boolean;
+    login: boolean;
+    name: string;
+    replication: boolean;
+    superuser: boolean;
+}
+
+export interface GetBackupStoresBackupStore {
+    cloudAccountId: string;
+    cloudAccountType: string;
+    clusterIds: string[];
+    createdAt: string;
+    id: string;
+    name: string;
+    properties: {[key: string]: string};
+    status: string;
+    updatedAt: string;
+}
+
+export interface GetCloudAccountsCloudAccount {
+    /**
+     * Creation time of the cloud account
+     */
+    createdAt: string;
+    /**
+     * Description of the cloud account
+     */
+    description: string;
+    /**
+     * ID of the cloud account
+     */
+    id: string;
+    /**
+     * Name of the cloud account
+     */
+    name: string;
+    /**
+     * Additional properties of the cloud account
+     */
+    properties: {[key: string]: string};
+    /**
+     * Type of the cloud account (e.g., AWS, Azure, GCP)
+     */
+    type: string;
+    /**
+     * Last update time of the cloud account
+     */
+    updatedAt: string;
+}
+
 export interface GetClustersCluster {
-    cloudAccount: outputs.GetClustersClusterCloudAccount;
+    /**
+     * Backup store IDs of the cluster
+     */
+    backupStoreIds: string[];
+    /**
+     * Capacity of the cluster
+     */
+    capacity: number;
     /**
      * Cloud account ID of the cluster
      */
@@ -94,11 +300,15 @@ export interface GetClustersCluster {
     name: string;
     networks: outputs.GetClustersClusterNetwork[];
     /**
-     * Node location of the cluster
+     * Node location of the cluster. Must be either 'public' or 'private'.
      */
     nodeLocation: string;
     nodes: outputs.GetClustersClusterNode[];
     regions: string[];
+    /**
+     * Resource tags of the cluster
+     */
+    resourceTags: {[key: string]: string};
     /**
      * SSH key ID of the cluster
      */
@@ -109,24 +319,9 @@ export interface GetClustersCluster {
     status: string;
 }
 
-export interface GetClustersClusterCloudAccount {
-    /**
-     * Display name of the node
-     */
-    id: string;
-    /**
-     * IP address of the node
-     */
-    name: string;
-    /**
-     * Type of the node
-     */
-    type: string;
-}
-
 export interface GetClustersClusterFirewallRule {
     /**
-     * IP address of the node
+     * Name of the firewall rule
      */
     name: string;
     /**
@@ -141,7 +336,7 @@ export interface GetClustersClusterFirewallRule {
 
 export interface GetClustersClusterNetwork {
     /**
-     * CIDR of the AWS node group
+     * CIDR of the network
      */
     cidr: string;
     /**
@@ -153,7 +348,7 @@ export interface GetClustersClusterNetwork {
      */
     externalId: string;
     /**
-     * IP address of the node
+     * Name of the firewall rule
      */
     name: string;
     privateSubnets: string[];
@@ -174,7 +369,7 @@ export interface GetClustersClusterNode {
      */
     instanceType: string;
     /**
-     * IP address of the node
+     * Name of the firewall rule
      */
     name: string;
     options: string[];
@@ -198,22 +393,32 @@ export interface GetClustersClusterNode {
 
 export interface GetDatabasesDatabase {
     /**
-     * Updated at of the database
+     * Backup configuration for the database
+     */
+    backups: outputs.GetDatabasesDatabaseBackups;
+    /**
+     * ID of the cluster this database belongs to
      */
     clusterId: string;
+    /**
+     * Components of the database
+     */
     components: outputs.GetDatabasesDatabaseComponent[];
     /**
-     * Config version of the database
+     * Configuration version of the database
      */
-    configVersion?: string;
+    configVersion: string;
     /**
-     * Created at of the database
+     * Creation timestamp of the database
      */
     createdAt: string;
     /**
      * Domain of the database
      */
     domain: string;
+    /**
+     * Extensions configuration for the database
+     */
     extensions: outputs.GetDatabasesDatabaseExtensions;
     /**
      * ID of the database
@@ -223,345 +428,228 @@ export interface GetDatabasesDatabase {
      * Name of the database
      */
     name: string;
-    nodes?: outputs.GetDatabasesDatabaseNode[];
     /**
-     * Options for creating the database
+     * Map of nodes in the database
+     */
+    nodes: {[key: string]: outputs.GetDatabasesDatabaseNodes};
+    /**
+     * Options for the database
      */
     options: string[];
     /**
-     * Postgres version of the database
+     * PostgreSQL version of the database
      */
     pgVersion: string;
+    /**
+     * Roles in the database
+     */
     roles: outputs.GetDatabasesDatabaseRole[];
     /**
      * Status of the database
      */
     status: string;
     /**
-     * Storage used of the database
-     */
-    storageUsed: number;
-    tables: outputs.GetDatabasesDatabaseTable[];
-    /**
-     * Updated at of the database
+     * Last update timestamp of the database
      */
     updatedAt: string;
 }
 
-export interface GetDatabasesDatabaseComponent {
+export interface GetDatabasesDatabaseBackups {
     /**
-     * Id of the component
+     * Backup configurations
+     */
+    configs: outputs.GetDatabasesDatabaseBackupsConfig[];
+    /**
+     * Backup provider
+     */
+    provider: string;
+}
+
+export interface GetDatabasesDatabaseBackupsConfig {
+    /**
+     * Backup configuration ID
      */
     id: string;
     /**
-     * Name of the component
+     * Node name
+     */
+    nodeName: string;
+    /**
+     * Backup repositories
+     */
+    repositories: outputs.GetDatabasesDatabaseBackupsConfigRepository[];
+    /**
+     * Backup schedules
+     */
+    schedules: outputs.GetDatabasesDatabaseBackupsConfigSchedule[];
+}
+
+export interface GetDatabasesDatabaseBackupsConfigRepository {
+    azureAccount: string;
+    azureContainer: string;
+    azureEndpoint: string;
+    backupStoreId: string;
+    basePath: string;
+    gcsBucket: string;
+    gcsEndpoint: string;
+    /**
+     * Backup configuration ID
+     */
+    id: string;
+    retentionFull: number;
+    retentionFullType: string;
+    s3Bucket: string;
+    s3Endpoint: string;
+    s3Region: string;
+    type: string;
+}
+
+export interface GetDatabasesDatabaseBackupsConfigSchedule {
+    cronExpression: string;
+    /**
+     * Backup configuration ID
+     */
+    id: string;
+    type: string;
+}
+
+export interface GetDatabasesDatabaseComponent {
+    /**
+     * Backup configuration ID
+     */
+    id: string;
+    /**
+     * Component name
      */
     name: string;
     /**
-     * Release date of the component
+     * Component release date
      */
     releaseDate: string;
     /**
-     * Status of the component
+     * Component status
      */
     status: string;
     /**
-     * Version of the component
+     * Component version
      */
     version: string;
 }
 
 export interface GetDatabasesDatabaseExtensions {
     /**
-     * Auto manage of the extension
+     * Auto-manage extensions
      */
     autoManage: boolean;
     /**
-     * Available of the extension
+     * Available extensions
      */
     availables: string[];
     /**
-     * Requested of the extension
+     * Requested extensions
      */
     requesteds: string[];
 }
 
-export interface GetDatabasesDatabaseNode {
-    connection: outputs.GetDatabasesDatabaseNodeConnection;
-    distanceMeasurement: outputs.GetDatabasesDatabaseNodeDistanceMeasurement;
-    extensions: outputs.GetDatabasesDatabaseNodeExtensions;
-    location: outputs.GetDatabasesDatabaseNodeLocation;
+export interface GetDatabasesDatabaseNodes {
     /**
-     * Name of the component
+     * Node connection details
+     */
+    connection: outputs.GetDatabasesDatabaseNodesConnection;
+    /**
+     * Extensions configuration for the database
+     */
+    extensions: outputs.GetDatabasesDatabaseNodesExtensions;
+    /**
+     * Node location
+     */
+    location: outputs.GetDatabasesDatabaseNodesLocation;
+    /**
+     * Component name
      */
     name: string;
     /**
-     * Region of the location
+     * Node region
      */
-    region: outputs.GetDatabasesDatabaseNodeRegion;
+    region: outputs.GetDatabasesDatabaseNodesRegion;
 }
 
-export interface GetDatabasesDatabaseNodeConnection {
-    /**
-     * Database of the node
-     */
+export interface GetDatabasesDatabaseNodesConnection {
     database: string;
-    /**
-     * External IP of the node
-     */
     externalIpAddress: string;
-    /**
-     * Host of the node
-     */
     host: string;
-    /**
-     * Internal Host of the node
-     */
     internalHost: string;
-    /**
-     * Internal IP of the node
-     */
     internalIpAddress: string;
-    /**
-     * Password of the node
-     */
     password: string;
-    /**
-     * Port of the node
-     */
     port: number;
-    /**
-     * Username of the node
-     */
     username: string;
 }
 
-export interface GetDatabasesDatabaseNodeDistanceMeasurement {
-    /**
-     * Distance from a reference point
-     */
-    distance: number;
-    /**
-     * Latitude of the reference point
-     */
-    fromLatitude: number;
-    /**
-     * Longitude of the reference point
-     */
-    fromLongitude: number;
-    /**
-     * Unit of distance measurement
-     */
-    unit: string;
-}
-
-export interface GetDatabasesDatabaseNodeExtensions {
-    errors: outputs.GetDatabasesDatabaseNodeExtensionsErrors;
-    /**
-     * List of installed extensions
-     */
+export interface GetDatabasesDatabaseNodesExtensions {
+    errors: {[key: string]: string};
     installeds: string[];
 }
 
-export interface GetDatabasesDatabaseNodeExtensionsErrors {
-    /**
-     * Error code anim9ef
-     */
-    anim9ef: string;
-    /**
-     * Error code enim3b
-     */
-    enim3b: string;
-    /**
-     * Error code laborumd
-     */
-    laborumd: string;
-    /**
-     * Error code mollit267
-     */
-    mollit267: string;
-}
-
-export interface GetDatabasesDatabaseNodeLocation {
-    /**
-     * City of the location
-     */
+export interface GetDatabasesDatabaseNodesLocation {
     city: string;
-    /**
-     * Code of the location
-     */
     code: string;
-    /**
-     * Country of the location
-     */
     country: string;
-    /**
-     * Latitude of the location
-     */
     latitude: number;
-    /**
-     * Longitude of the location
-     */
     longitude: number;
-    /**
-     * Metro code of the location
-     */
     metroCode: string;
     /**
-     * Name of the component
+     * Component name
      */
     name: string;
-    /**
-     * Postal code of the location
-     */
     postalCode: string;
-    /**
-     * Region of the location
-     */
     region: string;
-    /**
-     * Region code of the location
-     */
     regionCode: string;
-    /**
-     * Timezone of the location
-     */
     timezone: string;
 }
 
-export interface GetDatabasesDatabaseNodeRegion {
-    /**
-     * Active status of the region
-     */
+export interface GetDatabasesDatabaseNodesRegion {
     active: boolean;
-    /**
-     * Availability zones of the region
-     */
     availabilityZones: string[];
-    /**
-     * Cloud provider of the region
-     */
     cloud: string;
-    /**
-     * Code of the location
-     */
     code: string;
     /**
-     * Name of the component
+     * Component name
      */
     name: string;
-    /**
-     * Parent region
-     */
     parent: string;
 }
 
 export interface GetDatabasesDatabaseRole {
-    /**
-     * Bypass RLS
-     */
     bypassRls: boolean;
-    /**
-     * Connection limit
-     */
     connectionLimit: number;
-    /**
-     * Create database
-     */
     createDb: boolean;
-    /**
-     * Create role
-     */
     createRole: boolean;
-    /**
-     * Inherit
-     */
     inherit: boolean;
-    /**
-     * Login
-     */
     login: boolean;
     /**
-     * Name of the component
+     * Component name
      */
     name: string;
-    /**
-     * Replication
-     */
     replication: boolean;
-    /**
-     * Superuser
-     */
     superuser: boolean;
 }
 
-export interface GetDatabasesDatabaseTable {
-    columns: outputs.GetDatabasesDatabaseTableColumn[];
+export interface GetSSHKeysSshKey {
     /**
-     * Name of the component
+     * Creation time of the SSH key
+     */
+    createdAt: string;
+    /**
+     * ID of the SSH key
+     */
+    id: string;
+    /**
+     * Name of the SSH key
      */
     name: string;
     /**
-     * Primary key of the table
+     * Public key
      */
-    primaryKeys: string[];
-    /**
-     * Replication sets of the table
-     */
-    replicationSets: string[];
-    /**
-     * Schema of the table
-     */
-    schema: string;
-    /**
-     * Status of the component
-     */
-    statuses: outputs.GetDatabasesDatabaseTableStatus[];
-}
-
-export interface GetDatabasesDatabaseTableColumn {
-    /**
-     * Data type of the column
-     */
-    dataType: string;
-    /**
-     * Default of the column
-     */
-    default: string;
-    /**
-     * Is nullable of the column
-     */
-    isNullable: boolean;
-    /**
-     * Is primary key of the column
-     */
-    isPrimaryKey: boolean;
-    /**
-     * Name of the component
-     */
-    name: string;
-    /**
-     * Ordinal position of the column
-     */
-    ordinalPosition: number;
-}
-
-export interface GetDatabasesDatabaseTableStatus {
-    /**
-     * Aligned of the table
-     */
-    aligned: boolean;
-    /**
-     * Node name of the table
-     */
-    nodeName: string;
-    /**
-     * Present of the table
-     */
-    present: boolean;
-    /**
-     * Replicating of the table
-     */
-    replicating: boolean;
+    publicKey: string;
 }
 

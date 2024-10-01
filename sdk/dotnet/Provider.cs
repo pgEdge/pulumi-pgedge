@@ -43,6 +43,7 @@ namespace Pgedge.Pgedge
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                PluginDownloadURL = "github://api.github.com/pgEdge/pulumi-pgedge",
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -61,6 +62,7 @@ namespace Pgedge.Pgedge
 
         public ProviderArgs()
         {
+            BaseUrl = Utilities.GetEnv("PGEDGE_BASE_URL");
         }
         public static new ProviderArgs Empty => new ProviderArgs();
     }

@@ -21,10 +21,16 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "pgedge:index/backupStore:BackupStore":
+		r = &BackupStore{}
+	case "pgedge:index/cloudAccount:CloudAccount":
+		r = &CloudAccount{}
 	case "pgedge:index/cluster:Cluster":
 		r = &Cluster{}
 	case "pgedge:index/database:Database":
 		r = &Database{}
+	case "pgedge:index/sSHKey:SSHKey":
+		r = &SSHKey{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
@@ -58,12 +64,27 @@ func init() {
 	}
 	pulumi.RegisterResourceModule(
 		"pgedge",
+		"index/backupStore",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"pgedge",
+		"index/cloudAccount",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"pgedge",
 		"index/cluster",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"pgedge",
 		"index/database",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"pgedge",
+		"index/sSHKey",
 		&module{version},
 	)
 	pulumi.RegisterResourcePackage(

@@ -2,10 +2,12 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
- * Interface with the pgEdge service API.
+ * Manages a pgEdge database.
  */
 export class Database extends pulumi.CustomResource {
     /**
@@ -36,45 +38,57 @@ export class Database extends pulumi.CustomResource {
     }
 
     /**
-     * ID of the cluster to place the database on
+     * Backup configuration for the database.
+     */
+    public readonly backups!: pulumi.Output<outputs.DatabaseBackups>;
+    /**
+     * The ID of the cluster this database belongs to.
      */
     public readonly clusterId!: pulumi.Output<string>;
     /**
-     * Config version of the database
+     * List of components in the database.
+     */
+    public /*out*/ readonly components!: pulumi.Output<outputs.DatabaseComponent[]>;
+    /**
+     * The configuration version of the database.
      */
     public readonly configVersion!: pulumi.Output<string>;
     /**
-     * Created at of the database
+     * The timestamp when the database was created.
      */
     public /*out*/ readonly createdAt!: pulumi.Output<string>;
     /**
-     * Domain of the database
+     * The domain associated with the database.
      */
     public /*out*/ readonly domain!: pulumi.Output<string>;
     /**
-     * Name of the database
+     * Extensions configuration for the database.
+     */
+    public readonly extensions!: pulumi.Output<outputs.DatabaseExtensions>;
+    /**
+     * The name of the database.
      */
     public readonly name!: pulumi.Output<string>;
     /**
-     * Options for creating the database
+     * Map of nodes in the database.
      */
-    public readonly options!: pulumi.Output<string[]>;
+    public readonly nodes!: pulumi.Output<{[key: string]: outputs.DatabaseNodes}>;
     /**
-     * Postgres version of the database
+     * A list of options for the database.
+     */
+    public readonly options!: pulumi.Output<string[] | undefined>;
+    /**
+     * The PostgreSQL version of the database.
      */
     public /*out*/ readonly pgVersion!: pulumi.Output<string>;
     /**
-     * Status of the database
+     * List of roles in the database.
+     */
+    public readonly roles!: pulumi.Output<outputs.DatabaseRole[]>;
+    /**
+     * The current status of the database.
      */
     public /*out*/ readonly status!: pulumi.Output<string>;
-    /**
-     * Storage used of the database
-     */
-    public /*out*/ readonly storageUsed!: pulumi.Output<number>;
-    /**
-     * Updated at of the database
-     */
-    public /*out*/ readonly updatedAt!: pulumi.Output<string>;
 
     /**
      * Create a Database resource with the given unique name, arguments, and options.
@@ -89,31 +103,40 @@ export class Database extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as DatabaseState | undefined;
+            resourceInputs["backups"] = state ? state.backups : undefined;
             resourceInputs["clusterId"] = state ? state.clusterId : undefined;
+            resourceInputs["components"] = state ? state.components : undefined;
             resourceInputs["configVersion"] = state ? state.configVersion : undefined;
             resourceInputs["createdAt"] = state ? state.createdAt : undefined;
             resourceInputs["domain"] = state ? state.domain : undefined;
+            resourceInputs["extensions"] = state ? state.extensions : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["nodes"] = state ? state.nodes : undefined;
             resourceInputs["options"] = state ? state.options : undefined;
             resourceInputs["pgVersion"] = state ? state.pgVersion : undefined;
+            resourceInputs["roles"] = state ? state.roles : undefined;
             resourceInputs["status"] = state ? state.status : undefined;
-            resourceInputs["storageUsed"] = state ? state.storageUsed : undefined;
-            resourceInputs["updatedAt"] = state ? state.updatedAt : undefined;
         } else {
             const args = argsOrState as DatabaseArgs | undefined;
             if ((!args || args.clusterId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'clusterId'");
             }
+            if ((!args || args.nodes === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'nodes'");
+            }
+            resourceInputs["backups"] = args ? args.backups : undefined;
             resourceInputs["clusterId"] = args ? args.clusterId : undefined;
             resourceInputs["configVersion"] = args ? args.configVersion : undefined;
+            resourceInputs["extensions"] = args ? args.extensions : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["nodes"] = args ? args.nodes : undefined;
             resourceInputs["options"] = args ? args.options : undefined;
+            resourceInputs["roles"] = args ? args.roles : undefined;
+            resourceInputs["components"] = undefined /*out*/;
             resourceInputs["createdAt"] = undefined /*out*/;
             resourceInputs["domain"] = undefined /*out*/;
             resourceInputs["pgVersion"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
-            resourceInputs["storageUsed"] = undefined /*out*/;
-            resourceInputs["updatedAt"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Database.__pulumiType, name, resourceInputs, opts);
@@ -125,45 +148,57 @@ export class Database extends pulumi.CustomResource {
  */
 export interface DatabaseState {
     /**
-     * ID of the cluster to place the database on
+     * Backup configuration for the database.
+     */
+    backups?: pulumi.Input<inputs.DatabaseBackups>;
+    /**
+     * The ID of the cluster this database belongs to.
      */
     clusterId?: pulumi.Input<string>;
     /**
-     * Config version of the database
+     * List of components in the database.
+     */
+    components?: pulumi.Input<pulumi.Input<inputs.DatabaseComponent>[]>;
+    /**
+     * The configuration version of the database.
      */
     configVersion?: pulumi.Input<string>;
     /**
-     * Created at of the database
+     * The timestamp when the database was created.
      */
     createdAt?: pulumi.Input<string>;
     /**
-     * Domain of the database
+     * The domain associated with the database.
      */
     domain?: pulumi.Input<string>;
     /**
-     * Name of the database
+     * Extensions configuration for the database.
+     */
+    extensions?: pulumi.Input<inputs.DatabaseExtensions>;
+    /**
+     * The name of the database.
      */
     name?: pulumi.Input<string>;
     /**
-     * Options for creating the database
+     * Map of nodes in the database.
+     */
+    nodes?: pulumi.Input<{[key: string]: pulumi.Input<inputs.DatabaseNodes>}>;
+    /**
+     * A list of options for the database.
      */
     options?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Postgres version of the database
+     * The PostgreSQL version of the database.
      */
     pgVersion?: pulumi.Input<string>;
     /**
-     * Status of the database
+     * List of roles in the database.
+     */
+    roles?: pulumi.Input<pulumi.Input<inputs.DatabaseRole>[]>;
+    /**
+     * The current status of the database.
      */
     status?: pulumi.Input<string>;
-    /**
-     * Storage used of the database
-     */
-    storageUsed?: pulumi.Input<number>;
-    /**
-     * Updated at of the database
-     */
-    updatedAt?: pulumi.Input<string>;
 }
 
 /**
@@ -171,19 +206,35 @@ export interface DatabaseState {
  */
 export interface DatabaseArgs {
     /**
-     * ID of the cluster to place the database on
+     * Backup configuration for the database.
+     */
+    backups?: pulumi.Input<inputs.DatabaseBackups>;
+    /**
+     * The ID of the cluster this database belongs to.
      */
     clusterId: pulumi.Input<string>;
     /**
-     * Config version of the database
+     * The configuration version of the database.
      */
     configVersion?: pulumi.Input<string>;
     /**
-     * Name of the database
+     * Extensions configuration for the database.
+     */
+    extensions?: pulumi.Input<inputs.DatabaseExtensions>;
+    /**
+     * The name of the database.
      */
     name?: pulumi.Input<string>;
     /**
-     * Options for creating the database
+     * Map of nodes in the database.
+     */
+    nodes: pulumi.Input<{[key: string]: pulumi.Input<inputs.DatabaseNodes>}>;
+    /**
+     * A list of options for the database.
      */
     options?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * List of roles in the database.
+     */
+    roles?: pulumi.Input<pulumi.Input<inputs.DatabaseRole>[]>;
 }

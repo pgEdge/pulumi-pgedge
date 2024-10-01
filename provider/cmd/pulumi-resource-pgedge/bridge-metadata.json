@@ -1,9 +1,23 @@
 {
     "auto-aliasing": {
         "resources": {
+            "pgedge_backup_store": {
+                "current": "pgedge:index/backupStore:BackupStore",
+                "fields": {
+                    "cluster_ids": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "pgedge_cloud_account": {
+                "current": "pgedge:index/cloudAccount:CloudAccount"
+            },
             "pgedge_cluster": {
                 "current": "pgedge:index/cluster:Cluster",
                 "fields": {
+                    "backup_store_ids": {
+                        "maxItemsOne": false
+                    },
                     "firewall_rules": {
                         "maxItemsOne": false,
                         "elem": {
@@ -28,14 +42,7 @@
                         }
                     },
                     "nodes": {
-                        "maxItemsOne": false,
-                        "elem": {
-                            "fields": {
-                                "options": {
-                                    "maxItemsOne": false
-                                }
-                            }
-                        }
+                        "maxItemsOne": false
                     },
                     "regions": {
                         "maxItemsOne": false
@@ -45,13 +52,92 @@
             "pgedge_database": {
                 "current": "pgedge:index/database:Database",
                 "fields": {
+                    "backups": {
+                        "fields": {
+                            "config": {
+                                "maxItemsOne": false,
+                                "elem": {
+                                    "fields": {
+                                        "repositories": {
+                                            "maxItemsOne": false
+                                        },
+                                        "schedules": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "components": {
+                        "maxItemsOne": false
+                    },
+                    "extensions": {
+                        "fields": {
+                            "available": {
+                                "maxItemsOne": false
+                            },
+                            "requested": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "nodes": {
+                        "elem": {
+                            "fields": {
+                                "extensions": {
+                                    "fields": {
+                                        "installed": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "region": {
+                                    "fields": {
+                                        "availability_zones": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
                     "options": {
+                        "maxItemsOne": false
+                    },
+                    "roles": {
                         "maxItemsOne": false
                     }
                 }
+            },
+            "pgedge_ssh_key": {
+                "current": "pgedge:index/sSHKey:SSHKey"
             }
         },
         "datasources": {
+            "pgedge_backup_stores": {
+                "current": "pgedge:index/getBackupStores:getBackupStores",
+                "fields": {
+                    "backup_stores": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "cluster_ids": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "pgedge_cloud_accounts": {
+                "current": "pgedge:index/getCloudAccounts:getCloudAccounts",
+                "fields": {
+                    "cloud_accounts": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
             "pgedge_clusters": {
                 "current": "pgedge:index/getClusters:getClusters",
                 "fields": {
@@ -59,6 +145,9 @@
                         "maxItemsOne": false,
                         "elem": {
                             "fields": {
+                                "backup_store_ids": {
+                                    "maxItemsOne": false
+                                },
                                 "firewall_rules": {
                                     "maxItemsOne": false,
                                     "elem": {
@@ -107,6 +196,23 @@
                         "maxItemsOne": false,
                         "elem": {
                             "fields": {
+                                "backups": {
+                                    "fields": {
+                                        "config": {
+                                            "maxItemsOne": false,
+                                            "elem": {
+                                                "fields": {
+                                                    "repositories": {
+                                                        "maxItemsOne": false
+                                                    },
+                                                    "schedules": {
+                                                        "maxItemsOne": false
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
                                 "components": {
                                     "maxItemsOne": false
                                 },
@@ -121,7 +227,6 @@
                                     }
                                 },
                                 "nodes": {
-                                    "maxItemsOne": false,
                                     "elem": {
                                         "fields": {
                                             "extensions": {
@@ -146,28 +251,17 @@
                                 },
                                 "roles": {
                                     "maxItemsOne": false
-                                },
-                                "tables": {
-                                    "maxItemsOne": false,
-                                    "elem": {
-                                        "fields": {
-                                            "columns": {
-                                                "maxItemsOne": false
-                                            },
-                                            "primary_key": {
-                                                "maxItemsOne": false
-                                            },
-                                            "replication_sets": {
-                                                "maxItemsOne": false
-                                            },
-                                            "status": {
-                                                "maxItemsOne": false
-                                            }
-                                        }
-                                    }
                                 }
                             }
                         }
+                    }
+                }
+            },
+            "pgedge_ssh_keys": {
+                "current": "pgedge:index/getSSHKeys:getSSHKeys",
+                "fields": {
+                    "ssh_keys": {
+                        "maxItemsOne": false
                     }
                 }
             }
@@ -176,12 +270,18 @@
     "auto-settings": {},
     "renames": {
         "resources": {
+            "pgedge:index/backupStore:BackupStore": "pgedge_backup_store",
+            "pgedge:index/cloudAccount:CloudAccount": "pgedge_cloud_account",
             "pgedge:index/cluster:Cluster": "pgedge_cluster",
-            "pgedge:index/database:Database": "pgedge_database"
+            "pgedge:index/database:Database": "pgedge_database",
+            "pgedge:index/sSHKey:SSHKey": "pgedge_ssh_key"
         },
         "functions": {
+            "pgedge:index/getBackupStores:getBackupStores": "pgedge_backup_stores",
+            "pgedge:index/getCloudAccounts:getCloudAccounts": "pgedge_cloud_accounts",
             "pgedge:index/getClusters:getClusters": "pgedge_clusters",
-            "pgedge:index/getDatabases:getDatabases": "pgedge_databases"
+            "pgedge:index/getDatabases:getDatabases": "pgedge_databases",
+            "pgedge:index/getSSHKeys:getSSHKeys": "pgedge_ssh_keys"
         },
         "renamedProperties": {
             "pgedge:index/ClusterNetwork:ClusterNetwork": {
@@ -196,27 +296,109 @@
                 "volumeSize": "volume_size",
                 "volumeType": "volume_type"
             },
+            "pgedge:index/DatabaseBackups:DatabaseBackups": {
+                "configs": "config"
+            },
+            "pgedge:index/DatabaseBackupsConfig:DatabaseBackupsConfig": {
+                "nodeName": "node_name"
+            },
+            "pgedge:index/DatabaseBackupsConfigRepository:DatabaseBackupsConfigRepository": {
+                "azureAccount": "azure_account",
+                "azureContainer": "azure_container",
+                "azureEndpoint": "azure_endpoint",
+                "backupStoreId": "backup_store_id",
+                "basePath": "base_path",
+                "gcsBucket": "gcs_bucket",
+                "gcsEndpoint": "gcs_endpoint",
+                "retentionFull": "retention_full",
+                "retentionFullType": "retention_full_type",
+                "s3Bucket": "s3_bucket",
+                "s3Endpoint": "s3_endpoint",
+                "s3Region": "s3_region"
+            },
+            "pgedge:index/DatabaseBackupsConfigSchedule:DatabaseBackupsConfigSchedule": {
+                "cronExpression": "cron_expression"
+            },
+            "pgedge:index/DatabaseComponent:DatabaseComponent": {
+                "releaseDate": "release_date"
+            },
+            "pgedge:index/DatabaseExtensions:DatabaseExtensions": {
+                "autoManage": "auto_manage",
+                "availables": "available",
+                "requesteds": "requested"
+            },
+            "pgedge:index/DatabaseNodesConnection:DatabaseNodesConnection": {
+                "externalIpAddress": "external_ip_address",
+                "internalHost": "internal_host",
+                "internalIpAddress": "internal_ip_address"
+            },
+            "pgedge:index/DatabaseNodesExtensions:DatabaseNodesExtensions": {
+                "installeds": "installed"
+            },
+            "pgedge:index/DatabaseNodesLocation:DatabaseNodesLocation": {
+                "metroCode": "metro_code",
+                "postalCode": "postal_code",
+                "regionCode": "region_code"
+            },
+            "pgedge:index/DatabaseNodesRegion:DatabaseNodesRegion": {
+                "availabilityZones": "availability_zones"
+            },
+            "pgedge:index/DatabaseRole:DatabaseRole": {
+                "bypassRls": "bypass_rls",
+                "connectionLimit": "connection_limit",
+                "createDb": "create_db",
+                "createRole": "create_role"
+            },
+            "pgedge:index/backupStore:BackupStore": {
+                "cloudAccountId": "cloud_account_id",
+                "cloudAccountType": "cloud_account_type",
+                "clusterIds": "cluster_ids",
+                "createdAt": "created_at",
+                "updatedAt": "updated_at"
+            },
+            "pgedge:index/cloudAccount:CloudAccount": {
+                "createdAt": "created_at",
+                "updatedAt": "updated_at"
+            },
             "pgedge:index/cluster:Cluster": {
+                "backupStoreIds": "backup_store_ids",
                 "cloudAccountId": "cloud_account_id",
                 "createdAt": "created_at",
                 "firewallRules": "firewall_rules",
                 "nodeLocation": "node_location",
+                "resourceTags": "resource_tags",
                 "sshKeyId": "ssh_key_id"
             },
             "pgedge:index/database:Database": {
                 "clusterId": "cluster_id",
                 "configVersion": "config_version",
                 "createdAt": "created_at",
-                "pgVersion": "pg_version",
-                "storageUsed": "storage_used",
+                "pgVersion": "pg_version"
+            },
+            "pgedge:index/getBackupStores:getBackupStores": {
+                "backupStores": "backup_stores"
+            },
+            "pgedge:index/getBackupStoresBackupStore:getBackupStoresBackupStore": {
+                "cloudAccountId": "cloud_account_id",
+                "cloudAccountType": "cloud_account_type",
+                "clusterIds": "cluster_ids",
+                "createdAt": "created_at",
+                "updatedAt": "updated_at"
+            },
+            "pgedge:index/getCloudAccounts:getCloudAccounts": {
+                "cloudAccounts": "cloud_accounts"
+            },
+            "pgedge:index/getCloudAccountsCloudAccount:getCloudAccountsCloudAccount": {
+                "createdAt": "created_at",
                 "updatedAt": "updated_at"
             },
             "pgedge:index/getClustersCluster:getClustersCluster": {
-                "cloudAccount": "cloud_account",
+                "backupStoreIds": "backup_store_ids",
                 "cloudAccountId": "cloud_account_id",
                 "createdAt": "created_at",
                 "firewallRules": "firewall_rules",
                 "nodeLocation": "node_location",
+                "resourceTags": "resource_tags",
                 "sshKeyId": "ssh_key_id"
             },
             "pgedge:index/getClustersClusterNetwork:getClustersClusterNetwork": {
@@ -236,8 +418,30 @@
                 "configVersion": "config_version",
                 "createdAt": "created_at",
                 "pgVersion": "pg_version",
-                "storageUsed": "storage_used",
                 "updatedAt": "updated_at"
+            },
+            "pgedge:index/getDatabasesDatabaseBackups:getDatabasesDatabaseBackups": {
+                "configs": "config"
+            },
+            "pgedge:index/getDatabasesDatabaseBackupsConfig:getDatabasesDatabaseBackupsConfig": {
+                "nodeName": "node_name"
+            },
+            "pgedge:index/getDatabasesDatabaseBackupsConfigRepository:getDatabasesDatabaseBackupsConfigRepository": {
+                "azureAccount": "azure_account",
+                "azureContainer": "azure_container",
+                "azureEndpoint": "azure_endpoint",
+                "backupStoreId": "backup_store_id",
+                "basePath": "base_path",
+                "gcsBucket": "gcs_bucket",
+                "gcsEndpoint": "gcs_endpoint",
+                "retentionFull": "retention_full",
+                "retentionFullType": "retention_full_type",
+                "s3Bucket": "s3_bucket",
+                "s3Endpoint": "s3_endpoint",
+                "s3Region": "s3_region"
+            },
+            "pgedge:index/getDatabasesDatabaseBackupsConfigSchedule:getDatabasesDatabaseBackupsConfigSchedule": {
+                "cronExpression": "cron_expression"
             },
             "pgedge:index/getDatabasesDatabaseComponent:getDatabasesDatabaseComponent": {
                 "releaseDate": "release_date"
@@ -247,27 +451,20 @@
                 "availables": "available",
                 "requesteds": "requested"
             },
-            "pgedge:index/getDatabasesDatabaseNode:getDatabasesDatabaseNode": {
-                "distanceMeasurement": "distance_measurement"
-            },
-            "pgedge:index/getDatabasesDatabaseNodeConnection:getDatabasesDatabaseNodeConnection": {
+            "pgedge:index/getDatabasesDatabaseNodesConnection:getDatabasesDatabaseNodesConnection": {
                 "externalIpAddress": "external_ip_address",
                 "internalHost": "internal_host",
                 "internalIpAddress": "internal_ip_address"
             },
-            "pgedge:index/getDatabasesDatabaseNodeDistanceMeasurement:getDatabasesDatabaseNodeDistanceMeasurement": {
-                "fromLatitude": "from_latitude",
-                "fromLongitude": "from_longitude"
-            },
-            "pgedge:index/getDatabasesDatabaseNodeExtensions:getDatabasesDatabaseNodeExtensions": {
+            "pgedge:index/getDatabasesDatabaseNodesExtensions:getDatabasesDatabaseNodesExtensions": {
                 "installeds": "installed"
             },
-            "pgedge:index/getDatabasesDatabaseNodeLocation:getDatabasesDatabaseNodeLocation": {
+            "pgedge:index/getDatabasesDatabaseNodesLocation:getDatabasesDatabaseNodesLocation": {
                 "metroCode": "metro_code",
                 "postalCode": "postal_code",
                 "regionCode": "region_code"
             },
-            "pgedge:index/getDatabasesDatabaseNodeRegion:getDatabasesDatabaseNodeRegion": {
+            "pgedge:index/getDatabasesDatabaseNodesRegion:getDatabasesDatabaseNodesRegion": {
                 "availabilityZones": "availability_zones"
             },
             "pgedge:index/getDatabasesDatabaseRole:getDatabasesDatabaseRole": {
@@ -276,19 +473,16 @@
                 "createDb": "create_db",
                 "createRole": "create_role"
             },
-            "pgedge:index/getDatabasesDatabaseTable:getDatabasesDatabaseTable": {
-                "primaryKeys": "primary_key",
-                "replicationSets": "replication_sets",
-                "statuses": "status"
+            "pgedge:index/getSSHKeys:getSSHKeys": {
+                "sshKeys": "ssh_keys"
             },
-            "pgedge:index/getDatabasesDatabaseTableColumn:getDatabasesDatabaseTableColumn": {
-                "dataType": "data_type",
-                "isNullable": "is_nullable",
-                "isPrimaryKey": "is_primary_key",
-                "ordinalPosition": "ordinal_position"
+            "pgedge:index/getSSHKeysSshKey:getSSHKeysSshKey": {
+                "createdAt": "created_at",
+                "publicKey": "public_key"
             },
-            "pgedge:index/getDatabasesDatabaseTableStatus:getDatabasesDatabaseTableStatus": {
-                "nodeName": "node_name"
+            "pgedge:index/sSHKey:SSHKey": {
+                "createdAt": "created_at",
+                "publicKey": "public_key"
             },
             "pgedge:index:Provider": {
                 "baseUrl": "base_url"

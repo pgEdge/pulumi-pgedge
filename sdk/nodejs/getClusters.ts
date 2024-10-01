@@ -7,7 +7,7 @@ import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
- * Interface with the pgEdge service API for clusters.
+ * Data source for pgEdge clusters.
  */
 export function getClusters(opts?: pulumi.InvokeOptions): Promise<GetClustersResult> {
 
@@ -27,7 +27,7 @@ export interface GetClustersResult {
     readonly id: string;
 }
 /**
- * Interface with the pgEdge service API for clusters.
+ * Data source for pgEdge clusters.
  */
 export function getClustersOutput(opts?: pulumi.InvokeOptions): pulumi.Output<GetClustersResult> {
     return pulumi.output(getClusters(opts))

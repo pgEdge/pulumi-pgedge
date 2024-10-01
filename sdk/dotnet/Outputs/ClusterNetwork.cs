@@ -15,22 +15,28 @@ namespace Pgedge.Pgedge.Outputs
     public sealed class ClusterNetwork
     {
         /// <summary>
-        /// CIDR range for the network
+        /// CIDR of the network
         /// </summary>
-        public readonly string? Cidr;
+        public readonly string Cidr;
         /// <summary>
-        /// Is the network externally defined
+        /// Whether the network is external
         /// </summary>
         public readonly bool? External;
         /// <summary>
-        /// ID of the network, if externally defined
+        /// External ID of the network
         /// </summary>
         public readonly string? ExternalId;
         /// <summary>
         /// Name of the network
         /// </summary>
         public readonly string? Name;
+        /// <summary>
+        /// List of private subnets
+        /// </summary>
         public readonly ImmutableArray<string> PrivateSubnets;
+        /// <summary>
+        /// List of public subnets
+        /// </summary>
         public readonly ImmutableArray<string> PublicSubnets;
         /// <summary>
         /// Region of the network
@@ -39,7 +45,7 @@ namespace Pgedge.Pgedge.Outputs
 
         [OutputConstructor]
         private ClusterNetwork(
-            string? cidr,
+            string cidr,
 
             bool? external,
 

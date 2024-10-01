@@ -13,5 +13,13 @@ var _ = internal.GetEnvOrDefault
 
 // Base Url to use when connecting to the PgEdge service.
 func GetBaseUrl(ctx *pulumi.Context) string {
-	return config.Get(ctx, "pgedge:baseUrl")
+	v, err := config.Try(ctx, "pgedge:baseUrl")
+	if err == nil {
+		return v
+	}
+	var value string
+	if d := internal.GetEnvOrDefault(nil, nil, "PGEDGE_BASE_URL"); d != nil {
+		value = d.(string)
+	}
+	return value
 }

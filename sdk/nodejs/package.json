@@ -5,7 +5,8 @@
     "keywords": [
         "pulumi",
         "pgedge",
-        "category/cloud"
+        "category/cloud",
+        "category/database"
     ],
     "homepage": "https://www.pgedge.com",
     "repository": "https://github.com/pgEdge/pulumi-pgedge",
@@ -23,6 +24,7 @@
     },
     "pulumi": {
         "resource": true,
-        "name": "pgedge"
+        "name": "pgedge",
+        "server": "github://api.github.com/pgEdge/pulumi-pgedge"
     }
 }

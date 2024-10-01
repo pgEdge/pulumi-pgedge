@@ -6,9 +6,6 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
-/**
- * Interface with the pgEdge service API for clusters.
- */
 export class Cluster extends pulumi.CustomResource {
     /**
      * Get an existing Cluster resource's state with the given name, ID, and optional extra
@@ -38,32 +35,26 @@ export class Cluster extends pulumi.CustomResource {
     }
 
     /**
-     * ID of the target cloud account
+     * List of backup store IDs to associate with the cluster
      */
+    public readonly backupStoreIds!: pulumi.Output<string[]>;
+    public readonly capacity!: pulumi.Output<number>;
     public readonly cloudAccountId!: pulumi.Output<string>;
-    /**
-     * Creation time of the cluster
-     */
     public /*out*/ readonly createdAt!: pulumi.Output<string>;
     public readonly firewallRules!: pulumi.Output<outputs.ClusterFirewallRule[] | undefined>;
-    /**
-     * Name of the network
-     */
     public readonly name!: pulumi.Output<string>;
     public readonly networks!: pulumi.Output<outputs.ClusterNetwork[]>;
     /**
-     * Network location for nodes (public or private)
+     * Node location of the cluster. Must be either 'public' or 'private'.
      */
     public readonly nodeLocation!: pulumi.Output<string>;
     public readonly nodes!: pulumi.Output<outputs.ClusterNode[]>;
     public readonly regions!: pulumi.Output<string[]>;
     /**
-     * ID of the SSH key to add to the cluster nodes
+     * A map of tags to assign to the cluster
      */
-    public readonly sshKeyId!: pulumi.Output<string>;
-    /**
-     * Status of the cluster
-     */
+    public readonly resourceTags!: pulumi.Output<{[key: string]: string}>;
+    public readonly sshKeyId!: pulumi.Output<string | undefined>;
     public /*out*/ readonly status!: pulumi.Output<string>;
 
     /**
@@ -79,6 +70,8 @@ export class Cluster extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as ClusterState | undefined;
+            resourceInputs["backupStoreIds"] = state ? state.backupStoreIds : undefined;
+            resourceInputs["capacity"] = state ? state.capacity : undefined;
             resourceInputs["cloudAccountId"] = state ? state.cloudAccountId : undefined;
             resourceInputs["createdAt"] = state ? state.createdAt : undefined;
             resourceInputs["firewallRules"] = state ? state.firewallRules : undefined;
@@ -87,6 +80,7 @@ export class Cluster extends pulumi.CustomResource {
             resourceInputs["nodeLocation"] = state ? state.nodeLocation : undefined;
             resourceInputs["nodes"] = state ? state.nodes : undefined;
             resourceInputs["regions"] = state ? state.regions : undefined;
+            resourceInputs["resourceTags"] = state ? state.resourceTags : undefined;
             resourceInputs["sshKeyId"] = state ? state.sshKeyId : undefined;
             resourceInputs["status"] = state ? state.status : undefined;
         } else {
@@ -94,9 +88,20 @@ export class Cluster extends pulumi.CustomResource {
             if ((!args || args.cloudAccountId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'cloudAccountId'");
             }
+            if ((!args || args.networks === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'networks'");
+            }
+            if ((!args || args.nodeLocation === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'nodeLocation'");
+            }
+            if ((!args || args.nodes === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'nodes'");
+            }
             if ((!args || args.regions === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'regions'");
             }
+            resourceInputs["backupStoreIds"] = args ? args.backupStoreIds : undefined;
+            resourceInputs["capacity"] = args ? args.capacity : undefined;
             resourceInputs["cloudAccountId"] = args ? args.cloudAccountId : undefined;
             resourceInputs["firewallRules"] = args ? args.firewallRules : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
@@ -104,6 +109,7 @@ export class Cluster extends pulumi.CustomResource {
             resourceInputs["nodeLocation"] = args ? args.nodeLocation : undefined;
             resourceInputs["nodes"] = args ? args.nodes : undefined;
             resourceInputs["regions"] = args ? args.regions : undefined;
+            resourceInputs["resourceTags"] = args ? args.resourceTags : undefined;
             resourceInputs["sshKeyId"] = args ? args.sshKeyId : undefined;
             resourceInputs["createdAt"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
@@ -118,32 +124,26 @@ export class Cluster extends pulumi.CustomResource {
  */
 export interface ClusterState {
     /**
-     * ID of the target cloud account
+     * List of backup store IDs to associate with the cluster
      */
+    backupStoreIds?: pulumi.Input<pulumi.Input<string>[]>;
+    capacity?: pulumi.Input<number>;
     cloudAccountId?: pulumi.Input<string>;
-    /**
-     * Creation time of the cluster
-     */
     createdAt?: pulumi.Input<string>;
     firewallRules?: pulumi.Input<pulumi.Input<inputs.ClusterFirewallRule>[]>;
-    /**
-     * Name of the network
-     */
     name?: pulumi.Input<string>;
     networks?: pulumi.Input<pulumi.Input<inputs.ClusterNetwork>[]>;
     /**
-     * Network location for nodes (public or private)
+     * Node location of the cluster. Must be either 'public' or 'private'.
      */
     nodeLocation?: pulumi.Input<string>;
     nodes?: pulumi.Input<pulumi.Input<inputs.ClusterNode>[]>;
     regions?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * ID of the SSH key to add to the cluster nodes
+     * A map of tags to assign to the cluster
      */
+    resourceTags?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     sshKeyId?: pulumi.Input<string>;
-    /**
-     * Status of the cluster
-     */
     status?: pulumi.Input<string>;
 }
 
@@ -152,23 +152,23 @@ export interface ClusterState {
  */
 export interface ClusterArgs {
     /**
-     * ID of the target cloud account
+     * List of backup store IDs to associate with the cluster
      */
+    backupStoreIds?: pulumi.Input<pulumi.Input<string>[]>;
+    capacity?: pulumi.Input<number>;
     cloudAccountId: pulumi.Input<string>;
     firewallRules?: pulumi.Input<pulumi.Input<inputs.ClusterFirewallRule>[]>;
-    /**
-     * Name of the network
-     */
     name?: pulumi.Input<string>;
-    networks?: pulumi.Input<pulumi.Input<inputs.ClusterNetwork>[]>;
+    networks: pulumi.Input<pulumi.Input<inputs.ClusterNetwork>[]>;
     /**
-     * Network location for nodes (public or private)
+     * Node location of the cluster. Must be either 'public' or 'private'.
      */
-    nodeLocation?: pulumi.Input<string>;
-    nodes?: pulumi.Input<pulumi.Input<inputs.ClusterNode>[]>;
+    nodeLocation: pulumi.Input<string>;
+    nodes: pulumi.Input<pulumi.Input<inputs.ClusterNode>[]>;
     regions: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * ID of the SSH key to add to the cluster nodes
+     * A map of tags to assign to the cluster
      */
+    resourceTags?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     sshKeyId?: pulumi.Input<string>;
 }

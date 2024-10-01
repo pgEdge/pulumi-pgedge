@@ -15,22 +15,32 @@ namespace Pgedge.Pgedge.Outputs
     public sealed class GetDatabasesDatabaseResult
     {
         /// <summary>
-        /// Updated at of the database
+        /// Backup configuration for the database
+        /// </summary>
+        public readonly Outputs.GetDatabasesDatabaseBackupsResult Backups;
+        /// <summary>
+        /// ID of the cluster this database belongs to
         /// </summary>
         public readonly string ClusterId;
+        /// <summary>
+        /// Components of the database
+        /// </summary>
         public readonly ImmutableArray<Outputs.GetDatabasesDatabaseComponentResult> Components;
         /// <summary>
-        /// Config version of the database
+        /// Configuration version of the database
         /// </summary>
-        public readonly string? ConfigVersion;
+        public readonly string ConfigVersion;
         /// <summary>
-        /// Created at of the database
+        /// Creation timestamp of the database
         /// </summary>
         public readonly string CreatedAt;
         /// <summary>
         /// Domain of the database
         /// </summary>
         public readonly string Domain;
+        /// <summary>
+        /// Extensions configuration for the database
+        /// </summary>
         public readonly Outputs.GetDatabasesDatabaseExtensionsResult Extensions;
         /// <summary>
         /// ID of the database
@@ -40,37 +50,40 @@ namespace Pgedge.Pgedge.Outputs
         /// Name of the database
         /// </summary>
         public readonly string Name;
-        public readonly ImmutableArray<Outputs.GetDatabasesDatabaseNodeResult> Nodes;
         /// <summary>
-        /// Options for creating the database
+        /// Map of nodes in the database
+        /// </summary>
+        public readonly ImmutableDictionary<string, Outputs.GetDatabasesDatabaseNodesResult> Nodes;
+        /// <summary>
+        /// Options for the database
         /// </summary>
         public readonly ImmutableArray<string> Options;
         /// <summary>
-        /// Postgres version of the database
+        /// PostgreSQL version of the database
         /// </summary>
         public readonly string PgVersion;
+        /// <summary>
+        /// Roles in the database
+        /// </summary>
         public readonly ImmutableArray<Outputs.GetDatabasesDatabaseRoleResult> Roles;
         /// <summary>
         /// Status of the database
         /// </summary>
         public readonly string Status;
         /// <summary>
-        /// Storage used of the database
-        /// </summary>
-        public readonly int StorageUsed;
-        public readonly ImmutableArray<Outputs.GetDatabasesDatabaseTableResult> Tables;
-        /// <summary>
-        /// Updated at of the database
+        /// Last update timestamp of the database
         /// </summary>
         public readonly string UpdatedAt;
 
         [OutputConstructor]
         private GetDatabasesDatabaseResult(
+            Outputs.GetDatabasesDatabaseBackupsResult backups,
+
             string clusterId,
 
             ImmutableArray<Outputs.GetDatabasesDatabaseComponentResult> components,
 
-            string? configVersion,
+            string configVersion,
 
             string createdAt,
 
@@ -82,7 +95,7 @@ namespace Pgedge.Pgedge.Outputs
 
             string name,
 
-            ImmutableArray<Outputs.GetDatabasesDatabaseNodeResult> nodes,
+            ImmutableDictionary<string, Outputs.GetDatabasesDatabaseNodesResult> nodes,
 
             ImmutableArray<string> options,
 
@@ -92,12 +105,9 @@ namespace Pgedge.Pgedge.Outputs
 
             string status,
 
-            int storageUsed,
-
-            ImmutableArray<Outputs.GetDatabasesDatabaseTableResult> tables,
-
             string updatedAt)
         {
+            Backups = backups;
             ClusterId = clusterId;
             Components = components;
             ConfigVersion = configVersion;
@@ -111,8 +121,6 @@ namespace Pgedge.Pgedge.Outputs
             PgVersion = pgVersion;
             Roles = roles;
             Status = status;
-            StorageUsed = storageUsed;
-            Tables = tables;
             UpdatedAt = updatedAt;
         }
     }
