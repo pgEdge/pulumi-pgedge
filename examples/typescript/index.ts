@@ -78,7 +78,7 @@ const cluster = new pgedge.Cluster("exampleCluster", {
     {
       name: "postgres",
       port: 5432,
-      sources: ["123.456.789.0/32"],
+      sources: ["192.0.2.44/32"],
     },
   ],
 }, { dependsOn: backupStore });
@@ -88,9 +88,10 @@ const database = new pgedge.Database("exampleDatabase", {
   clusterId: cluster.id,
   // configVersion: "12.8.3",
   options: [
-    "install:northwind",
-    "rest:enabled",
     "autoddl:enabled",
+    // "install:northwind",
+    // "rest:enabled",
+    // "cloudwatch_metrics:enabled"
   ],
   extensions: {
     autoManage: true,
@@ -115,15 +116,19 @@ const database = new pgedge.Database("exampleDatabase", {
     configs: [
       {
         id: "default",
-        nodeName: "n1",
         schedules: [
           {
             id: "daily-full-backup",
-            cronExpression: "15 * * * ",
+            cronExpression: "0 1 * * *",
             type: "full",
           },
+          {
+            id: "hourly-incr-backup",
+            cronExpression: "0 * * * ?",
+            type: "incr",
+          },
         ]
-      }
+      },
     ]
   },
 }, { dependsOn: cluster });

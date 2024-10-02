@@ -103,7 +103,7 @@ func main() {
 				&pgedge.ClusterFirewallRuleArgs{
 					Name:    pulumi.String("postgres"),
 					Port:    pulumi.Int(5432),
-					Sources: pulumi.ToStringArray([]string{"151.302.23.96/32"}),
+					Sources: pulumi.ToStringArray([]string{"192.0.2.44/32"}),
 				},
 			},
 			// backupStoreIds: pulumi.ToStringArray([]string{backupStore.ID()}),
@@ -114,35 +114,46 @@ func main() {
 
 		// Database
 		database, err := pgedge.NewDatabase(ctx, "exampleDatabase", &pgedge.DatabaseArgs{
-			Name:          pulumi.String("example"),
-			ClusterId:     cluster.ID(),
+			Name:      pulumi.String("example"),
+			ClusterId: cluster.ID(),
 			// ConfigVersion: pulumi.String("12.8.3"),
-			Options:       pulumi.ToStringArray([]string{"install:northwind", "rest:enabled", "autoddl:enabled"}),
+			Options: pulumi.ToStringArray([]string{
+				"autoddl:enabled",
+				// "install:northwind",
+				// "rest:enabled",
+				// "cloudwatch_metrics:enabled",
+			}),
 			Extensions: &pgedge.DatabaseExtensionsArgs{
 				AutoManage: pulumi.Bool(true),
 				Requesteds: pulumi.ToStringArray([]string{"postgis"}),
 			},
 			Nodes: pgedge.DatabaseNodesMap{
 				"n1": &pgedge.DatabaseNodesArgs{
-					Name:       pulumi.String("n1"),
+					Name: pulumi.String("n1"),
 				},
 				"n2": &pgedge.DatabaseNodesArgs{
-					Name:       pulumi.String("n1"),
+					Name: pulumi.String("n1"),
 				},
 				"n3": &pgedge.DatabaseNodesArgs{
-					Name:       pulumi.String("n3"),
+					Name: pulumi.String("n3"),
 				},
 			},
 			Backups: &pgedge.DatabaseBackupsArgs{
 				Provider: pulumi.String("pgbackrest"),
-				Configs:  pgedge.DatabaseBackupsConfigArray{&pgedge.DatabaseBackupsConfigArgs{
-					Id: pulumi.String("default"),
-					NodeName: pulumi.String("n1"),
-					Schedules: pgedge.DatabaseBackupsConfigScheduleArray{&pgedge.DatabaseBackupsConfigScheduleArgs{
-						Id: pulumi.String("daily-full-backup"),
-						CronExpression: pulumi.String("15 * * * *"),
-						Type: pulumi.String("full"),
-					}},
+				Configs: pgedge.DatabaseBackupsConfigArray{&pgedge.DatabaseBackupsConfigArgs{
+					Id:       pulumi.String("default"),
+					Schedules: pgedge.DatabaseBackupsConfigScheduleArray{
+						&pgedge.DatabaseBackupsConfigScheduleArgs{
+							Id:             pulumi.String("daily-full-backup"),
+							CronExpression: pulumi.String("0 6 * * ?"),
+							Type:           pulumi.String("full"),
+						},
+						&pgedge.DatabaseBackupsConfigScheduleArgs{
+							Id:             pulumi.String("hourly-incr-backup"),
+							CronExpression: pulumi.String("0 * * * ?"),
+							Type:           pulumi.String("incr"),
+						},
+					},
 				}},
 			},
 		}, pulumi.DependsOn([]pulumi.Resource{cluster}))

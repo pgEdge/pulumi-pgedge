@@ -2,7 +2,7 @@
 
 <img alt="pgEdge" src="https://pgedge-public-assets.s3.amazonaws.com/product/images/pgedge_mark.svg" width="100px">
 
-The official Pulumi provider for [pgEdge](https://www.pgedge.com/), designed to simplify the management of pgEdge resources using infrastructure as code.
+The official Pulumi provider for [pgEdge Cloud](https://www.pgedge.com/cloud), designed to simplify the management of pgEdge Cloud resources using infrastructure as code.
 
 - **Documentation:** [pgEdge Pulumi Docs](https://www.pulumi.com/registry/packages/pgedge/)
 - **Website:** [pgEdge](https://www.pgedge.com/)
@@ -19,8 +19,15 @@ Before you begin, ensure you have the following tools installed:
 - [Node.js](https://nodejs.org/) (Active LTS or maintenance version, we recommend using [nvm](https://github.com/nvm-sh/nvm) to manage Node.js installations)
 - [Yarn](https://yarnpkg.com/getting-started/install)
 - [TypeScript](https://www.typescriptlang.org/download)
-- [Python](https://www.python.org/downloads/) (Python 3)
-- [.NET SDK](https://dotnet.microsoft.com/download)
+
+## Supported Languages
+
+Currently, this provider supports:
+
+- TypeScript
+- Go
+
+Support for other languages like Python and .NET is planned for future releases.
 
 ## Installation
 
@@ -95,109 +102,133 @@ import * as pgedge from "@pgEdge/pulumi-pgedge";
 
 // Create an SSH Key
 const sshKey = new pgedge.SSHKey("exampleSSHKey", {
-    name: "example",
-    publicKey: "ssh-ed25519 AAAAC3df23442ccAANTE5AAAAICXfT63i04t5fvvlGeoUoVG7DkyxvyXbYQNhKP/rSeLY user@example.com",
+  name: "example",
+  publicKey: "ssh-ed25519 AAAAC3NzaC1lZsdw877237ICXfT63i04t5fvvlGesddwed21VG7DkyxvyXbYQNhKP/rSeLY user@example.com",
 });
 
 // Create a Cloud Account
 const cloudAccount = new pgedge.CloudAccount("exampleCloudAccount", {
-    name: "my-aws-account",
-    type: "aws",
-    description: "My AWS Cloud Account",
-    credentials: {
-        role_arn: "arn:aws:iam::124568901:role/pgedge-13e32c",
-    },
+  name: "my-aws-account",
+  type: "aws",
+  description: "My AWS Cloud Account",
+  credentials: {
+    role_arn: "arn:aws:iam::21112529deae39:role/pgedge-135232c",
+  },
 }, { dependsOn: sshKey });
 
 // Create a Backup Store
 const backupStore = new pgedge.BackupStore("exampleBackupStore", {
-    name: "example",
-    cloudAccountId: cloudAccount.id,
-    region: "us-west-2",
+  name: "example",
+  cloudAccountId: cloudAccount.id,
+  region: "us-west-2",
 }, { dependsOn: cloudAccount });
 
 // Create a Cluster
 const cluster = new pgedge.Cluster("exampleCluster", {
-    name: "example",
-    cloudAccountId: cloudAccount.id,
-    regions: ["us-west-2", "us-east-1", "eu-central-1"],
-    nodeLocation: "public",
-    sshKeyId: sshKey.id,
-    nodes: [
-        {
-            name: "n1",
-            region: "us-west-2",
-            instanceType: "r6g.medium",
-            volumeSize: 100,
-            volumeType: "gp2",
-        },
-        {
-            name: "n2",
-            region: "us-east-1",
-            instanceType: "r6g.medium",
-            volumeSize: 100,
-            volumeType: "gp2",
-        },
-        {
-            name: "n3",
-            region: "eu-central-1",
-            instanceType: "r6g.medium",
-            volumeSize: 100,
-            volumeType: "gp2",
-        },
-    ],
-    networks: [
-        {
-            region: "us-west-2",
-            cidr: "10.1.0.0/16",
-            publicSubnets: ["10.1.0.0/24"],
-            // privateSubnets: ["10.1.0.0/24"],
-        },
-        {
-            region: "us-east-1",
-            cidr: "10.2.0.0/16",
-            publicSubnets: ["10.2.0.0/24"],
-            // privateSubnets: ["10.2.0.0/24"],
-        },
-        {
-            region: "eu-central-1",
-            cidr: "10.3.0.0/16",
-            publicSubnets: ["10.3.0.0/24"],
-            // privateSubnets: ["10.3.0.0/24"],
-        },
-    ],
-    firewallRules: [
-        {
-            name: "postgres",
-            port: 5432,
-            sources: ["107.18.0.0/16", "89.0.142.86/16"],
-        },
-    ],
+  name: "example",
+  cloudAccountId: cloudAccount.id,
+  regions: ["us-west-2", "us-east-1", "eu-central-1"],
+  nodeLocation: "public",
+  sshKeyId: sshKey.id,
+  nodes: [
+    {
+      name: "n1",
+      region: "us-west-2",
+      instanceType: "r6g.medium",
+      volumeSize: 100,
+      volumeType: "gp2",
+    },
+    {
+      name: "n2",
+      region: "us-east-1",
+      instanceType: "r6g.medium",
+      volumeSize: 100,
+      volumeType: "gp2",
+    },
+    {
+      name: "n3",
+      region: "eu-central-1",
+      instanceType: "r6g.medium",
+      volumeSize: 100,
+      volumeType: "gp2",
+    },
+  ],
+  networks: [
+    {
+      region: "us-west-2",
+      cidr: "10.1.0.0/16",
+      publicSubnets: ["10.1.0.0/24"],
+      // privateSubnets: ["10.1.0.0/24"],
+    },
+    {
+      region: "us-east-1",
+      cidr: "10.2.0.0/16",
+      publicSubnets: ["10.2.0.0/24"],
+      // privateSubnets: ["10.2.0.0/24"],
+    },
+    {
+      region: "eu-central-1",
+      cidr: "10.3.0.0/16",
+      publicSubnets: ["10.3.0.0/24"],
+      // privateSubnets: ["10.3.0.0/24"],
+    },
+  ],
+  backupStoreIds: [backupStore.id],
+  firewallRules: [
+    {
+      name: "postgres",
+      port: 5432,
+      sources: ["123.456.789.0/32"],
+    },
+  ],
 }, { dependsOn: backupStore });
 
 // Create a Database
 const database = new pgedge.Database("exampleDatabase", {
-    name: "example",
-    clusterId: cluster.id,
-    options: [
-        "install:northwind",
-        "rest:enabled",
-        "autoddl:enabled",
+  name: "example",
+  clusterId: cluster.id,
+  options: [
+    "autoddl:enabled",
+    "install:northwind",
+    "rest:enabled",
+  ],
+  extensions: {
+    autoManage: true,
+    requesteds: [
+      "postgis",
     ],
-    extensions: {
-        autoManage: true,
-        requesteds: [
-            "postgis"
-        ],
+  },
+  nodes:{
+    n1: {
+      name: "n1",
     },
-    nodes: [
-        { name: "n1" },
-        { name: "n2" },
-        { name: "n3" },
-    ],
-    backups: {
-        provider: "pgdump",
+    n2: {
+      name: "n2",
     },
+    n3: {
+      name: "n3",
+    },
+  },
+  backups: {
+    provider: "pgbackrest",
+    configs: [
+      {
+        id: "default",
+        schedules: [
+          {
+            id: "daily-full-backup",
+            cronExpression: "0 1 * * *",
+            type: "full",
+          },
+          {
+            id: "hourly-incr-backup",
+            cronExpression: "0 * * * ?",
+            type: "incr",
+          },
+        ]
+      },
+    ]
+  },
 }, { dependsOn: cluster });
 
 // Export the resource IDs
@@ -243,10 +274,14 @@ const database = new pgedge.Database("exampleDatabase", {
             "vector", // New extension
         ],
     },
-    nodes: [
-        { name: "n1" },
-        { name: "n3" },
-    ],
+    nodes: {
+        n1: {
+            name: "n1",
+        },
+        n3: {
+            name: "n3",
+        },
+    },
     // ... other properties ...
 });
 ```
