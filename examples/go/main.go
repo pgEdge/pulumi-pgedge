@@ -106,8 +106,8 @@ func main() {
 					Sources: pulumi.ToStringArray([]string{"192.0.2.44/32"}),
 				},
 			},
-			// backupStoreIds: pulumi.ToStringArray([]string{backupStore.ID()}),
-		}, pulumi.DependsOn([]pulumi.Resource{backupStore}))
+			BackupStoreIds: pulumi.ToStringArray([]string{backupStore.ID().ElementType().String()}),
+		}, pulumi.DependsOn([]pulumi.Resource{sshKey, cloudAccount, backupStore}))
 		if err != nil {
 			return err
 		}
@@ -132,7 +132,7 @@ func main() {
 					Name: pulumi.String("n1"),
 				},
 				"n2": &pgedge.DatabaseNodesArgs{
-					Name: pulumi.String("n1"),
+					Name: pulumi.String("n2"),
 				},
 				"n3": &pgedge.DatabaseNodesArgs{
 					Name: pulumi.String("n3"),
@@ -168,38 +168,34 @@ func main() {
 		ctx.Export("clusterId", cluster.ID())
 		ctx.Export("clusterStatus", cluster.Status)
 		ctx.Export("clusterCreatedAt", cluster.CreatedAt)
+		ctx.Export("databaseId", database.ID())
 		ctx.Export("databaseStatus", database.Status)
 
 		// Log outputs
-		sshKey.ID().ApplyT(func(id string) error {
-			fmt.Printf("SSH Key ID: %s\n", id)
+		logOutputs := func() error {
+			pulumi.All(
+				sshKey.ID(),
+				backupStore.ID(),
+				cloudAccount.ID(),
+				cluster.ID(),
+				cluster.Status,
+				cluster.CreatedAt,
+				database.ID(),
+				database.Status,
+			).ApplyT(func(args []interface{}) error {
+				fmt.Printf("SSH Key ID: %s\n", args[0])
+				fmt.Printf("Backup Store ID: %s\n", args[1])
+				fmt.Printf("Cloud Account ID: %s\n", args[2])
+				fmt.Printf("Cluster ID: %s\n", args[3])
+				fmt.Printf("Cluster Status: %s\n", args[4])
+				fmt.Printf("Cluster Created At: %s\n", args[5])
+				fmt.Printf("Database ID: %s\n", args[6])
+				fmt.Printf("Database Status: %s\n", args[7])
+				return nil
+			})
 			return nil
-		})
-		backupStore.ID().ApplyT(func(id string) error {
-			fmt.Printf("Backup Store ID: %s\n", id)
-			return nil
-		})
-		cloudAccount.ID().ApplyT(func(id string) error {
-			fmt.Printf("Cloud Account ID: %s\n", id)
-			return nil
-		})
-		cluster.ID().ApplyT(func(id string) error {
-			fmt.Printf("Cluster ID: %s\n", id)
-			return nil
-		})
-		cluster.Status.ApplyT(func(status string) error {
-			fmt.Printf("Cluster Status: %s\n", status)
-			return nil
-		})
-		cluster.CreatedAt.ApplyT(func(createdAt string) error {
-			fmt.Printf("Cluster Created At: %s\n", createdAt)
-			return nil
-		})
-		database.Status.ApplyT(func(status string) error {
-			fmt.Printf("Database Status: %s\n", status)
-			return nil
-		})
+		}
 
-		return nil
+		return logOutputs()
 	})
 }

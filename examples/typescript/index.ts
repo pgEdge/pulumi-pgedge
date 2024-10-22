@@ -16,13 +16,17 @@ const cloudAccount = new pgedge.CloudAccount("exampleCloudAccount", {
   credentials: {
     role_arn: "arn:aws:iam::21112529deae39:role/pgedge-135232c",
   },
-}, { dependsOn: sshKey });
+}, {
+  dependsOn: [sshKey]
+});
 
 const backupStore = new pgedge.BackupStore("exampleBackupStore", {
   name: "example",
   cloudAccountId: cloudAccount.id,
   region: "us-west-2",
-}, { dependsOn: cloudAccount });
+}, {
+  dependsOn: [cloudAccount]
+});
 
 const cluster = new pgedge.Cluster("exampleCluster", {
   name: "example",
@@ -30,6 +34,7 @@ const cluster = new pgedge.Cluster("exampleCluster", {
   regions: ["us-west-2", "us-east-1", "eu-central-1"],
   nodeLocation: "public",
   sshKeyId: sshKey.id,
+  backupStoreIds: [backupStore.id],
   nodes: [
     {
       name: "n1",
@@ -73,7 +78,6 @@ const cluster = new pgedge.Cluster("exampleCluster", {
       // privateSubnets: ["10.3.0.0/24"],
     },
   ],
-  // backupStoreIds: [backupStore.id],
   firewallRules: [
     {
       name: "postgres",
@@ -81,7 +85,9 @@ const cluster = new pgedge.Cluster("exampleCluster", {
       sources: ["192.0.2.44/32"],
     },
   ],
-}, { dependsOn: backupStore });
+}, {
+  dependsOn: [sshKey, cloudAccount, backupStore]
+});
 
 const database = new pgedge.Database("exampleDatabase", {
   name: "example",
@@ -100,7 +106,7 @@ const database = new pgedge.Database("exampleDatabase", {
       "vector"
     ],
   },
-  nodes:{
+  nodes: {
     n1: {
       name: "n1",
     },
@@ -113,25 +119,25 @@ const database = new pgedge.Database("exampleDatabase", {
   },
   backups: {
     provider: "pgbackrest",
-    configs: [
-      {
-        id: "default",
-        schedules: [
-          {
-            id: "daily-full-backup",
-            cronExpression: "0 1 * * *",
-            type: "full",
-          },
-          {
-            id: "hourly-incr-backup",
-            cronExpression: "0 * * * ?",
-            type: "incr",
-          },
-        ]
-      },
-    ]
+    configs: [{
+      id: "default",
+      schedules: [
+        {
+          id: "daily-full-backup",
+          cronExpression: "0 1 * * *",
+          type: "full",
+        },
+        {
+          id: "hourly-incr-backup",
+          cronExpression: "0 * * * ?",
+          type: "incr",
+        },
+      ]
+    }]
   },
-}, { dependsOn: cluster });
+}, {
+  dependsOn: [cluster]
+});
 
 // Outputs
 export const sshKeyId = sshKey.id;
@@ -142,11 +148,29 @@ export const clusterStatus = cluster.status;
 export const clusterCreatedAt = cluster.createdAt;
 export const databaseId = database.id;
 
-// Log outputs
-sshKeyId.apply(id => console.log(`SSH Key ID: ${id}`));
-backupStoreId.apply(id => console.log(`Backup Store ID: ${id}`));
-cloudAccountId.apply(id => console.log(`Cloud Account ID: ${id}`));
-clusterId.apply(id => console.log(`Cluster ID: ${id}`));
-clusterStatus.apply(status => console.log(`Cluster Status: ${status}`));
-clusterCreatedAt.apply(createdAt => console.log(`Cluster Created At: ${createdAt}`));
-databaseId.apply(id => console.log(`Database id: ${id}`));
+// Async log outputs
+pulumi.all([
+  sshKeyId,
+  backupStoreId,
+  cloudAccountId,
+  clusterId,
+  clusterStatus,
+  clusterCreatedAt,
+  databaseId
+]).apply(([
+  sshId,
+  backupId,
+  accountId,
+  cId,
+  status,
+  createdAt,
+  dbId
+]) => {
+  console.log(`SSH Key ID: ${sshId}`);
+  console.log(`Backup Store ID: ${backupId}`);
+  console.log(`Cloud Account ID: ${accountId}`);
+  console.log(`Cluster ID: ${cId}`);
+  console.log(`Cluster Status: ${status}`);
+  console.log(`Cluster Created At: ${createdAt}`);
+  console.log(`Database ID: ${dbId}`);
+});
