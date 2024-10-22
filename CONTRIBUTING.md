@@ -59,6 +59,53 @@ To migrate to a newer Terraform version:
    make build
    ```
 
+### Testing with Modified Terraform Provider
+
+If you need to test with a modified version of the Terraform provider, you have two options:
+
+#### Option 1: Using a Local Copy
+
+1. In your `provider/shim/go.mod` file, add a `replace` directive to use your local version of the Terraform provider:
+
+   ```
+   replace github.com/pgEdge/terraform-provider-pgedge => /path/to/your/local/terraform-provider-pgedge
+   ```
+
+   Replace `/path/to/your/local/terraform-provider-pgedge` with the actual path to your local copy of the Terraform provider.
+
+#### Option 2: Using a Pushed Branch
+
+If you've pushed your changes to a branch on GitHub and want to test with that branch:
+
+1. Navigate to the `provider/shim` directory:
+   ```
+   cd provider/shim
+   ```
+
+2. Use the `go get` command to fetch the specific branch:
+   ```
+   go get github.com/pgEdge/terraform-provider-pgedge@<branch-name>
+   ```
+
+   Replace `<branch-name>` with the name of your branch.
+
+For both options, after making the changes:
+
+3. Run `go mod tidy` to ensure the `go.mod` file is updated and consistent:
+   ```
+   go mod tidy
+   ```
+
+4. Navigate back to the root of the project and rebuild the provider:
+   ```
+   cd ../../
+   make build
+   ```
+
+5. Test your changes as described in the "Testing Your Changes" section below.
+
+Remember to revert any changes to the `go.mod` file before committing, unless they're specifically required for the project.
+
 ## Testing Your Changes
 
 1. Set your `PATH` to include the `/bin` directory of the codebase for the current terminal session:
