@@ -114,14 +114,18 @@ const cloudAccount = new pgedge.CloudAccount("exampleCloudAccount", {
   credentials: {
     role_arn: "arn:aws:iam::21112529deae39:role/pgedge-135232c",
   },
-}, { dependsOn: sshKey });
+}, { 
+  dependsOn: [sshKey]
+});
 
 // Create a Backup Store
 const backupStore = new pgedge.BackupStore("exampleBackupStore", {
   name: "example",
   cloudAccountId: cloudAccount.id,
   region: "us-west-2",
-}, { dependsOn: cloudAccount });
+}, { 
+  dependsOn: [cloudAccount]
+});
 
 // Create a Cluster
 const cluster = new pgedge.Cluster("exampleCluster", {
@@ -130,6 +134,7 @@ const cluster = new pgedge.Cluster("exampleCluster", {
   regions: ["us-west-2", "us-east-1", "eu-central-1"],
   nodeLocation: "public",
   sshKeyId: sshKey.id,
+  backupStoreIds: [backupStore.id],
   nodes: [
     {
       name: "n1",
@@ -173,7 +178,6 @@ const cluster = new pgedge.Cluster("exampleCluster", {
       // privateSubnets: ["10.3.0.0/24"],
     },
   ],
-  backupStoreIds: [backupStore.id],
   firewallRules: [
     {
       name: "postgres",
@@ -181,7 +185,9 @@ const cluster = new pgedge.Cluster("exampleCluster", {
       sources: ["123.456.789.0/32"],
     },
   ],
-}, { dependsOn: backupStore });
+}, { 
+  dependsOn: [sshKey, cloudAccount, backupStore]
+});
 
 // Create a Database
 const database = new pgedge.Database("exampleDatabase", {
@@ -198,7 +204,7 @@ const database = new pgedge.Database("exampleDatabase", {
       "postgis",
     ],
   },
-  nodes:{
+  nodes: {
     n1: {
       name: "n1",
     },
@@ -229,14 +235,51 @@ const database = new pgedge.Database("exampleDatabase", {
       },
     ]
   },
-}, { dependsOn: cluster });
+}, { 
+  dependsOn: [cluster]
+});
 
-// Export the resource IDs
+// Export resource IDs
 export const sshKeyId = sshKey.id;
 export const cloudAccountId = cloudAccount.id;
 export const backupStoreId = backupStore.id;
 export const clusterId = cluster.id;
+export const clusterStatus = cluster.status;
+export const clusterCreatedAt = cluster.createdAt;
 export const databaseId = database.id;
+export const databaseStatus = database.status;
+
+// Optional: Log outputs
+pulumi.all([
+  sshKeyId,
+  cloudAccountId,
+  backupStoreId,
+  clusterId,
+  clusterStatus,
+  clusterCreatedAt,
+  databaseId,
+  databaseStatus
+]).apply(([
+  sshId,
+  accountId,
+  backupId,
+  cId,
+  cStatus,
+  cCreatedAt,
+  dbId,
+  dbStatus
+]) => {
+  console.log({
+    sshKeyId: sshId,
+    cloudAccountId: accountId,
+    backupStoreId: backupId,
+    clusterId: cId,
+    clusterStatus: cStatus,
+    clusterCreatedAt: cCreatedAt,
+    databaseId: dbId,
+    databaseStatus: dbStatus
+  });
+});
 ```
 
 ### Deploying Your Infrastructure
