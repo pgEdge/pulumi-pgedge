@@ -40,7 +40,6 @@ export class BackupStore extends pulumi.CustomResource {
     public /*out*/ readonly properties!: pulumi.Output<{[key: string]: string}>;
     public readonly region!: pulumi.Output<string>;
     public /*out*/ readonly status!: pulumi.Output<string>;
-    public /*out*/ readonly updatedAt!: pulumi.Output<string>;
 
     /**
      * Create a BackupStore resource with the given unique name, arguments, and options.
@@ -63,7 +62,6 @@ export class BackupStore extends pulumi.CustomResource {
             resourceInputs["properties"] = state ? state.properties : undefined;
             resourceInputs["region"] = state ? state.region : undefined;
             resourceInputs["status"] = state ? state.status : undefined;
-            resourceInputs["updatedAt"] = state ? state.updatedAt : undefined;
         } else {
             const args = argsOrState as BackupStoreArgs | undefined;
             if ((!args || args.cloudAccountId === undefined) && !opts.urn) {
@@ -80,7 +78,6 @@ export class BackupStore extends pulumi.CustomResource {
             resourceInputs["createdAt"] = undefined /*out*/;
             resourceInputs["properties"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
-            resourceInputs["updatedAt"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(BackupStore.__pulumiType, name, resourceInputs, opts);
@@ -99,7 +96,6 @@ export interface BackupStoreState {
     properties?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     region?: pulumi.Input<string>;
     status?: pulumi.Input<string>;
-    updatedAt?: pulumi.Input<string>;
 }
 
 /**

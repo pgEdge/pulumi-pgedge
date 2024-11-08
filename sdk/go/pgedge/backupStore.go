@@ -23,7 +23,6 @@ type BackupStore struct {
 	Properties       pulumi.StringMapOutput   `pulumi:"properties"`
 	Region           pulumi.StringOutput      `pulumi:"region"`
 	Status           pulumi.StringOutput      `pulumi:"status"`
-	UpdatedAt        pulumi.StringOutput      `pulumi:"updatedAt"`
 }
 
 // NewBackupStore registers a new resource with the given unique name, arguments, and options.
@@ -70,7 +69,6 @@ type backupStoreState struct {
 	Properties       map[string]string `pulumi:"properties"`
 	Region           *string           `pulumi:"region"`
 	Status           *string           `pulumi:"status"`
-	UpdatedAt        *string           `pulumi:"updatedAt"`
 }
 
 type BackupStoreState struct {
@@ -82,7 +80,6 @@ type BackupStoreState struct {
 	Properties       pulumi.StringMapInput
 	Region           pulumi.StringPtrInput
 	Status           pulumi.StringPtrInput
-	UpdatedAt        pulumi.StringPtrInput
 }
 
 func (BackupStoreState) ElementType() reflect.Type {
@@ -219,10 +216,6 @@ func (o BackupStoreOutput) Region() pulumi.StringOutput {
 
 func (o BackupStoreOutput) Status() pulumi.StringOutput {
 	return o.ApplyT(func(v *BackupStore) pulumi.StringOutput { return v.Status }).(pulumi.StringOutput)
-}
-
-func (o BackupStoreOutput) UpdatedAt() pulumi.StringOutput {
-	return o.ApplyT(func(v *BackupStore) pulumi.StringOutput { return v.UpdatedAt }).(pulumi.StringOutput)
 }
 
 type BackupStoreArrayOutput struct{ *pulumi.OutputState }

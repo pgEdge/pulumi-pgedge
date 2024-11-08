@@ -20,7 +20,6 @@ type CloudAccount struct {
 	Description pulumi.StringPtrOutput `pulumi:"description"`
 	Name        pulumi.StringOutput    `pulumi:"name"`
 	Type        pulumi.StringOutput    `pulumi:"type"`
-	UpdatedAt   pulumi.StringOutput    `pulumi:"updatedAt"`
 }
 
 // NewCloudAccount registers a new resource with the given unique name, arguments, and options.
@@ -64,7 +63,6 @@ type cloudAccountState struct {
 	Description *string           `pulumi:"description"`
 	Name        *string           `pulumi:"name"`
 	Type        *string           `pulumi:"type"`
-	UpdatedAt   *string           `pulumi:"updatedAt"`
 }
 
 type CloudAccountState struct {
@@ -73,7 +71,6 @@ type CloudAccountState struct {
 	Description pulumi.StringPtrInput
 	Name        pulumi.StringPtrInput
 	Type        pulumi.StringPtrInput
-	UpdatedAt   pulumi.StringPtrInput
 }
 
 func (CloudAccountState) ElementType() reflect.Type {
@@ -200,10 +197,6 @@ func (o CloudAccountOutput) Name() pulumi.StringOutput {
 
 func (o CloudAccountOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v *CloudAccount) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
-}
-
-func (o CloudAccountOutput) UpdatedAt() pulumi.StringOutput {
-	return o.ApplyT(func(v *CloudAccount) pulumi.StringOutput { return v.UpdatedAt }).(pulumi.StringOutput)
 }
 
 type CloudAccountArrayOutput struct{ *pulumi.OutputState }

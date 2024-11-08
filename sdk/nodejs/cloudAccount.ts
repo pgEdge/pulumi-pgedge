@@ -37,7 +37,6 @@ export class CloudAccount extends pulumi.CustomResource {
     public readonly description!: pulumi.Output<string | undefined>;
     public readonly name!: pulumi.Output<string>;
     public readonly type!: pulumi.Output<string>;
-    public /*out*/ readonly updatedAt!: pulumi.Output<string>;
 
     /**
      * Create a CloudAccount resource with the given unique name, arguments, and options.
@@ -57,7 +56,6 @@ export class CloudAccount extends pulumi.CustomResource {
             resourceInputs["description"] = state ? state.description : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["type"] = state ? state.type : undefined;
-            resourceInputs["updatedAt"] = state ? state.updatedAt : undefined;
         } else {
             const args = argsOrState as CloudAccountArgs | undefined;
             if ((!args || args.credentials === undefined) && !opts.urn) {
@@ -71,7 +69,6 @@ export class CloudAccount extends pulumi.CustomResource {
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["type"] = args ? args.type : undefined;
             resourceInputs["createdAt"] = undefined /*out*/;
-            resourceInputs["updatedAt"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(CloudAccount.__pulumiType, name, resourceInputs, opts);
@@ -87,7 +84,6 @@ export interface CloudAccountState {
     description?: pulumi.Input<string>;
     name?: pulumi.Input<string>;
     type?: pulumi.Input<string>;
-    updatedAt?: pulumi.Input<string>;
 }
 
 /**
