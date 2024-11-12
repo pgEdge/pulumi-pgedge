@@ -1,5 +1,0 @@
-{
-  "resource": true,
-  "name": "pgedge",
-  "server": "github://api.github.com/pgEdge/pulumi-pgedge"
-}

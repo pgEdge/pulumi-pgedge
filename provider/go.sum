@@ -1622,8 +1622,8 @@ github.com/pelletier/go-toml v1.8.1/go.mod h1:T2/BmBdy8dvIRq1a/8aqjN41wvWlN4lrap
 github.com/pelletier/go-toml v1.9.3/go.mod h1:u1nR/EPcESfeI/szUZKdtJ0xRNbUoANCkoOuaOx1Y+c=
 github.com/performancecopilot/speed v3.0.0+incompatible/go.mod h1:/CLtqpZ5gBg1M9iaPbIdPPGyKcA8hKdoy6hAWba7Yac=
 github.com/peterbourgon/diskv v2.0.1+incompatible/go.mod h1:uqqh8zWWbv1HBMNONnaR/tNboyR3/BZd58JJSHlUSCU=
-github.com/pgEdge/terraform-provider-pgedge v0.0.24 h1:imHF2DH0a9viUQr8yTO92ITS2ixNd9j9L5w+BHFu7q4=
-github.com/pgEdge/terraform-provider-pgedge v0.0.24/go.mod h1:j/GaxCTLouUPD38CCjWzCwjBns5+tanE1L4S9Riddig=
+github.com/pgEdge/terraform-provider-pgedge v0.0.28 h1:TveThuigUh3DRLuDW3FXmIHlCwBOfIIDhWdf+N/VXMc=
+github.com/pgEdge/terraform-provider-pgedge v0.0.28/go.mod h1:j/GaxCTLouUPD38CCjWzCwjBns5+tanE1L4S9Riddig=
 github.com/pgavlin/fx v0.1.6 h1:r9jEg69DhNoCd3Xh0+5mIbdbS3PqWrVWujkY76MFRTU=
 github.com/pgavlin/fx v0.1.6/go.mod h1:KWZJ6fqBBSh8GxHYqwYCf3rYE7Gp2p0N8tJp8xv9u9M=
 github.com/pgavlin/goldmark v1.1.33-0.20200616210433-b5eb04559386 h1:LoCV5cscNVWyK5ChN/uCoIFJz8jZD63VQiGJIRgr6uo=

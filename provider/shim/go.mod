@@ -7,7 +7,7 @@ toolchain go1.22.2
 require (
 	github.com/hashicorp/terraform-plugin-framework v1.12.0
 	github.com/pgEdge/pulumi-pgedge/provider v0.0.0-20240213115242-7e064c5e16f5
-	github.com/pgEdge/terraform-provider-pgedge v0.0.24
+	github.com/pgEdge/terraform-provider-pgedge v0.0.28
 )
 
 require (

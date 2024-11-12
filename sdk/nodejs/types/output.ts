@@ -79,36 +79,36 @@ export interface DatabaseBackupsConfig {
     /**
      * List of backup schedules.
      */
-    schedules: outputs.DatabaseBackupsConfigSchedule[];
+    schedules?: outputs.DatabaseBackupsConfigSchedule[];
 }
 
 export interface DatabaseBackupsConfigRepository {
     /**
-     * Azure account.
+     * Azure account for azure-type repositories.
      */
     azureAccount: string;
     /**
-     * Azure container.
+     * Azure container for azure-type repositories.
      */
     azureContainer: string;
     /**
-     * Azure endpoint.
+     * Azure endpoint for azure-type repositories.
      */
     azureEndpoint: string;
     /**
-     * ID of the backup store.
+     * ID of the backup store to use. If specified, other fields will be automatically populated.
      */
-    backupStoreId: string;
+    backupStoreId?: string;
     /**
      * Base path for the repository.
      */
     basePath: string;
     /**
-     * GCS bucket name.
+     * GCS bucket name for gcs-type repositories.
      */
     gcsBucket: string;
     /**
-     * GCS endpoint.
+     * GCS endpoint for gcs-type repositories.
      */
     gcsEndpoint: string;
     /**
@@ -124,19 +124,19 @@ export interface DatabaseBackupsConfigRepository {
      */
     retentionFullType: string;
     /**
-     * S3 bucket name.
+     * S3 bucket name for s3-type repositories.
      */
     s3Bucket: string;
     /**
-     * S3 endpoint.
+     * S3 endpoint for s3-type repositories.
      */
     s3Endpoint: string;
     /**
-     * S3 region.
+     * S3 region for s3-type repositories.
      */
     s3Region: string;
     /**
-     * Type of the repository.
+     * Repository type (e.g., s3, gcs, azure).
      */
     type: string;
 }
@@ -151,7 +151,7 @@ export interface DatabaseBackupsConfigSchedule {
      */
     id: string;
     /**
-     * Type of the repository.
+     * Repository type (e.g., s3, gcs, azure).
      */
     type: string;
 }
@@ -165,7 +165,7 @@ export interface DatabaseComponent {
 }
 
 export interface DatabaseExtensions {
-    autoManage: boolean;
+    autoManage?: boolean;
     availables: string[];
     requesteds: string[];
 }
@@ -238,7 +238,6 @@ export interface GetBackupStoresBackupStore {
     name: string;
     properties: {[key: string]: string};
     status: string;
-    updatedAt: string;
 }
 
 export interface GetCloudAccountsCloudAccount {
@@ -266,10 +265,6 @@ export interface GetCloudAccountsCloudAccount {
      * Type of the cloud account (e.g., AWS, Azure, GCP)
      */
     type: string;
-    /**
-     * Last update time of the cloud account
-     */
-    updatedAt: string;
 }
 
 export interface GetClustersCluster {
@@ -448,10 +443,6 @@ export interface GetDatabasesDatabase {
      * Status of the database
      */
     status: string;
-    /**
-     * Last update timestamp of the database
-     */
-    updatedAt: string;
 }
 
 export interface GetDatabasesDatabaseBackups {

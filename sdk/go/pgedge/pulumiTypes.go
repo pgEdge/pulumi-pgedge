@@ -681,19 +681,19 @@ func (o DatabaseBackupsConfigArrayOutput) Index(i pulumi.IntInput) DatabaseBacku
 }
 
 type DatabaseBackupsConfigRepository struct {
-	// Azure account.
+	// Azure account for azure-type repositories.
 	AzureAccount *string `pulumi:"azureAccount"`
-	// Azure container.
+	// Azure container for azure-type repositories.
 	AzureContainer *string `pulumi:"azureContainer"`
-	// Azure endpoint.
+	// Azure endpoint for azure-type repositories.
 	AzureEndpoint *string `pulumi:"azureEndpoint"`
-	// ID of the backup store.
+	// ID of the backup store to use. If specified, other fields will be automatically populated.
 	BackupStoreId *string `pulumi:"backupStoreId"`
 	// Base path for the repository.
 	BasePath *string `pulumi:"basePath"`
-	// GCS bucket name.
+	// GCS bucket name for gcs-type repositories.
 	GcsBucket *string `pulumi:"gcsBucket"`
-	// GCS endpoint.
+	// GCS endpoint for gcs-type repositories.
 	GcsEndpoint *string `pulumi:"gcsEndpoint"`
 	// Unique identifier for the backup config.
 	Id *string `pulumi:"id"`
@@ -701,13 +701,13 @@ type DatabaseBackupsConfigRepository struct {
 	RetentionFull *int `pulumi:"retentionFull"`
 	// Type of retention for full backups.
 	RetentionFullType *string `pulumi:"retentionFullType"`
-	// S3 bucket name.
+	// S3 bucket name for s3-type repositories.
 	S3Bucket *string `pulumi:"s3Bucket"`
-	// S3 endpoint.
+	// S3 endpoint for s3-type repositories.
 	S3Endpoint *string `pulumi:"s3Endpoint"`
-	// S3 region.
+	// S3 region for s3-type repositories.
 	S3Region *string `pulumi:"s3Region"`
-	// Type of the repository.
+	// Repository type (e.g., s3, gcs, azure).
 	Type *string `pulumi:"type"`
 }
 
@@ -723,19 +723,19 @@ type DatabaseBackupsConfigRepositoryInput interface {
 }
 
 type DatabaseBackupsConfigRepositoryArgs struct {
-	// Azure account.
+	// Azure account for azure-type repositories.
 	AzureAccount pulumi.StringPtrInput `pulumi:"azureAccount"`
-	// Azure container.
+	// Azure container for azure-type repositories.
 	AzureContainer pulumi.StringPtrInput `pulumi:"azureContainer"`
-	// Azure endpoint.
+	// Azure endpoint for azure-type repositories.
 	AzureEndpoint pulumi.StringPtrInput `pulumi:"azureEndpoint"`
-	// ID of the backup store.
+	// ID of the backup store to use. If specified, other fields will be automatically populated.
 	BackupStoreId pulumi.StringPtrInput `pulumi:"backupStoreId"`
 	// Base path for the repository.
 	BasePath pulumi.StringPtrInput `pulumi:"basePath"`
-	// GCS bucket name.
+	// GCS bucket name for gcs-type repositories.
 	GcsBucket pulumi.StringPtrInput `pulumi:"gcsBucket"`
-	// GCS endpoint.
+	// GCS endpoint for gcs-type repositories.
 	GcsEndpoint pulumi.StringPtrInput `pulumi:"gcsEndpoint"`
 	// Unique identifier for the backup config.
 	Id pulumi.StringPtrInput `pulumi:"id"`
@@ -743,13 +743,13 @@ type DatabaseBackupsConfigRepositoryArgs struct {
 	RetentionFull pulumi.IntPtrInput `pulumi:"retentionFull"`
 	// Type of retention for full backups.
 	RetentionFullType pulumi.StringPtrInput `pulumi:"retentionFullType"`
-	// S3 bucket name.
+	// S3 bucket name for s3-type repositories.
 	S3Bucket pulumi.StringPtrInput `pulumi:"s3Bucket"`
-	// S3 endpoint.
+	// S3 endpoint for s3-type repositories.
 	S3Endpoint pulumi.StringPtrInput `pulumi:"s3Endpoint"`
-	// S3 region.
+	// S3 region for s3-type repositories.
 	S3Region pulumi.StringPtrInput `pulumi:"s3Region"`
-	// Type of the repository.
+	// Repository type (e.g., s3, gcs, azure).
 	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -804,22 +804,22 @@ func (o DatabaseBackupsConfigRepositoryOutput) ToDatabaseBackupsConfigRepository
 	return o
 }
 
-// Azure account.
+// Azure account for azure-type repositories.
 func (o DatabaseBackupsConfigRepositoryOutput) AzureAccount() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DatabaseBackupsConfigRepository) *string { return v.AzureAccount }).(pulumi.StringPtrOutput)
 }
 
-// Azure container.
+// Azure container for azure-type repositories.
 func (o DatabaseBackupsConfigRepositoryOutput) AzureContainer() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DatabaseBackupsConfigRepository) *string { return v.AzureContainer }).(pulumi.StringPtrOutput)
 }
 
-// Azure endpoint.
+// Azure endpoint for azure-type repositories.
 func (o DatabaseBackupsConfigRepositoryOutput) AzureEndpoint() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DatabaseBackupsConfigRepository) *string { return v.AzureEndpoint }).(pulumi.StringPtrOutput)
 }
 
-// ID of the backup store.
+// ID of the backup store to use. If specified, other fields will be automatically populated.
 func (o DatabaseBackupsConfigRepositoryOutput) BackupStoreId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DatabaseBackupsConfigRepository) *string { return v.BackupStoreId }).(pulumi.StringPtrOutput)
 }
@@ -829,12 +829,12 @@ func (o DatabaseBackupsConfigRepositoryOutput) BasePath() pulumi.StringPtrOutput
 	return o.ApplyT(func(v DatabaseBackupsConfigRepository) *string { return v.BasePath }).(pulumi.StringPtrOutput)
 }
 
-// GCS bucket name.
+// GCS bucket name for gcs-type repositories.
 func (o DatabaseBackupsConfigRepositoryOutput) GcsBucket() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DatabaseBackupsConfigRepository) *string { return v.GcsBucket }).(pulumi.StringPtrOutput)
 }
 
-// GCS endpoint.
+// GCS endpoint for gcs-type repositories.
 func (o DatabaseBackupsConfigRepositoryOutput) GcsEndpoint() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DatabaseBackupsConfigRepository) *string { return v.GcsEndpoint }).(pulumi.StringPtrOutput)
 }
@@ -854,22 +854,22 @@ func (o DatabaseBackupsConfigRepositoryOutput) RetentionFullType() pulumi.String
 	return o.ApplyT(func(v DatabaseBackupsConfigRepository) *string { return v.RetentionFullType }).(pulumi.StringPtrOutput)
 }
 
-// S3 bucket name.
+// S3 bucket name for s3-type repositories.
 func (o DatabaseBackupsConfigRepositoryOutput) S3Bucket() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DatabaseBackupsConfigRepository) *string { return v.S3Bucket }).(pulumi.StringPtrOutput)
 }
 
-// S3 endpoint.
+// S3 endpoint for s3-type repositories.
 func (o DatabaseBackupsConfigRepositoryOutput) S3Endpoint() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DatabaseBackupsConfigRepository) *string { return v.S3Endpoint }).(pulumi.StringPtrOutput)
 }
 
-// S3 region.
+// S3 region for s3-type repositories.
 func (o DatabaseBackupsConfigRepositoryOutput) S3Region() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DatabaseBackupsConfigRepository) *string { return v.S3Region }).(pulumi.StringPtrOutput)
 }
 
-// Type of the repository.
+// Repository type (e.g., s3, gcs, azure).
 func (o DatabaseBackupsConfigRepositoryOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DatabaseBackupsConfigRepository) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
@@ -896,11 +896,11 @@ func (o DatabaseBackupsConfigRepositoryArrayOutput) Index(i pulumi.IntInput) Dat
 
 type DatabaseBackupsConfigSchedule struct {
 	// Cron expression for the schedule.
-	CronExpression *string `pulumi:"cronExpression"`
+	CronExpression string `pulumi:"cronExpression"`
 	// Unique identifier for the backup config.
-	Id *string `pulumi:"id"`
-	// Type of the repository.
-	Type *string `pulumi:"type"`
+	Id string `pulumi:"id"`
+	// Repository type (e.g., s3, gcs, azure).
+	Type string `pulumi:"type"`
 }
 
 // DatabaseBackupsConfigScheduleInput is an input type that accepts DatabaseBackupsConfigScheduleArgs and DatabaseBackupsConfigScheduleOutput values.
@@ -916,11 +916,11 @@ type DatabaseBackupsConfigScheduleInput interface {
 
 type DatabaseBackupsConfigScheduleArgs struct {
 	// Cron expression for the schedule.
-	CronExpression pulumi.StringPtrInput `pulumi:"cronExpression"`
+	CronExpression pulumi.StringInput `pulumi:"cronExpression"`
 	// Unique identifier for the backup config.
-	Id pulumi.StringPtrInput `pulumi:"id"`
-	// Type of the repository.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Id pulumi.StringInput `pulumi:"id"`
+	// Repository type (e.g., s3, gcs, azure).
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (DatabaseBackupsConfigScheduleArgs) ElementType() reflect.Type {
@@ -975,18 +975,18 @@ func (o DatabaseBackupsConfigScheduleOutput) ToDatabaseBackupsConfigScheduleOutp
 }
 
 // Cron expression for the schedule.
-func (o DatabaseBackupsConfigScheduleOutput) CronExpression() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseBackupsConfigSchedule) *string { return v.CronExpression }).(pulumi.StringPtrOutput)
+func (o DatabaseBackupsConfigScheduleOutput) CronExpression() pulumi.StringOutput {
+	return o.ApplyT(func(v DatabaseBackupsConfigSchedule) string { return v.CronExpression }).(pulumi.StringOutput)
 }
 
 // Unique identifier for the backup config.
-func (o DatabaseBackupsConfigScheduleOutput) Id() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseBackupsConfigSchedule) *string { return v.Id }).(pulumi.StringPtrOutput)
+func (o DatabaseBackupsConfigScheduleOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v DatabaseBackupsConfigSchedule) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// Type of the repository.
-func (o DatabaseBackupsConfigScheduleOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DatabaseBackupsConfigSchedule) *string { return v.Type }).(pulumi.StringPtrOutput)
+// Repository type (e.g., s3, gcs, azure).
+func (o DatabaseBackupsConfigScheduleOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v DatabaseBackupsConfigSchedule) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type DatabaseBackupsConfigScheduleArrayOutput struct{ *pulumi.OutputState }
@@ -2436,7 +2436,6 @@ type GetBackupStoresBackupStore struct {
 	Name             string            `pulumi:"name"`
 	Properties       map[string]string `pulumi:"properties"`
 	Status           string            `pulumi:"status"`
-	UpdatedAt        string            `pulumi:"updatedAt"`
 }
 
 // GetBackupStoresBackupStoreInput is an input type that accepts GetBackupStoresBackupStoreArgs and GetBackupStoresBackupStoreOutput values.
@@ -2459,7 +2458,6 @@ type GetBackupStoresBackupStoreArgs struct {
 	Name             pulumi.StringInput      `pulumi:"name"`
 	Properties       pulumi.StringMapInput   `pulumi:"properties"`
 	Status           pulumi.StringInput      `pulumi:"status"`
-	UpdatedAt        pulumi.StringInput      `pulumi:"updatedAt"`
 }
 
 func (GetBackupStoresBackupStoreArgs) ElementType() reflect.Type {
@@ -2545,10 +2543,6 @@ func (o GetBackupStoresBackupStoreOutput) Status() pulumi.StringOutput {
 	return o.ApplyT(func(v GetBackupStoresBackupStore) string { return v.Status }).(pulumi.StringOutput)
 }
 
-func (o GetBackupStoresBackupStoreOutput) UpdatedAt() pulumi.StringOutput {
-	return o.ApplyT(func(v GetBackupStoresBackupStore) string { return v.UpdatedAt }).(pulumi.StringOutput)
-}
-
 type GetBackupStoresBackupStoreArrayOutput struct{ *pulumi.OutputState }
 
 func (GetBackupStoresBackupStoreArrayOutput) ElementType() reflect.Type {
@@ -2582,8 +2576,6 @@ type GetCloudAccountsCloudAccount struct {
 	Properties map[string]string `pulumi:"properties"`
 	// Type of the cloud account (e.g., AWS, Azure, GCP)
 	Type string `pulumi:"type"`
-	// Last update time of the cloud account
-	UpdatedAt string `pulumi:"updatedAt"`
 }
 
 // GetCloudAccountsCloudAccountInput is an input type that accepts GetCloudAccountsCloudAccountArgs and GetCloudAccountsCloudAccountOutput values.
@@ -2610,8 +2602,6 @@ type GetCloudAccountsCloudAccountArgs struct {
 	Properties pulumi.StringMapInput `pulumi:"properties"`
 	// Type of the cloud account (e.g., AWS, Azure, GCP)
 	Type pulumi.StringInput `pulumi:"type"`
-	// Last update time of the cloud account
-	UpdatedAt pulumi.StringInput `pulumi:"updatedAt"`
 }
 
 func (GetCloudAccountsCloudAccountArgs) ElementType() reflect.Type {
@@ -2693,11 +2683,6 @@ func (o GetCloudAccountsCloudAccountOutput) Properties() pulumi.StringMapOutput 
 // Type of the cloud account (e.g., AWS, Azure, GCP)
 func (o GetCloudAccountsCloudAccountOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v GetCloudAccountsCloudAccount) string { return v.Type }).(pulumi.StringOutput)
-}
-
-// Last update time of the cloud account
-func (o GetCloudAccountsCloudAccountOutput) UpdatedAt() pulumi.StringOutput {
-	return o.ApplyT(func(v GetCloudAccountsCloudAccount) string { return v.UpdatedAt }).(pulumi.StringOutput)
 }
 
 type GetCloudAccountsCloudAccountArrayOutput struct{ *pulumi.OutputState }
@@ -3368,8 +3353,6 @@ type GetDatabasesDatabase struct {
 	Roles []GetDatabasesDatabaseRole `pulumi:"roles"`
 	// Status of the database
 	Status string `pulumi:"status"`
-	// Last update timestamp of the database
-	UpdatedAt string `pulumi:"updatedAt"`
 }
 
 // GetDatabasesDatabaseInput is an input type that accepts GetDatabasesDatabaseArgs and GetDatabasesDatabaseOutput values.
@@ -3412,8 +3395,6 @@ type GetDatabasesDatabaseArgs struct {
 	Roles GetDatabasesDatabaseRoleArrayInput `pulumi:"roles"`
 	// Status of the database
 	Status pulumi.StringInput `pulumi:"status"`
-	// Last update timestamp of the database
-	UpdatedAt pulumi.StringInput `pulumi:"updatedAt"`
 }
 
 func (GetDatabasesDatabaseArgs) ElementType() reflect.Type {
@@ -3535,11 +3516,6 @@ func (o GetDatabasesDatabaseOutput) Roles() GetDatabasesDatabaseRoleArrayOutput 
 // Status of the database
 func (o GetDatabasesDatabaseOutput) Status() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDatabasesDatabase) string { return v.Status }).(pulumi.StringOutput)
-}
-
-// Last update timestamp of the database
-func (o GetDatabasesDatabaseOutput) UpdatedAt() pulumi.StringOutput {
-	return o.ApplyT(func(v GetDatabasesDatabase) string { return v.UpdatedAt }).(pulumi.StringOutput)
 }
 
 type GetDatabasesDatabaseArrayOutput struct{ *pulumi.OutputState }

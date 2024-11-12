@@ -84,19 +84,19 @@ export interface DatabaseBackupsConfig {
 
 export interface DatabaseBackupsConfigRepository {
     /**
-     * Azure account.
+     * Azure account for azure-type repositories.
      */
     azureAccount?: pulumi.Input<string>;
     /**
-     * Azure container.
+     * Azure container for azure-type repositories.
      */
     azureContainer?: pulumi.Input<string>;
     /**
-     * Azure endpoint.
+     * Azure endpoint for azure-type repositories.
      */
     azureEndpoint?: pulumi.Input<string>;
     /**
-     * ID of the backup store.
+     * ID of the backup store to use. If specified, other fields will be automatically populated.
      */
     backupStoreId?: pulumi.Input<string>;
     /**
@@ -104,11 +104,11 @@ export interface DatabaseBackupsConfigRepository {
      */
     basePath?: pulumi.Input<string>;
     /**
-     * GCS bucket name.
+     * GCS bucket name for gcs-type repositories.
      */
     gcsBucket?: pulumi.Input<string>;
     /**
-     * GCS endpoint.
+     * GCS endpoint for gcs-type repositories.
      */
     gcsEndpoint?: pulumi.Input<string>;
     /**
@@ -124,19 +124,19 @@ export interface DatabaseBackupsConfigRepository {
      */
     retentionFullType?: pulumi.Input<string>;
     /**
-     * S3 bucket name.
+     * S3 bucket name for s3-type repositories.
      */
     s3Bucket?: pulumi.Input<string>;
     /**
-     * S3 endpoint.
+     * S3 endpoint for s3-type repositories.
      */
     s3Endpoint?: pulumi.Input<string>;
     /**
-     * S3 region.
+     * S3 region for s3-type repositories.
      */
     s3Region?: pulumi.Input<string>;
     /**
-     * Type of the repository.
+     * Repository type (e.g., s3, gcs, azure).
      */
     type?: pulumi.Input<string>;
 }
@@ -145,15 +145,15 @@ export interface DatabaseBackupsConfigSchedule {
     /**
      * Cron expression for the schedule.
      */
-    cronExpression?: pulumi.Input<string>;
+    cronExpression: pulumi.Input<string>;
     /**
      * Unique identifier for the backup config.
      */
-    id?: pulumi.Input<string>;
+    id: pulumi.Input<string>;
     /**
-     * Type of the repository.
+     * Repository type (e.g., s3, gcs, azure).
      */
-    type?: pulumi.Input<string>;
+    type: pulumi.Input<string>;
 }
 
 export interface DatabaseComponent {

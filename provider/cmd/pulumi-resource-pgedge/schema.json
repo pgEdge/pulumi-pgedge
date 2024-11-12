@@ -247,8 +247,7 @@
                     "requiredOutputs": [
                         "id",
                         "nodeName",
-                        "repositories",
-                        "schedules"
+                        "repositories"
                     ]
                 }
             }
@@ -257,19 +256,19 @@
             "properties": {
                 "azureAccount": {
                     "type": "string",
-                    "description": "Azure account.\n"
+                    "description": "Azure account for azure-type repositories.\n"
                 },
                 "azureContainer": {
                     "type": "string",
-                    "description": "Azure container.\n"
+                    "description": "Azure container for azure-type repositories.\n"
                 },
                 "azureEndpoint": {
                     "type": "string",
-                    "description": "Azure endpoint.\n"
+                    "description": "Azure endpoint for azure-type repositories.\n"
                 },
                 "backupStoreId": {
                     "type": "string",
-                    "description": "ID of the backup store.\n"
+                    "description": "ID of the backup store to use. If specified, other fields will be automatically populated.\n"
                 },
                 "basePath": {
                     "type": "string",
@@ -277,11 +276,11 @@
                 },
                 "gcsBucket": {
                     "type": "string",
-                    "description": "GCS bucket name.\n"
+                    "description": "GCS bucket name for gcs-type repositories.\n"
                 },
                 "gcsEndpoint": {
                     "type": "string",
-                    "description": "GCS endpoint.\n"
+                    "description": "GCS endpoint for gcs-type repositories.\n"
                 },
                 "id": {
                     "type": "string",
@@ -297,19 +296,19 @@
                 },
                 "s3Bucket": {
                     "type": "string",
-                    "description": "S3 bucket name.\n"
+                    "description": "S3 bucket name for s3-type repositories.\n"
                 },
                 "s3Endpoint": {
                     "type": "string",
-                    "description": "S3 endpoint.\n"
+                    "description": "S3 endpoint for s3-type repositories.\n"
                 },
                 "s3Region": {
                     "type": "string",
-                    "description": "S3 region.\n"
+                    "description": "S3 region for s3-type repositories.\n"
                 },
                 "type": {
                     "type": "string",
-                    "description": "Type of the repository.\n"
+                    "description": "Repository type (e.g., s3, gcs, azure).\n"
                 }
             },
             "type": "object",
@@ -319,7 +318,6 @@
                         "azureAccount",
                         "azureContainer",
                         "azureEndpoint",
-                        "backupStoreId",
                         "basePath",
                         "gcsBucket",
                         "gcsEndpoint",
@@ -346,19 +344,15 @@
                 },
                 "type": {
                     "type": "string",
-                    "description": "Type of the repository.\n"
+                    "description": "Repository type (e.g., s3, gcs, azure).\n"
                 }
             },
             "type": "object",
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "cronExpression",
-                        "id",
-                        "type"
-                    ]
-                }
-            }
+            "required": [
+                "cronExpression",
+                "id",
+                "type"
+            ]
         },
         "pgedge:index/DatabaseComponent:DatabaseComponent": {
             "properties": {
@@ -413,7 +407,6 @@
             "language": {
                 "nodejs": {
                     "requiredOutputs": [
-                        "autoManage",
                         "availables",
                         "requesteds"
                     ]
@@ -472,7 +465,8 @@
                     "type": "string"
                 },
                 "password": {
-                    "type": "string"
+                    "type": "string",
+                    "secret": true
                 },
                 "port": {
                     "type": "integer"
@@ -693,9 +687,6 @@
                 },
                 "status": {
                     "type": "string"
-                },
-                "updatedAt": {
-                    "type": "string"
                 }
             },
             "type": "object",
@@ -707,8 +698,7 @@
                 "id",
                 "name",
                 "properties",
-                "status",
-                "updatedAt"
+                "status"
             ],
             "language": {
                 "nodejs": {
@@ -744,10 +734,6 @@
                 "type": {
                     "type": "string",
                     "description": "Type of the cloud account (e.g., AWS, Azure, GCP)\n"
-                },
-                "updatedAt": {
-                    "type": "string",
-                    "description": "Last update time of the cloud account\n"
                 }
             },
             "type": "object",
@@ -757,8 +743,7 @@
                 "id",
                 "name",
                 "properties",
-                "type",
-                "updatedAt"
+                "type"
             ],
             "language": {
                 "nodejs": {
@@ -1066,10 +1051,6 @@
                 "status": {
                     "type": "string",
                     "description": "Status of the database\n"
-                },
-                "updatedAt": {
-                    "type": "string",
-                    "description": "Last update timestamp of the database\n"
                 }
             },
             "type": "object",
@@ -1087,8 +1068,7 @@
                 "options",
                 "pgVersion",
                 "roles",
-                "status",
-                "updatedAt"
+                "status"
             ],
             "language": {
                 "nodejs": {
@@ -1661,9 +1641,6 @@
                 },
                 "status": {
                     "type": "string"
-                },
-                "updatedAt": {
-                    "type": "string"
                 }
             },
             "required": [
@@ -1674,8 +1651,7 @@
                 "name",
                 "properties",
                 "region",
-                "status",
-                "updatedAt"
+                "status"
             ],
             "inputProperties": {
                 "cloudAccountId": {
@@ -1724,9 +1700,6 @@
                     },
                     "status": {
                         "type": "string"
-                    },
-                    "updatedAt": {
-                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -1751,17 +1724,13 @@
                 },
                 "type": {
                     "type": "string"
-                },
-                "updatedAt": {
-                    "type": "string"
                 }
             },
             "required": [
                 "createdAt",
                 "credentials",
                 "name",
-                "type",
-                "updatedAt"
+                "type"
             ],
             "inputProperties": {
                 "credentials": {
@@ -1803,9 +1772,6 @@
                         "type": "string"
                     },
                     "type": {
-                        "type": "string"
-                    },
-                    "updatedAt": {
                         "type": "string"
                     }
                 },
