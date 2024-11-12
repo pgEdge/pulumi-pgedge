@@ -165,7 +165,7 @@ export interface DatabaseComponent {
 }
 
 export interface DatabaseExtensions {
-    autoManage: boolean;
+    autoManage?: boolean;
     availables: string[];
     requesteds: string[];
 }

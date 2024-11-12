@@ -407,7 +407,6 @@
             "language": {
                 "nodejs": {
                     "requiredOutputs": [
-                        "autoManage",
                         "availables",
                         "requesteds"
                     ]
