@@ -20,15 +20,6 @@ Before you begin, ensure you have the following tools installed:
 - [Yarn](https://yarnpkg.com/getting-started/install)
 - [TypeScript](https://www.typescriptlang.org/download)
 
-## Supported Languages
-
-Currently, this provider supports:
-
-- TypeScript
-- Go
-
-Support for other languages like Python and .NET is planned for future releases.
-
 ## Installation
 
 To use this provider, you need to have Pulumi installed. If you haven't already, you can [install Pulumi here](https://www.pulumi.com/docs/get-started/install/).
