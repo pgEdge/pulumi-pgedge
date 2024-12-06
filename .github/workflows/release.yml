@@ -43,6 +43,7 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -63,6 +64,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: '1.21.x'
+
       - name: Get Version
         id: get_version
         run: |
@@ -71,6 +73,7 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "::set-output name=VERSION::$VERSION"
 
+      # Create version files for various SDKs
       - name: Create version files
         run: |
           mkdir -p sdk/dotnet
@@ -119,8 +122,19 @@ jobs:
       - name: Build and Publish .NET SDK
         working-directory: ./sdk/dotnet
         run: |
-          dotnet build
-          dotnet pack -o out
+          # Clean any existing artifacts
+          dotnet clean
+          
+          # Restore packages
+          dotnet restore
+          
+          # Build Release configuration
+          dotnet build --configuration Release
+          
+          # Pack without rebuilding
+          dotnet pack --configuration Release --no-build -o out
+          
+          # Push to NuGet
           dotnet nuget push out/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_TOKEN }}
         env:
           DOTNET_CLI_TELEMETRY_OPTOUT: 1
