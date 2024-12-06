@@ -66,6 +66,12 @@ jobs:
       - name: Get Version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/v}
+
+      - name: Create version files
+        run: |
+          mkdir -p sdk/dotnet
+          echo "${GITHUB_REF#refs/tags/v}" > sdk/dotnet/version.txt
+
       - name: Build and Publish Node.js SDK
         working-directory: ./sdk/nodejs
         run: |
