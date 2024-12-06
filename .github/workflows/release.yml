@@ -43,25 +43,96 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
           registry-url: https://registry.npmjs.org
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
           go-version: '1.21.x'
-      - name: Get the version
+
+      - name: Get Version
         id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/v}
+        run: |
+          # Remove the 'v' prefix from the tag
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "::set-output name=VERSION::$VERSION"
+
+      # Create version files for various SDKs
+      - name: Create version files
+        run: |
+          mkdir -p sdk/dotnet
+          echo "$VERSION" > sdk/dotnet/version.txt
+          
+          # Update Python package version
+          mkdir -p sdk/python
+          cat > sdk/python/setup.py <<EOL
+          from setuptools import setup, find_packages
+          setup(
+              name="pgEdge_pulumi_pgedge",
+              version="${VERSION}",
+              packages=find_packages(),
+              install_requires=[
+                  "pulumi>=3.0.0,<4.0.0",
+              ],
+          )
+          EOL
+
       - name: Build and Publish Node.js SDK
         working-directory: ./sdk/nodejs
         run: |
           npm install
           sed -i 's/"name": "@pgEdge\/pulumi-pgedge"/"name": "@pgedge\/pulumi-pgedge"/g' package.json
-          npm version ${{ steps.get_version.outputs.VERSION }} --no-git-tag-version
+          npm version ${{ env.VERSION }} --no-git-tag-version
           npm run build
           npm publish --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Build and Publish Python SDK
+        working-directory: ./sdk/python
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install build twine
+          # Clean any existing builds
+          rm -rf dist/ build/ *.egg-info/
+          # Build the package
+          python -m build
+          # Upload to PyPI
+          python -m twine upload dist/*
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+
+      - name: Build and Publish .NET SDK
+        working-directory: ./sdk/dotnet
+        run: |
+          # Clean any existing artifacts
+          dotnet clean
+          # Restore packages
+          dotnet restore
+          dotnet build --configuration Release -v detailed
+          dotnet pack --configuration Release --no-build -o out
+          dotnet nuget push out/*.nupkg \
+            --source https://api.nuget.org/v3/index.json \
+            --api-key ${{ secrets.NUGET_TOKEN }} \
+            --skip-duplicate
+        env:
+          DOTNET_CLI_TELEMETRY_OPTOUT: 1
+          DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+          DOTNET_NOLOGO: true

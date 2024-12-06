@@ -12,7 +12,7 @@
     "license": "Apache-2.0",
     "attribution": "This Pulumi package is based on the [`pgedge` Terraform Provider](https://github.com/pgEdge/terraform-provider-pgedge).",
     "repository": "https://github.com/pgEdge/pulumi-pgedge",
-    "logoUrl": "https://pgedge-public-assets.s3.amazonaws.com/product/images/pgedge_mark.svg",
+    "logoUrl": "https://raw.githubusercontent.com/pgEdge/pulumi-pgedge/main/.github/images/logo.png",
     "pluginDownloadURL": "github://api.github.com/pgEdge/pulumi-pgedge",
     "publisher": "pgEdge",
     "meta": {
