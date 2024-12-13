@@ -106,7 +106,7 @@ func main() {
 					Sources: pulumi.ToStringArray([]string{"192.0.2.44/32"}),
 				},
 			},
-			BackupStoreIds: pulumi.ToStringArray([]string{backupStore.ID().ElementType().String()}),
+			BackupStoreIds: pulumi.ToStringArrayOutput([]pulumi.StringOutput{backupStore.ID().ToIDOutput().ToStringOutput()}),
 		}, pulumi.DependsOn([]pulumi.Resource{sshKey, cloudAccount, backupStore}))
 		if err != nil {
 			return err
