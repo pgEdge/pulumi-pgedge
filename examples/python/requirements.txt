@@ -1,0 +1,3 @@
+parver==0.5
+pgEdge_pulumi_pgedge
+pulumi>=3.0.0,<4.0.0

@@ -19,7 +19,7 @@ WORKING_DIR     := $(shell pwd)
 
 OS := $(shell uname)
 
-.PHONY: development provider build_sdks build_nodejs build_go cleanup # build_dotnet build_python
+.PHONY: development provider build_sdks build_nodejs build_go build_dotnet build_python cleanup 
 
 development:: install_plugins provider lint_provider build_sdks install_sdks cleanup # Build the provider & SDKs for a development environment
 
@@ -35,7 +35,7 @@ tfgen:: install_plugins
 provider:: tfgen install_plugins # build the provider binary
 	(cd provider && go build -o $(WORKING_DIR)/bin/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/${PROVIDER})
 
-build_sdks:: install_plugins provider build_nodejs build_go # build all the sdks except python(build_python), dotnet(build_dotnet)
+build_sdks:: install_plugins provider build_nodejs build_go build_dotnet build_python
 
 build_nodejs:: VERSION := $(shell pulumictl get version --language javascript)
 build_nodejs:: install_plugins tfgen # build the node sdk
@@ -83,7 +83,7 @@ help::
  	expand -t20
 
 clean::
-	rm -rf sdk/{nodejs,go} # dotnet, python
+	rm -rf sdk/{nodejs,go,dotnet,python}
 
 install_plugins::
 	[ -x $(shell which pulumi) ] || curl -fsSL https://get.pulumi.com | sh
@@ -100,7 +100,7 @@ install_go_sdk::
 install_nodejs_sdk::
 	yarn link --cwd $(WORKING_DIR)/sdk/nodejs/bin
 
-install_sdks:: install_nodejs_sdk # install_dotnet_sdk install_python_sdk
+install_sdks:: install_nodejs_sdk install_dotnet_sdk install_python_sdk
 
 test::
 	cd examples && go test -v -tags=all -parallel ${TESTPARALLELISM} -timeout 2h
