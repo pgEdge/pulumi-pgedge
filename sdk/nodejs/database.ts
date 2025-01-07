@@ -58,6 +58,10 @@ export class Database extends pulumi.CustomResource {
      */
     public /*out*/ readonly createdAt!: pulumi.Output<string>;
     /**
+     * Display name for the database. Maximum length is 25 characters.
+     */
+    public readonly displayName!: pulumi.Output<string | undefined>;
+    /**
      * The domain associated with the database.
      */
     public /*out*/ readonly domain!: pulumi.Output<string>;
@@ -108,6 +112,7 @@ export class Database extends pulumi.CustomResource {
             resourceInputs["components"] = state ? state.components : undefined;
             resourceInputs["configVersion"] = state ? state.configVersion : undefined;
             resourceInputs["createdAt"] = state ? state.createdAt : undefined;
+            resourceInputs["displayName"] = state ? state.displayName : undefined;
             resourceInputs["domain"] = state ? state.domain : undefined;
             resourceInputs["extensions"] = state ? state.extensions : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
@@ -127,6 +132,7 @@ export class Database extends pulumi.CustomResource {
             resourceInputs["backups"] = args ? args.backups : undefined;
             resourceInputs["clusterId"] = args ? args.clusterId : undefined;
             resourceInputs["configVersion"] = args ? args.configVersion : undefined;
+            resourceInputs["displayName"] = args ? args.displayName : undefined;
             resourceInputs["extensions"] = args ? args.extensions : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["nodes"] = args ? args.nodes : undefined;
@@ -167,6 +173,10 @@ export interface DatabaseState {
      * The timestamp when the database was created.
      */
     createdAt?: pulumi.Input<string>;
+    /**
+     * Display name for the database. Maximum length is 25 characters.
+     */
+    displayName?: pulumi.Input<string>;
     /**
      * The domain associated with the database.
      */
@@ -217,6 +227,10 @@ export interface DatabaseArgs {
      * The configuration version of the database.
      */
     configVersion?: pulumi.Input<string>;
+    /**
+     * Display name for the database. Maximum length is 25 characters.
+     */
+    displayName?: pulumi.Input<string>;
     /**
      * Extensions configuration for the database.
      */

@@ -47,6 +47,12 @@ namespace Pgedge.Pgedge
         public Output<string> CreatedAt { get; private set; } = null!;
 
         /// <summary>
+        /// Display name for the database. Maximum length is 25 characters.
+        /// </summary>
+        [Output("displayName")]
+        public Output<string?> DisplayName { get; private set; } = null!;
+
+        /// <summary>
         /// The domain associated with the database.
         /// </summary>
         [Output("domain")]
@@ -160,6 +166,12 @@ namespace Pgedge.Pgedge
         public Input<string>? ConfigVersion { get; set; }
 
         /// <summary>
+        /// Display name for the database. Maximum length is 25 characters.
+        /// </summary>
+        [Input("displayName")]
+        public Input<string>? DisplayName { get; set; }
+
+        /// <summary>
         /// Extensions configuration for the database.
         /// </summary>
         [Input("extensions")]
@@ -250,6 +262,12 @@ namespace Pgedge.Pgedge
         /// </summary>
         [Input("createdAt")]
         public Input<string>? CreatedAt { get; set; }
+
+        /// <summary>
+        /// Display name for the database. Maximum length is 25 characters.
+        /// </summary>
+        [Input("displayName")]
+        public Input<string>? DisplayName { get; set; }
 
         /// <summary>
         /// The domain associated with the database.

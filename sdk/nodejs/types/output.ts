@@ -408,6 +408,10 @@ export interface GetDatabasesDatabase {
      */
     createdAt: string;
     /**
+     * Display name for the database. Maximum length is 25 characters.
+     */
+    displayName: string;
+    /**
      * Domain of the database
      */
     domain: string;
