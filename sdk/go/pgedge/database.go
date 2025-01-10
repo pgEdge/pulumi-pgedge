@@ -26,6 +26,8 @@ type Database struct {
 	ConfigVersion pulumi.StringOutput `pulumi:"configVersion"`
 	// The timestamp when the database was created.
 	CreatedAt pulumi.StringOutput `pulumi:"createdAt"`
+	// Display name for the database. Maximum length is 25 characters.
+	DisplayName pulumi.StringPtrOutput `pulumi:"displayName"`
 	// The domain associated with the database.
 	Domain pulumi.StringOutput `pulumi:"domain"`
 	// Extensions configuration for the database.
@@ -90,6 +92,8 @@ type databaseState struct {
 	ConfigVersion *string `pulumi:"configVersion"`
 	// The timestamp when the database was created.
 	CreatedAt *string `pulumi:"createdAt"`
+	// Display name for the database. Maximum length is 25 characters.
+	DisplayName *string `pulumi:"displayName"`
 	// The domain associated with the database.
 	Domain *string `pulumi:"domain"`
 	// Extensions configuration for the database.
@@ -119,6 +123,8 @@ type DatabaseState struct {
 	ConfigVersion pulumi.StringPtrInput
 	// The timestamp when the database was created.
 	CreatedAt pulumi.StringPtrInput
+	// Display name for the database. Maximum length is 25 characters.
+	DisplayName pulumi.StringPtrInput
 	// The domain associated with the database.
 	Domain pulumi.StringPtrInput
 	// Extensions configuration for the database.
@@ -148,6 +154,8 @@ type databaseArgs struct {
 	ClusterId string `pulumi:"clusterId"`
 	// The configuration version of the database.
 	ConfigVersion *string `pulumi:"configVersion"`
+	// Display name for the database. Maximum length is 25 characters.
+	DisplayName *string `pulumi:"displayName"`
 	// Extensions configuration for the database.
 	Extensions *DatabaseExtensions `pulumi:"extensions"`
 	// The name of the database.
@@ -168,6 +176,8 @@ type DatabaseArgs struct {
 	ClusterId pulumi.StringInput
 	// The configuration version of the database.
 	ConfigVersion pulumi.StringPtrInput
+	// Display name for the database. Maximum length is 25 characters.
+	DisplayName pulumi.StringPtrInput
 	// Extensions configuration for the database.
 	Extensions DatabaseExtensionsPtrInput
 	// The name of the database.
@@ -290,6 +300,11 @@ func (o DatabaseOutput) ConfigVersion() pulumi.StringOutput {
 // The timestamp when the database was created.
 func (o DatabaseOutput) CreatedAt() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.CreatedAt }).(pulumi.StringOutput)
+}
+
+// Display name for the database. Maximum length is 25 characters.
+func (o DatabaseOutput) DisplayName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Database) pulumi.StringPtrOutput { return v.DisplayName }).(pulumi.StringPtrOutput)
 }
 
 // The domain associated with the database.

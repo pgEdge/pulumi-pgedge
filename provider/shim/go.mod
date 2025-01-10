@@ -7,7 +7,7 @@ toolchain go1.22.2
 require (
 	github.com/hashicorp/terraform-plugin-framework v1.12.0
 	github.com/pgEdge/pulumi-pgedge/provider v0.0.0-20240213115242-7e064c5e16f5
-	github.com/pgEdge/terraform-provider-pgedge v0.0.28
+	github.com/pgEdge/terraform-provider-pgedge v0.0.40
 )
 
 require (
@@ -36,6 +36,7 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mitchellh/go-testing-interface v1.14.1 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
+	github.com/oapi-codegen/nullable v1.1.0 // indirect
 	github.com/oklog/ulid v1.3.1 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect

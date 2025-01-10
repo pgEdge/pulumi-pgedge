@@ -1681,6 +1681,7 @@ class GetDatabasesDatabaseResult(dict):
                  components: Sequence['outputs.GetDatabasesDatabaseComponentResult'],
                  config_version: str,
                  created_at: str,
+                 display_name: str,
                  domain: str,
                  extensions: 'outputs.GetDatabasesDatabaseExtensionsResult',
                  id: str,
@@ -1696,6 +1697,7 @@ class GetDatabasesDatabaseResult(dict):
         :param Sequence['GetDatabasesDatabaseComponentArgs'] components: Components of the database
         :param str config_version: Configuration version of the database
         :param str created_at: Creation timestamp of the database
+        :param str display_name: Display name for the database. Maximum length is 25 characters.
         :param str domain: Domain of the database
         :param 'GetDatabasesDatabaseExtensionsArgs' extensions: Extensions configuration for the database
         :param str id: ID of the database
@@ -1711,6 +1713,7 @@ class GetDatabasesDatabaseResult(dict):
         pulumi.set(__self__, "components", components)
         pulumi.set(__self__, "config_version", config_version)
         pulumi.set(__self__, "created_at", created_at)
+        pulumi.set(__self__, "display_name", display_name)
         pulumi.set(__self__, "domain", domain)
         pulumi.set(__self__, "extensions", extensions)
         pulumi.set(__self__, "id", id)
@@ -1760,6 +1763,14 @@ class GetDatabasesDatabaseResult(dict):
         Creation timestamp of the database
         """
         return pulumi.get(self, "created_at")
+
+    @property
+    @pulumi.getter(name="displayName")
+    def display_name(self) -> str:
+        """
+        Display name for the database. Maximum length is 25 characters.
+        """
+        return pulumi.get(self, "display_name")
 
     @property
     @pulumi.getter

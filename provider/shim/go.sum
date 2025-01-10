@@ -119,6 +119,8 @@ github.com/mitchellh/mapstructure v1.5.0 h1:jeMsZIYE/09sWLaz43PL7Gy6RuMjD2eJVyua
 github.com/mitchellh/mapstructure v1.5.0/go.mod h1:bFUtVrKA4DC2yAKiSyO/QUcy7e+RRV2QTWOzhPopBRo=
 github.com/mitchellh/reflectwalk v1.0.2 h1:G2LzWKi524PWgd3mLHV8Y5k7s6XUvT0Gef6zxSIeXaQ=
 github.com/mitchellh/reflectwalk v1.0.2/go.mod h1:mSTlrgnPZtwu0c4WaC2kGObEpuNDbx0jmZXqmk4esnw=
+github.com/oapi-codegen/nullable v1.1.0 h1:eAh8JVc5430VtYVnq00Hrbpag9PFRGWLjxR1/3KntMs=
+github.com/oapi-codegen/nullable v1.1.0/go.mod h1:KUZ3vUzkmEKY90ksAmit2+5juDIhIZhfDl+0PwOQlFY=
 github.com/oklog/run v1.1.0 h1:GEenZ1cK0+q0+wsJew9qUg/DyD8k3JzYsZAi5gYi2mA=
 github.com/oklog/run v1.1.0/go.mod h1:sVPdnTZT1zYwAJeCMu2Th4T21pA3FPOQRfWjQlk7DVU=
 github.com/oklog/ulid v1.3.1 h1:EGfNDEx6MqHz8B3uNV6QAib1UR2Lm97sHi3ocA6ESJ4=
@@ -127,8 +129,8 @@ github.com/opentracing/opentracing-go v1.2.0 h1:uEJPy/1a5RIPAJ0Ov+OIO8OxWu77jEv+
 github.com/opentracing/opentracing-go v1.2.0/go.mod h1:GxEUsuufX4nBwe+T+Wl9TAgYrxe9dPLANfrWvHYVTgc=
 github.com/pgEdge/pulumi-pgedge/provider v0.0.0-20240213115242-7e064c5e16f5 h1:0hdS10dSr1d0i4ey5UC+B78DdqdHP0KYaPObQUps+bQ=
 github.com/pgEdge/pulumi-pgedge/provider v0.0.0-20240213115242-7e064c5e16f5/go.mod h1:tKZ5pS8mVdY+MxwlgFRa4jtOG1NYzLLcW+vfzmeGZ6M=
-github.com/pgEdge/terraform-provider-pgedge v0.0.28 h1:TveThuigUh3DRLuDW3FXmIHlCwBOfIIDhWdf+N/VXMc=
-github.com/pgEdge/terraform-provider-pgedge v0.0.28/go.mod h1:j/GaxCTLouUPD38CCjWzCwjBns5+tanE1L4S9Riddig=
+github.com/pgEdge/terraform-provider-pgedge v0.0.40 h1:eWLZSv5BQgwCvtO0xDZl6+D81t8M15ecmkkpdS7A10c=
+github.com/pgEdge/terraform-provider-pgedge v0.0.40/go.mod h1:seggdekdjWGo/p87FVWvTXDhxL65ZEmGNfINzVUuE7s=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/rogpeppe/go-internal v1.12.0 h1:exVL4IDcn6na9z1rAb56Vxr+CgyK3nn3O+epU5NdKM8=

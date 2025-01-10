@@ -371,6 +371,7 @@
                 "clusterId": "cluster_id",
                 "configVersion": "config_version",
                 "createdAt": "created_at",
+                "displayName": "display_name",
                 "pgVersion": "pg_version"
             },
             "pgedge:index/getBackupStores:getBackupStores": {
@@ -413,6 +414,7 @@
                 "clusterId": "cluster_id",
                 "configVersion": "config_version",
                 "createdAt": "created_at",
+                "displayName": "display_name",
                 "pgVersion": "pg_version"
             },
             "pgedge:index/getDatabasesDatabaseBackups:getDatabasesDatabaseBackups": {

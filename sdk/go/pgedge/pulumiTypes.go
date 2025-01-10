@@ -3335,6 +3335,8 @@ type GetDatabasesDatabase struct {
 	ConfigVersion string `pulumi:"configVersion"`
 	// Creation timestamp of the database
 	CreatedAt string `pulumi:"createdAt"`
+	// Display name for the database. Maximum length is 25 characters.
+	DisplayName string `pulumi:"displayName"`
 	// Domain of the database
 	Domain string `pulumi:"domain"`
 	// Extensions configuration for the database
@@ -3377,6 +3379,8 @@ type GetDatabasesDatabaseArgs struct {
 	ConfigVersion pulumi.StringInput `pulumi:"configVersion"`
 	// Creation timestamp of the database
 	CreatedAt pulumi.StringInput `pulumi:"createdAt"`
+	// Display name for the database. Maximum length is 25 characters.
+	DisplayName pulumi.StringInput `pulumi:"displayName"`
 	// Domain of the database
 	Domain pulumi.StringInput `pulumi:"domain"`
 	// Extensions configuration for the database
@@ -3471,6 +3475,11 @@ func (o GetDatabasesDatabaseOutput) ConfigVersion() pulumi.StringOutput {
 // Creation timestamp of the database
 func (o GetDatabasesDatabaseOutput) CreatedAt() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDatabasesDatabase) string { return v.CreatedAt }).(pulumi.StringOutput)
+}
+
+// Display name for the database. Maximum length is 25 characters.
+func (o GetDatabasesDatabaseOutput) DisplayName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDatabasesDatabase) string { return v.DisplayName }).(pulumi.StringOutput)
 }
 
 // Domain of the database

@@ -20,6 +20,7 @@ class DatabaseArgs:
                  nodes: pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]],
                  backups: Optional[pulumi.Input['DatabaseBackupsArgs']] = None,
                  config_version: Optional[pulumi.Input[str]] = None,
+                 display_name: Optional[pulumi.Input[str]] = None,
                  extensions: Optional[pulumi.Input['DatabaseExtensionsArgs']] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -30,6 +31,7 @@ class DatabaseArgs:
         :param pulumi.Input[Mapping[str, pulumi.Input['DatabaseNodesArgs']]] nodes: Map of nodes in the database.
         :param pulumi.Input['DatabaseBackupsArgs'] backups: Backup configuration for the database.
         :param pulumi.Input[str] config_version: The configuration version of the database.
+        :param pulumi.Input[str] display_name: Display name for the database. Maximum length is 25 characters.
         :param pulumi.Input['DatabaseExtensionsArgs'] extensions: Extensions configuration for the database.
         :param pulumi.Input[str] name: The name of the database.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] options: A list of options for the database.
@@ -41,6 +43,8 @@ class DatabaseArgs:
             pulumi.set(__self__, "backups", backups)
         if config_version is not None:
             pulumi.set(__self__, "config_version", config_version)
+        if display_name is not None:
+            pulumi.set(__self__, "display_name", display_name)
         if extensions is not None:
             pulumi.set(__self__, "extensions", extensions)
         if name is not None:
@@ -99,6 +103,18 @@ class DatabaseArgs:
         pulumi.set(self, "config_version", value)
 
     @property
+    @pulumi.getter(name="displayName")
+    def display_name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Display name for the database. Maximum length is 25 characters.
+        """
+        return pulumi.get(self, "display_name")
+
+    @display_name.setter
+    def display_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "display_name", value)
+
+    @property
     @pulumi.getter
     def extensions(self) -> Optional[pulumi.Input['DatabaseExtensionsArgs']]:
         """
@@ -155,6 +171,7 @@ class _DatabaseState:
                  components: Optional[pulumi.Input[Sequence[pulumi.Input['DatabaseComponentArgs']]]] = None,
                  config_version: Optional[pulumi.Input[str]] = None,
                  created_at: Optional[pulumi.Input[str]] = None,
+                 display_name: Optional[pulumi.Input[str]] = None,
                  domain: Optional[pulumi.Input[str]] = None,
                  extensions: Optional[pulumi.Input['DatabaseExtensionsArgs']] = None,
                  name: Optional[pulumi.Input[str]] = None,
@@ -170,6 +187,7 @@ class _DatabaseState:
         :param pulumi.Input[Sequence[pulumi.Input['DatabaseComponentArgs']]] components: List of components in the database.
         :param pulumi.Input[str] config_version: The configuration version of the database.
         :param pulumi.Input[str] created_at: The timestamp when the database was created.
+        :param pulumi.Input[str] display_name: Display name for the database. Maximum length is 25 characters.
         :param pulumi.Input[str] domain: The domain associated with the database.
         :param pulumi.Input['DatabaseExtensionsArgs'] extensions: Extensions configuration for the database.
         :param pulumi.Input[str] name: The name of the database.
@@ -189,6 +207,8 @@ class _DatabaseState:
             pulumi.set(__self__, "config_version", config_version)
         if created_at is not None:
             pulumi.set(__self__, "created_at", created_at)
+        if display_name is not None:
+            pulumi.set(__self__, "display_name", display_name)
         if domain is not None:
             pulumi.set(__self__, "domain", domain)
         if extensions is not None:
@@ -265,6 +285,18 @@ class _DatabaseState:
     @created_at.setter
     def created_at(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "created_at", value)
+
+    @property
+    @pulumi.getter(name="displayName")
+    def display_name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Display name for the database. Maximum length is 25 characters.
+        """
+        return pulumi.get(self, "display_name")
+
+    @display_name.setter
+    def display_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "display_name", value)
 
     @property
     @pulumi.getter
@@ -371,6 +403,7 @@ class Database(pulumi.CustomResource):
                  backups: Optional[pulumi.Input[pulumi.InputType['DatabaseBackupsArgs']]] = None,
                  cluster_id: Optional[pulumi.Input[str]] = None,
                  config_version: Optional[pulumi.Input[str]] = None,
+                 display_name: Optional[pulumi.Input[str]] = None,
                  extensions: Optional[pulumi.Input[pulumi.InputType['DatabaseExtensionsArgs']]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  nodes: Optional[pulumi.Input[Mapping[str, pulumi.Input[pulumi.InputType['DatabaseNodesArgs']]]]] = None,
@@ -385,6 +418,7 @@ class Database(pulumi.CustomResource):
         :param pulumi.Input[pulumi.InputType['DatabaseBackupsArgs']] backups: Backup configuration for the database.
         :param pulumi.Input[str] cluster_id: The ID of the cluster this database belongs to.
         :param pulumi.Input[str] config_version: The configuration version of the database.
+        :param pulumi.Input[str] display_name: Display name for the database. Maximum length is 25 characters.
         :param pulumi.Input[pulumi.InputType['DatabaseExtensionsArgs']] extensions: Extensions configuration for the database.
         :param pulumi.Input[str] name: The name of the database.
         :param pulumi.Input[Mapping[str, pulumi.Input[pulumi.InputType['DatabaseNodesArgs']]]] nodes: Map of nodes in the database.
@@ -418,6 +452,7 @@ class Database(pulumi.CustomResource):
                  backups: Optional[pulumi.Input[pulumi.InputType['DatabaseBackupsArgs']]] = None,
                  cluster_id: Optional[pulumi.Input[str]] = None,
                  config_version: Optional[pulumi.Input[str]] = None,
+                 display_name: Optional[pulumi.Input[str]] = None,
                  extensions: Optional[pulumi.Input[pulumi.InputType['DatabaseExtensionsArgs']]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  nodes: Optional[pulumi.Input[Mapping[str, pulumi.Input[pulumi.InputType['DatabaseNodesArgs']]]]] = None,
@@ -437,6 +472,7 @@ class Database(pulumi.CustomResource):
                 raise TypeError("Missing required property 'cluster_id'")
             __props__.__dict__["cluster_id"] = cluster_id
             __props__.__dict__["config_version"] = config_version
+            __props__.__dict__["display_name"] = display_name
             __props__.__dict__["extensions"] = extensions
             __props__.__dict__["name"] = name
             if nodes is None and not opts.urn:
@@ -464,6 +500,7 @@ class Database(pulumi.CustomResource):
             components: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseComponentArgs']]]]] = None,
             config_version: Optional[pulumi.Input[str]] = None,
             created_at: Optional[pulumi.Input[str]] = None,
+            display_name: Optional[pulumi.Input[str]] = None,
             domain: Optional[pulumi.Input[str]] = None,
             extensions: Optional[pulumi.Input[pulumi.InputType['DatabaseExtensionsArgs']]] = None,
             name: Optional[pulumi.Input[str]] = None,
@@ -484,6 +521,7 @@ class Database(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DatabaseComponentArgs']]]] components: List of components in the database.
         :param pulumi.Input[str] config_version: The configuration version of the database.
         :param pulumi.Input[str] created_at: The timestamp when the database was created.
+        :param pulumi.Input[str] display_name: Display name for the database. Maximum length is 25 characters.
         :param pulumi.Input[str] domain: The domain associated with the database.
         :param pulumi.Input[pulumi.InputType['DatabaseExtensionsArgs']] extensions: Extensions configuration for the database.
         :param pulumi.Input[str] name: The name of the database.
@@ -502,6 +540,7 @@ class Database(pulumi.CustomResource):
         __props__.__dict__["components"] = components
         __props__.__dict__["config_version"] = config_version
         __props__.__dict__["created_at"] = created_at
+        __props__.__dict__["display_name"] = display_name
         __props__.__dict__["domain"] = domain
         __props__.__dict__["extensions"] = extensions
         __props__.__dict__["name"] = name
@@ -551,6 +590,14 @@ class Database(pulumi.CustomResource):
         The timestamp when the database was created.
         """
         return pulumi.get(self, "created_at")
+
+    @property
+    @pulumi.getter(name="displayName")
+    def display_name(self) -> pulumi.Output[Optional[str]]:
+        """
+        Display name for the database. Maximum length is 25 characters.
+        """
+        return pulumi.get(self, "display_name")
 
     @property
     @pulumi.getter

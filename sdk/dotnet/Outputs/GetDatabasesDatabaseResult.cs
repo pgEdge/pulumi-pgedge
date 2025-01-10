@@ -35,6 +35,10 @@ namespace Pgedge.Pgedge.Outputs
         /// </summary>
         public readonly string CreatedAt;
         /// <summary>
+        /// Display name for the database. Maximum length is 25 characters.
+        /// </summary>
+        public readonly string DisplayName;
+        /// <summary>
         /// Domain of the database
         /// </summary>
         public readonly string Domain;
@@ -83,6 +87,8 @@ namespace Pgedge.Pgedge.Outputs
 
             string createdAt,
 
+            string displayName,
+
             string domain,
 
             Outputs.GetDatabasesDatabaseExtensionsResult extensions,
@@ -106,6 +112,7 @@ namespace Pgedge.Pgedge.Outputs
             Components = components;
             ConfigVersion = configVersion;
             CreatedAt = createdAt;
+            DisplayName = displayName;
             Domain = domain;
             Extensions = extensions;
             Id = id;
