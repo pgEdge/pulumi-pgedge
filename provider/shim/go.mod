@@ -1,8 +1,6 @@
 module github.com/pgEdge/pulumi-pgedge/provider/shim
 
-go 1.22.0
-
-toolchain go1.22.2
+go 1.23.10
 
 require (
 	github.com/hashicorp/terraform-plugin-framework v1.12.0
