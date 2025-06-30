@@ -22,16 +22,15 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@v3
     - name: Install go
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
         # The versions of golangci-lint and setup-go here cross-depend and need to update together.
-        go-version: 1.22.2
+        go-version: '1.23.10'
         # Either this action or golangci-lint needs to disable the cache
         cache: false
     - run: cd provider && go mod tidy
     - name: golangci-lint
-      uses: golangci/golangci-lint-action@v3
+      uses: golangci/golangci-lint-action@v5
       with:
-        version: v1.54.1
+        version: v1.64.8
         working-directory: provider
-        skip-pkg-cache: true
