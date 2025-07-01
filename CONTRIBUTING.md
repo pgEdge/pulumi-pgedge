@@ -174,4 +174,19 @@ If you need help or have questions, feel free to:
 - Open an issue for discussion
 - Reach out to the maintainers
 
+## Release Process
+
+Releases are managed by the pgEdge team. In order to create a new release, ensure all the code is built by running:
+```
+make build
+```
+
+Then, create the release by creating a new tag and pushing it to the `main` branch, which is managed through a `make` target:
+```
+make release
+```
+
+This will create and publish a new release via GitHub Actions. It will also publish the supported plugins
+in different languages to the corresponding package repositories (e.g., npm for Node.js, PyPi for Python, etc.).
+
 Thank you for contributing to pulumi-pgedge!
