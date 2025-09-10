@@ -1,4 +1,4 @@
-# pgEdge Pulumi Provider
+# pgEdge Cloud Pulumi Provider
 
 <img alt="pgEdge" src="https://pgedge-public-assets.s3.amazonaws.com/product/images/pgedge_mark.svg" width="100px">
 
