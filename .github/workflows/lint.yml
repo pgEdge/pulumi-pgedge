@@ -30,7 +30,7 @@ jobs:
         cache: false
     - run: cd provider && go mod tidy
     - name: golangci-lint
-      uses: golangci/golangci-lint-action@38e1018663fa5173f3968ea0777460d3de38f256
+      uses: golangci/golangci-lint-action@1e7e51e771db61008b38414a730f564565cf7c20
       with:
         version: v1.64.8
         working-directory: provider
