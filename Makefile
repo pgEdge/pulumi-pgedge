@@ -105,6 +105,12 @@ install_sdks:: install_nodejs_sdk install_dotnet_sdk install_python_sdk
 test::
 	cd examples && go test -v -tags=all -parallel ${TESTPARALLELISM} -timeout 2h
 
+test_provider:: # run provider unit tests (token map, config, schema-in-sync)
+	cd provider && go test ./...
+
+smoke_go_sdk:: # smoke test that the committed Go SDK still compiles
+	cd sdk && go build ./...
+
 release::
 	@if [ -n "$(CUSTOM_VERSION)" ]; then \
 		VERSION="$(CUSTOM_VERSION)"; \
