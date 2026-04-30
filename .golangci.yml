@@ -1,21 +1,41 @@
+version: "2"
 linters:
   enable:
-    - errcheck
     - goconst
-    - gofmt
     - gosec
-    - govet
-    - ineffassign
     - lll
-    - megacheck
     - misspell
     - nakedret
     - revive
     - unconvert
-    - unused
-  enable-all: false
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - schema.go
+      - pulumiManifest.go
+      - third_party$
+      - builtin$
+      - examples$
+    rules:
+      # schema_shape_test.go enumerates Pulumi schema field names like
+      # "credentials" and "publicKey"; gosec G101 matches them as if they
+      # were hardcoded secrets.
+      - path: schema_shape_test\.go
+        linters:
+          - gosec
+formatters:
+  enable:
+    - gofmt
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
 run:
-  exclude-files:
-    - schema.go
-    - pulumiManifest.go
   timeout: 120m
