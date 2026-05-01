@@ -5,7 +5,7 @@ go 1.25.9
 require (
 	github.com/hashicorp/terraform-plugin-framework v1.19.0
 	github.com/pgEdge/pulumi-pgedge/provider v0.0.0-20240213115242-7e064c5e16f5
-	github.com/pgEdge/terraform-provider-pgedge v0.0.42
+	github.com/pgEdge/terraform-provider-pgedge v0.0.43
 )
 
 require (
@@ -51,7 +51,6 @@ require (
 	github.com/oklog/ulid/v2 v2.1.1 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
-	github.com/zclconf/go-cty v1.16.4 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/otel v1.43.0 // indirect
 	go.opentelemetry.io/otel/metric v1.43.0 // indirect
