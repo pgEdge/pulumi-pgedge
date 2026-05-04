@@ -1,192 +1,295 @@
 # Contributing to pulumi-pgedge
 
-We appreciate your interest in contributing to the pulumi-pgedge project! This document provides guidelines and instructions for contributing to this repository.
+Thanks for your interest in contributing! This document covers how to set up a
+development environment, iterate on changes locally for each language SDK, and
+get your contributions merged.
+
+## Repository layout
+
+```
+provider/        Bridge code (Terraform-provider-pgedge -> Pulumi). Go.
+provider/shim/   Thin wrapper that pins the upstream Terraform provider.
+sdk/<lang>/      Generated SDK source. Committed; regenerated via `make regen`.
+examples/<lang>/ End-to-end examples. Reference setup for local testing.
+docs/            Pulumi Registry docs.
+```
+
+You almost never edit files under `sdk/<lang>/` by hand -- they're regenerated
+from the upstream Terraform provider schema and the bridge config in
+`provider/resources.go`.
 
 ## Prerequisites
 
-Before you begin, ensure you have the following tools installed:
+Pin to these versions to match CI. Older versions of `golangci-lint` in
+particular will fail with cryptic Go-toolchain mismatch errors.
 
-- [Pulumi CLI](https://www.pulumi.com/docs/get-started/install/)
-- [Go](https://golang.org/doc/install) (version 1.18 or later)
-- [pulumictl](https://github.com/pulumi/pulumictl)
-- [golangci-lint](https://golangci-lint.run/usage/install/)
-- [Node.js](https://nodejs.org/) (Active LTS or maintenance version, we recommend using [nvm](https://github.com/nvm-sh/nvm) to manage Node.js installations)
-- [Yarn](https://yarnpkg.com/getting-started/install)
-- [TypeScript](https://www.typescriptlang.org/download)
-- [Python](https://www.python.org/downloads/) (Python 3)
-- [.NET SDK](https://dotnet.microsoft.com/download)
+| Tool             | Version           | Notes                                       |
+| ---------------- | ----------------- | ------------------------------------------- |
+| Go               | 1.25.9            | Matches the toolchain CI installs           |
+| `golangci-lint`  | v2.11.4           | Must be built with Go 1.25+                 |
+| Pulumi CLI       | 3.234.0+          | `brew install pulumi` or get.pulumi.com     |
+| `pulumictl`      | latest            | https://github.com/pulumi/pulumictl         |
+| Node.js          | Active LTS (>=18) | Use `nvm` if juggling versions              |
+| Yarn             | 1.22.x (classic)  | `npm i -g yarn`                             |
+| TypeScript       | latest            | Installed via the Node SDK's deps           |
+| Python           | 3.9+              | For the Python SDK and example              |
+| .NET SDK         | 6.0+              | For the .NET SDK and example                |
 
-## Setting Up Your Development Environment
+Quick install on macOS (Homebrew):
 
-1. Fork the repository and clone your fork:
-   ```
-   git clone https://github.com/pgEdge/pulumi-pgedge.git
-   cd pulumi-pgedge
-   ```
+```sh
+brew install go golangci-lint pulumi node yarn python@3.11 dotnet
+go install github.com/pulumi/pulumictl/cmd/pulumictl@latest
+```
 
-2. Add the upstream repository as a remote:
-   ```
-   git remote add upstream https://github.com/pgEdge/pulumi-pgedge.git
-   ```
+## Initial setup
 
-3. Create a new branch for your changes:
-   ```
-   git checkout -b feature/your-feature-name
-   ```
+```sh
+git clone https://github.com/pgEdge/pulumi-pgedge.git
+cd pulumi-pgedge
+git remote add upstream https://github.com/pgEdge/pulumi-pgedge.git
+git checkout -b feature/your-feature-name
+```
 
-## Updating the Terraform Provider
+## Pre-flight checks
 
-To migrate to a newer Terraform version:
+Run these locally before pushing -- they mirror what CI runs:
 
-1. Update the pgedge Terraform provider in the `provider/shim` directory:
-   ```
+```sh
+make lint                    # golangci-lint on provider/
+cd provider && go test ./... # provider unit tests
+cd sdk && go build ./...     # Go SDK still compiles
+```
+
+> Note: provider unit tests and the Go SDK smoke build are also exposed as
+> `make test_provider` and `make smoke_go_sdk` once that work merges from the
+> security-updates branch.
+
+## Inner dev loops by language
+
+Pick the SDK you're testing against. Each loop ends with `pulumi up` against an
+example project, so you'll need pgEdge Cloud credentials:
+
+```sh
+export PGEDGE_CLIENT_ID="your-client-id"
+export PGEDGE_CLIENT_SECRET="your-client-secret"
+# Optional, for non-prod APIs:
+export PGEDGE_BASE_URL="https://your-api-host"
+```
+
+The provider binary always lives at `./bin/pulumi-resource-pgedge` after a
+build. Pulumi finds it via `PATH`, so every loop ends with the same export:
+
+```sh
+export PATH=$PATH:$(pwd)/bin
+```
+
+### TypeScript
+
+```sh
+make dev_typescript                        # builds provider + Node SDK + registers yarn link
+export PATH=$PATH:$(pwd)/bin
+
+cd examples/typescript
+yarn install
+yarn link "@pgEdge/pulumi-pgedge"
+pulumi up
+```
+
+If you're testing in a Pulumi project you generated yourself with `pulumi new
+typescript`, the template's `Pulumi.yaml` includes a `plugins:` block:
+
+```yaml
+plugins:
+  providers:
+    - name: pgedge
+      path: ./node_modules/@pgEdge/pulumi-pgedge
+```
+
+That path is only valid for the published npm package (which bundles the
+provider binary). For a yarn-linked dev SDK, **delete this block** -- otherwise
+you'll get `loading PulumiPlugin.yaml: no such file or directory`. The
+`examples/typescript/Pulumi.yaml` already omits it; use that as a reference.
+
+To iterate after a code change:
+
+```sh
+make dev_typescript        # rebuild
+cd examples/typescript && pulumi up
+```
+
+### Go
+
+```sh
+make dev_go                                # builds provider + Go SDK
+export PATH=$PATH:$(pwd)/bin
+
+cd examples/go
+pulumi up
+```
+
+The example's `go.mod` already contains:
+
+```
+replace github.com/pgEdge/pulumi-pgedge/sdk => ../../sdk
+```
+
+If you're testing in your own Go Pulumi project, add the same `replace`
+directive pointing at this repo's `sdk/` directory.
+
+### Python
+
+```sh
+make dev_python                            # builds provider + Python SDK
+export PATH=$PATH:$(pwd)/bin
+
+cd examples/python
+python3 -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+pip install -e ../../sdk/python/bin        # install the locally built SDK over the pinned one
+pulumi up
+```
+
+The editable install (`pip install -e`) means re-running `make dev_python`
+picks up new generated source without a reinstall.
+
+### .NET
+
+```sh
+make dev_dotnet                            # builds provider + .NET SDK + stages nupkgs in ./nuget
+export PATH=$PATH:$(pwd)/bin
+
+# Once per machine: register the local nuget source
+dotnet nuget add source $(pwd)/nuget --name pgedge-local
+
+cd examples/dotnet
+# Update dotnet.csproj's <PackageReference Version="..."/> to match the
+# locally built nupkg (see ./nuget/Pgedge.Pgedge.<version>.nupkg).
+dotnet restore
+pulumi up
+```
+
+## Regenerating SDKs after a schema change
+
+After bumping the upstream Terraform provider, editing `provider/resources.go`,
+or changing `provider/shim/`:
+
+```sh
+make regen
+```
+
+This rebuilds the provider binary, regenerates every language SDK, and lints
+the bridge code. Commit the regenerated source under `sdk/<lang>/`.
+
+> `make development` is a back-compat alias for `make regen`. Earlier versions
+> ran `make cleanup` at the end, which deleted the very binaries and yarn links
+> needed for testing. That step has been removed; run `make cleanup` manually
+> if you want to wipe dev state.
+
+## Updating the upstream Terraform provider
+
+To migrate to a newer version of `terraform-provider-pgedge`:
+
+1. Update the shim:
+   ```sh
    cd provider/shim
    go get -u github.com/pgEdge/terraform-provider-pgedge
    go mod tidy
    go build
    ```
-
-2. Change to the `provider` directory and update dependencies:
-   ```
-   cd ../
+2. Update the provider:
+   ```sh
+   cd ../        # provider/
    go mod tidy
    go build
    ```
-
-3. Generate schemas, binaries, and SDKs:
+3. Regenerate everything:
+   ```sh
+   cd ../        # repo root
+   make regen
    ```
-   make tfgen
-   make build
-   ```
+4. Commit changes under `provider/shim/`, `provider/`, and `sdk/`.
 
-### Testing with Modified Terraform Provider
+### Testing against an unreleased Terraform provider
 
-If you need to test with a modified version of the Terraform provider, you have two options:
+**Local copy** -- in `provider/shim/go.mod`, add:
 
-#### Option 1: Using a Local Copy
+```
+replace github.com/pgEdge/terraform-provider-pgedge => /path/to/local/terraform-provider-pgedge
+```
 
-1. In your `provider/shim/go.mod` file, add a `replace` directive to use your local version of the Terraform provider:
+**Branch on GitHub**:
 
-   ```
-   replace github.com/pgEdge/terraform-provider-pgedge => /path/to/your/local/terraform-provider-pgedge
-   ```
+```sh
+cd provider/shim
+go get github.com/pgEdge/terraform-provider-pgedge@<branch>
+go mod tidy
+```
 
-   Replace `/path/to/your/local/terraform-provider-pgedge` with the actual path to your local copy of the Terraform provider.
+Either way, run `make regen` afterwards. Revert the `go.mod` changes before
+committing unless they're meant to ship.
 
-#### Option 2: Using a Pushed Branch
+## Make target reference
 
-If you've pushed your changes to a branch on GitHub and want to test with that branch:
+| Target                | Purpose                                                          |
+| --------------------- | ---------------------------------------------------------------- |
+| `make dev_typescript` | Build provider + Node SDK + register yarn link. Ready to test.   |
+| `make dev_go`         | Build provider + Go SDK.                                         |
+| `make dev_python`     | Build provider + Python SDK.                                     |
+| `make dev_dotnet`     | Build provider + .NET SDK + stage nupkgs.                        |
+| `make regen`          | Rebuild provider, lint, regenerate every SDK source. Pre-commit. |
+| `make lint`           | Run `golangci-lint` against `provider/`. Alias for `lint_provider`. |
+| `make provider`       | Build just the provider binary into `./bin/`.                    |
+| `make build_nodejs`   | Build just the Node SDK.                                         |
+| `make build_go`       | Build just the Go SDK source.                                    |
+| `make build_python`   | Build just the Python SDK + sdist.                               |
+| `make build_dotnet`   | Build just the .NET SDK + nupkg.                                 |
+| `make tfgen`          | Regenerate the schema only.                                      |
+| `make test`           | Run integration tests under `examples/` (long; needs creds).     |
+| `make cleanup`        | Wipe `./bin`, the yarn link registration, and `~/.pulumi/plugins`. |
+| `make clean`          | Wipe regenerated SDK source under `sdk/`.                        |
 
-1. Navigate to the `provider/shim` directory:
-   ```
-   cd provider/shim
-   ```
+## Submitting changes
 
-2. Use the `go get` command to fetch the specific branch:
-   ```
-   go get github.com/pgEdge/terraform-provider-pgedge@<branch-name>
-   ```
-
-   Replace `<branch-name>` with the name of your branch.
-
-For both options, after making the changes:
-
-3. Run `go mod tidy` to ensure the `go.mod` file is updated and consistent:
-   ```
-   go mod tidy
-   ```
-
-4. Navigate back to the root of the project and rebuild the provider:
-   ```
-   cd ../../
-   make build
-   ```
-
-5. Test your changes as described in the "Testing Your Changes" section below.
-
-Remember to revert any changes to the `go.mod` file before committing, unless they're specifically required for the project.
-
-## Testing Your Changes
-
-1. Set your `PATH` to include the `/bin` directory of the codebase for the current terminal session:
-   ```
-   export PATH=$PATH:/path/to/pulumi-pgedge/bin
-   ```
-
-2. Test the examples:
-
-   For TypeScript:
-   ```
-   cd examples/typescript
-   yarn install
-   yarn link "@pgEdge/pulumi-pgedge"
-   # Make changes to index.ts
-   pulumi up
-   ```
-
-   For Go:
-   ```
-   cd examples/go
-   # Add this line to go.mod:
-   # replace github.com/pgEdge/pulumi-pgedge/sdk => ../../sdk
-   pulumi up
-   ```
-
-   Note: If you encounter errors, try copying the binary to your GOPATH:
-   ```
-   cp bin/pulumi-resource-pgedge $GOPATH/bin
-   ```
-
-## Submitting Your Changes
-
-1. Commit your changes with a clear and descriptive commit message:
-   ```
+1. Commit with a clear, descriptive message:
+   ```sh
    git commit -am "Add feature: your feature description"
    ```
-
-2. Push your changes to your fork:
-   ```
+2. Push to your fork:
+   ```sh
    git push origin feature/your-feature-name
    ```
+3. Open a PR against `main`. Make sure:
+   - `make lint` passes locally
+   - Provider unit tests pass (`cd provider && go test ./...`)
+   - The Go SDK still compiles (`cd sdk && go build ./...`)
+   - You've manually exercised at least one example end-to-end if your change
+     affects runtime behavior
 
-3. Create a pull request from your fork to the main repository.
+## Code style
 
-4. Wait for the maintainers to review your pull request. They may ask for changes or clarifications.
+- Follow the existing style in the package you're editing.
+- Don't hand-edit generated SDK source under `sdk/<lang>/`; change the bridge
+  config or the upstream provider and regenerate.
+- Add unit tests for non-trivial provider logic.
 
-## Code Style and Guidelines
+## Reporting issues
 
-- Follow the existing code style in the project.
-- Write clear, concise, and well-documented code.
-- Include unit tests for new features or bug fixes.
-- Update documentation as necessary.
+Check the [GitHub Issues](https://github.com/pgEdge/pulumi-pgedge/issues) tab
+first. If your issue isn't there, open a new one with reproduction steps and
+the version you're running.
 
-## Reporting Issues
+## Release process
 
-If you find a bug or have a suggestion for improvement:
+Releases are managed by the pgEdge team.
 
-1. Check if the issue already exists in the [GitHub Issues](https://github.com/pgEdge/pulumi-pgedge/issues).
-2. If not, create a new issue, providing as much detail as possible.
-
-## Getting Help
-
-If you need help or have questions, feel free to:
-
-- Open an issue for discussion
-- Reach out to the maintainers
-
-## Release Process
-
-Releases are managed by the pgEdge team. In order to create a new release, ensure all the code is built by running:
-```
-make build
-```
-
-Then, create the release by creating a new tag and pushing it to the `main` branch, which is managed through a `make` target:
-```
-make release
-```
-
-This will create and publish a new release via GitHub Actions. It will also publish the supported plugins
-in different languages to the corresponding package repositories (e.g., npm for Node.js, PyPi for Python, etc.).
-
-Thank you for contributing to pulumi-pgedge!
+1. Make sure everything builds:
+   ```sh
+   make build
+   ```
+2. Tag and push:
+   ```sh
+   make release
+   ```
+   This creates and pushes a `v<version>` tag, which triggers GitHub Actions
+   to build and publish the SDKs to npm, PyPI, and NuGet.
