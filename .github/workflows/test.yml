@@ -1,0 +1,47 @@
+name: test
+
+on:
+  workflow_call:
+    inputs: {}
+  pull_request:
+    branches:
+    - main
+    - v*
+    - feature*
+    paths-ignore:
+    - CHANGELOG.md
+  push:
+    branches:
+    - main
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  unit:
+    name: provider unit tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version-file: provider/go.mod
+        cache: true
+    - name: Run provider unit tests
+      run: make test_provider
+
+  smoke_go_sdk:
+    name: Go SDK smoke build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version-file: sdk/go.mod
+        cache: true
+    - name: Build Go SDK
+      run: make smoke_go_sdk

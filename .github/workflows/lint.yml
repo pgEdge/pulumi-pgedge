@@ -25,12 +25,12 @@ jobs:
       uses: actions/setup-go@v5
       with:
         # The versions of golangci-lint and setup-go here cross-depend and need to update together.
-        go-version: '1.23.10'
+        go-version: '1.25.9'
         # Either this action or golangci-lint needs to disable the cache
         cache: false
     - run: cd provider && go mod tidy
     - name: golangci-lint
-      uses: golangci/golangci-lint-action@v5
+      uses: golangci/golangci-lint-action@1e7e51e771db61008b38414a730f564565cf7c20 # v9.2.0
       with:
-        version: v1.64.8
+        version: v2.11.4
         working-directory: provider
