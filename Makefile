@@ -19,9 +19,18 @@ WORKING_DIR     := $(shell pwd)
 
 OS := $(shell uname)
 
-.PHONY: development provider build_sdks build_nodejs build_go build_dotnet build_python cleanup 
+.PHONY: development regen provider build_sdks build_nodejs build_go build_dotnet build_python \
+	dev_typescript dev_go dev_python dev_dotnet lint cleanup
 
-development:: install_plugins provider lint_provider build_sdks install_sdks cleanup # Build the provider & SDKs for a development environment
+# regen rebuilds the provider, lints it, and regenerates every language SDK.
+# Use this after editing the upstream Terraform provider or the bridge config in
+# provider/resources.go to refresh the committed SDK source under sdk/<lang>/.
+regen:: install_plugins provider lint_provider build_sdks install_sdks # Regenerate provider + all SDK source
+
+# Back-compat alias. Note: unlike previous versions, this no longer runs `cleanup`
+# at the end -- you'll be left with a working provider binary and yarn link
+# registered. Run `make cleanup` separately if you want to wipe dev state.
+development:: regen
 
 # Required for the codegen action that runs in pulumi/pulumi and pulumi/pulumi-terraform-bridge
 build:: install_plugins provider build_sdks install_sdks
@@ -71,6 +80,8 @@ build_go:: install_plugins tfgen # build the go sdk
 lint_provider:: provider # lint the provider code
 	cd provider && golangci-lint run -c ../.golangci.yml
 
+lint:: lint_provider # alias for lint_provider
+
 cleanup:: # cleans up the temporary directory
 	rm -rf ~/.pulumi/plugins
 	rm -rf ~/.config/yarn/link/@pgEdge/pulumi-pgedge/
@@ -98,9 +109,44 @@ install_python_sdk::
 install_go_sdk::
 
 install_nodejs_sdk::
-	yarn link --cwd $(WORKING_DIR)/sdk/nodejs/bin
+	cd $(WORKING_DIR)/sdk/nodejs/bin && yarn link
 
 install_sdks:: install_nodejs_sdk install_dotnet_sdk install_python_sdk
+
+# === Per-language dev loops ===
+# Each target builds just enough to test the named language locally and prints
+# the next manual steps (linking, env vars). They intentionally do not auto-clean.
+dev_typescript:: provider build_nodejs install_nodejs_sdk # build provider + Node SDK and register yarn link
+	@echo ""
+	@echo "Next steps:"
+	@echo "  export PATH=\$$PATH:$(WORKING_DIR)/bin"
+	@echo "  cd <your-project> && yarn link \"@pgEdge/pulumi-pgedge\""
+	@echo "  # In your project's Pulumi.yaml, remove any 'plugins:' block that pins"
+	@echo "  # path: ./node_modules/@pgEdge/pulumi-pgedge -- it's only valid for the"
+	@echo "  # published npm package, not a yarn-linked dev SDK."
+
+dev_go:: provider build_go # build provider + Go SDK
+	@echo ""
+	@echo "Next steps:"
+	@echo "  export PATH=\$$PATH:$(WORKING_DIR)/bin"
+	@echo "  # In your example go.mod, add:"
+	@echo "  #   replace github.com/pgEdge/pulumi-pgedge/sdk => $(WORKING_DIR)/sdk"
+	@echo "  # (see examples/go/go.mod for the canonical setup)."
+
+dev_python:: provider build_python # build provider + Python SDK
+	@echo ""
+	@echo "Next steps:"
+	@echo "  export PATH=\$$PATH:$(WORKING_DIR)/bin"
+	@echo "  # From your project's virtualenv:"
+	@echo "  pip install -e $(WORKING_DIR)/sdk/python/bin"
+
+dev_dotnet:: provider build_dotnet install_dotnet_sdk # build provider + .NET SDK and stage nupkgs
+	@echo ""
+	@echo "Next steps:"
+	@echo "  export PATH=\$$PATH:$(WORKING_DIR)/bin"
+	@echo "  # Add this repo's nuget/ as a local source for your project:"
+	@echo "  dotnet nuget add source $(WORKING_DIR)/nuget --name pgedge-local"
+	@echo "  # Then reference the locally built version in your csproj."
 
 test::
 	cd examples && go test -v -tags=all -parallel ${TESTPARALLELISM} -timeout 2h
