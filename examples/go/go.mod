@@ -1,6 +1,6 @@
 module github.com/pgEdge/pulumi-pgedge/examples/go
 
-go 1.25.9
+go 1.26.10
 
 replace github.com/pgEdge/pulumi-pgedge/sdk => ../../sdk
 
