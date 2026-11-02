@@ -1,6 +1,10 @@
-# pgEdge Cloud Pulumi Provider
+> [!WARNING]
+> **This provider is deprecated and no longer maintained.**
+> It won't get updates, bug fixes or security patches, and new issues and pull requests won't be reviewed. The repository is archived and kept read-only for reference.
 
 <img alt="pgEdge" src="https://pgedge-public-assets.s3.amazonaws.com/product/images/pgedge_mark.svg" width="100px">
+
+# pgEdge Cloud Pulumi Provider
 
 The official Pulumi provider for [pgEdge Cloud](https://www.pgedge.com/cloud), designed to simplify the management of pgEdge Cloud resources using infrastructure as code.
 
